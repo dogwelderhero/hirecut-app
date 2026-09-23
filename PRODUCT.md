@@ -83,8 +83,37 @@ won't take concurrency and markdown-as-state has no tenancy story.
 Out of scope entirely: tracker/follow-up/analytics/interview scripts,
 `dashboard/` (Go TUI), `plugins/`, the 20 language `modes/` dirs.
 
+## UI: shadcn/ui
+
+`components.json` is configured (`new-york`, `baseColor: neutral`, cssVariables),
+so `npx shadcn@latest add <component>` drops in and inherits the theme with no
+edits. Components are **owned** in `web/src/components/ui/` — edit them freely;
+that is the shadcn model, not a fork smell.
+
+Tokens are shadcn-canonical (`primary`, `card`, `muted-foreground`, `accent`,
+`destructive`, …) in `web/src/app/globals.css`. Upstream's warm burnt-orange /
+cream palette was replaced by shadcn's neutral oklch set; re-theming later means
+editing the `:root` / `.dark` blocks only, not component classNames.
+
+**Not converted, on purpose:** raw `<button className=...>` elements across ~34
+files. They are already accessible native buttons, so swapping them for
+`<Button>` is cosmetic churn with real regression risk (their bespoke classNames
+fight `buttonVariants`), and many sit in views slated for deletion (the
+local-CLI routes). Convert opportunistically as you touch a file.
+
+Radix conversions so far: `status-select`, `log-dialog` (Dialog — focus trap,
+scroll lock, Escape and aria-modal now come from the primitive rather than a
+hand-rolled overlay + `window` keydown listener), `apply-view`'s dynamic form
+fields.
+
 ## Build order
 
+0. **Mirror the ATS company datasets.** `scan-ats-full.mjs:84` fetches them from
+   `raw.githubusercontent.com/Feashliaa/job-board-aggregator` (greenhouse 8,333 ·
+   lever 4,368 · ashby 3,161 · workday 12,884 companies), cached 24h in
+   `data/cache/ats-companies`. That is a product dependency on a third party's
+   unversioned repo — mirror the four JSON files into our own storage and refresh
+   on our own schedule before shipping.
 1. **Discovery spine** — Postgres schema; orchestrator over `providers/`; dedup on `url-key`; cron sweep; seed boards from `templates/portals.example.yml`. Ship search behind the existing `/explore` UI.
 2. **Document spine** — CV payload editor (the `ENTRY_FIELD_SPECS.html` shape) → `buildCvHtml` → `renderHtmlToPdf` → object storage → `verifyAts` score shown back.
 3. **The join (the actual product)** — one LLM call: `job.description` + `cv_payload` → *reordered/reworded* payload + cover letter. Diff view before render. Only place a model belongs in the MVP.
