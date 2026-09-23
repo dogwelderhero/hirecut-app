@@ -1,4 +1,4 @@
-# hirecut
+# hirecute
 
 A product built on [career-ops](https://github.com/career-ops-hq/career-ops) (MIT).
 Fork of `career-ops-hq/career-ops`; upstream is wired as the `upstream` remote.
@@ -8,7 +8,7 @@ Fork of `career-ops-hq/career-ops`; upstream is wired as the `upstream` remote.
 | Branch | Role |
 |---|---|
 | `main` | **Pristine mirror of upstream. Never commit here.** Keeps GitHub's "Sync fork" working forever. |
-| `product` | All hirecut work. Merge `main` in when you want upstream fixes. |
+| `product` | All hirecute work. Merge `main` in when you want upstream fixes. |
 
 ```bash
 git checkout main && git pull upstream main     # stays a clean fast-forward
@@ -33,10 +33,10 @@ native Postgres.
 
 | Thing | Where |
 |---|---|
-| Postgres | `localhost:5433`, db/user `hirecut`, password `hirecut_dev` |
+| Postgres | `localhost:5433`, db/user `hirecute`, password `hirecute_dev` |
 | Schema | `db/init/01-schema.sql` — applied once, only on an empty volume |
 | Connection string | `.env` (gitignored), template in `.env.example` |
-| psql | `docker exec -it hirecut-db psql -U hirecut -d hirecut` |
+| psql | `docker exec -it hirecute-db psql -U hirecute -d hirecute` |
 | Reset the DB | `docker compose down -v && docker compose up -d` |
 
 Schema changes: editing `db/init/*.sql` only affects a **fresh** volume. Either

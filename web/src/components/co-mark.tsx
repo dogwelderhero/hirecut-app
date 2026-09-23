@@ -1,4 +1,4 @@
-import { instrumentSerif } from "@/lib/fonts";
+import { GeistSans } from "@/lib/fonts";
 
 // Brand mark — lowercase "co" on brand orange in Instrument Serif. Matches the
 // favicon (src/app/icon.tsx) and the career-ops-docs home one-for-one so the
@@ -8,7 +8,7 @@ export function CoMark({ size = 28 }: { size?: number }) {
   return (
     <span
       aria-hidden="true"
-      className={`${instrumentSerif.className} inline-flex shrink-0 items-center justify-center rounded-md bg-primary text-white`}
+      className={`${GeistSans.className} inline-flex shrink-0 items-center justify-center rounded-md bg-primary text-white`}
       style={{
         width: size,
         height: size,

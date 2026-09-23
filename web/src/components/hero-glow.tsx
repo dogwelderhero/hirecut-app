@@ -43,7 +43,10 @@ export function HeroGlow() {
   return (
     <GrainGradient
       className="absolute inset-0 z-0 animate-fade-in-delayed"
-      colors={dark ? ["#D5742E", "#9c2f05", "#7A2A0000"] : ["#f6c89a", "#e8a35f", "#D5742E00"]}
+      // Neutral ramp to match the shadcn neutral theme. The shader takes hex
+      // strings, not CSS vars, so these are the one place a colour is still
+      // hardcoded — re-tint here when the product gets its own brand.
+      colors={dark ? ["#3f3f46", "#27272a", "#18181b00"] : ["#e4e4e7", "#d4d4d8", "#f4f4f500"]}
       colorBack="#00000000"
       softness={1}
       intensity={dark ? 0.42 : 0.26}

@@ -1,35 +1,14 @@
-import localFont from "next/font/local";
-
-// Body / UI — Inter, same as the career-ops-docs home. The latin variable
-// subset is vendored so an offline production build never contacts Google.
-export const inter = localFont({
-  src: [{
-    path: "../assets/fonts/inter/Inter-Latin-Variable.woff2",
-    weight: "100 900",
-    style: "normal",
-  }],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-// Editorial display — Instrument Serif. Regular and italic mirror the docs
-// typography while remaining fully local at build and runtime.
-export const instrumentSerif = localFont({
-  src: [{
-    path: "../assets/fonts/instrument-serif/InstrumentSerif-Latin-Regular.woff2",
-    weight: "400",
-    style: "normal",
-  }],
-  variable: "--font-instrument-serif",
-  display: "swap",
-});
-
-export const instrumentSerifItalic = localFont({
-  src: [{
-    path: "../assets/fonts/instrument-serif/InstrumentSerif-Latin-Italic.woff2",
-    weight: "400",
-    style: "italic",
-  }],
-  variable: "--font-instrument-serif-italic",
-  display: "swap",
-});
+// Typography — Geist, shadcn/ui's recommended pairing (what the shadcn docs
+// site and its Next.js templates ship).
+//
+// The `geist` package wraps next/font, so both faces are self-hosted: no
+// Google Fonts request at build or runtime, same offline guarantee the
+// previously-vendored Inter/Instrument Serif woff2 files gave us.
+//
+// Geist Sans carries body, UI *and* display type. There is no separate serif:
+// `--font-display` and `--font-serif` point at Geist Sans in globals.css, so
+// the ~24 existing `font-display` class usages keep working and simply render
+// sans. Restore an editorial serif by pointing those two tokens at a serif
+// face and re-adding it here.
+export { GeistSans } from "geist/font/sans";
+export { GeistMono } from "geist/font/mono";

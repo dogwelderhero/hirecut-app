@@ -1,4 +1,4 @@
-# hirecut local dev services.
+# hirecute local dev services.
 #
 # The Next app stays on the host (`cd web && PORT=3100 npm run dev`) so HMR is
 # fast and Playwright's Chromium can use the host browser. Only stateful
@@ -6,12 +6,12 @@
 services:
   db:
     image: postgres:17-alpine
-    container_name: hirecut-db
+    container_name: hirecute-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: hirecut
-      POSTGRES_PASSWORD: hirecut_dev
-      POSTGRES_DB: hirecut
+      POSTGRES_USER: hirecute
+      POSTGRES_PASSWORD: hirecute_dev
+      POSTGRES_DB: hirecute
       # Deterministic collation so ORDER BY on titles matches across machines.
       POSTGRES_INITDB_ARGS: "--locale=C --encoding=UTF8"
     ports:
@@ -21,7 +21,7 @@ services:
       # Runs once, only when db-data is empty.
       - ./db/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hirecut -d hirecut"]
+      test: ["CMD-SHELL", "pg_isready -U hirecute -d hirecute"]
       interval: 5s
       timeout: 3s
       retries: 10

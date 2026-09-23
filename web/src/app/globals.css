@@ -39,10 +39,13 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
-  --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  /* Geist — shadcn/ui's recommended pairing, self-hosted via the `geist`
+     package (next/font). Display/serif alias Geist Sans: the app has ~24
+     `font-display` usages and no serif face ships with Geist. */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 :root {
@@ -124,7 +127,7 @@ html {
 
 @layer utilities {
   .font-serif-italic {
-    font-family: var(--font-instrument-serif-italic), var(--font-serif);
+    font-family: var(--font-serif);
     font-style: italic;
   }
   /* Ambient dot grid — adapts to the theme via --dot. Pure CSS, 0 DOM. */

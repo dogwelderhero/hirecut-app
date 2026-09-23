@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Compass, ChevronDown, RotateCcw, AlertTriangle, Sparkles, Settings } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
-import { instrumentSerif } from "@/lib/fonts";
+import { GeistSans } from "@/lib/fonts";
 import type { Application, InboxJob } from "@/lib/career-ops";
 import { normalizeTextKey } from "@/lib/core/normalize-text-key.mjs";
 import { paramsToFilters, paramsToAi, type ExploreFilters } from "@/lib/explore";
@@ -117,7 +117,7 @@ export function ExplorerView({
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2.5">
             <Compass className="size-6 text-primary" />
-            <h1 className={`${instrumentSerif.className} text-3xl text-foreground`}>Explore</h1>
+            <h1 className={`${GeistSans.className} text-3xl text-foreground`}>Explore</h1>
             <span className="rounded-full border border-primary/30 bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary">New</span>
           </div>
           <div className="w-full sm:ml-auto sm:w-auto">
@@ -271,7 +271,7 @@ function EmptyState({ tone, title, body, note, onRerun, rerunLabel }: { tone: "g
       <div className={cn("mx-auto grid size-12 place-items-center rounded-full", tone === "good" ? "bg-emerald-500/12 text-emerald-500" : "bg-accent text-primary")}>
         <Sparkles className="size-6" />
       </div>
-      <h2 className={`${instrumentSerif.className} mt-4 text-2xl text-foreground`}>{title}</h2>
+      <h2 className={`${GeistSans.className} mt-4 text-2xl text-foreground`}>{title}</h2>
       <p className="mx-auto mt-1.5 max-w-md text-sm text-muted-foreground">{body}</p>
       {note && <p className="mx-auto mt-1 max-w-md text-[12px] text-muted-foreground">{note}</p>}
       <button onClick={onRerun} className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-border bg-card/50 px-3.5 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary/40 hover:text-primary">
@@ -354,7 +354,7 @@ function FailedCard({ msg, scannerMissing, onRetry }: { msg: string; scannerMiss
         <div className="mx-auto grid size-12 place-items-center rounded-full bg-accent text-primary">
           <Compass className="size-6" />
         </div>
-        <h2 className={`${instrumentSerif.className} mt-4 text-2xl text-foreground`}>Discovery needs the full toolkit</h2>
+        <h2 className={`${GeistSans.className} mt-4 text-2xl text-foreground`}>Discovery needs the full toolkit</h2>
         <p className="mx-auto mt-1.5 max-w-md text-sm text-muted-foreground">
           Your career-ops home looks data-only or is on an older version. The free scanner ships with a complete checkout —
           update career-ops, or paste a job URL on the pipeline to evaluate it directly.
@@ -388,7 +388,7 @@ function BlockedCard() {
       <div className="mx-auto grid size-12 place-items-center rounded-full bg-accent text-primary">
         <Sparkles className="size-6" />
       </div>
-      <h2 className={`${instrumentSerif.className} mt-4 text-2xl text-foreground`}>AI search needs a CLI</h2>
+      <h2 className={`${GeistSans.className} mt-4 text-2xl text-foreground`}>AI search needs a CLI</h2>
       <p className="mx-auto mt-1.5 max-w-md text-sm text-muted-foreground">
         Connect Claude Code, Gemini, or any agent CLI — your key, your tokens, your machine. The free Scan stays available without one.
       </p>

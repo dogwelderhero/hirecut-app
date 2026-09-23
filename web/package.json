@@ -1,8 +1,8 @@
 {
-  "name": "@hirecut/web",
+  "name": "@hirecute/web",
   "version": "0.11.0",
   "private": true,
-  "description": "Hirecut web app — job discovery and document generation.",
+  "description": "Hirecute web app — job discovery and document generation.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -30,6 +30,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cn": "^0.4.0",
+    "geist": "^1.7.2",
     "js-yaml": "^5.0.0",
     "lucide-react": "^1.8.0",
     "next": "16.3.3",

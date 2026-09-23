@@ -3,7 +3,7 @@
  * update-system.mjs — DISABLED IN THIS FORK.
  *
  * Upstream, this script rewrites ~315 "system layer" files in place from
- * career-ops-hq/career-ops. In hirecut those files are the product, so running
+ * career-ops-hq/career-ops. In hirecute those files are the product, so running
  * it would silently revert product changes.
  *
  * Pull upstream changes through git instead, which keeps the diff reviewable:
@@ -29,7 +29,7 @@ if (cmd === 'check') {
 }
 
 console.error(
-  `update-system.mjs is disabled in the hirecut fork — "${cmd}" would overwrite product files.\n` +
+  `update-system.mjs is disabled in the hirecute fork — "${cmd}" would overwrite product files.\n` +
   'Use git instead:\n' +
   '  git checkout main && git pull upstream main\n' +
   '  git checkout product && git merge main'

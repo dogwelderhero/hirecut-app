@@ -1,4 +1,4 @@
--- hirecut initial schema — the discovery spine (PRODUCT.md step 1).
+-- hirecute initial schema — the discovery spine (PRODUCT.md step 1).
 --
 -- Replaces upstream's markdown-as-state (data/applications.md, portals.yml,
 -- data/scan-history.tsv) with real tables.
