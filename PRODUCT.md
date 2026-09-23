@@ -19,6 +19,29 @@ git diff main..product                          # exactly what we changed from u
 `update-system.mjs` is **disabled** — upstream it rewrites ~315 system files in
 place, which in this fork means reverting the product. Updates come via git only.
 
+## Local dev
+
+```bash
+docker compose up -d        # Postgres 17 on host port 5433
+cd web && PORT=3100 npm run dev
+```
+
+The Next app runs **on the host**, not in Docker: HMR stays fast and
+`generate-pdf.mjs`'s Playwright Chromium uses the host browser. Only stateful
+services are containerized. Host port is **5433** to avoid colliding with a
+native Postgres.
+
+| Thing | Where |
+|---|---|
+| Postgres | `localhost:5433`, db/user `hirecut`, password `hirecut_dev` |
+| Schema | `db/init/01-schema.sql` — applied once, only on an empty volume |
+| Connection string | `.env` (gitignored), template in `.env.example` |
+| psql | `docker exec -it hirecut-db psql -U hirecut -d hirecut` |
+| Reset the DB | `docker compose down -v && docker compose up -d` |
+
+Schema changes: editing `db/init/*.sql` only affects a **fresh** volume. Either
+`down -v` to re-init, or apply a migration by hand once there's real data.
+
 ## What we keep, what we replace
 
 The product is three things out of upstream's ~129 root scripts:

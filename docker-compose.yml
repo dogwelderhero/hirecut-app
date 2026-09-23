@@ -1,33 +1,30 @@
+# hirecut local dev services.
+#
+# The Next app stays on the host (`cd web && PORT=3100 npm run dev`) so HMR is
+# fast and Playwright's Chromium can use the host browser. Only stateful
+# backing services live in Docker.
 services:
-  career-ops:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: career-ops:local
-    container_name: career-ops
-    working_dir: /app
-    # Long-running shell so `docker compose exec` is instant.
-    command: ["tail", "-f", "/dev/null"]
-    init: true
-    # Mount whole project so edits on host are visible inside the container.
-    # node_modules is kept inside the image to avoid host/container ABI mismatch
-    # (host is ubuntu26.04 where playwright won't install; image is jammy).
-    volumes:
-      - .:/app
-      - career-ops-node-modules:/app/node_modules
-    environment:
-      - NODE_ENV=development
-      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
-      # Forward common API keys if set on host. Empty values are ignored.
-      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
-    # Chromium needs a larger /dev/shm than the default 64M.
-    shm_size: "1gb"
-    # Dashboard TUI is interactive; expose nothing by default but allow `-it`.
-    tty: true
-    stdin_open: true
+  db:
+    image: postgres:17-alpine
+    container_name: hirecut-db
     restart: unless-stopped
+    environment:
+      POSTGRES_USER: hirecut
+      POSTGRES_PASSWORD: hirecut_dev
+      POSTGRES_DB: hirecut
+      # Deterministic collation so ORDER BY on titles matches across machines.
+      POSTGRES_INITDB_ARGS: "--locale=C --encoding=UTF8"
+    ports:
+      - "5433:5432"   # 5433 on the host: avoids collision with any native pg
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      # Runs once, only when db-data is empty.
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hirecut -d hirecut"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
 volumes:
-  career-ops-node-modules:
+  db-data:
