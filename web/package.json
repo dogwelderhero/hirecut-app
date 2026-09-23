@@ -1,8 +1,8 @@
 {
-  "name": "@career-ops/web",
+  "name": "@hirecut/web",
   "version": "0.11.0",
   "private": true,
-  "description": "Official web experience for career-ops — local-first.",
+  "description": "Hirecut web app — job discovery and document generation.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
