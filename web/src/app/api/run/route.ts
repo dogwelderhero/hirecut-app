@@ -58,7 +58,7 @@ export async function POST(req: Request) {
   if (required && !fs.existsSync(/* turbopackIgnore: true */ requiredPath)) {
     return new Response(
       JSON.stringify({
-        error: `This needs a complete career-ops checkout (${required}). CAREER_OPS_ROOT has data only — point it at a full checkout.`,
+        error: `This needs a complete hirecute checkout (${required}). CAREER_OPS_ROOT has data only — point it at a full checkout.`,
       }),
       { status: 400, headers: { "Content-Type": "application/json" } },
     );
@@ -474,7 +474,7 @@ export async function POST(req: Request) {
             const detail = stderrErrorSnippet ? ` (${stderrErrorSnippet})` : "";
             return `The CLI exited with an error — is it installed and authenticated?${detail}`;
           }
-          if (!emittedText && !sawError) return "The CLI produced no output — is it installed and authenticated? (career-ops is best on Claude Code.)";
+          if (!emittedText && !sawError) return "The CLI produced no output — is it installed and authenticated? (hirecute is best on Claude Code.)";
           return null;
         };
 

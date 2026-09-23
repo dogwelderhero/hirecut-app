@@ -35,14 +35,14 @@ import { serializePortals } from "./portals-serialize.mjs";
 
 /** Write the ephemeral filter file to a temp path; caller cleans it up. */
 export function writeTempPortals(f: FilterLists): string {
-  const file = path.join(os.tmpdir(), `career-ops-explore-${randomUUID()}.yml`);
+  const file = path.join(os.tmpdir(), `hirecute-explore-${randomUUID()}.yml`);
   fs.writeFileSync(file, serializePortals(f), "utf8");
   return file;
 }
 
 export function cleanupTempPortals(file: string): void {
   try {
-    if (file.startsWith(os.tmpdir()) && file.includes("career-ops-explore-")) fs.unlinkSync(file);
+    if (file.startsWith(os.tmpdir()) && file.includes("hirecute-explore-")) fs.unlinkSync(file);
   } catch {
     /* best-effort */
   }

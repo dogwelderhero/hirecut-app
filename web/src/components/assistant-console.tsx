@@ -6,7 +6,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Send, X, Loader2, Settings, RotateCcw, ArrowUpRight, Sparkles, Maximize2, Minimize2 } from "lucide-react";
-import { CoMark } from "@/components/co-mark";
+import { BrandMark } from "@/components/brand-mark";
 import { useJobs } from "@/components/jobs/job-store";
 import { usePipeline } from "@/components/pipeline/pipeline-provider";
 import { useApply } from "@/components/apply/apply-provider";
@@ -28,9 +28,9 @@ type Part =
   | { type: "confirm"; cid: string; summary: string; state: "pending" | "done" | "cancelled" };
 type Msg = { role: "user" | "assistant"; parts: Part[] };
 
-const CONFIG_KEY = "career-ops:config";
-const CHAT_KEY = "career-ops:chat";
-const SIZE_KEY = "career-ops:assistant-size";
+const CONFIG_KEY = "hirecute:config";
+const CHAT_KEY = "hirecute:chat";
+const SIZE_KEY = "hirecute:assistant-size";
 
 // Panel size. The 400×600 default is fine for a question; an onboarding
 // conversation or a long evaluation debrief is not a 400px-wide affair. Three
@@ -52,7 +52,7 @@ const NAV_RE = /<<\s*go:\s*(\/[a-z0-9/_-]*)\s*>>/gi;
 const REMEMBER_RE = /<<\s*remember:\s*([^>]+?)\s*>>/gi;
 
 const GREETING =
-  "Hi — I'm your career-ops assistant. I can walk you through onboarding, answer questions about your pipeline, or take you where you need to go. What would you like to do?";
+  "Hi — I'm your hirecute assistant. I can walk you through onboarding, answer questions about your pipeline, or take you where you need to go. What would you like to do?";
 
 // ── envelope parsing: act ONLY on complete <<act:ID {json}>> envelopes ────────
 function codeRanges(s: string): [number, number][] {
@@ -509,7 +509,7 @@ export function AssistantConsole() {
     const pending = pipeline.inbox.filter((j) => !j.done);
     if (!pipeline.applications.length && !pending.length) {
       return [
-        { label: "Help me get set up", send: "Help me get started with career-ops — what do you need from me?" },
+        { label: "Help me get set up", send: "Help me get started with hirecute — what do you need from me?" },
         { label: "Improve my CV", send: "Look at my CV and suggest the highest-impact improvements." },
       ];
     }
@@ -534,7 +534,7 @@ export function AssistantConsole() {
           className="fixed bottom-5 right-5 z-50 flex items-center justify-center gap-2 rounded-full border border-border bg-card/90 py-1.5 pl-1.5 pr-4 shadow-lg backdrop-blur transition-colors hover:bg-accent max-sm:min-h-[44px]"
           aria-label="Open assistant"
         >
-          <CoMark size={26} />
+          <BrandMark size={26} />
           <span className="text-sm font-medium">Ask</span>
         </button>
       )}
@@ -542,7 +542,7 @@ export function AssistantConsole() {
       {open && (
         <div className={cn("fixed z-50 flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl", PANEL_CLASS[size])}>
           <header className="flex items-center gap-2.5 border-b border-border px-4 py-3">
-            <CoMark size={26} />
+            <BrandMark size={26} />
             <div className="flex-1">
               <div className="text-sm font-semibold tracking-tight">Assistant</div>
               <div className="text-xs text-muted-foreground">{cliId ? `via ${cliId}` : "no CLI configured"}</div>

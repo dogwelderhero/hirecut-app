@@ -28,7 +28,7 @@ export async function POST(req: Request) {
   }
   if (!b.id) return NextResponse.json({ error: "id required" }, { status: 400 });
 
-  const dir = path.join(careerOpsRoot(), ".career-ops-web", "runs");
+  const dir = path.join(careerOpsRoot(), ".hirecute-web", "runs");
   try {
     fs.mkdirSync(dir, { recursive: true });
   } catch {

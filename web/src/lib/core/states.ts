@@ -6,7 +6,7 @@ import { CANONICAL_STATES } from "@/lib/format";
 
 /**
  * ACL for templates/states.yml — the SINGLE SOURCE OF TRUTH for canonical
- * application states (career-ops writer + dashboard reader both read it). Per the
+ * application states (hirecute writer + dashboard reader both read it). Per the
  * web↔core contract we READ it live and never hardcode the list.
  *
  * The hand-maintained FALLBACK that used to live here is gone. It promised to be

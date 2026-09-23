@@ -48,12 +48,12 @@ export async function resolvePdfIndexPath(): Promise<string | null> {
     }
     if (!warned) {
       warned = true;
-      console.warn(`[career-ops] ${file} has no resolveTrackerPath/resolvePdfIndexPath export — update career-ops to enable the tailored-CV viewer.`);
+      console.warn(`[hirecute] ${file} has no resolveTrackerPath/resolvePdfIndexPath export — update hirecute to enable the tailored-CV viewer.`);
     }
   } catch {
     if (!warned) {
       warned = true;
-      console.warn(`[career-ops] could not load ${file} — update career-ops to enable the tailored-CV viewer.`);
+      console.warn(`[hirecute] could not load ${file} — update hirecute to enable the tailored-CV viewer.`);
     }
   }
   return null;

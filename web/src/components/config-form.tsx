@@ -33,7 +33,7 @@ const PROVIDERS = [
   { id: "openrouter", label: "OpenRouter" },
 ] as const;
 
-const STORAGE_KEY = "career-ops:config";
+const STORAGE_KEY = "hirecute:config";
 
 export function ConfigForm() {
   const [mode, setMode] = useState<Mode>("cli");
@@ -101,7 +101,7 @@ export function ConfigForm() {
     <div className="mx-auto max-w-2xl px-6 py-10">
       <h1 className="font-display text-2xl tracking-tight text-foreground">Config</h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        Run career-ops on your own AI, right on your computer. Your CV and data never leave your machine.
+        Run hirecute on your own AI, right on your computer. Your CV and data never leave your machine.
       </p>
 
       {/* Engine mode */}
@@ -138,7 +138,7 @@ export function ConfigForm() {
         {mode === "cli" && (
           <div>
             <p className="mb-1 text-sm text-muted-foreground">
-              career-ops uses an AI tool you already have — signed in, your own usage, nothing to paste.
+              hirecute uses an AI tool you already have — signed in, your own usage, nothing to paste.
             </p>
             <p className="mb-3 text-xs text-muted-foreground">Works with Claude Code, Codex, OpenCode and more — free ones work great.</p>
             {clis === null ? (

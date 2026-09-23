@@ -14,9 +14,9 @@ import { resolvePdfIndexPath } from "@/lib/core/pdf-index";
 import { pdfIndexEntryForReport } from "@/lib/apply/cv-selection.mjs";
 
 /**
- * Resolve the career-ops "home" — the directory holding the user's sibling
+ * Resolve the hirecute "home" — the directory holding the user's sibling
  * files (cv.md, data/, reports/). In production the web/ app lives inside the
- * career-ops checkout, so the home is its parent (..). Dev overrides via
+ * hirecute checkout, so the home is its parent (..). Dev overrides via
  * CAREER_OPS_ROOT to read the user's real (gitignored) data from a separate
  * checkout — see web/.env.local.
  */
@@ -417,7 +417,7 @@ export function readMemory(): string {
     /* no _profile.md yet */
   }
   try {
-    return fs.readFileSync(path.join(careerOpsRoot(), ".career-ops-web", "memory.md"), "utf8").trim();
+    return fs.readFileSync(path.join(careerOpsRoot(), ".hirecute-web", "memory.md"), "utf8").trim();
   } catch {
     return "";
   }

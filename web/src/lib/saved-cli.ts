@@ -1,6 +1,6 @@
 import { pickSoleInstalled } from "./cli-pick.mjs";
 
-export const CONFIG_KEY = "career-ops:config";
+export const CONFIG_KEY = "hirecute:config";
 
 export function readSavedCliId(): string | null {
   try {

@@ -147,7 +147,7 @@ export async function POST(req: Request) {
   if (!fs.existsSync(script)) {
     return NextResponse.json(
       {
-        error: "status updates need the career-ops scripts; this root has data only",
+        error: "status updates need the hirecute scripts; this root has data only",
         code: "core-script-missing",
       },
       { status: 503 },

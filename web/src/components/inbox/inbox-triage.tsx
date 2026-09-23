@@ -12,9 +12,9 @@ import { TriageRow, type RowScore } from "./triage-row";
 import { ShortlistTray, type ShortItem } from "./shortlist-tray";
 import { cn } from "@/lib/cn";
 
-const SHORTLIST_KEY = "career-ops:shortlist";
-const HIDDEN_KEY = "career-ops:hidden";
-const CONFIG_KEY = "career-ops:config";
+const SHORTLIST_KEY = "hirecute:shortlist";
+const HIDDEN_KEY = "hirecute:hidden";
+const CONFIG_KEY = "hirecute:config";
 const BATCH = 20;
 
 // The inbox as a TRIAGE surface: Abundance → Triage → Shortlist → Opt-in Score.

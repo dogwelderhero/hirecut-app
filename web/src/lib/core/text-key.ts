@@ -49,14 +49,14 @@ export async function getNormalizeTextKey(): Promise<NormalizeTextKey> {
     if (!warned) {
       warned = true;
       console.warn(
-        `[career-ops] ${file} has no normalizeTextKey export — company matching falls back to a local Unicode-safe key. Update career-ops to keep web dedup identical to CLI dedup.`,
+        `[hirecute] ${file} has no normalizeTextKey export — company matching falls back to a local Unicode-safe key. Update hirecute to keep web dedup identical to CLI dedup.`,
       );
     }
   } catch {
     if (!warned) {
       warned = true;
       console.warn(
-        `[career-ops] could not load ${file} — company matching falls back to a local Unicode-safe key. Update career-ops to keep web dedup identical to CLI dedup.`,
+        `[hirecute] could not load ${file} — company matching falls back to a local Unicode-safe key. Update hirecute to keep web dedup identical to CLI dedup.`,
       );
     }
   }

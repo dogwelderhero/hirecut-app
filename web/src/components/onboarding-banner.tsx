@@ -8,7 +8,7 @@ type Doctor = { available: boolean; onboardingNeeded: boolean; missing: string[]
 
 function hasCli(): boolean {
   try {
-    return !!JSON.parse(localStorage.getItem("career-ops:config") || "{}").cliId;
+    return !!JSON.parse(localStorage.getItem("hirecute:config") || "{}").cliId;
   } catch {
     return false;
   }
@@ -40,7 +40,7 @@ export function OnboardingBanner() {
   if (dismissed || !d || !d.onboardingNeeded) return null;
   const items = d.missing.map((m) => LABELS[m] ?? m);
   const kickoff =
-    `Help me finish setting up career-ops. I still need to add ${items.join(", ")} — walk me through just those, conversationally, and write the files for me. Don't ask me for anything that's already set up (for example, don't ask for my CV if it's already saved).`;
+    `Help me finish setting up hirecute. I still need to add ${items.join(", ")} — walk me through just those, conversationally, and write the files for me. Don't ask me for anything that's already set up (for example, don't ask for my CV if it's already saved).`;
 
   return (
     <div className="dot-bg relative mb-6 overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card/40 to-transparent p-5">
@@ -53,7 +53,7 @@ export function OnboardingBanner() {
       </button>
       <h2 className="font-display text-xl text-foreground">Let&apos;s finish setting you up</h2>
       <p className="mt-1.5 max-w-xl text-sm text-muted-foreground">
-        career-ops works best when it knows you. We still need {items.join(", ")}.{" "}
+        hirecute works best when it knows you. We still need {items.join(", ")}.{" "}
         <span className="text-foreground">No YAML to edit</span> — answer in plain language and the assistant writes it
         for you.
       </p>
