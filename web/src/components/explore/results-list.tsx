@@ -36,7 +36,7 @@ export function ResultsList({ offers }: { offers: EnrichedOffer[] }) {
             <span className="font-semibold">{offers.length}</span> {isAi ? `candidate${offers.length === 1 ? "" : "s"}` : `fresh role${offers.length === 1 ? "" : "s"}`}
             <CostBadge kind={isAi ? "spend" : "free-network"} size="xs" className="ml-2 align-middle" />
           </p>
-          <p className="text-[12px] text-faint">
+          <p className="text-[12px] text-muted-foreground">
             {isAi
               ? "found by AI on the open web · unverified until you evaluate"
               : `${companiesScanned > 0 ? `${companiesScanned.toLocaleString()} companies scanned · ` : ""}0 tokens spent${partial ? " · some boards were unreachable (normal for public directories)" : ""}`}
@@ -44,22 +44,22 @@ export function ResultsList({ offers }: { offers: EnrichedOffer[] }) {
         </div>
 
         <div className="ml-auto flex items-center gap-2">
-          <div className="flex items-center gap-1.5 rounded-lg border border-border bg-surface/40 px-2.5 py-1.5">
-            <Search className="size-3.5 text-faint" />
+          <div className="flex items-center gap-1.5 rounded-lg border border-border bg-card/40 px-2.5 py-1.5">
+            <Search className="size-3.5 text-muted-foreground" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Filter results…"
-              className="w-32 bg-transparent text-[13px] outline-none placeholder:text-faint"
+              className="w-32 bg-transparent text-[13px] outline-none placeholder:text-muted-foreground"
             />
           </div>
-          <div className="inline-flex rounded-lg border border-border bg-surface/40 p-0.5 text-xs">
+          <div className="inline-flex rounded-lg border border-border bg-card/40 p-0.5 text-xs">
             {(["fresh", "company"] as const).map((s) => (
               <button
                 key={s}
                 type="button"
                 onClick={() => setSort(s)}
-                className={cn("rounded-md px-2.5 py-1 font-medium capitalize transition-colors", sort === s ? "bg-brand-soft text-brand" : "text-muted hover:text-foreground")}
+                className={cn("rounded-md px-2.5 py-1 font-medium capitalize transition-colors", sort === s ? "bg-accent text-primary" : "text-muted-foreground hover:text-foreground")}
               >
                 {s}
               </button>
@@ -69,7 +69,7 @@ export function ResultsList({ offers }: { offers: EnrichedOffer[] }) {
             <button
               type="button"
               onClick={() => addToPipeline(addable)}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface/40 px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-brand-soft hover:text-brand"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card/40 px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-primary"
             >
               <Plus className="size-3.5" /> Add all {addable.length}
             </button>
@@ -83,7 +83,7 @@ export function ResultsList({ offers }: { offers: EnrichedOffer[] }) {
         ))}
       </div>
 
-      {view.length === 0 && <p className="py-10 text-center text-sm text-faint">No results match “{q}”.</p>}
+      {view.length === 0 && <p className="py-10 text-center text-sm text-muted-foreground">No results match “{q}”.</p>}
     </div>
   );
 }

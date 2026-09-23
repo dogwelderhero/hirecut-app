@@ -85,16 +85,16 @@ export function CadenceSettings() {
 
   return (
     <div>
-      <label className="mt-8 mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+      <label className="mt-8 mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
         Follow-up cadence
       </label>
-      <div className="rounded-xl border border-border bg-surface/50 p-4">
-        <p className="text-xs leading-relaxed text-faint">
-          When the <span className="text-muted">Follow-ups</span> tracker nudges you. Saved to{" "}
-          <span className="font-mono text-muted">config/profile.yml</span> — the CLI uses the same values.
+      <div className="rounded-xl border border-border bg-card/50 p-4">
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          When the <span className="text-muted-foreground">Follow-ups</span> tracker nudges you. Saved to{" "}
+          <span className="font-mono text-muted-foreground">config/profile.yml</span> — the CLI uses the same values.
         </p>
         {loadError ? (
-          <div className="mt-3 text-sm text-muted">
+          <div className="mt-3 text-sm text-muted-foreground">
             <p className="text-red-500">
               Couldn&apos;t read your current cadence settings — not showing defaults, to avoid overwriting real values in{" "}
               <span className="font-mono">config/profile.yml</span>.
@@ -102,13 +102,13 @@ export function CadenceSettings() {
             <button
               type="button"
               onClick={load}
-              className="mt-2 rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-medium transition-colors hover:bg-surface-hover"
+              className="mt-2 rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium transition-colors hover:bg-accent"
             >
               Retry
             </button>
           </div>
         ) : values === null ? (
-          <div className="mt-3 flex items-center gap-2 text-sm text-muted">
+          <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
             <Loader2 className="size-4 animate-spin" /> Loading…
           </div>
         ) : (
@@ -117,14 +117,14 @@ export function CadenceSettings() {
               {FIELDS.map((f) => (
                 <label key={f.key} className="block">
                   <span className="block text-sm font-medium text-foreground">{f.label}</span>
-                  <span className="mt-0.5 block text-xs text-faint">{f.hint}</span>
+                  <span className="mt-0.5 block text-xs text-muted-foreground">{f.hint}</span>
                   <input
                     type="number"
                     min={0}
                     step={1}
                     value={values[f.key]}
                     onChange={(e) => setValues((v) => (v ? { ...v, [f.key]: e.target.value } : v))}
-                    className="mt-1.5 w-24 rounded-md border border-border bg-surface/60 px-3 py-1.5 text-sm tabular-nums outline-none transition-colors focus:border-brand/50 focus-visible:ring-2 focus-visible:ring-brand/40"
+                    className="mt-1.5 w-24 rounded-md border border-border bg-card/60 px-3 py-1.5 text-sm tabular-nums outline-none transition-colors focus:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/40"
                   />
                 </label>
               ))}
@@ -135,7 +135,7 @@ export function CadenceSettings() {
               onClick={save}
               disabled={saving}
               className={cn(
-                "mt-4 inline-flex items-center gap-2 rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-medium transition-colors hover:bg-surface-hover",
+                "mt-4 inline-flex items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium transition-colors hover:bg-accent",
                 "disabled:pointer-events-none disabled:opacity-60",
               )}
             >

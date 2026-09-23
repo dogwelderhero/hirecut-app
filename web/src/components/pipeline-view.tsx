@@ -123,8 +123,8 @@ export function PipelineView({
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 max-sm:pb-24">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl tracking-tight text-landing">Pipeline</h1>
-          <p className="mt-1 text-sm text-muted">
+          <h1 className="font-display text-2xl tracking-tight text-foreground">Pipeline</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
             <span className="tabular-nums">{pendingInbox.length}</span> in inbox ·{" "}
             <span className="tabular-nums">{applications.length}</span> tracked
           </p>
@@ -132,12 +132,12 @@ export function PipelineView({
         {/* the tracker has its own search; the inbox brings its own facet filters */}
         {tab !== "INBOX" && (
           <div className="relative w-64 max-w-[40vw]">
-            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-faint" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search company or role…"
-              className="w-full rounded-md border border-border bg-surface/60 py-2 pl-9 pr-3 text-sm outline-none transition-colors placeholder:text-faint focus:border-brand/50 focus-visible:ring-2 focus-visible:ring-brand/40"
+              className="w-full rounded-md border border-border bg-card/60 py-2 pl-9 pr-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/40"
             />
           </div>
         )}
@@ -161,11 +161,11 @@ export function PipelineView({
                 // whitespace-only anonymous items, which rendered "INBOX0".
                 "-mb-px inline-flex items-center justify-center gap-1 border-b-2 px-3 py-2 text-xs font-medium transition-colors max-sm:min-h-[44px]",
                 tab === t
-                  ? "border-brand text-foreground"
-                  : "border-transparent text-muted hover:text-foreground",
+                  ? "border-primary text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground",
               )}
             >
-              {t} <span className="text-faint tabular-nums">{count}</span>
+              {t} <span className="text-muted-foreground tabular-nums">{count}</span>
             </button>
           );
         })}
@@ -173,11 +173,11 @@ export function PipelineView({
 
       {tab !== "INBOX" && minFilter != null && (
         <div className="mt-3 flex items-center gap-2">
-          <span className="text-xs text-faint">Filtered:</span>
+          <span className="text-xs text-muted-foreground">Filtered:</span>
           <button
             type="button"
             onClick={() => setParams({ min: null })}
-            className="inline-flex items-center gap-1.5 rounded-full border border-brand/40 bg-brand-soft px-2.5 py-1 text-xs font-medium text-brand transition-colors hover:bg-brand/15"
+            className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-accent px-2.5 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/15"
             title="Clear score filter"
           >
             score ≥ {minFilter.toFixed(1)}
@@ -201,7 +201,7 @@ export function PipelineView({
            than letting w-full crush them on a phone. */
         <div className="mt-4 overflow-x-auto rounded-2xl border border-border">
           <table className="w-full min-w-[44rem] text-sm">
-            <thead className="bg-surface/60 text-left text-xs uppercase tracking-wide text-faint">
+            <thead className="bg-card/60 text-left text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
                 {SORT_KEYS.map((k) => (
                   <th
@@ -221,26 +221,26 @@ export function PipelineView({
               {filtered.map((r, i) => {
                 const company = companyPresentation(r);
                 return (
-                  <tr key={`${r.n}-${i}`} className="group transition-colors hover:bg-surface/40">
+                  <tr key={`${r.n}-${i}`} className="group transition-colors hover:bg-card/40">
                     <td className="px-4 py-3 font-medium">
-                      <Link href={`/pipeline/${r.n}`} className="flex items-center gap-2.5 transition-colors group-hover:text-brand">
+                      <Link href={`/pipeline/${r.n}`} className="flex items-center gap-2.5 transition-colors group-hover:text-primary">
                         <CompanyLogo name={company.logoName} size={20} />
                         {company.label}
                       </Link>
                     </td>
-                  <td className="px-4 py-3 text-muted">
+                  <td className="px-4 py-3 text-muted-foreground">
                     <Link href={`/pipeline/${r.n}`}>{r.role}</Link>
                   </td>
                   <td className="px-4 py-3">
                     <Badge tone={scoreTone(r.score)}>{r.score || "—"}</Badge>
                   </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-muted">
+                  <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
                     <span className="inline-flex items-center gap-1.5">
                       <span className={cn("size-1.5 shrink-0 rounded-full", statusDot(r.status))} />
                       {r.status}
                     </span>
                   </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-faint tabular-nums">{r.date}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-muted-foreground tabular-nums">{r.date}</td>
                   </tr>
                 );
               })}
@@ -248,9 +248,9 @@ export function PipelineView({
           </table>
         </div>
       ) : (
-        <div className="mt-4 rounded-2xl border border-dashed border-border bg-surface/30 px-6 py-12 text-center">
+        <div className="mt-4 rounded-2xl border border-dashed border-border bg-card/30 px-6 py-12 text-center">
           <p className="font-display text-lg">No matches</p>
-          <p className="mx-auto mt-1 max-w-sm text-sm text-muted">Try a different tab or clear the search.</p>
+          <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">Try a different tab or clear the search.</p>
         </div>
       )}
     </div>
@@ -262,38 +262,38 @@ export function PipelineView({
 function InboxEmpty({ count, filtered }: { count: number; filtered: boolean }) {
   if (filtered) {
     return (
-      <div className="mt-4 rounded-2xl border border-dashed border-border bg-surface/30 px-6 py-12 text-center">
+      <div className="mt-4 rounded-2xl border border-dashed border-border bg-card/30 px-6 py-12 text-center">
         <p className="font-display text-lg">No matches</p>
-        <p className="mx-auto mt-1 max-w-sm text-sm text-muted">Clear the search to see the full inbox.</p>
+        <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">Clear the search to see the full inbox.</p>
       </div>
     );
   }
   return (
-    <div className="dot-bg mt-4 overflow-hidden rounded-2xl border border-border bg-surface/50 bg-origin-border bg-gradient-to-tr from-brand/10 via-transparent to-transparent shadow-lg">
+    <div className="dot-bg mt-4 overflow-hidden rounded-2xl border border-border bg-card/50 bg-origin-border bg-gradient-to-tr from-primary/10 via-transparent to-transparent shadow-lg">
       <div className="flex items-center gap-2 border-b border-foreground/10 px-5 py-3">
         <span className="size-2.5 rounded-full bg-foreground/15" aria-hidden="true" />
         <span className="size-2.5 rounded-full bg-foreground/15" aria-hidden="true" />
         <span className="size-2.5 rounded-full bg-foreground/15" aria-hidden="true" />
-        <span className="ml-3 font-mono text-xs tracking-wide text-muted">career-ops · inbox</span>
+        <span className="ml-3 font-mono text-xs tracking-wide text-muted-foreground">career-ops · inbox</span>
       </div>
       <div className="px-6 py-10 text-center">
         <p className="font-display text-lg">
-          Your <span className="text-brand">inbox</span> is empty.
+          Your <span className="text-primary">inbox</span> is empty.
         </p>
         {count > 0 ? (
-          <p className="mx-auto mt-2 max-w-sm text-sm text-muted">Nothing pending right now.</p>
+          <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">Nothing pending right now.</p>
         ) : (
           <>
-            <p className="mx-auto mt-2 max-w-sm text-sm text-muted">Find roles that match your CV — free, no tokens spent.</p>
+            <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">Find roles that match your CV — free, no tokens spent.</p>
             <Link
               href="/explore?run=1"
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-medium text-brand-foreground shadow-sm transition-all duration-200 hover:bg-brand-200 hover:-translate-y-0.5 hover:shadow-md"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-sm transition-all duration-200 hover:bg-primary/90 hover:-translate-y-0.5 hover:shadow-md"
             >
               <Compass className="size-4" /> Run your first free scan <ArrowRight className="size-4" />
             </Link>
-            <p className="mx-auto mt-4 max-w-sm text-xs text-muted">
-              Prefer the terminal? Run <code className="rounded bg-surface-hover px-1 py-0.5 font-mono">career-ops scan</code>, or add job URLs to{" "}
-              <code className="rounded bg-surface-hover px-1 py-0.5 font-mono">data/pipeline.md</code>.
+            <p className="mx-auto mt-4 max-w-sm text-xs text-muted-foreground">
+              Prefer the terminal? Run <code className="rounded bg-accent px-1 py-0.5 font-mono">career-ops scan</code>, or add job URLs to{" "}
+              <code className="rounded bg-accent px-1 py-0.5 font-mono">data/pipeline.md</code>.
             </p>
           </>
         )}

@@ -66,7 +66,7 @@ export const TONE = {
   good: { bar: "bg-emerald-500/70", chip: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400", icon: "text-emerald-500" },
   warn: { bar: "bg-amber-500/70", chip: "bg-amber-500/15 text-amber-700 dark:text-amber-400", icon: "text-amber-500" },
   bad: { bar: "bg-red-400/70", chip: "bg-red-500/15 text-red-700 dark:text-red-400", icon: "text-red-400" },
-  muted: { bar: "bg-zinc-400/50", chip: "bg-surface-hover text-muted", icon: "text-zinc-400" },
+  muted: { bar: "bg-zinc-400/50", chip: "bg-accent text-muted-foreground", icon: "text-zinc-400" },
 } as const;
 
 export function pillTone(j: Job): keyof typeof TONE {
@@ -97,10 +97,10 @@ export function WorkerCard({
   const tokens = job.status === "done" ? job.cost?.tokens ?? 0 : 0;
 
   return (
-    <div className={cn(inline && "rounded-xl border border-border bg-surface/60 p-2.5")}>
+    <div className={cn(inline && "rounded-xl border border-border bg-card/60 p-2.5")}>
       <div className="flex items-center gap-2">
         {job.status === "running" ? (
-          <Loader2 className="size-3 shrink-0 animate-spin text-brand" />
+          <Loader2 className="size-3 shrink-0 animate-spin text-primary" />
         ) : job.status === "error" ? (
           <AlertTriangle className={cn("size-3 shrink-0", tone.icon)} />
         ) : (
@@ -122,7 +122,7 @@ export function WorkerCard({
           <span className={cn("shrink-0", hasScore ? "ml-1" : "ml-auto")}>{trailing}</span>
         )}
       </div>
-      <div className={cn("mt-1.5 w-full overflow-hidden rounded-full bg-surface-hover", inline ? "h-1.5" : "h-1")}>
+      <div className={cn("mt-1.5 w-full overflow-hidden rounded-full bg-accent", inline ? "h-1.5" : "h-1")}>
         {job.status === "running" ? (
           <div className="job-indeterminate h-full w-full" />
         ) : (
@@ -130,7 +130,7 @@ export function WorkerCard({
         )}
       </div>
       {(bottom || running) && (
-        <div className={cn("mt-1 truncate text-faint", inline ? "text-xs" : "text-[10px]")}>
+        <div className={cn("mt-1 truncate text-muted-foreground", inline ? "text-xs" : "text-[10px]")}>
           {running ? `${last ?? "Working"} · ${fmtElapsed(elapsed)}` : bottom}
         </div>
       )}
@@ -145,7 +145,7 @@ export function WorkerCard({
         </div>
       )}
       {tokens > 0 && (
-        <div className={cn("mt-1 text-faint tabular-nums", inline ? "text-xs" : "text-[10px]")}>
+        <div className={cn("mt-1 text-muted-foreground tabular-nums", inline ? "text-xs" : "text-[10px]")}>
           {fmtTokens(tokens)} tokens{job.cost?.usd != null ? ` · $${job.cost.usd.toFixed(2)}` : ""}
         </div>
       )}

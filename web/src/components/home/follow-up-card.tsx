@@ -60,15 +60,15 @@ export function FollowUpCard({ followup, onLogged }: { followup: FollowUp; onLog
   };
 
   return (
-    <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2 rounded-xl border border-border bg-surface/40 px-3.5 py-3 transition hover:border-brand/30">
+    <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2 rounded-xl border border-border bg-card/40 px-3.5 py-3 transition hover:border-primary/30">
       <div className="flex min-w-0 flex-[1_1_55%] items-center gap-3">
         <CompanyLogo name={followup.company} size={22} />
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm">
             <span className="font-medium text-foreground">{followup.company}</span>
-            {followup.role && <span className="text-muted"> · {followup.role}</span>}
+            {followup.role && <span className="text-muted-foreground"> · {followup.role}</span>}
           </p>
-          <p className="flex items-center gap-1 text-[11px] text-faint">
+          <p className="flex items-center gap-1 text-[11px] text-muted-foreground">
             <Clock className="size-3" /> {followup.appliedDate ? `applied ${followup.appliedDate}` : "follow-up due"}
           </p>
         </div>
@@ -80,7 +80,7 @@ export function FollowUpCard({ followup, onLogged }: { followup: FollowUp; onLog
           onClick={log}
           title={state === "error" && errorMsg ? errorMsg : undefined}
           className={cn(
-            "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md bg-surface-hover px-2.5 py-1.5 text-xs font-medium text-foreground transition hover:bg-brand-soft hover:text-brand max-sm:min-h-[44px]",
+            "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md bg-accent px-2.5 py-1.5 text-xs font-medium text-foreground transition hover:bg-accent hover:text-primary max-sm:min-h-[44px]",
             state === "error" && "text-red-500 hover:text-red-400",
           )}
         >
@@ -89,11 +89,11 @@ export function FollowUpCard({ followup, onLogged }: { followup: FollowUp; onLog
           <span className="sm:hidden">{state === "error" ? "Retry" : "Followed up"}</span>
         </button>
         {followup.num != null && (
-          <a href={`/pipeline/${followup.num}`} title="Open report" className="inline-flex shrink-0 items-center justify-center rounded p-1 text-faint transition hover:text-brand max-sm:min-h-[44px] max-sm:min-w-[44px]">
+          <a href={`/pipeline/${followup.num}`} title="Open report" className="inline-flex shrink-0 items-center justify-center rounded p-1 text-muted-foreground transition hover:text-primary max-sm:min-h-[44px] max-sm:min-w-[44px]">
             <FileText className="size-4" />
           </a>
         )}
-        <button type="button" onClick={() => setState("snoozed")} className="inline-flex shrink-0 items-center justify-center text-[11px] text-faint transition hover:text-foreground max-sm:min-h-[44px] max-sm:min-w-[44px]">
+        <button type="button" onClick={() => setState("snoozed")} className="inline-flex shrink-0 items-center justify-center text-[11px] text-muted-foreground transition hover:text-foreground max-sm:min-h-[44px] max-sm:min-w-[44px]">
           Snooze
         </button>
       </div>

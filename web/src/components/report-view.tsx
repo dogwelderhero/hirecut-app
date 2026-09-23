@@ -81,20 +81,20 @@ export function ReportView({
     <div className="mx-auto max-w-3xl px-6 py-8 xl:max-w-5xl 2xl:max-w-[1600px]">
       <Link
         href="/pipeline"
-        className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-brand"
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
       >
         <ArrowLeft className="size-4" /> Pipeline
       </Link>
 
       <header className="mt-5">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-faint">#{id}</p>
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">#{id}</p>
         <div className="mt-2 flex items-center gap-3">
           <CompanyLogo name={company?.logoName ?? meta?.title ?? `Report #${id}`} size={40} />
-          <h1 className="font-display text-3xl tracking-tight text-landing">
+          <h1 className="font-display text-3xl tracking-tight text-foreground">
             {company?.label ?? meta?.title ?? `Report #${id}`}
           </h1>
         </div>
-        {app?.role && <p className="mt-1 text-muted">{app.role}</p>}
+        {app?.role && <p className="mt-1 text-muted-foreground">{app.role}</p>}
 
         <div className="mt-4 flex flex-wrap items-center gap-2.5">
           {score && <Badge tone={scoreTone(score)}>{score}</Badge>}
@@ -128,15 +128,15 @@ export function ReportView({
         )}
 
         {(archetype || date || (url && url.startsWith("http"))) && (
-          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
             {archetype && <span className="max-w-full truncate">{archetype}</span>}
-            {date && <span className="tabular-nums text-faint">{date}</span>}
+            {date && <span className="tabular-nums text-muted-foreground">{date}</span>}
             {url && url.startsWith("http") && (
               <a
                 href={url}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-1 text-brand hover:underline max-sm:min-h-[44px]"
+                className="inline-flex items-center justify-center gap-1 text-primary hover:underline max-sm:min-h-[44px]"
               >
                 posting <ExternalLink className="size-3" />
               </a>
@@ -184,8 +184,8 @@ export function ReportView({
                 )}
 
                 {verdict && (
-                  <div className="rounded-2xl border border-brand/25 bg-brand-soft/50 px-5 py-4">
-                    <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.16em] text-brand/80">Verdict</p>
+                  <div className="rounded-2xl border border-primary/25 bg-accent/50 px-5 py-4">
+                    <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.16em] text-primary/80">Verdict</p>
                     <article className="report-prose [&_p]:font-medium [&_p]:text-foreground">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{verdict.content}</ReactMarkdown>
                     </article>
@@ -202,11 +202,11 @@ export function ReportView({
                     );
                   }
                   return (
-                    <details key={i} className="group mt-3 overflow-hidden rounded-xl border border-border bg-surface/30">
-                      <summary className="flex min-h-[44px] cursor-pointer list-none items-center gap-2 px-4 py-3 transition-colors hover:bg-surface-hover">
+                    <details key={i} className="group mt-3 overflow-hidden rounded-xl border border-border bg-card/30">
+                      <summary className="flex min-h-[44px] cursor-pointer list-none items-center gap-2 px-4 py-3 transition-colors hover:bg-accent">
                         <span className="text-sm font-medium">{cleanHeading(s.heading)}</span>
-                        <span className="hidden truncate text-xs text-faint sm:inline">{preview(s.content)}</span>
-                        <ChevronDown className="ml-auto size-4 shrink-0 text-faint transition-transform group-open:rotate-180" />
+                        <span className="hidden truncate text-xs text-muted-foreground sm:inline">{preview(s.content)}</span>
+                        <ChevronDown className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
                       </summary>
                       <div className="report-prose border-t border-border px-4 py-3">
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{s.content}</ReactMarkdown>
@@ -217,16 +217,16 @@ export function ReportView({
 
                 {machine.length > 0 && (
                   <>
-                    <div className="mt-6 flex items-center gap-3 text-[11px] uppercase tracking-[0.14em] text-faint">
+                    <div className="mt-6 flex items-center gap-3 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                       <span className="h-px flex-1 bg-border" />
                       Technical details · for developers
                       <span className="h-px flex-1 bg-border" />
                     </div>
                     {machine.map((s, i) => (
-                      <details key={i} className="group mt-2 overflow-hidden rounded-xl border border-border/60 bg-surface/20">
-                        <summary className="flex min-h-[44px] cursor-pointer list-none items-center gap-2 px-4 py-3 font-mono text-xs text-muted transition-colors hover:bg-surface-hover">
+                      <details key={i} className="group mt-2 overflow-hidden rounded-xl border border-border/60 bg-card/20">
+                        <summary className="flex min-h-[44px] cursor-pointer list-none items-center gap-2 px-4 py-3 font-mono text-xs text-muted-foreground transition-colors hover:bg-accent">
                           {cleanHeading(s.heading)}
-                          <ChevronDown className="ml-auto size-4 shrink-0 text-faint transition-transform group-open:rotate-180" />
+                          <ChevronDown className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
                         </summary>
                         <div className="report-prose border-t border-border/60 px-4 py-3 opacity-80">
                           <ReactMarkdown remarkPlugins={[remarkGfm]}>{s.content}</ReactMarkdown>
@@ -241,8 +241,8 @@ export function ReportView({
           <ScoreMethodology />
         </>
       ) : (
-        <div className="mt-8 flex items-center gap-3 rounded-2xl border border-dashed border-border bg-surface/30 p-5 text-sm text-muted">
-          <FileText className="size-5 shrink-0 text-faint" />
+        <div className="mt-8 flex items-center gap-3 rounded-2xl border border-dashed border-border bg-card/30 p-5 text-sm text-muted-foreground">
+          <FileText className="size-5 shrink-0 text-muted-foreground" />
           No report file found for #{id} in <code className="text-foreground">reports/</code>.
         </div>
       )}

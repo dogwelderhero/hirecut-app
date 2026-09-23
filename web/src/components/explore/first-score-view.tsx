@@ -118,38 +118,38 @@ export function FirstScoreView() {
       <style>{STYLE}</style>
       <div ref={panelRef} className="co-aha__card" onClick={(e) => e.stopPropagation()}>
         <div className="co-aha__glow" />
-        <button onClick={close} aria-label="Close" className="absolute right-3 top-3 z-10 rounded-md p-1.5 text-faint transition hover:text-foreground">
+        <button onClick={close} aria-label="Close" className="absolute right-3 top-3 z-10 rounded-md p-1.5 text-muted-foreground transition hover:text-foreground">
           <X className="size-4" />
         </button>
 
         <div className="relative px-7 pb-7 pt-8">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
-            <span className="text-faint">//</span> the job we found you — scored
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
+            <span className="text-muted-foreground">//</span> the job we found you — scored
           </p>
 
           <div className="mt-4 flex items-start gap-4">
             <div className="min-w-0 flex-1">
               <h2 className={`${instrumentSerif.className} truncate text-2xl leading-tight text-foreground`}>{role || company}</h2>
-              {role && <p className="truncate text-sm text-muted">{company}</p>}
+              {role && <p className="truncate text-sm text-muted-foreground">{company}</p>}
             </div>
             {score != null && (
               <div className="shrink-0 text-right">
                 <div
                   className={cn(
                     "co-aha__grade text-5xl font-semibold",
-                    tone === "good" ? "text-emerald-500" : tone === "warn" ? "text-amber-500" : tone === "bad" ? "text-red-400" : "text-muted",
+                    tone === "good" ? "text-emerald-500" : tone === "warn" ? "text-amber-500" : tone === "bad" ? "text-red-400" : "text-muted-foreground",
                   )}
                 >
                   {score}
                 </div>
-                <div className="text-[11px] uppercase tracking-wide text-faint">/ 5 fit</div>
+                <div className="text-[11px] uppercase tracking-wide text-muted-foreground">/ 5 fit</div>
               </div>
             )}
           </div>
 
           {/* THE WHY — the hero. A sentence that read THIS CV against THIS job. */}
-          <blockquote className={`${instrumentSerif.className} mt-5 border-l-2 border-brand/40 pl-4 text-[19px] leading-snug text-foreground`}>
-            <Sparkles className="mb-1 inline size-4 text-brand" /> {why}
+          <blockquote className={`${instrumentSerif.className} mt-5 border-l-2 border-primary/40 pl-4 text-[19px] leading-snug text-foreground`}>
+            <Sparkles className="mb-1 inline size-4 text-primary" /> {why}
           </blockquote>
 
           {legit && (
@@ -163,7 +163,7 @@ export function FirstScoreView() {
             </div>
           )}
 
-          <p className="mt-5 flex items-center gap-1.5 text-[12px] text-faint">
+          <p className="mt-5 flex items-center gap-1.5 text-[12px] text-muted-foreground">
             <Coins className="size-3.5" /> That ran on your own AI. Everything before it — finding this job — was free.
           </p>
 
@@ -173,7 +173,7 @@ export function FirstScoreView() {
                 close();
                 router.push("/pipeline?tab=EVALUATED");
               }}
-              className="inline-flex items-center gap-1.5 rounded-xl bg-brand px-4 py-2.5 text-sm font-semibold text-brand-foreground shadow-sm transition hover:brightness-110"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:brightness-110"
             >
               <FileText className="size-4" /> See the full report
             </button>
@@ -182,7 +182,7 @@ export function FirstScoreView() {
                 close();
                 router.push("/explore");
               }}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-surface/50 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-brand/40 hover:text-brand"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card/50 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-primary/40 hover:text-primary"
             >
               <Compass className="size-4" /> Find more like this
             </button>

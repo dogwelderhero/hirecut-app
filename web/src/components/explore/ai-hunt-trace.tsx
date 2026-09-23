@@ -56,18 +56,18 @@ export function AiHuntTrace({ trace }: { trace: AiTraceChunk[] }) {
   if (sentences.length === 0) return null;
 
   return (
-    <div className="w-full max-w-2xl rounded-2xl border border-border/70 bg-surface/80 text-left shadow-xl shadow-black/10 backdrop-blur-md">
+    <div className="w-full max-w-2xl rounded-2xl border border-border/70 bg-card/80 text-left shadow-xl shadow-black/10 backdrop-blur-md">
       <style>{STYLE}</style>
       <div className="flex items-center gap-2 border-b border-border/60 px-4 py-2.5">
         <span className="co-reason__dot" />
         <span className="text-[12px] font-medium text-foreground">Reasoning live</span>
-        <Sparkles className="ml-auto size-3.5 text-brand/70" />
+        <Sparkles className="ml-auto size-3.5 text-primary/70" />
       </div>
       <div ref={bodyRef} className="co-reason__body flex max-h-52 flex-col gap-2 overflow-y-auto px-4 py-3">
         {sentences.map((s, i) => (
           <p
             key={`${sentences.length}-${i}`}
-            className={cn("co-reason__line text-[13.5px] leading-relaxed", i === sentences.length - 1 ? "text-foreground" : "text-muted")}
+            className={cn("co-reason__line text-[13.5px] leading-relaxed", i === sentences.length - 1 ? "text-foreground" : "text-muted-foreground")}
           >
             {renderInline(s)}
           </p>

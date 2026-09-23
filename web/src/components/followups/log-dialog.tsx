@@ -1,12 +1,34 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Loader2, X } from "lucide-react";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 import { CHANNELS, localISODate, type CadenceEntry, type Channel } from "@/lib/followups";
-import { cn } from "@/lib/cn";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 // "Log" — the full-fidelity FollowUp entry (date, channel enum, contact,
 // notes). Appends one table row via /api/followups/log.
+//
+// Built on Radix Dialog: focus trap, scroll lock, Escape handling and the
+// aria-modal wiring come from the primitive, replacing the hand-rolled
+// overlay + window keydown listener this used to carry.
 export function LogDialog({
   entry,
   onClose,
@@ -24,14 +46,6 @@ export function LogDialog({
   const [notes, setNotes] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
 
   // Keep free text single-line and pipe-free BEFORE it leaves the client
   // (the API's cell() normalizes again server-side — defense in depth): the
@@ -71,59 +85,60 @@ export function LogDialog({
     }
   };
 
-  const inputCls =
-    "w-full rounded-md border border-border bg-surface/60 px-3 py-2 text-sm outline-none transition-colors placeholder:text-faint focus:border-brand/50 focus-visible:ring-2 focus-visible:ring-brand/40";
-
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label={`Log follow-up for ${entry.company}`}
-        className="w-full max-w-md rounded-2xl border border-border bg-surface p-5 shadow-xl"
-      >
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h2 className="font-display text-lg">Log follow-up</h2>
-            <p className="mt-0.5 text-sm text-muted">
-              {entry.company} · {entry.role} <span className="text-faint">(#{entry.num})</span>
-            </p>
-          </div>
-          <button type="button" onClick={onClose} aria-label="Close" className="rounded p-1 text-faint transition hover:text-foreground">
-            <X className="size-4" />
-          </button>
-        </div>
+    <Dialog open onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="font-display text-lg">Log follow-up</DialogTitle>
+          <DialogDescription>
+            {entry.company} · {entry.role} (#{entry.num})
+          </DialogDescription>
+        </DialogHeader>
 
-        <form onSubmit={submit} className="mt-4 space-y-3">
+        <form onSubmit={submit} className="space-y-3">
           <div className="grid grid-cols-2 gap-3">
-            <label className="block text-xs font-medium text-muted">
-              Date
-              <input type="date" required value={date} max={localISODate()} onChange={(e) => setDate(e.target.value)} className={cn(inputCls, "mt-1")} />
-            </label>
-            <label className="block text-xs font-medium text-muted">
-              Channel
-              <select value={channel} onChange={(e) => setChannel(e.target.value as Channel)} className={cn(inputCls, "mt-1")}>
-                {CHANNELS.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <div className="space-y-1">
+              <Label htmlFor="fu-date" className="text-xs">
+                Date
+              </Label>
+              <Input
+                id="fu-date"
+                type="date"
+                required
+                value={date}
+                max={localISODate()}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="fu-channel" className="text-xs">
+                Channel
+              </Label>
+              <Select value={channel} onValueChange={(v) => setChannel(v as Channel)}>
+                <SelectTrigger id="fu-channel" className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {CHANNELS.map((c) => (
+                    <SelectItem key={c} value={c}>
+                      {c}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
-          <label className="block text-xs font-medium text-muted">
-            Contact <span className="font-normal text-faint">(optional)</span>
-            <input
+
+          <div className="space-y-1">
+            <Label htmlFor="fu-contact" className="text-xs">
+              Contact <span className="font-normal text-muted-foreground">(optional)</span>
+            </Label>
+            <Input
+              id="fu-contact"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               placeholder="who you reached out to"
               list={entry.contacts.length ? `co-contacts-${entry.num}` : undefined}
-              className={cn(inputCls, "mt-1")}
             />
             {entry.contacts.length > 0 && (
               <datalist id={`co-contacts-${entry.num}`}>
@@ -134,32 +149,34 @@ export function LogDialog({
                 ))}
               </datalist>
             )}
-          </label>
-          <label className="block text-xs font-medium text-muted">
-            Notes <span className="font-normal text-faint">(optional)</span>
-            <textarea
+          </div>
+
+          <div className="space-y-1">
+            <Label htmlFor="fu-notes" className="text-xs">
+              Notes <span className="font-normal text-muted-foreground">(optional)</span>
+            </Label>
+            <Textarea
+              id="fu-notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
               placeholder="what you said, what you're waiting on…"
-              className={cn(inputCls, "mt-1 resize-none")}
+              className="resize-none"
             />
-          </label>
-          {error && <p className="text-xs text-red-500">{error}</p>}
-          <div className="flex justify-end gap-2 pt-1">
-            <button type="button" onClick={onClose} className="rounded-md px-3 py-2 text-sm text-muted transition hover:text-foreground">
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={saving}
-              className="inline-flex items-center gap-1.5 rounded-md bg-brand px-3 py-2 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-200 disabled:pointer-events-none disabled:opacity-60"
-            >
-              {saving && <Loader2 className="size-3.5 animate-spin" />} Log follow-up
-            </button>
           </div>
+
+          {error && <p className="text-xs text-destructive">{error}</p>}
+
+          <DialogFooter>
+            <Button type="button" variant="ghost" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button type="submit" disabled={saving}>
+              {saving && <Loader2 className="size-3.5 animate-spin" />} Log follow-up
+            </Button>
+          </DialogFooter>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -21,7 +21,7 @@ export function GeneratePdfButton({ n, company, pdfReady }: { n: string; company
 
   if (job?.status === "running")
     return (
-      <Link href={`/jobs/${job.id}`} className="inline-flex items-center justify-center gap-1.5 rounded-full border border-brand/40 bg-brand-soft px-3 py-1 text-xs font-medium text-brand max-sm:min-h-[44px]">
+      <Link href={`/jobs/${job.id}`} className="inline-flex items-center justify-center gap-1.5 rounded-full border border-primary/40 bg-accent px-3 py-1 text-xs font-medium text-primary max-sm:min-h-[44px]">
         <Loader2 className="size-3.5 animate-spin" /> Generating CV…
       </Link>
     );
@@ -41,7 +41,7 @@ export function GeneratePdfButton({ n, company, pdfReady }: { n: string; company
         <button
           onClick={generate}
           title="Regenerate the tailored CV"
-          className="inline-flex items-center justify-center rounded-full p-1 text-faint transition-colors hover:text-brand max-sm:min-h-[44px] max-sm:min-w-[44px]"
+          className="inline-flex items-center justify-center rounded-full p-1 text-muted-foreground transition-colors hover:text-primary max-sm:min-h-[44px] max-sm:min-w-[44px]"
         >
           <RotateCcw className="size-3" />
         </button>
@@ -55,7 +55,7 @@ export function GeneratePdfButton({ n, company, pdfReady }: { n: string; company
     <span className="inline-flex items-center gap-1.5">
       <button
         onClick={generate}
-        className="inline-flex items-center justify-center gap-1.5 rounded-full border border-border px-3 py-1 text-xs font-medium text-muted transition-colors hover:border-brand/40 hover:text-brand max-sm:min-h-[44px]"
+        className="inline-flex items-center justify-center gap-1.5 rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary max-sm:min-h-[44px]"
         title="Generate an ATS-optimized CV tailored to this role"
       >
         <FileDown className="size-3.5" /> Generate tailored CV (PDF)

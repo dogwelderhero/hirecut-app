@@ -17,10 +17,10 @@ export default function JobPage({ params }: { params: Promise<{ id: string }> })
   if (!job) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-10">
-        <Link href="/pipeline" className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-brand">
+        <Link href="/pipeline" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary">
           <ArrowLeft className="size-4" /> Pipeline
         </Link>
-        <p className="mt-8 text-sm text-muted">
+        <p className="mt-8 text-sm text-muted-foreground">
           This worker is no longer in memory (it finished earlier or the page was reloaded).
         </p>
       </div>
@@ -29,28 +29,28 @@ export default function JobPage({ params }: { params: Promise<{ id: string }> })
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-8">
-      <Link href="/pipeline" className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-brand">
+      <Link href="/pipeline" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary">
         <ArrowLeft className="size-4" /> Pipeline
       </Link>
 
-      <section className="dot-bg relative mt-5 overflow-hidden rounded-2xl border border-border bg-surface/40 px-6 py-7">
+      <section className="dot-bg relative mt-5 overflow-hidden rounded-2xl border border-border bg-card/40 px-6 py-7">
         {job.status === "running" && <HeroGlow />}
         <div className="relative z-10">
-          <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-faint">
+          <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
             {job.status === "running" ? (
-              <><Loader2 className="size-3 animate-spin text-brand" /> working</>
+              <><Loader2 className="size-3 animate-spin text-primary" /> working</>
             ) : job.status === "done" ? (
               <><Check className="size-3 text-emerald-500" /> done</>
             ) : (
               <><X className="size-3 text-red-400" /> error</>
             )}
           </p>
-          <h1 className="mt-2 font-display text-2xl tracking-tight text-landing">{job.title}</h1>
-          {job.subtitle && <p className="mt-1 text-sm text-muted">{job.subtitle}</p>}
+          <h1 className="mt-2 font-display text-2xl tracking-tight text-foreground">{job.title}</h1>
+          {job.subtitle && <p className="mt-1 text-sm text-muted-foreground">{job.subtitle}</p>}
           {job.result?.score != null && (
             <div className="mt-3 flex flex-wrap items-center gap-2.5">
               <Badge tone={job.result.tone}>{job.result.score}/5</Badge>
-              {job.result.summary && <span className="text-sm text-muted">{job.result.summary}</span>}
+              {job.result.summary && <span className="text-sm text-muted-foreground">{job.result.summary}</span>}
             </div>
           )}
         </div>
@@ -60,26 +60,26 @@ export default function JobPage({ params }: { params: Promise<{ id: string }> })
         {job.steps.map((s, i) => (
           <li key={i} className="flex items-start gap-2.5 text-sm">
             {s.kind === "tool" ? (
-              <Wrench className="mt-0.5 size-3.5 shrink-0 text-brand" />
+              <Wrench className="mt-0.5 size-3.5 shrink-0 text-primary" />
             ) : (
-              <CircleDot className="mt-0.5 size-3.5 shrink-0 text-faint" />
+              <CircleDot className="mt-0.5 size-3.5 shrink-0 text-muted-foreground" />
             )}
-            <span className={s.kind === "tool" ? "font-medium" : "text-muted"}>
+            <span className={s.kind === "tool" ? "font-medium" : "text-muted-foreground"}>
               {s.kind === "tool" ? `Using ${s.label}` : s.label}
             </span>
           </li>
         ))}
         {job.status === "running" && (
-          <li className="flex items-center gap-2.5 text-sm text-muted">
-            <Loader2 className="size-3.5 animate-spin text-brand" /> thinking…
+          <li className="flex items-center gap-2.5 text-sm text-muted-foreground">
+            <Loader2 className="size-3.5 animate-spin text-primary" /> thinking…
           </li>
         )}
       </ol>
 
       {job.text && (
         <div className="mt-8">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Output</h2>
-          <div className="report-prose mt-3 rounded-2xl border border-border bg-surface/40 p-5">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Output</h2>
+          <div className="report-prose mt-3 rounded-2xl border border-border bg-card/40 p-5">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{job.text}</ReactMarkdown>
           </div>
         </div>

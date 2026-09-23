@@ -51,7 +51,7 @@ export function TriageRow({
     <li
       className={cn(
         "flex items-center gap-2.5 px-3 py-2.5 transition-colors sm:gap-3 sm:px-4",
-        selected ? "bg-brand-soft/50" : "hover:bg-surface-hover",
+        selected ? "bg-accent/50" : "hover:bg-accent",
         evaluated && "opacity-95",
       )}
     >
@@ -61,7 +61,7 @@ export function TriageRow({
         checked={selected}
         onChange={onToggleSelect}
         aria-label={`Select ${job.company} ${job.role}`}
-        className="size-4 shrink-0 accent-brand max-sm:min-h-[44px] max-sm:min-w-[24px]"
+        className="size-4 shrink-0 accent-primary max-sm:min-h-[44px] max-sm:min-w-[24px]"
       />
 
       <CompanyLogo name={job.company} size={20} />
@@ -69,14 +69,14 @@ export function TriageRow({
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm">
           <span className="font-medium text-foreground">{job.company}</span>
-          <span className="text-muted"> · {job.role}</span>
+          <span className="text-muted-foreground"> · {job.role}</span>
         </p>
-        <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-faint">
+        <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-muted-foreground">
           {job.location && <span className="truncate">{job.location}</span>}
-          {source && <span className="rounded bg-surface-hover px-1 py-px font-medium text-muted">{ATS_LABEL[source]}</span>}
+          {source && <span className="rounded bg-accent px-1 py-px font-medium text-muted-foreground">{ATS_LABEL[source]}</span>}
           {ago && <span>{ago}</span>}
           {/* 🔴 CRUDA: honest "not scored" — no fabricated match%. */}
-          {!evaluated && <span className="italic text-muted">not scored</span>}
+          {!evaluated && <span className="italic text-muted-foreground">not scored</span>}
         </p>
       </div>
 
@@ -85,8 +85,8 @@ export function TriageRow({
         <Link href={`/jobs/${scored!.jobId}`} className="flex shrink-0 items-center gap-1.5 text-xs">
           {scored!.running ? (
             <>
-              <Loader2 className="size-3.5 animate-spin text-brand" />
-              <span className="text-brand max-sm:hidden">Scoring…</span>
+              <Loader2 className="size-3.5 animate-spin text-primary" />
+              <span className="text-primary max-sm:hidden">Scoring…</span>
             </>
           ) : (
             <Badge tone={scored!.tone}>{scored!.score}/5</Badge>
@@ -101,7 +101,7 @@ export function TriageRow({
             aria-pressed={shortlisted}
             className={cn(
               "inline-flex items-center justify-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition-colors max-sm:min-h-[44px] max-sm:min-w-[44px]",
-              shortlisted ? "text-brand" : "text-muted hover:bg-surface-hover hover:text-brand",
+              shortlisted ? "text-primary" : "text-muted-foreground hover:bg-accent hover:text-primary",
             )}
           >
             {shortlisted ? <BookmarkCheck className="size-4" /> : <Bookmark className="size-4" />}
@@ -111,7 +111,7 @@ export function TriageRow({
             type="button"
             onClick={onSkip}
             title="Skip — hide from the inbox"
-            className="inline-flex items-center justify-center rounded-md p-1 text-faint transition-colors hover:bg-surface-hover hover:text-foreground max-sm:min-h-[44px] max-sm:min-w-[44px]"
+            className="inline-flex items-center justify-center rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground max-sm:min-h-[44px] max-sm:min-w-[44px]"
           >
             <X className="size-4" />
           </button>

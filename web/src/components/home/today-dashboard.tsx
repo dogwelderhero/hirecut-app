@@ -85,41 +85,41 @@ export function TodayDashboard({
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-10 max-sm:pb-24">
-      <section className="dot-bg relative overflow-hidden rounded-2xl border border-border bg-surface/40 px-7 py-10 md:px-10 md:py-12">
+      <section className="dot-bg relative overflow-hidden rounded-2xl border border-border bg-card/40 px-7 py-10 md:px-10 md:py-12">
         <HeroGlow />
         {/* Readability scrim between the animated glow (z-0) and the copy (z-10). */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-surface/55 backdrop-blur-[2px] dark:bg-background/45" />
+        <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-card/55 backdrop-blur-[2px] dark:bg-background/45" />
         <div className="relative z-10">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
-            <span className="text-faint">//</span> today · <span className="tabular-nums">{dateLabel}</span>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            <span className="text-muted-foreground">//</span> today · <span className="tabular-nums">{dateLabel}</span>
           </p>
-          <h1 className={`${instrumentSerif.className} mt-3 text-4xl leading-[1.05] text-landing md:text-5xl`}>
+          <h1 className={`${instrumentSerif.className} mt-3 text-4xl leading-[1.05] text-foreground md:text-5xl`}>
             {allClear ? (
               <>You&apos;re all caught up.</>
             ) : (
               <>
                 {newThisWeek > 0 && (
                   <>
-                    <span className="text-brand tabular-nums">{newThisWeek}</span> new match{newThisWeek === 1 ? "" : "es"} this week
+                    <span className="text-primary tabular-nums">{newThisWeek}</span> new match{newThisWeek === 1 ? "" : "es"} this week
                   </>
                 )}
-                {newThisWeek > 0 && overdue > 0 && <span className="text-faint"> · </span>}
+                {newThisWeek > 0 && overdue > 0 && <span className="text-muted-foreground"> · </span>}
                 {overdue > 0 && (
                   <>
-                    <span className="text-brand tabular-nums">{overdue}</span> follow-up{overdue === 1 ? "" : "s"} due
+                    <span className="text-primary tabular-nums">{overdue}</span> follow-up{overdue === 1 ? "" : "s"} due
                   </>
                 )}
               </>
             )}
           </h1>
-          <p className="mt-4 max-w-xl text-sm text-muted">
+          <p className="mt-4 max-w-xl text-sm text-muted-foreground">
             {allClear ? "I'll keep scanning the market in the background and surface anything that fits." : "Your action queue for today — discovery and follow-ups, in one place."}
           </p>
           <div className="mt-6 flex flex-wrap gap-2.5">
-            <Link href="/explore" className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-medium text-brand-foreground transition hover:bg-brand-200 max-sm:min-h-[44px]">
+            <Link href="/explore" className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 max-sm:min-h-[44px]">
               Find new roles <ArrowRight className="size-4" />
             </Link>
-            <Link href="/pipeline" className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition hover:border-brand/40 hover:text-brand max-sm:min-h-[44px]">
+            <Link href="/pipeline" className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition hover:border-primary/40 hover:text-primary max-sm:min-h-[44px]">
               Open pipeline
             </Link>
           </div>
@@ -144,10 +144,10 @@ export function TodayDashboard({
           // Nothing is due — say so honestly instead of an empty "due" block,
           // but still surface what's next so the queue isn't silent (#86).
           <Section icon={Bell} title="Next follow-up" hint="Nothing due yet">
-            <p className="text-sm text-muted">
+            <p className="text-sm text-muted-foreground">
               <span className="font-medium text-foreground">{nextUpcoming.company}</span>
               {nextUpcoming.role && <span> · {nextUpcoming.role}</span>}
-              {nextUpcoming.nextFollowupDate && <span className="text-faint"> — upcoming {nextUpcoming.nextFollowupDate}</span>}
+              {nextUpcoming.nextFollowupDate && <span className="text-muted-foreground"> — upcoming {nextUpcoming.nextFollowupDate}</span>}
             </p>
           </Section>
         )
@@ -173,7 +173,7 @@ export function TodayDashboard({
             ))}
           </div>
           {fresh.length > 6 && (
-            <Link href="/explore?view=fresh" className="mt-3 inline-flex items-center text-sm text-muted transition hover:text-brand max-sm:min-h-[44px]">
+            <Link href="/explore?view=fresh" className="mt-3 inline-flex items-center text-sm text-muted-foreground transition hover:text-primary max-sm:min-h-[44px]">
               See all {freshCount} →
             </Link>
           )}
@@ -181,10 +181,10 @@ export function TodayDashboard({
       )}
 
       {allClear && (
-        <div className="mt-8 rounded-2xl border border-border bg-surface/30 px-6 py-10 text-center">
-          <Sparkles className="mx-auto size-6 text-brand" />
-          <p className="mx-auto mt-3 max-w-md text-sm text-muted">
-            Nothing needs you right now. Run a <Link href="/explore" className="text-brand hover:underline">free scan</Link> to surface this week&apos;s roles, or check your <Link href="/pipeline" className="text-brand hover:underline">pipeline</Link>.
+        <div className="mt-8 rounded-2xl border border-border bg-card/30 px-6 py-10 text-center">
+          <Sparkles className="mx-auto size-6 text-primary" />
+          <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
+            Nothing needs you right now. Run a <Link href="/explore" className="text-primary hover:underline">free scan</Link> to surface this week&apos;s roles, or check your <Link href="/pipeline" className="text-primary hover:underline">pipeline</Link>.
           </p>
         </div>
       )}
@@ -196,9 +196,9 @@ function Section({ icon: Icon, title, hint, children }: { icon: React.ComponentT
   return (
     <section className="mt-10">
       <div className="mb-3 flex items-center gap-2">
-        <Icon className="size-4 text-brand" />
-        <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-muted">{title}</h2>
-        <span className="text-xs text-faint">· {hint}</span>
+        <Icon className="size-4 text-primary" />
+        <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">{title}</h2>
+        <span className="text-xs text-muted-foreground">· {hint}</span>
       </div>
       {children}
     </section>

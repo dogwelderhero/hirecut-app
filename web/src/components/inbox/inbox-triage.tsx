@@ -206,7 +206,7 @@ export function InboxTriage({ inbox }: { inbox: InboxJob[] }) {
           {capped ? "Fresh — worth a look" : anyFacet ? `${filtered.length} match${filtered.length === 1 ? "" : "es"}` : "All roles"}
         </p>
         {hiddenCount > 0 && (
-          <button type="button" onClick={() => setHidden([])} className="text-xs text-faint transition-colors hover:text-foreground">
+          <button type="button" onClick={() => setHidden([])} className="text-xs text-muted-foreground transition-colors hover:text-foreground">
             {hiddenCount} hidden · restore
           </button>
         )}
@@ -214,19 +214,19 @@ export function InboxTriage({ inbox }: { inbox: InboxJob[] }) {
 
       {/* multi-select action bar */}
       {selected.size > 0 && (
-        <div className="mt-2 flex items-center gap-3 rounded-lg border border-brand/30 bg-brand-soft px-3 py-2 text-sm">
-          <span className="font-medium text-brand tabular-nums">{selected.size} selected</span>
-          <button type="button" onClick={saveSelected} className="rounded-md bg-brand px-2.5 py-1 text-xs font-medium text-brand-foreground max-sm:min-h-[44px]">
+        <div className="mt-2 flex items-center gap-3 rounded-lg border border-primary/30 bg-accent px-3 py-2 text-sm">
+          <span className="font-medium text-primary tabular-nums">{selected.size} selected</span>
+          <button type="button" onClick={saveSelected} className="rounded-md bg-primary px-2.5 py-1 text-xs font-medium text-primary-foreground max-sm:min-h-[44px]">
             Save to shortlist
           </button>
-          <button type="button" onClick={() => setSelected(new Set())} className="text-xs text-muted hover:text-foreground max-sm:min-h-[44px]">
+          <button type="button" onClick={() => setSelected(new Set())} className="text-xs text-muted-foreground hover:text-foreground max-sm:min-h-[44px]">
             Clear
           </button>
         </div>
       )}
 
       {visible.length > 0 ? (
-        <ul className="mt-3 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface/40">
+        <ul className="mt-3 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card/40">
           {visible.map((e) => (
             <TriageRow
               key={e.job.url}
@@ -243,9 +243,9 @@ export function InboxTriage({ inbox }: { inbox: InboxJob[] }) {
           ))}
         </ul>
       ) : (
-        <div className="mt-3 rounded-2xl border border-dashed border-border bg-surface/30 px-6 py-10 text-center">
+        <div className="mt-3 rounded-2xl border border-dashed border-border bg-card/30 px-6 py-10 text-center">
           <p className="font-display text-lg">No matches</p>
-          <p className="mx-auto mt-1 max-w-sm text-sm text-muted">Loosen the filters to see more of your inbox.</p>
+          <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">Loosen the filters to see more of your inbox.</p>
         </div>
       )}
 
@@ -254,7 +254,7 @@ export function InboxTriage({ inbox }: { inbox: InboxJob[] }) {
         <button
           type="button"
           onClick={() => setShowAll(true)}
-          className="mt-3 inline-flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-surface/40 py-2.5 text-sm font-medium text-muted transition-colors hover:border-brand/40 hover:text-brand max-sm:min-h-[44px]"
+          className="mt-3 inline-flex w-full items-center justify-center gap-1 rounded-xl border border-border bg-card/40 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary max-sm:min-h-[44px]"
         >
           See all {ordered.length} in inbox →
         </button>
@@ -262,15 +262,15 @@ export function InboxTriage({ inbox }: { inbox: InboxJob[] }) {
 
       {/* empty-shortlist guidance (only once there's nothing saved) */}
       {shortlist.length === 0 && (
-        <p className="mt-4 text-center text-xs text-faint">Save roles worth a look, then score them together — one token spend.</p>
+        <p className="mt-4 text-center text-xs text-muted-foreground">Save roles worth a look, then score them together — one token spend.</p>
       )}
 
       {/* undo toast (sits above the tray) */}
       {undo && (
         <div className={cn("fixed inset-x-0 z-40 flex justify-center px-4", shortlist.length > 0 ? "bottom-24 sm:bottom-24" : "bottom-6")}>
-          <div className="inline-flex items-center gap-3 rounded-full border border-border bg-surface px-4 py-2 text-sm shadow-lg">
-            <span className="text-muted">{undo.label}</span>
-            <button type="button" onClick={() => { undo.fn(); setUndo(null); }} className="inline-flex items-center gap-1 font-medium text-brand max-sm:min-h-[44px]">
+          <div className="inline-flex items-center gap-3 rounded-full border border-border bg-card px-4 py-2 text-sm shadow-lg">
+            <span className="text-muted-foreground">{undo.label}</span>
+            <button type="button" onClick={() => { undo.fn(); setUndo(null); }} className="inline-flex items-center gap-1 font-medium text-primary max-sm:min-h-[44px]">
               <Undo2 className="size-3.5" /> Undo
             </button>
           </div>

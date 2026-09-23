@@ -106,7 +106,7 @@ export function relativeDays(daysUntil: number): string {
 
 /** 7/14-day escalation for "days since" cells: amber bold ≥7, red bold ≥14. */
 export function daysHeatClass(days: number | null): string {
-  if (days == null) return "text-faint";
+  if (days == null) return "text-muted-foreground";
   if (days >= 14) return "font-bold text-red-600 dark:text-red-400";
   if (days >= 7) return "font-bold text-amber-600 dark:text-amber-400";
   return "";

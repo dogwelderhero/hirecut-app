@@ -32,13 +32,13 @@ export function StatCard({
     <Link
       href={href}
       className={cn(
-        "group relative overflow-hidden rounded-2xl border border-border bg-surface/50 bg-origin-border p-5 shadow-lg transition-colors",
+        "group relative overflow-hidden rounded-2xl border border-border bg-card/50 bg-origin-border p-5 shadow-lg transition-colors",
         CORNERS[corner],
-        "from-brand/10 via-transparent to-transparent",
-        "hover:border-brand/40 hover:bg-surface-hover group-hover:from-brand/20",
+        "from-primary/10 via-transparent to-transparent",
+        "hover:border-primary/40 hover:bg-accent group-hover:from-primary/20",
       )}
     >
-      <Icon className="size-5 text-brand" />
+      <Icon className="size-5 text-primary" />
       <div
         className={cn(
           "mt-3 text-4xl leading-none tabular-nums",
@@ -48,7 +48,7 @@ export function StatCard({
         {value}
       </div>
       <div className="mt-2 text-sm text-foreground">{label}</div>
-      <div className="text-xs text-faint">{hint}</div>
+      <div className="text-xs text-muted-foreground">{hint}</div>
     </Link>
   );
 }

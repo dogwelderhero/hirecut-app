@@ -99,13 +99,13 @@ export function ConfigForm() {
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-10">
-      <h1 className="font-display text-2xl tracking-tight text-landing">Config</h1>
-      <p className="mt-1 text-sm text-muted">
+      <h1 className="font-display text-2xl tracking-tight text-foreground">Config</h1>
+      <p className="mt-1 text-sm text-muted-foreground">
         Run career-ops on your own AI, right on your computer. Your CV and data never leave your machine.
       </p>
 
       {/* Engine mode */}
-      <label className="mt-8 mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+      <label className="mt-8 mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
         AI Engine
       </label>
       <div className="grid gap-2 sm:grid-cols-3">
@@ -137,18 +137,18 @@ export function ConfigForm() {
       <div className="mt-6">
         {mode === "cli" && (
           <div>
-            <p className="mb-1 text-sm text-muted">
+            <p className="mb-1 text-sm text-muted-foreground">
               career-ops uses an AI tool you already have — signed in, your own usage, nothing to paste.
             </p>
-            <p className="mb-3 text-xs text-faint">Works with Claude Code, Codex, OpenCode and more — free ones work great.</p>
+            <p className="mb-3 text-xs text-muted-foreground">Works with Claude Code, Codex, OpenCode and more — free ones work great.</p>
             {clis === null ? (
-              <div className="flex items-center gap-2 text-sm text-muted">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Loader2 className="size-4 animate-spin" /> Checking what&apos;s on your computer…
               </div>
             ) : installed.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-border bg-surface/30 p-4 text-sm text-muted">
+              <div className="rounded-xl border border-dashed border-border bg-card/30 p-4 text-sm text-muted-foreground">
                 No AI tool yet? Free options like <span className="text-foreground">OpenCode</span> with Qwen or GLM work great.{" "}
-                <a href="https://career-ops.org/docs/free-ai-engine" target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 text-brand hover:underline">
+                <a href="https://career-ops.org/docs/free-ai-engine" target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 text-primary hover:underline">
                   Get one free <ExternalLink className="size-3" />
                 </a>
               </div>
@@ -159,10 +159,10 @@ export function ConfigForm() {
                   const rowClassName = cn(
                     "flex items-center gap-3 rounded-xl border px-4 py-3 text-sm transition-colors",
                     selected
-                      ? "border-brand/50 bg-brand-soft"
+                      ? "border-primary/50 bg-accent"
                       : c.installed
-                        ? "border-border bg-surface/50"
-                        : "border-border/60 bg-surface/20",
+                        ? "border-border bg-card/50"
+                        : "border-border/60 bg-card/20",
                   );
 
                   if (c.installed) {
@@ -179,9 +179,9 @@ export function ConfigForm() {
                           <span className={cn("font-medium", selected ? "text-foreground" : "")}>
                             {c.name}
                           </span>
-                          <span className="font-mono text-xs text-faint">{c.run}</span>
+                          <span className="font-mono text-xs text-muted-foreground">{c.run}</span>
                         </span>
-                        <span className="hidden max-w-[40%] shrink-0 truncate text-xs text-faint sm:block">
+                        <span className="hidden max-w-[40%] shrink-0 truncate text-xs text-muted-foreground sm:block">
                           {c.path}
                         </span>
                       </button>
@@ -193,22 +193,22 @@ export function ConfigForm() {
                       key={c.id}
                       className={rowClassName}
                     >
-                      <CircleDashed className="size-4 shrink-0 text-faint" />
+                      <CircleDashed className="size-4 shrink-0 text-muted-foreground" />
                       <button
                         type="button"
                         disabled
                         className="flex flex-1 items-center gap-2 text-left max-sm:min-h-[44px] cursor-default"
                       >
-                        <span className="font-medium text-muted">
+                        <span className="font-medium text-muted-foreground">
                           {c.name}
                         </span>
-                        <span className="font-mono text-xs text-faint">{c.run}</span>
+                        <span className="font-mono text-xs text-muted-foreground">{c.run}</span>
                       </button>
                       <a
                         href={c.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex shrink-0 items-center justify-center gap-1 text-xs text-brand hover:underline max-sm:min-h-[44px]"
+                        className="inline-flex shrink-0 items-center justify-center gap-1 text-xs text-primary hover:underline max-sm:min-h-[44px]"
                       >
                         Install <ExternalLink className="size-3" />
                       </a>
@@ -216,12 +216,12 @@ export function ConfigForm() {
                   );
                 })}
                 {installed.length === 0 && (
-                  <p className="rounded-xl border border-dashed border-border bg-surface/30 p-4 text-xs text-muted">
+                  <p className="rounded-xl border border-dashed border-border bg-card/30 p-4 text-xs text-muted-foreground">
                     No supported CLI found on your PATH. Install one (e.g. Claude Code, Gemini CLI, OpenCode) to get started.
                   </p>
                 )}
-                <p className="mt-2 text-[11px] leading-relaxed text-faint">
-                  Best on <span className="text-muted">Claude Code</span> (live progress, the agentic apply + AI search,
+                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+                  Best on <span className="text-muted-foreground">Claude Code</span> (live progress, the agentic apply + AI search,
                   reliable evaluation persistence). Other CLIs work for the core flows with reduced features.
                 </p>
               </div>
@@ -232,7 +232,7 @@ export function ConfigForm() {
         {mode === "key" && (
           <div className="space-y-5">
             <div>
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 Provider
               </label>
               <div className="grid gap-2 sm:grid-cols-2">
@@ -244,8 +244,8 @@ export function ConfigForm() {
                     className={cn(
                       "rounded-xl border px-4 py-2.5 text-left text-sm transition-colors",
                       provider === p.id
-                        ? "border-brand/50 bg-brand-soft text-foreground"
-                        : "border-border bg-surface/50 text-muted hover:bg-surface-hover hover:text-foreground",
+                        ? "border-primary/50 bg-accent text-foreground"
+                        : "border-border bg-card/50 text-muted-foreground hover:bg-accent hover:text-foreground",
                     )}
                   >
                     {p.label}
@@ -254,19 +254,19 @@ export function ConfigForm() {
               </div>
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 Paste an AI key
               </label>
-              <p className="mb-2 text-xs text-faint">Bring a key from OpenAI, Anthropic, and others.</p>
+              <p className="mb-2 text-xs text-muted-foreground">Bring a key from OpenAI, Anthropic, and others.</p>
               <input
                 type="password"
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
                 placeholder="sk-…"
                 autoComplete="off"
-                className="w-full rounded-xl border border-border bg-surface/60 px-4 py-2.5 font-mono text-sm outline-none transition-colors placeholder:text-faint focus:border-brand/50"
+                className="w-full rounded-xl border border-border bg-card/60 px-4 py-2.5 font-mono text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/50"
               />
-              <p className="mt-2 text-xs text-faint">
+              <p className="mt-2 text-xs text-muted-foreground">
                 Stored only in this browser — never sent anywhere but your chosen provider.
               </p>
             </div>
@@ -274,24 +274,24 @@ export function ConfigForm() {
         )}
 
         {mode === "manual" && (
-          <div className="rounded-xl border border-dashed border-border bg-surface/30 p-4 text-sm text-muted">
+          <div className="rounded-xl border border-dashed border-border bg-card/30 p-4 text-sm text-muted-foreground">
             The easiest way in — no keys, nothing to set up. On the roadmap.
           </div>
         )}
       </div>
 
       {/* Appearance / privacy */}
-      <label className="mt-8 mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+      <label className="mt-8 mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
         Appearance
       </label>
       <button
         type="button"
         onClick={() => setLogos((v) => !v)}
-        className="flex w-full items-center justify-between gap-4 rounded-xl border border-border bg-surface/50 px-4 py-3 text-left transition-colors hover:bg-surface-hover"
+        className="flex w-full items-center justify-between gap-4 rounded-xl border border-border bg-card/50 px-4 py-3 text-left transition-colors hover:bg-accent"
       >
         <span className="min-w-0">
           <span className="block text-sm font-medium text-foreground">Company logos</span>
-          <span className="mt-0.5 block text-xs text-faint">
+          <span className="mt-0.5 block text-xs text-muted-foreground">
             Show each company&apos;s real logo. Fetched once through your local server and cached on
             disk — only the employer domain is sent to a third party. Off = colored monograms only.
           </span>
@@ -299,7 +299,7 @@ export function ConfigForm() {
         <span
           className={cn(
             "relative h-6 w-11 shrink-0 rounded-full transition-colors",
-            logos ? "bg-brand" : "bg-surface-hover",
+            logos ? "bg-primary" : "bg-accent",
           )}
         >
           <span
@@ -317,12 +317,12 @@ export function ConfigForm() {
         <button
           type="button"
           onClick={save}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-5 py-2 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-200 max-sm:min-h-[44px]"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 max-sm:min-h-[44px]"
         >
           {saved ? <Check className="size-4" /> : null}
           {saved ? "Saved" : "Save config"}
         </button>
-        <span className="text-xs text-faint">Local-first · on our roadmap</span>
+        <span className="text-xs text-muted-foreground">Local-first · on our roadmap</span>
       </div>
     </div>
   );
@@ -351,15 +351,15 @@ function ModeCard({
       className={cn(
         "flex flex-col gap-1.5 rounded-xl border px-4 py-3 text-left transition-colors",
         disabled
-          ? "cursor-not-allowed border-border bg-surface/30 opacity-55"
+          ? "cursor-not-allowed border-border bg-card/30 opacity-55"
           : active
-            ? "border-brand/50 bg-brand-soft"
-            : "border-border bg-surface/50 hover:bg-surface-hover",
+            ? "border-primary/50 bg-accent"
+            : "border-border bg-card/50 hover:bg-accent",
       )}
     >
-      <Icon className={cn("size-4", active && !disabled ? "text-brand" : "text-muted")} />
+      <Icon className={cn("size-4", active && !disabled ? "text-primary" : "text-muted-foreground")} />
       <span className="text-sm font-medium text-foreground">{title}</span>
-      <span className="text-xs text-faint">{hint}</span>
+      <span className="text-xs text-muted-foreground">{hint}</span>
     </button>
   );
 }

@@ -18,14 +18,14 @@ export function ExploreModeToggle({
   cliConfigured: boolean;
 }) {
   return (
-    <div className="flex w-full rounded-xl border border-border bg-surface/40 p-1 sm:inline-flex sm:w-auto">
+    <div className="flex w-full rounded-xl border border-border bg-card/40 p-1 sm:inline-flex sm:w-auto">
       <button
         type="button"
         onClick={() => onChange("scan")}
         aria-pressed={mode === "scan"}
         className={cn(
           "flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 py-2 text-sm transition-colors sm:flex-none sm:gap-2 sm:px-3 max-sm:min-h-[44px]",
-          mode === "scan" ? "bg-brand-soft text-brand" : "text-muted hover:text-foreground",
+          mode === "scan" ? "bg-accent text-primary" : "text-muted-foreground hover:text-foreground",
         )}
       >
         <Compass className="size-4" />
@@ -40,7 +40,7 @@ export function ExploreModeToggle({
         aria-pressed={mode === "ai"}
         className={cn(
           "flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 py-2 text-sm transition-colors sm:flex-none sm:gap-2 sm:px-3 max-sm:min-h-[44px]",
-          mode === "ai" ? "bg-brand-soft text-brand" : "text-muted hover:text-foreground",
+          mode === "ai" ? "bg-accent text-primary" : "text-muted-foreground hover:text-foreground",
         )}
       >
         <Sparkles className="size-4" />
@@ -48,7 +48,7 @@ export function ExploreModeToggle({
         <span className="hidden sm:inline-flex">
           <CostBadge kind="spend" size="xs" />
         </span>
-        {!cliConfigured && <span className="text-[10px] text-faint">needs a CLI</span>}
+        {!cliConfigured && <span className="text-[10px] text-muted-foreground">needs a CLI</span>}
       </button>
     </div>
   );

@@ -59,7 +59,7 @@ function SourceChip({ ats, s }: { ats: AtsSource; s?: SourceState }) {
       )}
       <span className="text-[13px] font-medium text-foreground">{ATS_LABEL[ats]}</span>
       <div className="ml-auto flex flex-col items-end gap-1">
-        {state === "noisy" && <span className="text-[10px] text-faint">~{s?.unreachable} skipped</span>}
+        {state === "noisy" && <span className="text-[10px] text-muted-foreground">~{s?.unreachable} skipped</span>}
         <div className="co-src__track">
           <div className="co-src__bar" style={{ width: `${pct}%` }} />
         </div>
@@ -86,7 +86,7 @@ export function DiscoveringState() {
 
         <div>
           <div className={`${instrumentSerif.className} co-disc__counter text-foreground`}>{shown}</div>
-          <p className="mt-1 text-sm text-muted">
+          <p className="mt-1 text-sm text-muted-foreground">
             {phase === "revealing" ? "fresh roles found — free" : matchCount > 0 ? "fresh roles and counting…" : "scanning the network…"}
           </p>
         </div>
@@ -97,7 +97,7 @@ export function DiscoveringState() {
           ))}
         </div>
 
-        <p className="flex items-center gap-2 text-[13px] text-faint">
+        <p className="flex items-center gap-2 text-[13px] text-muted-foreground">
           <Loader2 className="size-3.5 animate-spin" />
           {status || "Casting the net across the ATS network…"}
         </p>

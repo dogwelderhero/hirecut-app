@@ -37,7 +37,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       onClick={toggle}
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
       title={dark ? "Light mode" : "Dark mode"}
-      className={cn("text-muted", className)}
+      className={cn("text-muted-foreground", className)}
     >
       {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
     </Button>

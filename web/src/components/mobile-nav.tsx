@@ -107,7 +107,7 @@ export function MobileNav() {
       <header className="co-mnav flex items-center gap-2 border-b border-border px-4 pb-3 md:hidden">
         <Link href="/" className="flex min-h-[44px] items-center gap-2" aria-label="career-ops home">
           <CoMark size={26} />
-          <span className={`${instrumentSerif.className} relative -top-px text-xl text-landing`}>career-ops</span>
+          <span className={`${instrumentSerif.className} relative -top-px text-xl text-foreground`}>career-ops</span>
         </Link>
         <div className="ml-auto flex items-center gap-0.5">
           <ThemeToggle />
@@ -116,10 +116,10 @@ export function MobileNav() {
             onClick={() => setOpen(true)}
             aria-label="Open menu"
             aria-expanded={open}
-            className="relative inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-muted transition-colors hover:bg-surface-hover hover:text-foreground"
+            className="relative inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
           >
             <Menu className="size-5" />
-            {running > 0 && <span aria-hidden className="co-pulse absolute right-1.5 top-1.5 size-2 rounded-full bg-brand ring-2 ring-surface" />}
+            {running > 0 && <span aria-hidden className="co-pulse absolute right-1.5 top-1.5 size-2 rounded-full bg-primary ring-2 ring-card" />}
           </button>
         </div>
       </header>
@@ -132,18 +132,18 @@ export function MobileNav() {
         aria-modal="true"
         aria-label="Navigation menu"
         inert={!open}
-        className={cn("co-mdrawer border-l border-border bg-surface md:hidden", open && "open")}
+        className={cn("co-mdrawer border-l border-border bg-card md:hidden", open && "open")}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
         <div className="flex items-center justify-between px-4 py-3">
-          <span className={`${instrumentSerif.className} text-lg text-landing`}>Menu</span>
+          <span className={`${instrumentSerif.className} text-lg text-foreground`}>Menu</span>
           <button
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Close menu"
-            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-foreground"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
           >
             <X className="size-5" />
           </button>
@@ -160,13 +160,13 @@ export function MobileNav() {
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-3 py-3 text-[15px] transition-colors",
-                  active ? "bg-brand-soft text-brand-text" : "text-muted hover:bg-surface-hover hover:text-foreground",
+                  active ? "bg-accent text-primary" : "text-muted-foreground hover:bg-accent hover:text-foreground",
                 )}
               >
                 <Icon className="size-5" />
                 {label}
                 {chip && (
-                  <span className="ml-auto rounded-full border border-brand/30 bg-brand-soft px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-brand-text">
+                  <span className="ml-auto rounded-full border border-primary/30 bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-primary">
                     {chip}
                   </span>
                 )}
@@ -182,7 +182,7 @@ export function MobileNav() {
         <div className="co-msafe mt-auto space-y-3 border-t border-border px-4 pt-4">
           <UsageMeter />
           <div className="flex items-center justify-between">
-            <span className={`${instrumentSerif.className} text-sm text-faint`}>local-first · v0</span>
+            <span className={`${instrumentSerif.className} text-sm text-muted-foreground`}>local-first · v0</span>
             <ThemeToggle />
           </div>
         </div>

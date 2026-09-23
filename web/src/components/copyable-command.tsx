@@ -29,17 +29,17 @@ export function CopyableCommand({
   return (
     <div
       className={cn(
-        "flex items-center gap-2 rounded-xl border border-border bg-surface py-1.5 pl-4 pr-1.5 font-mono text-sm text-muted shadow-sm",
+        "flex items-center gap-2 rounded-xl border border-border bg-card py-1.5 pl-4 pr-1.5 font-mono text-sm text-muted-foreground shadow-sm",
         className,
       )}
     >
       <code className="min-w-0 flex-1 truncate">
-        <span className="text-faint">$</span> {command}
+        <span className="text-muted-foreground">$</span> {command}
       </code>
       <span
         aria-hidden="true"
         className={cn(
-          "hidden shrink-0 text-xs font-medium text-brand transition-opacity duration-200 sm:inline-block",
+          "hidden shrink-0 text-xs font-medium text-primary transition-opacity duration-200 sm:inline-block",
           copied ? "opacity-100" : "opacity-0",
         )}
       >
@@ -52,10 +52,10 @@ export function CopyableCommand({
         onClick={handleCopy}
         aria-label={copied ? "Copied to clipboard" : "Copy command"}
         title={copied ? "Copied" : "Copy"}
-        className="shrink-0 text-muted"
+        className="shrink-0 text-muted-foreground"
       >
         {copied ? (
-          <CheckIcon className="size-4 text-brand" aria-hidden="true" />
+          <CheckIcon className="size-4 text-primary" aria-hidden="true" />
         ) : (
           <CopyIcon className="size-4" aria-hidden="true" />
         )}

@@ -47,9 +47,9 @@ function KeywordField({
     setDraft("");
   };
   return (
-    <div className={cn("co-fb__field border border-border bg-surface/40 focus-within:border-brand/40 transition-colors")}>
+    <div className={cn("co-fb__field border border-border bg-card/40 focus-within:border-primary/40 transition-colors")}>
       {values.map((v) => (
-        <span key={v} className={cn("co-fb__chip", tone === "inc" ? "inc" : "border-border bg-surface-hover text-muted")}>
+        <span key={v} className={cn("co-fb__chip", tone === "inc" ? "inc" : "border-border bg-accent text-muted-foreground")}>
           {tone === "exc" && <Ban className="size-3 opacity-70" />}
           {v}
           <button type="button" aria-label={`Remove ${v}`} onClick={() => onChange(values.filter((x) => x !== v))}>
@@ -93,7 +93,7 @@ function Label({ children, hint }: { children: React.ReactNode; hint?: string })
   return (
     <div className="mb-1.5 flex items-baseline justify-between">
       <span className="text-[13px] font-medium text-foreground">{children}</span>
-      {hint && <span className="text-[11px] text-faint">{hint}</span>}
+      {hint && <span className="text-[11px] text-muted-foreground">{hint}</span>}
     </div>
   );
 }
@@ -123,7 +123,7 @@ export function FilterBuilder({
         <Label hint={filters.positive.length === 0 ? "empty = every fresh posting" : undefined}>Roles to find</Label>
         <KeywordField values={filters.positive} tone="inc" placeholder="AI platform, ML infrastructure, staff engineer…" onChange={(v) => set({ positive: v })} />
         {seededFrom.length > 0 && filters.positive.length > 0 && (
-          <p className="mt-1 text-[11px] text-faint">Seeded from your {seededFrom.join(" + ")} — edit freely.</p>
+          <p className="mt-1 text-[11px] text-muted-foreground">Seeded from your {seededFrom.join(" + ")} — edit freely.</p>
         )}
       </div>
 
@@ -136,10 +136,10 @@ export function FilterBuilder({
         <div>
           <Label hint="postings published in this window">
             <span className="inline-flex items-center gap-1.5">
-              <Clock className="size-3.5 text-muted" /> Posted within
+              <Clock className="size-3.5 text-muted-foreground" /> Posted within
             </span>
           </Label>
-          <div className="inline-flex rounded-lg border border-border bg-surface/40 p-0.5">
+          <div className="inline-flex rounded-lg border border-border bg-card/40 p-0.5">
             {RECENCY.map((r) => (
               <button
                 key={r.days}
@@ -147,7 +147,7 @@ export function FilterBuilder({
                 onClick={() => set({ sinceDays: r.days })}
                 className={cn(
                   "rounded-md px-2.5 py-1 text-xs font-medium transition-colors max-sm:min-h-[44px]",
-                  filters.sinceDays === r.days ? "bg-brand-soft text-brand" : "text-muted hover:text-foreground",
+                  filters.sinceDays === r.days ? "bg-accent text-primary" : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {r.label}
@@ -168,7 +168,7 @@ export function FilterBuilder({
                   onClick={() => toggleAts(a)}
                   className={cn(
                     "rounded-full border px-2.5 py-1 text-xs font-medium transition-colors max-sm:min-h-[44px]",
-                    on ? "border-brand/40 bg-brand-soft text-brand" : "border-border text-muted hover:text-foreground",
+                    on ? "border-primary/40 bg-accent text-primary" : "border-border text-muted-foreground hover:text-foreground",
                   )}
                 >
                   {ATS_LABEL[a]}
@@ -182,7 +182,7 @@ export function FilterBuilder({
       <button
         type="button"
         onClick={() => setAdvanced((v) => !v)}
-        className="inline-flex items-center gap-1.5 text-[12px] text-muted hover:text-foreground transition-colors max-sm:min-h-[44px]"
+        className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors max-sm:min-h-[44px]"
       >
         <SlidersHorizontal className="size-3.5" />
         Location &amp; scope
@@ -190,8 +190,8 @@ export function FilterBuilder({
       </button>
 
       {advanced && (
-        <div className="space-y-3 rounded-xl border border-border bg-surface/30 p-3">
-          <div className="flex items-center gap-1.5 text-[12px] text-muted">
+        <div className="space-y-3 rounded-xl border border-border bg-card/30 p-3">
+          <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
             <MapPin className="size-3.5" /> Location
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
@@ -221,7 +221,7 @@ export function FilterBuilder({
               step={50}
               value={filters.limitPerAts}
               onChange={(e) => set({ limitPerAts: Number(e.target.value) })}
-              className="w-full accent-brand"
+              className="w-full accent-primary"
             />
           </div>
         </div>

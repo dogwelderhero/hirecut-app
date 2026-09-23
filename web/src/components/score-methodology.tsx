@@ -26,36 +26,36 @@ const BLOCKS: [string, string][] = [
 
 export function ScoreMethodology() {
   return (
-    <details className="group mt-10 overflow-hidden rounded-2xl border border-border bg-surface/30">
-      <summary className="flex cursor-pointer list-none items-center gap-2 px-5 py-3.5 text-sm font-medium transition-colors hover:bg-surface-hover">
-        How career-ops scored this — and why it&apos;s for <span className="text-landing">you</span>
-        <ChevronDown className="ml-auto size-4 text-faint transition-transform group-open:rotate-180" />
+    <details className="group mt-10 overflow-hidden rounded-2xl border border-border bg-card/30">
+      <summary className="flex cursor-pointer list-none items-center gap-2 px-5 py-3.5 text-sm font-medium transition-colors hover:bg-accent">
+        How career-ops scored this — and why it&apos;s for <span className="text-foreground">you</span>
+        <ChevronDown className="ml-auto size-4 text-muted-foreground transition-transform group-open:rotate-180" />
       </summary>
       <div className="space-y-5 border-t border-border px-5 py-4 text-sm">
-        <p className="text-muted">
+        <p className="text-muted-foreground">
           Every role is scored <strong className="text-foreground">1.0–5.0</strong> across six dimensions.{" "}
-          <strong className="text-brand">4.0</strong> is the apply / don&apos;t-apply line — below it, career-ops
+          <strong className="text-primary">4.0</strong> is the apply / don&apos;t-apply line — below it, career-ops
           recommends against applying.
         </p>
         <div>
-          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-faint">The six dimensions</div>
+          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">The six dimensions</div>
           <ul className="space-y-1.5">
             {DIMENSIONS.map(([k, v]) => (
               <li key={k}>
-                <span className="font-medium text-foreground">{k}</span> <span className="text-muted">— {v}</span>
+                <span className="font-medium text-foreground">{k}</span> <span className="text-muted-foreground">— {v}</span>
               </li>
             ))}
           </ul>
         </div>
         <div>
-          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-faint">What each report block means</div>
+          <div className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">What each report block means</div>
           <ul className="space-y-2">
             {BLOCKS.map(([k, v]) => (
               <li key={k} className="flex items-start gap-2.5">
-                <span className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded bg-brand-soft text-xs font-semibold text-brand">
+                <span className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded bg-accent text-xs font-semibold text-primary">
                   {k}
                 </span>
-                <span className="text-muted">{v}</span>
+                <span className="text-muted-foreground">{v}</span>
               </li>
             ))}
           </ul>
@@ -65,7 +65,7 @@ export function ScoreMethodology() {
           target="_blank"
           rel="noreferrer"
           aria-label="Full methodology (opens in a new tab)"
-          className="inline-flex min-h-[24px] items-center gap-1 text-xs text-brand transition-colors hover:underline max-sm:min-h-[44px]"
+          className="inline-flex min-h-[24px] items-center gap-1 text-xs text-primary transition-colors hover:underline max-sm:min-h-[44px]"
         >
           Full methodology <ExternalLink className="size-3" aria-hidden="true" />
         </a>

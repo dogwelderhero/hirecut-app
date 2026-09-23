@@ -202,25 +202,25 @@ export function CvIngest({ onSaved }: { onSaved?: () => void }) {
               if ((e.metaKey || e.ctrlKey) && e.key === "Enter" && paste.trim()) ingestText(paste.trim());
             }}
             placeholder="Paste your CV here — or drop a PDF / .md file below. Even a rough paste works; we'll clean it up."
-            className="h-32 w-full resize-none bg-transparent text-[14px] leading-relaxed outline-none placeholder:text-faint"
+            className="h-32 w-full resize-none bg-transparent text-[14px] leading-relaxed outline-none placeholder:text-muted-foreground"
           />
           <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-border pt-3">
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface/50 px-3 py-1.5 text-xs font-medium text-foreground transition hover:border-brand/40 hover:text-brand max-sm:min-h-[44px] max-sm:px-4"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card/50 px-3 py-1.5 text-xs font-medium text-foreground transition hover:border-primary/40 hover:text-primary max-sm:min-h-[44px] max-sm:px-4"
             >
               <Upload className="size-3.5" /> Upload PDF / file
             </button>
             <input ref={fileRef} type="file" accept=".pdf,.md,.markdown,.txt,.docx" hidden onChange={(e) => e.target.files?.[0] && ingestFile(e.target.files[0])} />
-            <span className="inline-flex items-center gap-1 text-[11px] text-faint">
+            <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
               <Lock className="size-3" /> Stays on your machine. Parsed by your own AI.
             </span>
             <button
               type="button"
               disabled={!paste.trim()}
               onClick={() => ingestText(paste.trim())}
-              className="ml-auto inline-flex items-center gap-1.5 rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground shadow-sm transition hover:brightness-110 disabled:opacity-50 max-sm:min-h-[44px]"
+              className="ml-auto inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition hover:brightness-110 disabled:opacity-50 max-sm:min-h-[44px]"
             >
               Read my CV <ArrowRight className="size-4" />
             </button>
@@ -247,26 +247,26 @@ export function CvIngest({ onSaved }: { onSaved?: () => void }) {
   // ── PARSING (the 10s bridge) ──
   if (phase === "parsing") {
     return (
-      <div className="rounded-2xl border border-border bg-surface/60 p-6 backdrop-blur-sm">
+      <div className="rounded-2xl border border-border bg-card/60 p-6 backdrop-blur-sm">
         <style>{STYLE}</style>
         <div className="flex items-center gap-2.5">
-          <Loader2 className="size-4 animate-spin text-brand" />
+          <Loader2 className="size-4 animate-spin text-primary" />
           <span className={`${instrumentSerif.className} text-lg text-foreground`}>{trace || "Reading your CV…"}</span>
         </div>
         <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
           <span className="size-1.5 rounded-full bg-emerald-500" /> 0 tokens · $0.00 · local
         </div>
-        {md && <div className="co-cvtrace mt-4 max-h-40 overflow-hidden rounded-lg border border-border bg-surface/40 p-3 text-[11px] text-faint">{md.slice(0, 400)}…</div>}
+        {md && <div className="co-cvtrace mt-4 max-h-40 overflow-hidden rounded-lg border border-border bg-card/40 p-3 text-[11px] text-muted-foreground">{md.slice(0, 400)}…</div>}
       </div>
     );
   }
 
   // ── REVIEW (propose → confirm) ──
   return (
-    <div className="rounded-2xl border border-border bg-surface/60 p-4 backdrop-blur-sm md:p-5">
+    <div className="rounded-2xl border border-border bg-card/60 p-4 backdrop-blur-sm md:p-5">
       <style>{STYLE}</style>
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <FileText className="size-4 text-brand" />
+        <FileText className="size-4 text-primary" />
         <h3 className={`${instrumentSerif.className} text-lg text-foreground`}>Here&apos;s your CV — review and save</h3>
         {readiness && (
           <span
@@ -290,9 +290,9 @@ export function CvIngest({ onSaved }: { onSaved?: () => void }) {
         <textarea
           value={md}
           onChange={(e) => setMd(e.target.value)}
-          className="h-72 w-full resize-none rounded-lg border border-border bg-surface/40 p-3 font-mono text-[12px] leading-relaxed outline-none focus:border-brand/40"
+          className="h-72 w-full resize-none rounded-lg border border-border bg-card/40 p-3 font-mono text-[12px] leading-relaxed outline-none focus:border-primary/40"
         />
-        <div className="prose prose-sm dark:prose-invert h-72 max-w-none overflow-y-auto rounded-lg border border-border bg-surface/40 p-3 text-[13px]">
+        <div className="prose prose-sm dark:prose-invert h-72 max-w-none overflow-y-auto rounded-lg border border-border bg-card/40 p-3 text-[13px]">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{md}</ReactMarkdown>
         </div>
       </div>
@@ -301,7 +301,7 @@ export function CvIngest({ onSaved }: { onSaved?: () => void }) {
           type="button"
           onClick={save}
           disabled={phase === "saving"}
-          className="inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-2.5 text-sm font-semibold text-brand-foreground shadow-sm transition hover:brightness-110 disabled:opacity-60"
+          className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:brightness-110 disabled:opacity-60"
         >
           {phase === "saving" ? <Loader2 className="size-4 animate-spin" /> : <Check className="size-4" />}
           Save &amp; find my matches
@@ -313,11 +313,11 @@ export function CvIngest({ onSaved }: { onSaved?: () => void }) {
             setSeed(null);
             setPhase("input");
           }}
-          className="inline-flex items-center gap-1.5 text-[13px] text-muted transition hover:text-foreground"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground transition hover:text-foreground"
         >
           <RotateCcw className="size-3.5" /> Start over
         </button>
-        <span className="ml-auto inline-flex items-center gap-1 text-[11px] text-faint">
+        <span className="ml-auto inline-flex items-center gap-1 text-[11px] text-muted-foreground">
           <Lock className="size-3" /> Saved locally to cv.md
         </span>
       </div>

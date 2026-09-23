@@ -51,7 +51,7 @@ export function AiSearchBox({
     <div>
       <style>{STYLE}</style>
       <div className="co-aibox p-4">
-        <div className="mb-2 flex items-center gap-2 text-[12px] font-medium text-brand">
+        <div className="mb-2 flex items-center gap-2 text-[12px] font-medium text-primary">
           <Sparkles className="size-3.5" /> Describe the role — an AI hunts the open web for it
         </div>
         <textarea
@@ -71,7 +71,7 @@ export function AiSearchBox({
           placeholder="“AI infra at climate startups, remote EU, not staff-level” — plain language, your words"
         />
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-          <span className="text-[12px] text-muted">
+          <span className="text-[12px] text-muted-foreground">
             {cliConfigured ? (
               <>
                 Reads the public web with <span className="text-foreground">{cliName || "your CLI"}</span> — it costs your tokens.
@@ -84,7 +84,7 @@ export function AiSearchBox({
             type="button"
             disabled={!intent.trim()}
             onClick={onSubmit}
-            className="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground shadow-sm transition hover:brightness-110 disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition hover:brightness-110 disabled:opacity-50"
           >
             Search the open web
             <CostBadge kind="spend" size="xs" />
@@ -99,12 +99,12 @@ export function AiSearchBox({
             key={ex}
             type="button"
             onClick={() => onIntent(ex)}
-            className="rounded-full border border-border bg-surface/40 px-3 py-1.5 text-[12px] text-muted transition hover:border-brand/40 hover:text-brand"
+            className="rounded-full border border-border bg-card/40 px-3 py-1.5 text-[12px] text-muted-foreground transition hover:border-primary/40 hover:text-primary"
           >
             {ex}
           </button>
         ))}
-        <button type="button" onClick={onRunScan} className="ml-auto inline-flex items-center gap-1 text-[12px] text-faint transition hover:text-foreground">
+        <button type="button" onClick={onRunScan} className="ml-auto inline-flex items-center gap-1 text-[12px] text-muted-foreground transition hover:text-foreground">
           or run the free Scan instead →
         </button>
       </div>

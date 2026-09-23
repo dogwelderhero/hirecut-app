@@ -21,7 +21,7 @@ function Logo({ company }: { company: string }) {
   const [failed, setFailed] = useState(false);
   const letter = (company || "?").trim().charAt(0).toUpperCase();
   if (failed || !company.trim()) {
-    return <div className="grid size-9 shrink-0 place-items-center rounded-lg bg-brand-soft text-sm font-semibold text-brand">{letter}</div>;
+    return <div className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent text-sm font-semibold text-primary">{letter}</div>;
   }
   return (
     // eslint-disable-next-line @next/next/no-img-element
@@ -30,7 +30,7 @@ function Logo({ company }: { company: string }) {
       alt=""
       loading="lazy"
       onError={() => setFailed(true)}
-      className="size-9 shrink-0 rounded-lg border border-border bg-surface object-contain p-1"
+      className="size-9 shrink-0 rounded-lg border border-border bg-card object-contain p-1"
     />
   );
 }
@@ -63,14 +63,14 @@ export function DiscoveryCard({ offer, inPipeline, evaluatedN }: { offer: Discov
   };
 
   return (
-    <div className="co-rise group flex min-w-0 flex-col gap-2.5 rounded-xl border border-border bg-surface/40 p-3.5 text-left transition-all hover:-translate-y-0.5 hover:border-brand/30 hover:shadow-sm">
+    <div className="co-rise group flex min-w-0 flex-col gap-2.5 rounded-xl border border-border bg-card/40 p-3.5 text-left transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-sm">
       <div className="flex items-start gap-3">
         <Logo company={offer.company} />
         <a href={offer.url} target="_blank" rel="noopener noreferrer" className="block min-w-0 flex-1 max-sm:min-h-[44px]">
-          <h3 className={`${instrumentSerif.className} truncate text-[17px] leading-tight text-foreground transition-colors group-hover:text-brand`}>{offer.title}</h3>
-          <p className="mt-0.5 truncate text-[13px] text-muted">
+          <h3 className={`${instrumentSerif.className} truncate text-[17px] leading-tight text-foreground transition-colors group-hover:text-primary`}>{offer.title}</h3>
+          <p className="mt-0.5 truncate text-[13px] text-muted-foreground">
             {offer.company}
-            {offer.location && <span className="text-faint"> · {offer.location}</span>}
+            {offer.location && <span className="text-muted-foreground"> · {offer.location}</span>}
           </p>
         </a>
         <a
@@ -79,15 +79,15 @@ export function DiscoveryCard({ offer, inPipeline, evaluatedN }: { offer: Discov
           rel="noopener noreferrer"
           title="Open the posting"
           aria-label="Open the posting"
-          className="-m-1 inline-flex shrink-0 items-center justify-center rounded p-1 text-faint transition-colors hover:text-foreground max-sm:min-h-[44px] max-sm:min-w-[44px]"
+          className="-m-1 inline-flex shrink-0 items-center justify-center rounded p-1 text-muted-foreground transition-colors hover:text-foreground max-sm:min-h-[44px] max-sm:min-w-[44px]"
         >
           <ExternalLink className="size-4" />
         </a>
       </div>
 
       <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-        <span className="rounded border border-border px-1.5 py-0.5 font-medium text-muted">{ATS_LABEL[offer.ats as AtsSource] ?? offer.ats}</span>
-        {fresh && <span className="text-faint">{fresh}</span>}
+        <span className="rounded border border-border px-1.5 py-0.5 font-medium text-muted-foreground">{ATS_LABEL[offer.ats as AtsSource] ?? offer.ats}</span>
+        {fresh && <span className="text-muted-foreground">{fresh}</span>}
         {unverified && (
           <span
             className="inline-flex items-center gap-1 rounded border border-amber-500/25 bg-amber-500/10 px-1.5 py-0.5 font-medium text-amber-600 dark:text-amber-300"
@@ -97,14 +97,14 @@ export function DiscoveryCard({ offer, inPipeline, evaluatedN }: { offer: Discov
           </span>
         )}
         {offer.matchedKeyword && (
-          <span className="text-faint" title="Keyword match — not yet scored. Evaluate to get an A–F fit score.">
-            · matched <span className="text-brand/80">{offer.matchedKeyword}</span>
+          <span className="text-muted-foreground" title="Keyword match — not yet scored. Evaluate to get an A–F fit score.">
+            · matched <span className="text-primary/80">{offer.matchedKeyword}</span>
           </span>
         )}
       </div>
 
       {offer.why && (
-        <p className="flex items-start gap-1.5 text-[12px] leading-snug text-brand/80">
+        <p className="flex items-start gap-1.5 text-[12px] leading-snug text-primary/80">
           <Sparkles className="mt-0.5 size-3 shrink-0" />
           {offer.why}
         </p>
@@ -114,15 +114,15 @@ export function DiscoveryCard({ offer, inPipeline, evaluatedN }: { offer: Discov
         {evaluatedN || doneEval ? (
           <a
             href={evaluatedN ? `/pipeline/${evaluatedN}` : job ? `/jobs/${job.id}` : "/pipeline"}
-            className="inline-flex w-full items-center justify-center gap-1.5 rounded-md bg-brand-soft px-2.5 py-2 text-xs font-medium text-brand max-sm:min-h-[44px]"
+            className="inline-flex w-full items-center justify-center gap-1.5 rounded-md bg-accent px-2.5 py-2 text-xs font-medium text-primary max-sm:min-h-[44px]"
           >
             <Check className="size-3.5" /> Evaluated · view report
           </a>
         ) : working ? (
-          <div className="inline-flex w-full items-center justify-center gap-1.5 rounded-md border border-brand/30 bg-brand-soft/60 px-2.5 py-2 text-xs font-medium text-brand">
+          <div className="inline-flex w-full items-center justify-center gap-1.5 rounded-md border border-primary/30 bg-accent/60 px-2.5 py-2 text-xs font-medium text-primary">
             <Loader2 className="size-3.5 animate-spin" />
             {statusLabel}
-            <span className="text-brand/60">· in pipeline</span>
+            <span className="text-primary/60">· in pipeline</span>
           </div>
         ) : (
           <div className="flex items-center gap-2">
@@ -132,7 +132,7 @@ export function DiscoveryCard({ offer, inPipeline, evaluatedN }: { offer: Discov
               onClick={() => addToPipeline([offer])}
               className={cn(
                 "inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-2 text-xs font-medium transition-colors max-sm:min-h-[44px]",
-                isAdded ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-surface-hover text-foreground hover:bg-brand-soft hover:text-brand",
+                isAdded ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-accent text-foreground hover:bg-accent hover:text-primary",
               )}
             >
               {isAdding ? <Loader2 className="size-3.5 animate-spin" /> : isAdded ? <Check className="size-3.5" /> : <Plus className="size-3.5" />}
@@ -142,7 +142,7 @@ export function DiscoveryCard({ offer, inPipeline, evaluatedN }: { offer: Discov
               type="button"
               onClick={evaluate}
               title={unverified ? "Runs a real evaluation — and verifies the posting is live. Uses tokens." : "Runs a real A–F evaluation. Uses tokens."}
-              className="inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-brand/30 px-2.5 py-2 text-xs font-medium text-brand transition-colors hover:bg-brand-soft max-sm:min-h-[44px]"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-primary/30 px-2.5 py-2 text-xs font-medium text-primary transition-colors hover:bg-accent max-sm:min-h-[44px]"
             >
               Evaluate <Coins className="size-3.5 opacity-80" />
             </button>

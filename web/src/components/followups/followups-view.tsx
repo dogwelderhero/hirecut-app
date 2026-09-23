@@ -196,16 +196,16 @@ export function FollowupsView() {
     <div className="mx-auto max-w-none px-6 py-8">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl tracking-tight text-landing">Follow-up Tracker</h1>
-          <p className="mt-1 text-sm text-muted">{subtitle}</p>
+          <h1 className="font-display text-2xl tracking-tight text-foreground">Follow-up Tracker</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
         </div>
         <div className="relative w-56 max-w-[35vw]">
-          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-faint" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search company or role…"
-            className="w-full rounded-md border border-border bg-surface/60 py-2 pl-9 pr-3 text-sm outline-none transition-colors placeholder:text-faint focus:border-brand/50 focus-visible:ring-2 focus-visible:ring-brand/40"
+            className="w-full rounded-md border border-border bg-card/60 py-2 pl-9 pr-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/40"
           />
         </div>
       </div>
@@ -222,10 +222,10 @@ export function FollowupsView() {
               onClick={() => setParams({ urgency: t === "ALL" ? null : t })}
               className={cn(
                 "-mb-px border-b-2 px-3 py-2 text-xs font-medium transition-colors",
-                tab === t ? "border-brand text-foreground" : "border-transparent text-muted hover:text-foreground",
+                tab === t ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground",
               )}
             >
-              {t} <span className="text-faint tabular-nums">{count}</span>
+              {t} <span className="text-muted-foreground tabular-nums">{count}</span>
             </button>
           );
         })}
@@ -244,7 +244,7 @@ export function FollowupsView() {
       ) : (
         <div className="mt-4 overflow-x-auto rounded-2xl border border-border">
           <table className="w-full min-w-[880px] text-sm">
-            <thead className="bg-surface/60 text-left text-xs uppercase tracking-wide text-faint">
+            <thead className="bg-card/60 text-left text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
                 <th className="w-8 px-2 py-2.5" aria-label="Expand" />
                 {COLUMNS.map((c) => {
@@ -261,7 +261,7 @@ export function FollowupsView() {
                         }
                       >
                         {c.label}
-                        <span aria-hidden="true" className={cn(!active && "text-faint")}>
+                        <span aria-hidden="true" className={cn(!active && "text-muted-foreground")}>
                           {active ? (dir === 1 ? "▲" : "▼") : "⇅"}
                         </span>
                       </button>
@@ -318,7 +318,7 @@ function NarrativeCard({ meta, entries }: { meta: CadenceMetadata; entries: Cade
   return (
     <div
       className={cn(
-        "mt-5 rounded-xl border border-border border-l-4 bg-surface/40 px-4 py-3 text-sm text-muted",
+        "mt-5 rounded-xl border border-border border-l-4 bg-card/40 px-4 py-3 text-sm text-muted-foreground",
         meta.overdue > 0 ? "border-l-red-500" : "border-l-amber-500",
       )}
     >
@@ -346,21 +346,21 @@ function FollowupRow({
   const Chevron = expanded ? ChevronDown : ChevronRight;
   return (
     <>
-      <tr className="group transition-colors hover:bg-surface/40">
+      <tr className="group transition-colors hover:bg-card/40">
         <td className="px-2 py-3">
           <button
             type="button"
             onClick={onToggle}
             aria-expanded={expanded}
             aria-label={`${expanded ? "Hide" : "Show"} follow-up history for ${e.company}`}
-            className="rounded p-1 text-faint transition hover:text-foreground"
+            className="rounded p-1 text-muted-foreground transition hover:text-foreground"
           >
             <Chevron className="size-4" />
           </button>
         </td>
         <td className="px-2.5 py-3 font-medium">
           {e.reportPath ? (
-            <Link href={`/pipeline/${e.num}`} className="flex items-center gap-2.5 transition-colors group-hover:text-brand">
+            <Link href={`/pipeline/${e.num}`} className="flex items-center gap-2.5 transition-colors group-hover:text-primary">
               <CompanyLogo name={e.company} size={20} />
               {e.company}
             </Link>
@@ -371,7 +371,7 @@ function FollowupRow({
             </span>
           )}
         </td>
-        <td className="max-w-56 truncate px-2.5 py-3 text-muted">{e.role}</td>
+        <td className="max-w-56 truncate px-2.5 py-3 text-muted-foreground">{e.role}</td>
         <td className="px-2.5 py-3">
           <Badge tone={scoreTone(e.score)}>{e.score || "—"}</Badge>
         </td>
@@ -384,7 +384,7 @@ function FollowupRow({
         <td className={cn("px-2.5 py-3 tabular-nums", daysHeatClass(e.daysSinceApplication))}>{e.daysSinceApplication}</td>
         <td className="whitespace-nowrap px-2.5 py-3">
           {e.daysUntilNext == null ? (
-            <span className="text-faint">—</span>
+            <span className="text-muted-foreground">—</span>
           ) : (
             <span className={cn(e.daysUntilNext < 0 && "font-medium text-red-600 dark:text-red-400")} title={e.nextFollowupDate ?? undefined}>
               {relativeDays(e.daysUntilNext)}
@@ -396,13 +396,13 @@ function FollowupRow({
               title={`Pinned to ${e.nextOverride} — cleared when you log a follow-up`}
               aria-label="Pinned manually"
             >
-              <Pin className="size-3 text-brand" />
+              <Pin className="size-3 text-primary" />
             </span>
           )}
         </td>
         <td className="px-2.5 py-3 tabular-nums">{e.followupCount}</td>
         <td className={cn("px-2.5 py-3 tabular-nums", daysHeatClass(e.daysSinceLastFollowup))}>
-          {e.daysSinceLastFollowup == null ? <span className="text-faint">—</span> : e.daysSinceLastFollowup}
+          {e.daysSinceLastFollowup == null ? <span className="text-muted-foreground">—</span> : e.daysSinceLastFollowup}
         </td>
         <td className="whitespace-nowrap px-2.5 py-3">
           <span className="inline-flex items-center gap-0.5">
@@ -410,7 +410,7 @@ function FollowupRow({
               type="button"
               onClick={onLog}
               title="Log a follow-up (date, channel, contact, notes)"
-              className="rounded-md px-2 py-1 text-xs font-medium text-muted transition-colors hover:bg-brand-soft hover:text-brand"
+              className="rounded-md px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
             >
               Log
             </button>
@@ -419,8 +419,8 @@ function FollowupRow({
               onClick={onPin}
               title={e.nextOverride ? `Next date pinned to ${e.nextOverride} — change or clear` : "Pin a custom next follow-up date"}
               className={cn(
-                "rounded-md p-1 transition-colors hover:bg-brand-soft hover:text-brand",
-                e.nextOverride ? "text-brand" : "text-faint",
+                "rounded-md p-1 transition-colors hover:bg-accent hover:text-primary",
+                e.nextOverride ? "text-primary" : "text-muted-foreground",
               )}
             >
               <CalendarClock className="size-3.5" />
@@ -429,7 +429,7 @@ function FollowupRow({
         </td>
       </tr>
       {expanded && (
-        <tr className="bg-surface/30">
+        <tr className="bg-card/30">
           <td colSpan={COLUMNS.length + 2} className="px-4 py-3">
             <HistoryPanel entry={e} onRemove={onRemove} />
           </td>
@@ -446,7 +446,7 @@ function HistoryPanel({ entry: e, onRemove }: { entry: CadenceEntry; onRemove: (
   return (
     <div className="space-y-2 pl-7 text-sm">
       {history.length === 0 ? (
-        <p className="text-faint">No follow-ups logged yet.</p>
+        <p className="text-muted-foreground">No follow-ups logged yet.</p>
       ) : (
         <ul className="space-y-1.5">
           {history.map((f, i) => (
@@ -460,27 +460,27 @@ function HistoryPanel({ entry: e, onRemove }: { entry: CadenceEntry; onRemove: (
                     onClick={() => onRemove(f.num!)}
                     title="Remove this logged follow-up (added by mistake?)"
                     aria-label={`Remove follow-up logged ${f.date}`}
-                    className="rounded p-0.5 text-faint opacity-0 transition group-hover/item:opacity-100 hover:text-red-500 focus-visible:opacity-100"
+                    className="rounded p-0.5 text-muted-foreground opacity-0 transition group-hover/item:opacity-100 hover:text-red-500 focus-visible:opacity-100"
                   >
                     <Trash2 className="size-3.5" />
                   </button>
                 )}
               </span>
-              <span className="tabular-nums text-muted">{f.date}</span>
+              <span className="tabular-nums text-muted-foreground">{f.date}</span>
               <Badge tone="muted">{f.channel}</Badge>
-              {f.contact && <span className="text-muted">{f.contact}</span>}
-              {f.notes && <span className="text-faint">{f.notes}</span>}
+              {f.contact && <span className="text-muted-foreground">{f.contact}</span>}
+              {f.notes && <span className="text-muted-foreground">{f.notes}</span>}
             </li>
           ))}
         </ul>
       )}
       {e.contacts.length > 0 && (
-        <p className="text-xs text-faint">
+        <p className="text-xs text-muted-foreground">
           Suggested contacts:{" "}
           {e.contacts.map((c, i) => (
             <span key={c.email}>
               {i > 0 && ", "}
-              <a href={`mailto:${c.email}`} className="text-muted underline decoration-dotted underline-offset-2 transition-colors hover:text-brand">
+              <a href={`mailto:${c.email}`} className="text-muted-foreground underline decoration-dotted underline-offset-2 transition-colors hover:text-primary">
                 {c.name ? `${c.name} <${c.email}>` : c.email}
               </a>
             </span>
@@ -493,9 +493,9 @@ function HistoryPanel({ entry: e, onRemove }: { entry: CadenceEntry; onRemove: (
 
 function EmptyPanel({ title, body }: { title: string; body: string }) {
   return (
-    <div className="mt-4 rounded-2xl border border-dashed border-border bg-surface/30 px-6 py-12 text-center">
+    <div className="mt-4 rounded-2xl border border-dashed border-border bg-card/30 px-6 py-12 text-center">
       <p className="font-display text-lg">{title}</p>
-      <p className="mx-auto mt-1 max-w-md text-sm text-muted">{body}</p>
+      <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">{body}</p>
     </div>
   );
 }

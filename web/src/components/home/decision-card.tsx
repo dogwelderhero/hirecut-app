@@ -36,18 +36,18 @@ export function DecisionCard({ app }: { app: Application }) {
   if (done) return null;
 
   return (
-    <div className="flex min-w-0 flex-col gap-2.5 rounded-xl border border-border bg-surface/40 p-3.5 transition hover:border-brand/30">
+    <div className="flex min-w-0 flex-col gap-2.5 rounded-xl border border-border bg-card/40 p-3.5 transition hover:border-primary/30">
       <div className="flex items-start gap-2.5">
         <CompanyLogo name={company.logoName} size={24} />
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium text-foreground">{company.label}</p>
-          <p className="truncate text-[13px] text-muted">{app.role}</p>
+          <p className="truncate text-[13px] text-muted-foreground">{app.role}</p>
         </div>
         {Number.isFinite(score) && score > 0 && (
           <span
             className={cn(
               "shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold tabular-nums",
-              tone === "good" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : tone === "warn" ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : "bg-surface-hover text-muted",
+              tone === "good" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : tone === "warn" ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : "bg-accent text-muted-foreground",
             )}
           >
             {app.score}
@@ -59,7 +59,7 @@ export function DecisionCard({ app }: { app: Application }) {
             Today skipped that path and wrote a status with no application. */}
         <Link
           href={`/pipeline/${app.n}`}
-          className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-md bg-brand-soft px-2.5 py-1.5 text-xs font-medium text-brand-text transition hover:bg-brand/15 max-sm:min-h-[44px]"
+          className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-md bg-accent px-2.5 py-1.5 text-xs font-medium text-primary transition hover:bg-primary/15 max-sm:min-h-[44px]"
         >
           <FileText className="size-3.5" /> Review
         </Link>
@@ -67,7 +67,7 @@ export function DecisionCard({ app }: { app: Application }) {
           type="button"
           disabled={!!busy}
           onClick={() => setStatus("Discarded")}
-          className="inline-flex items-center justify-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs font-medium text-muted transition hover:text-foreground disabled:opacity-60 max-sm:min-h-[44px] max-sm:px-4"
+          className="inline-flex items-center justify-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition hover:text-foreground disabled:opacity-60 max-sm:min-h-[44px] max-sm:px-4"
         >
           {busy === "Discarded" ? <Loader2 className="size-3.5 animate-spin" /> : <X className="size-3.5" />} Skip
         </button>
@@ -76,7 +76,7 @@ export function DecisionCard({ app }: { app: Application }) {
           disabled={!!busy}
           onClick={() => setStatus("Applied")}
           title="Record Applied without opening the apply flow"
-          className="inline-flex shrink-0 items-center justify-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium text-faint transition hover:text-foreground disabled:opacity-60 max-sm:min-h-[44px]"
+          className="inline-flex shrink-0 items-center justify-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium text-muted-foreground transition hover:text-foreground disabled:opacity-60 max-sm:min-h-[44px]"
         >
           {busy === "Applied" ? <Loader2 className="size-3.5 animate-spin" /> : <Check className="size-3.5" />}
           Applied

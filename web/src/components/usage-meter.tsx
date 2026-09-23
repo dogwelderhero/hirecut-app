@@ -65,7 +65,7 @@ export function UsageMeter() {
 
   return (
     <div className="border-t border-border pt-3">
-      <div className="mb-1.5 flex items-center gap-1.5 px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-faint">
+      <div className="mb-1.5 flex items-center gap-1.5 px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
         <Gauge className="size-3" /> Usage
       </div>
       <div className="space-y-2 px-1">
@@ -73,13 +73,13 @@ export function UsageMeter() {
           const pct = Math.min(100, Math.round((r.tokens / r.budget) * 100));
           return (
             <div key={r.label} title={`${r.tokens.toLocaleString()} tokens in the last ${r.label}`}>
-              <div className="flex items-center justify-between text-[10px] text-faint">
+              <div className="flex items-center justify-between text-[10px] text-muted-foreground">
                 <span>{r.label}</span>
                 <span className="tabular-nums">
                   {fmt(r.tokens)} · {pct}%
                 </span>
               </div>
-              <div className="mt-0.5 h-1 w-full overflow-hidden rounded-full bg-surface-hover">
+              <div className="mt-0.5 h-1 w-full overflow-hidden rounded-full bg-accent">
                 <div
                   className={cn("h-full rounded-full transition-all", tone(pct))}
                   style={{ width: `${Math.max(pct, 2)}%` }}

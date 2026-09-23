@@ -1,33 +1,91 @@
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { cn } from "cn"
 
-// Panel with the docs home signature: a resting rotating brand-gradient corner
-// that lights the 1px edge (bg-origin-border). Both opt-in — dense work
-// surfaces (tables, lists) pass neither corner nor elevated.
-const CORNERS = {
-  br: "bg-gradient-to-br",
-  bl: "bg-gradient-to-bl",
-  tr: "bg-gradient-to-tr",
-  tl: "bg-gradient-to-tl",
-} as const;
-
-export function Card({
-  className,
-  corner,
-  elevated,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement> & {
-  corner?: keyof typeof CORNERS;
-  elevated?: boolean;
-}) {
+function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
+      data-slot="card"
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-border bg-surface/50 p-5",
-        corner && `${CORNERS[corner]} from-brand/10 via-transparent to-transparent bg-origin-border`,
-        elevated && "shadow-lg",
-        className,
+        "flex flex-col gap-6 rounded-xl border bg-card py-6 text-card-foreground shadow-sm",
+        className
       )}
       {...props}
     />
-  );
+  )
+}
+
+function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-header"
+      className={cn(
+        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-title"
+      className={cn("leading-none font-semibold", className)}
+      {...props}
+    />
+  )
+}
+
+function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-description"
+      className={cn("text-sm text-muted-foreground", className)}
+      {...props}
+    />
+  )
+}
+
+function CardAction({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-action"
+      className={cn(
+        "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-content"
+      className={cn("px-6", className)}
+      {...props}
+    />
+  )
+}
+
+function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-footer"
+      className={cn("flex items-center px-6 [.border-t]:pt-6", className)}
+      {...props}
+    />
+  )
+}
+
+export {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardAction,
+  CardDescription,
+  CardContent,
 }

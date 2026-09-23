@@ -531,7 +531,7 @@ export function AssistantConsole() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-5 right-5 z-50 flex items-center justify-center gap-2 rounded-full border border-border bg-surface/90 py-1.5 pl-1.5 pr-4 shadow-lg backdrop-blur transition-colors hover:bg-surface-hover max-sm:min-h-[44px]"
+          className="fixed bottom-5 right-5 z-50 flex items-center justify-center gap-2 rounded-full border border-border bg-card/90 py-1.5 pl-1.5 pr-4 shadow-lg backdrop-blur transition-colors hover:bg-accent max-sm:min-h-[44px]"
           aria-label="Open assistant"
         >
           <CoMark size={26} />
@@ -540,20 +540,20 @@ export function AssistantConsole() {
       )}
 
       {open && (
-        <div className={cn("fixed z-50 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-2xl", PANEL_CLASS[size])}>
+        <div className={cn("fixed z-50 flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl", PANEL_CLASS[size])}>
           <header className="flex items-center gap-2.5 border-b border-border px-4 py-3">
             <CoMark size={26} />
             <div className="flex-1">
               <div className="text-sm font-semibold tracking-tight">Assistant</div>
-              <div className="text-xs text-faint">{cliId ? `via ${cliId}` : "no CLI configured"}</div>
+              <div className="text-xs text-muted-foreground">{cliId ? `via ${cliId}` : "no CLI configured"}</div>
             </div>
-            <Button variant="ghost" size="icon" onClick={cycleSize} className="text-muted" aria-label={SIZE_LABEL[size]} title={SIZE_LABEL[size]}>
+            <Button variant="ghost" size="icon" onClick={cycleSize} className="text-muted-foreground" aria-label={SIZE_LABEL[size]} title={SIZE_LABEL[size]}>
               {size === "full" ? <Minimize2 className="size-4" /> : <Maximize2 className="size-4" />}
             </Button>
-            <Button variant="ghost" size="icon" onClick={resetChat} className="text-muted" aria-label="New chat" title="New chat">
+            <Button variant="ghost" size="icon" onClick={resetChat} className="text-muted-foreground" aria-label="New chat" title="New chat">
               <RotateCcw className="size-4" />
             </Button>
-            <Button variant="ghost" size="icon" onClick={() => setOpen(false)} className="text-muted" aria-label="Close assistant">
+            <Button variant="ghost" size="icon" onClick={() => setOpen(false)} className="text-muted-foreground" aria-label="Close assistant">
               <X className="size-4" />
             </Button>
           </header>
@@ -567,13 +567,13 @@ export function AssistantConsole() {
                   <div
                     className={cn(
                       "max-w-[88%] rounded-2xl px-3.5 py-2 text-sm",
-                      m.role === "user" ? "bg-brand text-brand-foreground" : "w-full bg-surface-hover text-foreground",
+                      m.role === "user" ? "bg-primary text-primary-foreground" : "w-full bg-accent text-foreground",
                     )}
                   >
                     {m.role === "user" ? (
                       msgText(m)
                     ) : !hasVisible && busy && isLast ? (
-                      <Loader2 className="size-4 animate-spin text-muted" />
+                      <Loader2 className="size-4 animate-spin text-muted-foreground" />
                     ) : (
                       <div className="space-y-2">
                         {m.parts.map((p, j) => (
@@ -594,9 +594,9 @@ export function AssistantConsole() {
                 <button
                   key={i}
                   onClick={() => send(s.send)}
-                  className="inline-flex items-center gap-1 rounded-full border border-border bg-surface/60 px-2.5 py-1 text-xs text-muted transition-colors hover:border-brand/40 hover:bg-brand-soft hover:text-brand"
+                  className="inline-flex items-center gap-1 rounded-full border border-border bg-card/60 px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:border-primary/40 hover:bg-accent hover:text-primary"
                 >
-                  <Sparkles className="size-3 text-brand/70" />
+                  <Sparkles className="size-3 text-primary/70" />
                   {s.label}
                 </button>
               ))}
@@ -607,7 +607,7 @@ export function AssistantConsole() {
             <Link
               href="/config"
               onClick={() => setOpen(false)}
-              className="mx-4 mb-2 flex items-center gap-2 rounded-lg border border-border bg-surface/50 px-3 py-2 text-xs text-muted transition-colors hover:bg-surface-hover hover:text-foreground"
+              className="mx-4 mb-2 flex items-center gap-2 rounded-lg border border-border bg-card/50 px-3 py-2 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
               <Settings className="size-3.5" /> Pick a CLI in Config to enable the assistant →
             </Link>
@@ -629,12 +629,12 @@ export function AssistantConsole() {
                 rows={1}
                 disabled={!cliId}
                 style={{ maxHeight: INPUT_MAX_PX[size] }}
-                className="flex-1 resize-none rounded-xl border border-border bg-surface/60 px-3 py-2 text-sm outline-none transition-colors placeholder:text-faint focus:border-brand/50 disabled:opacity-50"
+                className="flex-1 resize-none rounded-xl border border-border bg-card/60 px-3 py-2 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/50 disabled:opacity-50"
               />
               <button
                 onClick={() => send()}
                 disabled={busy || !input.trim() || !cliId}
-                className="rounded-xl bg-brand p-2 text-brand-foreground transition-colors hover:bg-brand-200 disabled:opacity-40"
+                className="rounded-xl bg-primary p-2 text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-40"
                 aria-label="Send"
               >
                 {busy ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
@@ -667,13 +667,13 @@ function PartView({
     );
   }
   if (part.type === "note") {
-    return <div className="text-xs italic text-faint">{part.text}</div>;
+    return <div className="text-xs italic text-muted-foreground">{part.text}</div>;
   }
   if (part.type === "card") {
     const job = jobs.find((j) => j.id === part.jobId);
     if (!job)
       return (
-        <Link href={`/jobs/${part.jobId}`} className="block rounded-xl border border-border bg-surface/40 p-2.5 text-xs text-faint hover:text-foreground">
+        <Link href={`/jobs/${part.jobId}`} className="block rounded-xl border border-border bg-card/40 p-2.5 text-xs text-muted-foreground hover:text-foreground">
           Worker finished earlier — open log →
         </Link>
       );
@@ -682,7 +682,7 @@ function PartView({
         job={job}
         variant="inline"
         trailing={
-          <Link href={`/jobs/${job.id}`} className="text-faint transition-colors hover:text-brand" aria-label="Open worker">
+          <Link href={`/jobs/${job.id}`} className="text-muted-foreground transition-colors hover:text-primary" aria-label="Open worker">
             <ArrowUpRight className="size-3.5" />
           </Link>
         }
@@ -693,11 +693,11 @@ function PartView({
     const children = part.jobIds.map((id) => jobs.find((j) => j.id === id)).filter(Boolean);
     const done = children.filter((j) => j!.status === "done").length;
     return (
-      <div className="rounded-xl border border-border bg-surface/40 p-2.5">
+      <div className="rounded-xl border border-border bg-card/40 p-2.5">
         <div className="mb-1.5 flex items-center gap-1.5 text-xs font-medium">
-          <Sparkles className="size-3.5 text-brand" />
+          <Sparkles className="size-3.5 text-primary" />
           {part.jobIds.length} evaluations
-          <span className="ml-auto tabular-nums text-faint">
+          <span className="ml-auto tabular-nums text-muted-foreground">
             {done}/{part.jobIds.length} done
           </span>
         </div>
@@ -708,7 +708,7 @@ function PartView({
               job={j!}
               variant="inline"
               trailing={
-                <Link href={`/jobs/${j!.id}`} className="text-faint transition-colors hover:text-brand" aria-label="Open worker">
+                <Link href={`/jobs/${j!.id}`} className="text-muted-foreground transition-colors hover:text-primary" aria-label="Open worker">
                   <ArrowUpRight className="size-3.5" />
                 </Link>
               }
@@ -720,25 +720,25 @@ function PartView({
   }
   if (part.type === "confirm") {
     return (
-      <div className="rounded-xl border border-brand/40 bg-brand-soft p-2.5">
+      <div className="rounded-xl border border-primary/40 bg-accent p-2.5">
         <div className="text-xs font-medium text-foreground">{part.summary}</div>
         {part.state === "pending" ? (
           <div className="mt-2 flex gap-2">
             <button
               onClick={() => onConfirm(part.cid, true)}
-              className="rounded-full bg-brand px-3 py-1 text-xs font-medium text-brand-foreground transition-colors hover:bg-brand-200"
+              className="rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90"
             >
               Confirm
             </button>
             <button
               onClick={() => onConfirm(part.cid, false)}
-              className="rounded-full border border-border px-3 py-1 text-xs text-muted transition-colors hover:bg-surface-hover hover:text-foreground"
+              className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
               Cancel
             </button>
           </div>
         ) : (
-          <div className="mt-1 text-xs text-faint">{part.state === "done" ? "✓ started" : "cancelled"}</div>
+          <div className="mt-1 text-xs text-muted-foreground">{part.state === "done" ? "✓ started" : "cancelled"}</div>
         )}
       </div>
     );

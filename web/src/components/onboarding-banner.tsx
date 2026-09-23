@@ -43,16 +43,16 @@ export function OnboardingBanner() {
     `Help me finish setting up career-ops. I still need to add ${items.join(", ")} — walk me through just those, conversationally, and write the files for me. Don't ask me for anything that's already set up (for example, don't ask for my CV if it's already saved).`;
 
   return (
-    <div className="dot-bg relative mb-6 overflow-hidden rounded-2xl border border-brand/30 bg-gradient-to-br from-brand/10 via-surface/40 to-transparent p-5">
+    <div className="dot-bg relative mb-6 overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card/40 to-transparent p-5">
       <button
         onClick={() => setDismissed(true)}
-        className="absolute right-3 top-3 text-faint transition-colors hover:text-foreground"
+        className="absolute right-3 top-3 text-muted-foreground transition-colors hover:text-foreground"
         aria-label="Dismiss"
       >
         <X className="size-4" />
       </button>
-      <h2 className="font-display text-xl text-landing">Let&apos;s finish setting you up</h2>
-      <p className="mt-1.5 max-w-xl text-sm text-muted">
+      <h2 className="font-display text-xl text-foreground">Let&apos;s finish setting you up</h2>
+      <p className="mt-1.5 max-w-xl text-sm text-muted-foreground">
         career-ops works best when it knows you. We still need {items.join(", ")}.{" "}
         <span className="text-foreground">No YAML to edit</span> — answer in plain language and the assistant writes it
         for you.
@@ -60,7 +60,7 @@ export function OnboardingBanner() {
       {cli ? (
         <button
           onClick={() => window.dispatchEvent(new CustomEvent("co-assistant", { detail: { message: kickoff } }))}
-          className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand px-4 py-2 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-200"
+          className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
         >
           <Sparkles className="size-4" /> Set me up with the assistant
         </button>
@@ -69,7 +69,7 @@ export function OnboardingBanner() {
         // drop. Send them to connect one first.
         <Link
           href="/config"
-          className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand px-4 py-2 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-200"
+          className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
         >
           <Settings className="size-4" /> Connect your AI CLI to get started
         </Link>

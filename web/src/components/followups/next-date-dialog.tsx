@@ -63,7 +63,7 @@ export function NextDateDialog({
   };
 
   const inputCls =
-    "w-full rounded-md border border-border bg-surface/60 px-3 py-2 text-sm outline-none transition-colors placeholder:text-faint focus:border-brand/50 focus-visible:ring-2 focus-visible:ring-brand/40";
+    "w-full rounded-md border border-border bg-card/60 px-3 py-2 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/40";
 
   return (
     <div
@@ -76,16 +76,16 @@ export function NextDateDialog({
         role="dialog"
         aria-modal="true"
         aria-label={`Pin next follow-up date for ${entry.company}`}
-        className="w-full max-w-sm rounded-2xl border border-border bg-surface p-5 shadow-xl"
+        className="w-full max-w-sm rounded-2xl border border-border bg-card p-5 shadow-xl"
       >
         <div className="flex items-start justify-between gap-4">
           <div>
             <h2 className="font-display text-lg">Pin next follow-up</h2>
-            <p className="mt-0.5 text-sm text-muted">
-              {entry.company} · {entry.role} <span className="text-faint">(#{entry.num})</span>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              {entry.company} · {entry.role} <span className="text-muted-foreground">(#{entry.num})</span>
             </p>
           </div>
-          <button type="button" onClick={onClose} aria-label="Close" className="rounded p-1 text-faint transition hover:text-foreground">
+          <button type="button" onClick={onClose} aria-label="Close" className="rounded p-1 text-muted-foreground transition hover:text-foreground">
             <X className="size-4" />
           </button>
         </div>
@@ -97,7 +97,7 @@ export function NextDateDialog({
           }}
           className="mt-4 space-y-3"
         >
-          <label className="block text-xs font-medium text-muted">
+          <label className="block text-xs font-medium text-muted-foreground">
             Next follow-up date
             <input type="date" required value={date} min={today} onChange={(e) => setDate(e.target.value)} className={cn(inputCls, "mt-1")} />
           </label>
@@ -108,15 +108,15 @@ export function NextDateDialog({
                 type="button"
                 onClick={() => setDate(plusDays(n))}
                 className={cn(
-                  "rounded-md border border-border bg-surface px-2.5 py-1 text-xs font-medium transition-colors hover:bg-surface-hover",
-                  date === plusDays(n) && "border-brand/50 bg-brand-soft text-brand",
+                  "rounded-md border border-border bg-card px-2.5 py-1 text-xs font-medium transition-colors hover:bg-accent",
+                  date === plusDays(n) && "border-primary/50 bg-accent text-primary",
                 )}
               >
                 +{n} days
               </button>
             ))}
           </div>
-          <p className="text-xs leading-relaxed text-faint">
+          <p className="text-xs leading-relaxed text-muted-foreground">
             Overrides the computed schedule until you log a follow-up, which resumes the normal cadence.
           </p>
           {error && <p className="text-xs text-red-500">{error}</p>}
@@ -126,19 +126,19 @@ export function NextDateDialog({
                 type="button"
                 disabled={busy !== null}
                 onClick={() => void call("DELETE", { appNum: entry.num }, "clear")}
-                className="mr-auto inline-flex items-center gap-1.5 rounded-md px-2.5 py-2 text-xs font-medium text-muted transition-colors hover:text-red-500 disabled:pointer-events-none disabled:opacity-60"
+                className="mr-auto inline-flex items-center gap-1.5 rounded-md px-2.5 py-2 text-xs font-medium text-muted-foreground transition-colors hover:text-red-500 disabled:pointer-events-none disabled:opacity-60"
                 title={`Currently pinned to ${entry.nextOverride}`}
               >
                 {busy === "clear" ? <Loader2 className="size-3.5 animate-spin" /> : <PinOff className="size-3.5" />} Clear pin
               </button>
             )}
-            <button type="button" onClick={onClose} className="rounded-md px-3 py-2 text-sm text-muted transition hover:text-foreground">
+            <button type="button" onClick={onClose} className="rounded-md px-3 py-2 text-sm text-muted-foreground transition hover:text-foreground">
               Cancel
             </button>
             <button
               type="submit"
               disabled={busy !== null}
-              className="inline-flex items-center gap-1.5 rounded-md bg-brand px-3 py-2 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-200 disabled:pointer-events-none disabled:opacity-60"
+              className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-60"
             >
               {busy === "set" ? <Loader2 className="size-3.5 animate-spin" /> : <Pin className="size-3.5" />} Pin date
             </button>
