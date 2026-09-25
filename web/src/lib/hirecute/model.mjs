@@ -30,10 +30,30 @@ export class ModelError extends Error {
   }
 }
 
-function config(env = process.env) {
+/**
+ * Model tiers.
+ *
+ * The four stages do not need the same model, and the cost/latency profile is
+ * lopsided: scoring makes one call per shortlisted job and letter-writing one
+ * per selected job, so those dominate. Splitting the choice lets an operator
+ * put a fast model where throughput matters and keep a stronger one where
+ * judgment does, without touching any stage code.
+ *
+ *   fast      HIRECUTE_MODEL_FAST      structured extraction, high volume
+ *   judgment  HIRECUTE_MODEL_JUDGMENT  scoring and candidate-facing prose
+ *
+ * Both fall back to HIRECUTE_MODEL, so an existing single-model deployment
+ * keeps working unchanged.
+ */
+export const MODEL_TIERS = ["fast", "judgment"];
+
+function config(env = process.env, tier = "judgment") {
   const baseUrl = env.HIRECUTE_MODEL_API_BASE_URL?.trim();
   const apiKey = env.HIRECUTE_MODEL_API_KEY?.trim();
-  const model = env.HIRECUTE_MODEL?.trim();
+  const base = env.HIRECUTE_MODEL?.trim();
+  const tiered =
+    tier === "fast" ? env.HIRECUTE_MODEL_FAST?.trim() : env.HIRECUTE_MODEL_JUDGMENT?.trim();
+  const model = tiered || base;
   if (!baseUrl || !apiKey || !model) {
     throw new ModelError(
       "not_configured",
@@ -67,11 +87,14 @@ function isAnthropic(baseUrl) {
  * @param {object} opts.schema         JSON Schema for the required output.
  * @param {string} opts.schemaName     Names the emitter, e.g. "emit_resume_facts".
  * @param {number} [opts.maxTokens]
+ * @param {"fast"|"judgment"} [opts.tier]  Which model tier this call needs.
  * @param {AbortSignal} [opts.signal]
  * @returns {Promise<{data: unknown, usage: {inputTokens: number, outputTokens: number}, model: string}>}
  */
 export async function requestStructured(opts) {
-  const { baseUrl, apiKey, model } = config();
+  // `tier` names what the call NEEDS, not which model to use. The mapping is
+  // the operator's, in env.
+  const { baseUrl, apiKey, model } = config(process.env, opts.tier ?? "judgment");
   const maxTokens = opts.maxTokens ?? 4096;
 
   const anthropic = isAnthropic(baseUrl);

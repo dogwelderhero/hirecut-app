@@ -1,0 +1,53 @@
+{
+  "candidate": {
+    "name": "Priya Raman",
+    "email": "priya.raman@example.com",
+    "linkedin": {
+      "display": "linkedin.com/in/priyaraman",
+      "url": "https://linkedin.com/in/priyaraman"
+    },
+    "location": "London, United Kingdom"
+  },
+  "summary": "Senior Product Manager with hands-on experience owning payments infrastructure end to end, including a Faster Payments integration that cut settlement failures by 34% and a claims flow redesign that reduced chargeback disputes by 18%. Track record of shipping products with measurable, large-scale impact, including card controls used by 2.1 million customers, and of leading cross-functional teams of engineers and designers.",
+  "experience": [
+    {
+      "company": "Starling Bank",
+      "role": "Senior Product Manager, Payments",
+      "location": "London",
+      "dates": "2021-Present",
+      "bullets": [
+        "Led a team of 6 engineers and 2 designers",
+        "Directed hiring for the payments team",
+        "Owned the Faster Payments integration end to end, cutting settlement failures by 34%"
+      ]
+    },
+    {
+      "company": "Revolut",
+      "role": "Product Manager",
+      "location": "London",
+      "dates": "2018-2021",
+      "bullets": [
+        "Reduced chargeback disputes by 18% by redesigning the claims flow",
+        "Launched card controls used by 2.1 million customers"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "BSc Computer Science",
+      "org": "University of Manchester",
+      "year": "2014"
+    }
+  ],
+  "skills": [
+    {
+      "items": [
+        "Payments",
+        "SQL",
+        "Product Analytics",
+        "Figma",
+        "Stakeholder Management"
+      ]
+    }
+  ]
+}

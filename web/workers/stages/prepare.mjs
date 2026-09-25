@@ -320,13 +320,29 @@ export async function runPrepareStage(ctx) {
     prepared.push(jobId);
   }
 
-  // Visible jobs first, sequentially within the model-call limit, then the rest.
-  for (const jobId of visibleFirst) await prepareOne(jobId);
+  /** Bounded-concurrency map, so one slow draft does not block the batch. */
+  async function inParallel(ids, limit) {
+    let next = 0;
+    await Promise.all(
+      Array.from({ length: Math.min(limit, ids.length) }, async () => {
+        for (;;) {
+          const i = next++;
+          if (i >= ids.length) return;
+          await prepareOne(ids[i]);
+        }
+      }),
+    );
+  }
+
+  // Visible jobs first — that batch is what a visitor actually waits on — then
+  // the rest. Drafts are independent per job, so they run concurrently within
+  // the configured limit rather than one at a time.
+  await inParallel(visibleFirst, LIMITS.maxConcurrentLetters);
   emit("action.completed", { stage: "prepare", actionId: "prepare-1" }, "prepare");
   emit("action.completed", { stage: "prepare", actionId: "prepare-2" }, "prepare");
 
   emit("action.started", { action: actionRecord(3, labels[3]) }, "prepare");
-  for (const jobId of rest) await prepareOne(jobId);
+  await inParallel(rest, LIMITS.maxConcurrentLetters);
   emit("action.completed", { stage: "prepare", actionId: "prepare-3" }, "prepare");
 
   diag({ prepared: prepared.length, blocked: blocked.length, failed: failed.length });

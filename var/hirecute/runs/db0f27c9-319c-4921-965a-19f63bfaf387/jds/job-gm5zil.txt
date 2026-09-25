@@ -1,0 +1,122 @@
+At Render, we’re building the modern cloud platform for developers creating AI-native, full-stack, multi-service applications. Our mission is to eliminate the tradeoff between the power of hyperscalers and the simplicity of developer-friendly platforms—so teams can ship fast, scale reliably, and focus on their product, not infrastructure.
+
+Unlike complex hyperscalers or ephemeral edge/serverless solutions, Render offers a developer-first experience with persistent compute, dynamic autoscaling, built-in orchestration, and observability, allowing teams to launch, scale, and manage real-world applications without writing infrastructure code or managing servers. Whether you're building LLM-powered applications, scalable SaaS products, or async processing pipelines, Render empowers teams to move fast and scale confidently from MVP to millions of users.
+
+Our platform is trusted by over 7 million developers worldwide and continues to grow rapidly. In February 2026, we raised an additional $100M in Series C financing, bringing our total funding to $260M, to accelerate our vision of making cloud infrastructure both powerful and intuitive—designed for the speed of modern AI development.
+
+We’re a diverse and talented team that values craft, velocity, and user experience. If you’re excited to help shape the future of the intelligent cloud and empower developers everywhere, we’d love to hear from you.
+
+
+
+
+APPLYING TO RENDER
+
+We're seeking candidates who possess high integrity, humility, and an insatiable drive to learn. Through reasoned discussions and continuous feedback, we strive to improve both individually and collectively. We foster an environment of mutual trust and respect, empowering effective debate to achieve the best outcomes for our customers and team.
+
+We especially encourage members of underrepresented groups in the tech community to apply and understand that not all successful candidates will meet each requirement listed.
+
+Our interview process is unique to each role, and we value the candidate experience just as much as our customer experience. We hope your conversations with us reflect a thoughtful process that is illuminative, enjoyable, and respectful of your time.
+
+
+
+Render's mission is to eliminate the undifferentiated work that goes into building software products by offering an easy-to-use, powerful cloud platform for developer teams of all sizes.
+
+As we grow into the place to deploy AI-native apps and agents, we design for two users at once — developers and the agents working on their behalf. We treat the agent as a first-class customer, not an afterthought: every primitive should feel as considered for an agent as it does for a developer.
+
+We're hiring a Staff Product Designer to own Agent Experience (AX) end to end — the whole programmatic surface and the whole loop: an agent deploys, a human reviews what happened, the agent hits an error and recovers, the human grants it exactly the access it needs. Every hop crosses an interface boundary, and today those boundaries show seams. Your job is to design the loop as one product.
+
+That takes real craft across every surface an agent touches — the CLI, the API, MCP, SDKs, Blueprints and Skills, and the documentation that teaches an agent how to operate — plus real craft in web UI, because half the loop is a human deciding whether to trust what an agent just did. Most designers are strong on one side of that line; we want someone strong on both. This isn't design following the company's strongest bet; it's design leading it.
+
+We think about agent-native design in three areas: the interfaces agents need to operate, the human ↔ agent handoff where a person supervises and trusts agent work, and trust, safety, and governance — how access is granted, scoped, and revoked. This role owns all three. The first two are where the product is moving fastest today, but all three are in scope from day one — the whole point is to design them as one coherent experience rather than three disconnected efforts.
+
+You'll inherit real signal to build on: an AX audit and scoring framework, a developer community that already trusts the product, and a design team treating agent experience as a first-class discipline.
+
+
+YOU WILL:
+
+ - Design the full programmatic interface, not just the CLI. The agent operates Render through many doors — the CLI, the API, MCP, SDKs, Blueprints, and Skills — and they should feel like one coherent product, not a set of independently evolved tools. You'll own the interaction model and the error language across all of them, so an agent can run deploy → verify → debug → iterate without a human in the loop. A one-command path from empty directory to running app matters, but so does an API call an agent can reason about and an MCP surface it can operate reliably. An error message an agent can't parse and recover from is a broken feature, and you'll treat it that way — on every surface.
+
+ - Design documentation as an agent-facing product. Docs aren't just for humans anymore; they're how an agent learns to operate the platform. You'll design Blueprints, Skills, and reference material that teach an agent to use Render correctly — treating docs-as-experience as a first-class programmatic surface, with the same rigor as any command or endpoint.
+
+ - Close the human-operated gap in onboarding. Today the default first-deploy path runs service-by-service through the UI — the one thing an agent fundamentally can't operate. You'll design a configuration-first path where the whole system is described in code (Blueprints) and deployed in one motion, so the programmatic loop doesn't break at step one.
+
+ - Design the dashboard surfaces where agent work becomes visible to humans. When an agent deploys, retries, or fails on someone's behalf, a person needs to see what happened, why, and whether to trust it. You'll design the review, supervision, and activity surfaces for agent-driven work — web UI held to the same rigor as any flagship flow, because this is where confidence in the whole agent story is won or lost.
+
+ - Design agent auth and access. Consent, scoping, and token management — so a developer can grant an agent or third-party app exactly the access it needs, see what that access is being used for, and revoke it without fear. Least-privilege should feel legible and safe rather than all-or-nothing. This is half policy design, half interface design, and it's where "can I trust this?" gets answered.
+
+ - Design one model, expressed everywhere. The core objects of the platform — applications, services, environments — should mean the same thing whether you meet them in the dashboard, the CLI, the API, an SDK, MCP, or a Blueprint. You'll design that model once and hold every surface to it, so a human and an agent are always looking at the same product.
+
+ - Surface the agent-operable paths at moments of intent. Copy-a-prompt CTAs, post-signup CLI install, post-error tooling suggestions. The programmatic paths already exist but aren't discovered — you'll place them where developer intent is highest.
+
+
+
+
+WE'RE LOOKING FOR:
+
+ - 7+ years of product design experience, ideally on developer tools, infrastructure, APIs, or another technical, credibility-driven product. You may have worked as a product designer, a designer who codes, or something harder to label — the title matters less than the work. At this level, we expect someone who has owned a major surface or product area end to end and set the direction others built against.
+
+ - Craft that spans GUI and non-GUI surfaces. You have an eye for detail that borders on obsessive — the wording of an error, the shape of a command, the structure of an API response, the spacing of a dashboard — and you're as rigorous about a CLI message or an SDK method as you are about a screen. Your portfolio shows strong web UI work alongside text-first thinking: command design, API ergonomics, MCP/SDK design, docs-as-experience, or conversational interfaces.
+
+ - You design the whole journey, not a surface at a time. Your portfolio shows end-to-end experiences — a user carried coherently across interface boundaries, CLI to API to SDK to dashboard and back — where you designed the model once and expressed it everywhere it appears, rather than polishing one surface in isolation.
+
+ - A genuine point of view on what AI-native products mean for design — including how a product should show up to an agent, and not only to a person.
+
+ - Comfort near code. You can read it, prototype with it, and collaborate with engineers without a translation layer in between.
+
+ - The judgment to define quality where no established playbook exists, and the rigor to hold that bar once you've set it.
+
+ - Clear, direct communication and cross-org influence. You can make the case for AX to technical and non-technical partners alike, in rooms where it's easy to treat it as purely an engineering concern — and you can align product, engineering, and leadership around a direction without formal authority over them.
+
+
+NICE-TO-HAVES:
+
+ - Experience designing or shipping a CLI, SDK, API, or MCP surface used at scale.
+
+ - Experience designing agent-facing documentation, Blueprints, Skills, or other material intended to teach a model how to operate a system.
+
+ - Familiarity with OAuth, scoped tokens, or least-privilege access models — or an appetite to make permissions feel humane.
+
+ - Hands-on experience building with coding agents or LLM-driven tooling, with a view on where the agent loop breaks down today.
+
+ - Design-engineering literacy: motion, prototyping, or front-end fluency.
+
+ - Experience evolving a developer-first product toward larger teams and enterprises without losing the original audience.
+
+ - Writing, talks, or side projects that show your craft and point of view on developer experience.
+
+This is a new category, and nobody has all the answers yet — including us. If you're the kind of designer who's curious enough to figure things out, ship, learn what's wrong, and try again, we'd love to hear from you. 
+
+If this role excites you but you don’t meet every single requirement, we’d still love to hear from you—your unique experience might be just what we need.
+
+
+
+
+BENEFITS
+
+ - 4 weeks of paid vacation.
+
+ - 14 weeks of fully paid parental leave for all parents to bond with a newly born, adopted, or fostered child. We will also work with you to create a supportive plan of return.
+
+ - Long-term disability, life insurance, and 401K plans.
+
+ - 100% employer-paid medical coverage and 99% employer-paid dental and vision coverage for you and a dependent. FSAs and HSAs are available as well.
+
+ - Monthly lifestyle stipend for wellness, mental health and therapy, hobbies, etc.
+
+ - Monthly cell phone and internet subsidy.
+
+ - Commuter benefits for Renders in the Bay Area, and home office stipends for remote Renders.
+
+ - Continuous learning benefits & related support.
+
+This position is generally not eligible for new visa sponsorship. At Render's discretion, the business may sponsor existing visa transfers. Applicants who require sponsorship must receive business authorization.
+
+Render is an equal-opportunity employer. We know that employing a team rich in diverse thoughts, experiences, and opinions allows our employees, product, and community to flourish. We make all employment decisions including hiring, evaluation, termination, promotional, and training opportunities, without regard to race, religion, color, sex, age, national origin, ancestry, sexual orientation, physical handicap, mental disability, medical condition, disability, gender or identity or expression, pregnancy or pregnancy-related condition, marital status, height and/or weight.
+
+We will ensure that individuals with disabilities are provided reasonable accommodation to participate in the job application or interview process, to perform essential job functions, and to receive other benefits and privileges of employment. Please contact us to request accommodation.
+
+We encourage all who are interested to apply. We can't wait to hear from you!
+
+Render — CCPA Applicant Privacy Notice https://drive.google.com/file/d/1wKr9IejoT5McFrs9I2mahQnf6AFwb3z2/view
+
+Render — GDPR Applicant Privacy Notice https://drive.google.com/file/d/1_8jtyXQ1HdRdTdQn9sZ7n-R-zAGBmsFa/view

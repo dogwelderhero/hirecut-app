@@ -1,0 +1,3569 @@
+{
+  "snapshot": {
+    "schemaVersion": 1,
+    "id": "db0f27c9-319c-4921-965a-19f63bfaf387",
+    "origin": "uploaded_resume",
+    "launchProfile": "activation_pilot",
+    "status": "cancelled",
+    "currentStage": "prepare",
+    "createdAt": "2026-09-25T19:02:34.578Z",
+    "updatedAt": "2026-09-25T19:04:44.682Z",
+    "lastSequence": 165,
+    "journeyVersion": 1,
+    "profile": null,
+    "preferences": {
+      "version": 1,
+      "targetRoles": [],
+      "locations": [],
+      "workStyles": [],
+      "origin": "confirmed_by_candidate"
+    },
+    "stages": {
+      "refine": {
+        "stage": "refine",
+        "status": "completed",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "refine-0",
+            "stage": "refine",
+            "label": "Reading your resume",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:02:34.747Z",
+            "completedAt": "2026-09-25T19:02:35.451Z",
+            "error": null
+          },
+          {
+            "id": "refine-1",
+            "stage": "refine",
+            "label": "Extracting your experience and skills",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:02:35.450Z",
+            "completedAt": "2026-09-25T19:02:41.925Z",
+            "error": null
+          },
+          {
+            "id": "refine-2",
+            "stage": "refine",
+            "label": "Refining your summary and bullet points",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:02:41.916Z",
+            "completedAt": "2026-09-25T19:02:41.932Z",
+            "error": null
+          },
+          {
+            "id": "refine-3",
+            "stage": "refine",
+            "label": "Checking formatting and readability",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:02:41.916Z",
+            "completedAt": "2026-09-25T19:02:42.799Z",
+            "error": null
+          }
+        ],
+        "result": {
+          "kind": "refine",
+          "originalArtifactId": "4467ebcc-8223-4e37-b84e-bdee62a24c2c",
+          "refinedResumeArtifactId": "51e2a831-6e47-42ac-a07f-3e0d7b8328b9",
+          "changes": [],
+          "originalPreserved": true
+        },
+        "error": null
+      },
+      "explore": {
+        "stage": "explore",
+        "status": "completed",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "explore-0",
+            "stage": "explore",
+            "label": "Building a search from your experience",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:02:42.799Z",
+            "completedAt": "2026-09-25T19:02:42.803Z",
+            "error": null
+          },
+          {
+            "id": "explore-1",
+            "stage": "explore",
+            "label": "Checking company career pages",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:02:42.799Z",
+            "completedAt": "2026-09-25T19:02:53.320Z",
+            "error": null
+          },
+          {
+            "id": "explore-2",
+            "stage": "explore",
+            "label": "Removing duplicates and expired listings",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:02:53.317Z",
+            "completedAt": "2026-09-25T19:02:53.432Z",
+            "error": null
+          },
+          {
+            "id": "explore-3",
+            "stage": "explore",
+            "label": "Saving relevant openings",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:02:53.427Z",
+            "completedAt": "2026-09-25T19:02:53.511Z",
+            "error": null
+          }
+        ],
+        "result": {
+          "kind": "explore",
+          "jobIds": [
+            "job-1qqigdp",
+            "job-1qqigdn",
+            "job-10mptfu",
+            "job-1qouaas",
+            "job-1qouaa5",
+            "job-18c7krg",
+            "job-f08zn7",
+            "job-buqtr7",
+            "job-1qchwt",
+            "job-x5rwkt",
+            "job-1u67a47",
+            "job-1gy5k77",
+            "job-a2le2j",
+            "job-i3gep7",
+            "job-1sprd5o",
+            "job-gm5zil",
+            "job-dpw45i",
+            "job-1qpflw3",
+            "job-5dagjf",
+            "job-iq7xs6",
+            "job-5sxbs9",
+            "job-1hz5a4",
+            "job-ha9s02",
+            "job-1mql4f3",
+            "job-1t0ibo6",
+            "job-1a2v87n",
+            "job-1tp6ds2",
+            "job-1kzi81d",
+            "job-1hceeml",
+            "job-1irrx6e",
+            "job-cen7j4",
+            "job-1r37npj",
+            "job-1r37nmw",
+            "job-13plpab",
+            "job-1wc8wzh",
+            "job-5r3dp9",
+            "job-90ppq4",
+            "job-1r2n2th",
+            "job-1r2n2tf",
+            "job-1qqmsu4"
+          ],
+          "coverage": {
+            "status": "complete_within_scope",
+            "boardsAttempted": 43,
+            "boardsSucceeded": 43,
+            "boardsFailed": 0,
+            "availableCompanies": null,
+            "capHit": false,
+            "staleDataset": false,
+            "stoppedByOutage": false,
+            "undatedPostingsDropped": 0,
+            "jobsFound": 6976,
+            "jobsRetained": 40,
+            "scopeDescription": "43 curated Ashby, Greenhouse, Lever boards",
+            "warnings": []
+          }
+        },
+        "error": null
+      },
+      "match": {
+        "stage": "match",
+        "status": "completed",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "match-0",
+            "stage": "match",
+            "label": "Comparing skills and seniority",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:02:53.454Z",
+            "completedAt": "2026-09-25T19:02:53.521Z",
+            "error": null
+          },
+          {
+            "id": "match-1",
+            "stage": "match",
+            "label": "Checking location and salary fit where evidence exists",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:02:53.463Z",
+            "completedAt": "2026-09-25T19:02:53.536Z",
+            "error": null
+          },
+          {
+            "id": "match-2",
+            "stage": "match",
+            "label": "Finding evidence for each match",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:02:53.463Z",
+            "completedAt": "2026-09-25T19:03:59.743Z",
+            "error": null
+          },
+          {
+            "id": "match-3",
+            "stage": "match",
+            "label": "Ranking your top 10 roles",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:03:59.727Z",
+            "completedAt": "2026-09-25T19:03:59.747Z",
+            "error": null
+          }
+        ],
+        "result": {
+          "kind": "match",
+          "assessments": [
+            {
+              "jobId": "job-1qqigdn",
+              "score5": 3.2,
+              "confidence": "medium",
+              "recommendation": "consider",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "5+ years as Senior Product Designer shipping consumer-facing mobile and web products, matching the seniority and craft expectations of the posting",
+                "Direct experience owning a design system used by 40 teams, relevant to the posting's emphasis on visual and interaction craft",
+                "Track record of end-to-end product design (upload flow redesign, brand refresh) aligning with the posting's call for shaping full customer journeys"
+              ],
+              "gaps": [
+                "No evidenced experience in growth, lifecycle, incentives, or retention-focused design work",
+                "No evidence of experimentation-driven design practice or A/B testing culture referenced in the posting",
+                "No evidence of working at the intersection of business strategy and growth mechanics"
+              ],
+              "requirements": [
+                {
+                  "requirement": "Senior Product Designer with strong craft in visual, interaction, and motion design",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows 5+ years as Senior Product Designer, skills list includes Motion Design, Prototyping, Figma, and shipped end-to-end work like the mobile upload flow redesign."
+                },
+                {
+                  "requirement": "0→1 exploration and highly conceptual, ambiguous problem-solving",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows end-to-end design (upload flow, brand refresh) but no explicit evidence of ambiguous 0→1 growth exploration or experimentation-driven design."
+                },
+                {
+                  "requirement": "Experience with Growth/Lifecycle design: conversion, incentives, retention, reactivation",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No resume evidence of working on growth, lifecycle marketing, incentives, partnerships, or retention-focused product design; background is in design systems, checkout accessibility, and upload flows."
+                },
+                {
+                  "requirement": "Understanding of business mechanics behind growth strategy",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No evidence in resume of collaborating on business/growth strategy or experimentation programs."
+                },
+                {
+                  "requirement": "Design systems and cross-platform cohesion",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Built and maintained design system used by 40 product teams at Zalando, cutting component duplication 62% — directly relevant craft strength, though not the core focus of this Growth role."
+                },
+                {
+                  "requirement": "Consumer-facing product experience",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows consumer-facing work at Zalando (checkout) and SoundCloud (upload flow, brand refresh), matching Instacart's consumer product context."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+              "jobContentHash": "sha256:c26b50d3cd699f831a02413e6f7a559b938536fdbf440d3d7f543a8298f7780d",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T19:03:04.865Z"
+            },
+            {
+              "jobId": "job-1qqigdp",
+              "score5": 3,
+              "confidence": "medium",
+              "recommendation": "consider",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Senior-level product design experience (5+ years) matching the 'Senior Product Designer II' seniority",
+                "Strong Figma, prototyping, and motion design skills listed in resume, matching the posting's emphasis on 'exceptional visual, interaction, and motion design'",
+                "Track record of shipping measurable product improvements (24% completion lift, 62% duplication reduction), aligning with the posting's culture of 'experimentation, accountability, and craft'"
+              ],
+              "gaps": [
+                "No evidenced experience in Growth-specific design (lifecycle, incentives, partnerships, conversion/retention optimization)",
+                "No evidence of 0→1 ambiguous problem exploration; resume experience reads as systems maintenance and defined redesign projects",
+                "No stated experience with experimentation/A-B testing or growth strategy work referenced in the posting"
+              ],
+              "requirements": [
+                {
+                  "requirement": "Senior Product Designer with strong craft in visual, interaction, and motion design",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows 5+ years as Senior Product Designer at Zalando with Figma, Motion Design, and Prototyping skills listed, plus a mobile upload flow redesign lifting completion 24%."
+                },
+                {
+                  "requirement": "0→1 exploration and highly conceptual, ambiguous problem-solving",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows system-building and brand refresh work (structured, iterative) but no explicit evidence of greenfield 0→1 product exploration or ambiguous growth problem framing."
+                },
+                {
+                  "requirement": "Experience designing for Growth: conversion, engagement, retention, lifecycle experiences",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows design systems, accessibility, and checkout work at Zalando, and a brand/upload flow at SoundCloud, but no evidence of lifecycle, incentives, partnerships, or growth-metric-driven design work."
+                },
+                {
+                  "requirement": "Understanding of business mechanics behind growth initiatives (partnerships, incentives)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No resume evidence of working with partnership-led entry points, incentive structures, or growth strategy."
+                },
+                {
+                  "requirement": "Cross-functional collaboration across product, brand, content, interaction design",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows cross-team design system work (40 product teams) and brand refresh across web/mobile, suggesting cross-functional collaboration, though not specifically in a growth context."
+                },
+                {
+                  "requirement": "Design systems and cross-platform cohesion",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume explicitly states building/maintaining a design system used by 40 teams, cutting duplication 62%, directly evidencing this skill, though it is not the core ask of this Growth role."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+              "jobContentHash": "sha256:47e6240ac777ed3cb2916479b1c9f39f548243dfc74ebc40aec66209040937f9",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T19:03:06.618Z"
+            },
+            {
+              "jobId": "job-10mptfu",
+              "score5": 2.8,
+              "confidence": "medium",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "proceed_with_caution",
+              "strengths": [
+                "Design systems expertise: resume's design system work at Zalando (used by 40 teams, cut duplication 62%) aligns with the posting's emphasis on craft and consistency ('unmistakably Monzo').",
+                "Consumer product design experience: 5+ years shipping consumer-facing mobile/web products matches the posting's consumer fintech context.",
+                "Web and mobile brand/design work at SoundCloud aligns with the posting's specific focus on web experiences."
+              ],
+              "gaps": [
+                "No evidence of prior 'Lead' level scope — managing, mentoring, or setting direction for other designers.",
+                "No evidence of growth/experimentation experience (A/B testing, hypothesis-driven design, funnel optimization).",
+                "No evidence of working with quantitative data/analytics to drive design decisions.",
+                "No evidence of pre-app/acquisition web experience specifically, as opposed to in-product design."
+              ],
+              "requirements": [
+                {
+                  "requirement": "Lead role (Lead Product Designer title)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows Senior Product Designer level with no evidence of leading other designers, mentoring, or acting as a design lead — a core expectation ('acting as a role model in Design, sharing your work broadly, mentoring others')."
+                },
+                {
+                  "requirement": "Growth-focused, data-informed design with experimentation",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Posting wants someone comfortable running experiments, forming hypotheses, and using quantitative/qualitative data to drive growth outcomes. Resume shows outcome metrics (24% completion lift, 62% duplication reduction) but no evidence of experimentation frameworks, A/B testing, or growth methodology."
+                },
+                {
+                  "requirement": "Web experience design (marketing/acquisition site pre-app)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume mentions 'brand refresh across web and mobile' at SoundCloud, which is adjacent but not focused on top-of-funnel discovery/acquisition web design."
+                },
+                {
+                  "requirement": "Strong visual and interaction craft",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows design systems ownership, Figma library consolidation, and typography/motion design skills, indicating strong visual craft."
+                },
+                {
+                  "requirement": "Partnering with Product, Engineering, Data, Research",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume implies cross-functional work at Zalando (40 product teams) but doesn't explicitly mention Data or Research partnership."
+                },
+                {
+                  "requirement": "Defining product vision and direction beyond individual experiments",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No evidence in resume of setting product vision or long-term strategic direction; experience is more execution-focused."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+              "jobContentHash": "sha256:c4ec417cf1a1e0383235b4183a9001851d8c0291538e6ab7f0c2825ba68bd473",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T19:03:17.221Z"
+            },
+            {
+              "jobId": "job-1qouaas",
+              "score5": 3,
+              "confidence": "medium",
+              "recommendation": "research_first",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Design systems expertise: resume's 'Built and maintained the design system used by 40 product teams' at Zalando directly aligns with JD's 'design systems collaboration' requirement.",
+                "Consumer-facing product design experience across web and mobile (SoundCloud upload flow, Zalando checkout) matches JD's core ask of 'consumer-facing digital products across web and mobile.'",
+                "Measurable outcomes track record (24% completion lift, 62% duplication reduction, WCAG AA compliance) echoes JD's emphasis on 'measurable outcomes' and craft-focused execution."
+              ],
+              "gaps": [
+                "Resume shows ~5 years total experience versus the stated 6+ year minimum.",
+                "No evidence of managing 3+ concurrent PM/engineering partnerships or multiple simultaneous complex problem spaces.",
+                "No evidence of presenting to senior/executive stakeholders or leadership crits.",
+                "No mention of applying AI tools in design workflows, which the JD calls out explicitly."
+              ],
+              "requirements": [
+                {
+                  "requirement": "6+ years designing consumer-facing digital products across web and mobile",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows 5+ years (2017-present) across web/mobile at SoundCloud and Zalando; JD explicitly asks for 6+ years, a slight shortfall."
+                },
+                {
+                  "requirement": "Portfolio demonstrating complex, multi-step product journeys with measurable outcomes",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows measurable outcomes (24% completion lift on upload flow, 62% duplication reduction) but these are design-system/single-flow projects, not clearly 'complex multi-step journeys' at Instacart's order-fulfillment scale."
+                },
+                {
+                  "requirement": "Own work end-to-end from zero-to-one framing through execution",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows end-to-end ownership of design system and brand refresh, but no explicit zero-to-one product concept work described."
+                },
+                {
+                  "requirement": "Experience working across multiple concurrent complex problem spaces with several PM/eng teams",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No evidence of managing 3+ concurrent PM/eng partnerships; resume describes single-team, system-wide initiatives, not multi-stakeholder juggling."
+                },
+                {
+                  "requirement": "Strong communication, presenting to senior/executive stakeholders",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No mention in resume of presenting to leadership, crits, or executive stakeholders."
+                },
+                {
+                  "requirement": "Figma proficiency and design systems collaboration",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume: 'Built and maintained the design system used by 40 product teams at Zalando' and lists Figma as a core skill, directly matching JD's 'design systems collaboration' and Figma flows."
+                },
+                {
+                  "requirement": "Accessibility / craft-level execution",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume: 'Ran accessibility audits raising WCAG compliance to AA across checkout' matches JD's craft-focused execution emphasis."
+                },
+                {
+                  "requirement": "Applying AI tools in design workflow",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No mention of AI tool usage anywhere in the resume."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+              "jobContentHash": "sha256:82ef5b984b8e03868ec532bc9074a86db92057a8e9f1196e7e78e766fd6f0a84",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T19:03:20.538Z"
+            },
+            {
+              "jobId": "job-1qouaa5",
+              "score5": 3.2,
+              "confidence": "high",
+              "recommendation": "consider",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Resume's design-system ownership at Zalando ('used by 40 product teams', 'cutting component duplication 62%') directly matches JD's emphasis on 'design systems collaboration' and cross-platform cohesion.",
+                "Accessibility work ('WCAG AA compliance across checkout') aligns with the quality/craft rigor the Order Quality role implies for consumer-facing experiences.",
+                "Demonstrated measurable product impact (24% completion lift on mobile upload flow redesign) matches the JD's ask for 'a portfolio demonstrating... measurable outcomes.'"
+              ],
+              "gaps": [
+                "JD requires 6+ years; resume shows 5+ years total experience.",
+                "No evidence of partnering with 3+ concurrent product managers/engineering teams as the JD requires.",
+                "No evidence of zero-to-one concept exploration work as distinct from system maintenance and refresh work.",
+                "No evidence of presenting to senior/executive stakeholders or cross-functional crits at leadership level."
+              ],
+              "requirements": [
+                {
+                  "requirement": "6+ years designing consumer-facing digital products across web and mobile",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows 5+ years (2017-Present) at SoundCloud and Zalando on consumer-facing web/mobile products; falls short of the stated 6+ year minimum."
+                },
+                {
+                  "requirement": "Portfolio demonstrating complex, multi-step product journeys with measurable outcomes",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume cites measurable outcomes (24% completion lift on upload flow, 62% component duplication reduction) but these are single-flow/system projects, not clearly 'complex multi-step product journeys' like order fulfillment."
+                },
+                {
+                  "requirement": "Ability to own work end-to-end from zero-to-one through execution",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows ownership of design system build and brand refresh end-to-end, but no explicit zero-to-one concept-to-delivery narrative described."
+                },
+                {
+                  "requirement": "Experience working across multiple complex problem spaces with several PM/eng teams simultaneously",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume doesn't mention partnering with multiple (3+) product managers or juggling concurrent workstreams; describes single design-system ownership role."
+                },
+                {
+                  "requirement": "Design systems collaboration and Figma craft",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume: 'Built and maintained the design system used by 40 product teams at Zalando' and lists Figma as a core skill, directly matching the JD's design systems and Figma craft expectations."
+                },
+                {
+                  "requirement": "Accessibility and cross-platform cohesion",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume: 'drove accessibility audits to WCAG AA compliance across checkout' aligns with consumer-facing quality/craft focus implied in Order Quality work."
+                },
+                {
+                  "requirement": "Strong communication, presenting to senior/executive stakeholders",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No resume evidence of presenting to heads of Product/Design or executive stakeholders."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+              "jobContentHash": "sha256:8ad610fea5a60a6620b543a60af9b2643fb0718c8dd41cee879b0579f61aa2c3",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T19:03:31.762Z"
+            },
+            {
+              "jobId": "job-18c7krg",
+              "score5": 3.3,
+              "confidence": "medium",
+              "recommendation": "research_first",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Design systems expertise: resume's 'design system used by 40 product teams' and 'cutting component duplication 62%' matches the posting's requirement for 'systems thinking across multiple entry points and surfaces, resulting in cohesive cross-platform experiences.'",
+                "Consumer-facing scale experience: 5+ years at Zalando and SoundCloud shipping mobile/web products aligns with the posting's '5+ years of product design experience shipping consumer-facing products at scale.'",
+                "Cross-platform craft: 'brand refreshes spanning web and mobile' matches the posting's need to own 'CB1 Member Home... across mobile and web.'"
+              ],
+              "gaps": [
+                "No demonstrated experience with membership, loyalty, subscription, or retention/engagement product design, which is a named requirement.",
+                "No mention of gamification mechanics, campaign design, or churn-reduction work central to the CB1 role.",
+                "No evidence of generative AI usage in design workflow, explicitly requested in the posting.",
+                "No explicit portfolio or case-study reference demonstrating strategy-to-execution narrative."
+              ],
+              "requirements": [
+                {
+                  "requirement": "5+ years product design experience shipping consumer-facing products at scale (mobile and web)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows 5+ years at Zalando and SoundCloud shipping consumer-facing mobile/web products, e.g. mobile upload flow redesign and checkout accessibility work."
+                },
+                {
+                  "requirement": "Portfolio demonstrating end-to-end product design from strategy through execution",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume states 'end-to-end product design' and cites specific outcomes (24% completion lift), but no explicit portfolio link or strategy narrative is provided."
+                },
+                {
+                  "requirement": "Experience designing membership, loyalty, or engagement-driven products (subscriptions, rewards, retention)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No evidence in resume of subscription, loyalty, rewards, or retention-focused design work; experience is design systems, checkout, and upload flows."
+                },
+                {
+                  "requirement": "Systems thinking across multiple entry points and surfaces, cohesive cross-platform experiences",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume: 'Built and maintained the design system used by 40 product teams at Zalando' and 'brand refreshes spanning web and mobile' directly evidence cross-platform systems thinking."
+                },
+                {
+                  "requirement": "Collaborating directly with engineering to incorporate technical constraints",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume implies cross-team work (design system used by 40 teams) but does not explicitly mention engineering collaboration or technical constraint handling."
+                },
+                {
+                  "requirement": "Shipping iteratively in ambiguous problem spaces while maintaining long-term vision",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "not_applicable",
+                  "explanation": "Not clearly evidenced or contradicted in resume; no specific mention of ambiguity or iterative shipping cadence."
+                },
+                {
+                  "requirement": "Responsible use of generative AI in workflow",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No mention of generative AI tools or usage anywhere in the resume."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+              "jobContentHash": "sha256:07eaeeccd12c5c5a77ae791cbfa64fd5bf475ded10147bd7ab5c2665d9114f77",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T19:03:32.614Z"
+            },
+            {
+              "jobId": "job-buqtr7",
+              "score5": 2,
+              "confidence": "high",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Design systems expertise: resume's 'Built and maintained the design system used by 40 product teams at Zalando, cutting component duplication 62%' aligns with posting's need to 'create beautiful patterns for risk and compliance experiences across Stripe' and 'adopt systems thinking'.",
+                "Accessibility craft: resume's WCAG AA accessibility audits across checkout speaks to the posting's emphasis on 'well-crafted experiences during some of the most important moments' and 'raise the craft bar'."
+              ],
+              "gaps": [
+                "No risk, compliance, fraud, or trust & safety domain experience evidenced.",
+                "No staff/principal-level scope or track record of setting design standards across dozens of teams — resume shows senior IC level.",
+                "No AI/agent-driven workflow design experience.",
+                "No 0-to-1 product strategy or new product creation experience under ambiguity."
+              ],
+              "requirements": [
+                {
+                  "requirement": "Senior Staff level design leadership (staff/principal IC influencing org-wide standards)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows Senior Product Designer (5+ years) at Zalando/SoundCloud, not a staff/principal-level title or scope. No evidence of leading design across dozens of teams or setting org-wide strategy at that level."
+                },
+                {
+                  "requirement": "Risk, compliance, onboarding/verification, or trust & safety domain experience",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume covers checkout accessibility, design systems, and upload flow/brand refresh — no mention of risk, fraud, compliance, or verification workflows."
+                },
+                {
+                  "requirement": "Shaping new product strategy and 0-to-1 product creation in ambiguous, cross-functional, high-stakes domains",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows building/maintaining a design system used by 40 teams (cross-team influence), but no explicit 0-to-1 product strategy or ambiguity-driven product creation examples."
+                },
+                {
+                  "requirement": "AI-driven / agent-friendly workflow design",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No AI or agent-workflow experience listed in resume skills or work history."
+                },
+                {
+                  "requirement": "Design systems and cross-platform cohesion",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume: 'Built and maintained the design system used by 40 product teams at Zalando, cutting component duplication 62%' directly matches the posting's call to 'create beautiful patterns... across Stripe' and 'systems thinking'."
+                },
+                {
+                  "requirement": "Accessibility / craft quality in trust-sensitive flows",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows WCAG AA accessibility audits on checkout, which is trust-adjacent but not the same as risk/compliance craft the posting emphasizes."
+                },
+                {
+                  "requirement": "Cross-functional partnership with product, engineering, policy, operations, research",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume implies collaboration across product teams for design system work, but no explicit mention of policy or risk-ops partnership as the posting requires."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+              "jobContentHash": "sha256:d91910e94a5f9735602f4f32e14be253ae78eaba7dd34a17e88fca3432b0599e",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T19:03:47.079Z"
+            },
+            {
+              "jobId": "job-f08zn7",
+              "score5": 2.8,
+              "confidence": "medium",
+              "recommendation": "research_first",
+              "workAuthorization": "no_sponsorship",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Design systems expertise: resume shows building/maintaining a system used by 40 teams at Zalando, directly matching the posting's 'systems fluency' requirement.",
+                "Craft and visual polish: resume skills list (Typography, Motion Design, Prototyping) align with the posting's emphasis on 'exceptional taste and craft.'",
+                "Accessibility rigor: WCAG AA compliance work on checkout aligns with the posting's value on rigorous, detail-oriented design practice."
+              ],
+              "gaps": [
+                "No evidence of developer-tool, cloud infrastructure, or technical/CI-CD-adjacent design experience, which is central to this posting.",
+                "No evidence of dashboard, observability, or high-density data visualization design work.",
+                "No evidence of designing for failure states, error handling, or 'unglamorous' product moments as emphasized in the role.",
+                "No indication of experience with technical, engineering-adjacent collaboration or B2B/developer-facing products (background is consumer e-commerce/media)."
+              ],
+              "requirements": [
+                {
+                  "requirement": "5+ years relevant experience (developer tools, cloud infra, or complex/high-stakes product)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows 5+ years as Product Designer (Zalando, SoundCloud), but experience is consumer e-commerce/media, not developer tools or infrastructure."
+                },
+                {
+                  "requirement": "Fluent in developer language (services, CI/CD, deployments)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No evidence in resume of working with developer-facing tools, CI/CD, or infrastructure concepts."
+                },
+                {
+                  "requirement": "Design complex dashboards / high-density information design / observability",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows design system and checkout accessibility work, but no dashboards, monitoring, or data-dense console interfaces."
+                },
+                {
+                  "requirement": "Systems fluency: comfortable extending a design system",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume: 'Built and maintained the design system used by 40 product teams at Zalando, cutting component duplication 62%.'"
+                },
+                {
+                  "requirement": "Design the whole journey across surfaces, including failure/empty states",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows end-to-end flow redesign ('mobile upload flow redesign that lifted completion 24%') but no explicit mention of designing failure states or error handling."
+                },
+                {
+                  "requirement": "Exceptional taste and craft, attention to detail (typography, spacing, motion)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume lists Typography and Motion Design as skills, and cites a brand refresh across web and mobile at SoundCloud."
+                },
+                {
+                  "requirement": "Accessibility / respect for edge cases",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume: 'Ran accessibility audits raising WCAG compliance to AA across checkout' shows accessibility rigor, though not framed around failure-state design specifically."
+                },
+                {
+                  "requirement": "No new visa sponsorship generally available",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "not_applicable",
+                  "explanation": "Posting states sponsorship generally unavailable for new hires; candidate's authorization status is not stated in resume."
+                }
+              ],
+              "blockers": [
+                {
+                  "code": "work_authorization",
+                  "description": "Posting states role is 'generally not eligible for new visa sponsorship.' Candidate is based in Berlin, Germany, and resume does not state US work authorization status.",
+                  "evidenceIds": [],
+                  "certainty": "needs_candidate_input"
+                }
+              ],
+              "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+              "jobContentHash": "sha256:83b05744b661dbdfe43d43cbc02fd53c44799db74e0616f643e2ef2e5fcb3824",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T19:03:47.508Z"
+            },
+            {
+              "jobId": "job-x5rwkt",
+              "score5": 3.2,
+              "confidence": "high",
+              "recommendation": "consider",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Design systems expertise: resume shows building/maintaining a design system used by 40 product teams, aligning with the posting's emphasis on cross-functional, scalable design work.",
+                "Cross-platform web and mobile design experience matches the posting's requirement for UX/UI across web & mobile applications.",
+                "Quantified impact track record (62% duplication reduction, 24% completion lift) aligns with the posting's ask for a portfolio showing 'quantified impact.'"
+              ],
+              "gaps": [
+                "Posting requires 6+ years of experience; resume shows approximately 5+ years (since 2017 at SoundCloud, more clearly senior since 2020).",
+                "No evidence of AI tool proficiency (Cursor, Figma Make) required by the posting.",
+                "No evidence of direct customer engagement/validation work called out as a core responsibility.",
+                "No portfolio referenced in resume facts, which the posting states is mandatory to be considered."
+              ],
+              "requirements": [
+                {
+                  "requirement": "6+ years of product design experience designing UX/UI for web & mobile applications",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows 5+ years total (2017-Present) across SoundCloud and Zalando; posting requires 6+ years minimum."
+                },
+                {
+                  "requirement": "Proven comparable design expertise in interaction and visual design",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows design system work, Figma library consolidation, typography, prototyping across web and mobile."
+                },
+                {
+                  "requirement": "Strong portfolio/case studies with quantified impact",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume cites quantified outcomes (62% duplication reduction, 24% completion lift) but no portfolio link is mentioned in resume facts."
+                },
+                {
+                  "requirement": "Demonstrated proficiency in AI tools (Cursor, Figma Make) for workflow acceleration",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No AI tooling experience listed in resume skills or work history."
+                },
+                {
+                  "requirement": "Lead large, ambiguous projects influencing strategy and mentoring design team",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows ownership of design system used by 40 teams (structural leadership) but no explicit mention of mentoring others or strategic influence at leadership level."
+                },
+                {
+                  "requirement": "Work directly with customers to validate designs and inform strategy",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume does not evidence direct customer engagement or research validation work."
+                },
+                {
+                  "requirement": "Remote role open to candidates residing in the US",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "not_applicable",
+                  "explanation": "Location/eligibility is tracked separately as a blocker, not a fit gap."
+                }
+              ],
+              "blockers": [
+                {
+                  "code": "location",
+                  "description": "Posting is 'remote role open to candidates residing in the US'; resume shows candidate based in Berlin, Germany.",
+                  "evidenceIds": [],
+                  "certainty": "confirmed_blocker"
+                }
+              ],
+              "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+              "jobContentHash": "sha256:4ddecdb104db22fec6bf27e01e493520b5a12052fe702dc7c2056c9326203e9c",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T19:03:59.717Z"
+            },
+            {
+              "jobId": "job-1qchwt",
+              "score5": 2.8,
+              "confidence": "high",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Design system expertise: resume shows building/maintaining a design system used by 40 product teams at Zalando, matching the posting's emphasis on shipping well-crafted, scalable design solutions.",
+                "End-to-end product design with quantified impact: resume's mobile upload flow redesign (24% completion lift) aligns with the posting's call for designs that unlock measurable customer/business value.",
+                "Cross-platform design experience: resume shows work spanning web and mobile (brand refresh, design system), matching the posting's web & mobile application scope."
+              ],
+              "gaps": [
+                "Posting requires 6+ years of experience; resume evidences roughly 5+ years total.",
+                "No demonstrated AI tool proficiency (Cursor, Figma Make) as explicitly required.",
+                "No evidence of direct customer engagement/validation work described in the posting's core responsibilities.",
+                "No evidence of mentorship or influencing a broader design team/culture, which the role explicitly calls for."
+              ],
+              "requirements": [
+                {
+                  "requirement": "6+ years of product design experience for web & mobile",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows 5+ years (2017-Present) across SoundCloud and Zalando; posting requires 6+ years minimum."
+                },
+                {
+                  "requirement": "Proven interaction and visual design expertise",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows design system work, Figma library consolidation, brand refresh across web and mobile, and mobile upload flow redesign."
+                },
+                {
+                  "requirement": "Strong portfolio/case studies with quantified impact",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume lists quantified outcomes (62% duplication reduction, 24% completion lift, WCAG AA) but no portfolio link is provided in resume facts."
+                },
+                {
+                  "requirement": "Lead large, ambiguous projects influencing strategy",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows ownership of a design system used by 40 teams (scale/influence) but no explicit mention of driving cross-functional strategy or ambiguous large-scope initiatives."
+                },
+                {
+                  "requirement": "Direct customer engagement to validate design decisions",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No evidence in resume of direct customer research or validation work."
+                },
+                {
+                  "requirement": "Demonstrated proficiency with AI tools (Cursor, Figma Make) for design workflows",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume lists Figma, Prototyping, Motion Design but no AI tooling proficiency mentioned."
+                },
+                {
+                  "requirement": "Mentorship / influence on design team culture",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No evidence of mentoring other designers or shaping team culture in resume."
+                }
+              ],
+              "blockers": [
+                {
+                  "code": "required_qualification",
+                  "description": "Posting states a minimum of 6+ years of product design experience; resume shows approximately 5+ years.",
+                  "evidenceIds": [],
+                  "certainty": "needs_candidate_input"
+                },
+                {
+                  "code": "other",
+                  "description": "Posting states applications cannot be considered without a portfolio; resume facts do not confirm a portfolio was submitted.",
+                  "evidenceIds": [],
+                  "certainty": "needs_candidate_input"
+                }
+              ],
+              "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+              "jobContentHash": "sha256:1fc7669051f67cb6a81364bde8e0dd7d81cb2af5ff1bcb21115300dba44dbba7",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T19:03:59.727Z"
+            }
+          ],
+          "rankedJobIds": [
+            "job-18c7krg",
+            "job-1qouaa5",
+            "job-1qqigdn",
+            "job-x5rwkt",
+            "job-1qouaas",
+            "job-1qqigdp",
+            "job-10mptfu",
+            "job-1qchwt",
+            "job-f08zn7",
+            "job-buqtr7"
+          ]
+        },
+        "error": null
+      },
+      "prepare": {
+        "stage": "prepare",
+        "status": "running",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "prepare-0",
+            "stage": "prepare",
+            "label": "Matching evidence to roles",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:03:59.732Z",
+            "completedAt": "2026-09-25T19:03:59.787Z",
+            "error": null
+          },
+          {
+            "id": "prepare-1",
+            "stage": "prepare",
+            "label": "Tailoring resumes",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:03:59.734Z",
+            "completedAt": "2026-09-25T19:04:41.901Z",
+            "error": null
+          },
+          {
+            "id": "prepare-2",
+            "stage": "prepare",
+            "label": "Drafting letters",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:03:59.734Z",
+            "completedAt": "2026-09-25T19:04:41.903Z",
+            "error": null
+          },
+          {
+            "id": "prepare-3",
+            "stage": "prepare",
+            "label": "Checking packages",
+            "status": "in_progress",
+            "startedAt": "2026-09-25T19:04:41.894Z",
+            "completedAt": null,
+            "error": null
+          }
+        ],
+        "result": null,
+        "error": null
+      }
+    },
+    "evidence": [],
+    "jobs": [
+      {
+        "id": "job-1qqigdp",
+        "company": "Instacart",
+        "title": "Senior Product Designer II - Lifecycle & Growth",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8191765",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8191765",
+          "fetchedAt": "2026-09-25T19:02:53.344Z",
+          "postingContentHash": "sha256:47e6240ac777ed3cb2916479b1c9f39f548243dfc74ebc40aec66209040937f9",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-10T17:29:33.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qqigdn",
+        "company": "Instacart",
+        "title": "Senior Product Designer II - Lifecycle & Growth",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8191763",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8191763",
+          "fetchedAt": "2026-09-25T19:02:53.344Z",
+          "postingContentHash": "sha256:c26b50d3cd699f831a02413e6f7a559b938536fdbf440d3d7f543a8298f7780d",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-10T17:28:47.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-10mptfu",
+        "company": "Monzo",
+        "title": "Lead Product Designer, Growth",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/monzo/jobs/8185694",
+          "applicationUrl": "https://job-boards.greenhouse.io/monzo/jobs/8185694",
+          "fetchedAt": "2026-09-25T19:02:53.322Z",
+          "postingContentHash": "sha256:c4ec417cf1a1e0383235b4183a9001851d8c0291538e6ab7f0c2825ba68bd473",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Cardiff, London or Remote (UK)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-09T09:05:09.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Monzo",
+          "displayName": "Hiring team · Monzo",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qouaas",
+        "company": "Instacart",
+        "title": "Senior Product Designer II - Order Quality",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8160010",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8160010",
+          "fetchedAt": "2026-09-25T19:02:53.344Z",
+          "postingContentHash": "sha256:82ef5b984b8e03868ec532bc9074a86db92057a8e9f1196e7e78e766fd6f0a84",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-26T21:15:20.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qouaa5",
+        "company": "Instacart",
+        "title": "Senior Product Designer II - Order Quality",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8160008",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8160008",
+          "fetchedAt": "2026-09-25T19:02:53.344Z",
+          "postingContentHash": "sha256:8ad610fea5a60a6620b543a60af9b2643fb0718c8dd41cee879b0579f61aa2c3",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-26T21:15:18.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-18c7krg",
+        "company": "Coinbase",
+        "title": "Senior Product Designer, Coinbase One",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8114474?gh_jid=8114474",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8114474?gh_jid=8114474",
+          "fetchedAt": "2026-09-25T19:02:53.326Z",
+          "postingContentHash": "sha256:07eaeeccd12c5c5a77ae791cbfa64fd5bf475ded10147bd7ab5c2665d9114f77",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-07T17:26:58.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-f08zn7",
+        "company": "Render",
+        "title": "Senior Product Designer",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/render/0f0ccf3e-4caf-4586-9a66-411dbf49fcc5",
+          "applicationUrl": "https://jobs.ashbyhq.com/render/0f0ccf3e-4caf-4586-9a66-411dbf49fcc5",
+          "fetchedAt": "2026-09-25T19:02:53.410Z",
+          "postingContentHash": "sha256:83b05744b661dbdfe43d43cbc02fd53c44799db74e0616f643e2ef2e5fcb3824",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote: United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-13T21:14:36.146Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Render",
+          "displayName": "Hiring team · Render",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-buqtr7",
+        "company": "Stripe",
+        "title": "Senior Staff Product Designer, Risk",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=8031782",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=8031782",
+          "fetchedAt": "2026-09-25T19:02:53.425Z",
+          "postingContentHash": "sha256:d91910e94a5f9735602f4f32e14be253ae78eaba7dd34a17e88fca3432b0599e",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "US Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-08T16:24:52.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qchwt",
+        "company": "Samsara",
+        "title": "Lead Product Designer",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.samsara.com/company/careers/roles/8018876?gh_jid=8018876",
+          "applicationUrl": "https://www.samsara.com/company/careers/roles/8018876?gh_jid=8018876",
+          "fetchedAt": "2026-09-25T19:02:53.377Z",
+          "postingContentHash": "sha256:1fc7669051f67cb6a81364bde8e0dd7d81cb2af5ff1bcb21115300dba44dbba7",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - Canada",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-06-22T19:15:21.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Samsara",
+          "displayName": "Hiring team · Samsara",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-x5rwkt",
+        "company": "Samsara",
+        "title": "Lead Product Designer",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.samsara.com/company/careers/roles/8007939?gh_jid=8007939",
+          "applicationUrl": "https://www.samsara.com/company/careers/roles/8007939?gh_jid=8007939",
+          "fetchedAt": "2026-09-25T19:02:53.377Z",
+          "postingContentHash": "sha256:4ddecdb104db22fec6bf27e01e493520b5a12052fe702dc7c2056c9326203e9c",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - US",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-06-22T19:15:20.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Samsara",
+          "displayName": "Hiring team · Samsara",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1u67a47",
+        "company": "Linear",
+        "title": "Senior / Staff Product Designer",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/linear/a264869e-f058-487c-ab7f-9b77dffa427c",
+          "applicationUrl": "https://jobs.ashbyhq.com/linear/a264869e-f058-487c-ab7f-9b77dffa427c",
+          "fetchedAt": "2026-09-25T19:02:53.403Z",
+          "postingContentHash": "sha256:24bedf5986dce1735ccf365a7c74c03d5761db0c83d8b677f06ed204a01a192e",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "North America · Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-04-23T21:39:39.618Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Linear",
+          "displayName": "Hiring team · Linear",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1gy5k77",
+        "company": "Ashby",
+        "title": "Senior Product Designer",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/ashby/f40ef345-82a8-4956-9150-193b4fdf8183",
+          "applicationUrl": "https://jobs.ashbyhq.com/ashby/f40ef345-82a8-4956-9150-193b4fdf8183",
+          "fetchedAt": "2026-09-25T19:02:53.409Z",
+          "postingContentHash": "sha256:58c9554373c715a9b32df6297ee0e5d9f479d65c9799591fd0356d682b541656",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - US · Austin · USA · Los Angeles · Portland · Salt Lake City · Waterloo · Canada · Boston · Remote - Canada · Seattle · New York · San Francisco · Vancouver · Denver · Toronto · Chicago",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2025-12-05T22:43:22.147Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Ashby",
+          "displayName": "Hiring team · Ashby",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-a2le2j",
+        "company": "Monzo",
+        "title": "Lead Product Designer",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/monzo/jobs/6758088",
+          "applicationUrl": "https://job-boards.greenhouse.io/monzo/jobs/6758088",
+          "fetchedAt": "2026-09-25T19:02:53.322Z",
+          "postingContentHash": "sha256:67172fc766372d7fe791678e725ca43e955554e81a974bc039c970b7df72ceb3",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Cardiff, London or Remote (UK)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2025-04-04T15:37:24.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Monzo",
+          "displayName": "Hiring team · Monzo",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-i3gep7",
+        "company": "Pinterest",
+        "title": "Product Designer II, Notifications",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.pinterestcareers.com/jobs?gh_jid=8123052",
+          "applicationUrl": "https://www.pinterestcareers.com/jobs/?gh_jid=8123052",
+          "fetchedAt": "2026-09-25T19:02:53.334Z",
+          "postingContentHash": "sha256:47224a53326afe884d32ca5d791c08c9f71663c66c9d6160ff33af6c813d7990",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "San Francisco, CA, US; Remote, US",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-21T22:33:07.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Pinterest",
+          "displayName": "Hiring team · Pinterest",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1sprd5o",
+        "company": "Reddit",
+        "title": "Staff Product Designer, Presence",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/reddit/jobs/8120566",
+          "applicationUrl": "https://job-boards.greenhouse.io/reddit/jobs/8120566",
+          "fetchedAt": "2026-09-25T19:02:53.340Z",
+          "postingContentHash": "sha256:98308a3b15f6484cea48317c4dc620fafa141c7d8e509d9d6c346c3192b5c91f",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-10T22:01:06.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Reddit",
+          "displayName": "Hiring team · Reddit",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qpflw3",
+        "company": "Linear",
+        "title": "Production Designer",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/linear/b32de590-06ce-47d4-8994-66b936df908d",
+          "applicationUrl": "https://jobs.ashbyhq.com/linear/b32de590-06ce-47d4-8994-66b936df908d",
+          "fetchedAt": "2026-09-25T19:02:53.403Z",
+          "postingContentHash": "sha256:64ae52633115aac228dd245b21b65530c6e829688fe3a9591877f4ab09b0086c",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "North America · Europe · European Union · Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-06T19:59:03.067Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Linear",
+          "displayName": "Hiring team · Linear",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-5dagjf",
+        "company": "Linear",
+        "title": "Mobile Product Designer",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/linear/eac7f181-d658-4943-9430-51bae2bcd110",
+          "applicationUrl": "https://jobs.ashbyhq.com/linear/eac7f181-d658-4943-9430-51bae2bcd110",
+          "fetchedAt": "2026-09-25T19:02:53.403Z",
+          "postingContentHash": "sha256:f418c96410597e622fa5bfb1a27c36a416519d4a4c580e1a763e55735e114a3e",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "North America · Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-03T19:57:33.020Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Linear",
+          "displayName": "Hiring team · Linear",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-iq7xs6",
+        "company": "Render",
+        "title": "Staff Product Designer",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/render/b847e042-6be5-4f8b-b36e-fe6a462cbb63",
+          "applicationUrl": "https://jobs.ashbyhq.com/render/b847e042-6be5-4f8b-b36e-fe6a462cbb63",
+          "fetchedAt": "2026-09-25T19:02:53.410Z",
+          "postingContentHash": "sha256:7fbe93ef79c7470527138c4b838e0aa001b275e33a37fad29ce639452899ca78",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote: United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-13T21:14:17.595Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Render",
+          "displayName": "Hiring team · Render",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-5sxbs9",
+        "company": "Pinterest",
+        "title": "Principal Product Designer, AI Native, Core",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.pinterestcareers.com/jobs?gh_jid=7638599",
+          "applicationUrl": "https://www.pinterestcareers.com/jobs/?gh_jid=7638599",
+          "fetchedAt": "2026-09-25T19:02:53.334Z",
+          "postingContentHash": "sha256:b3927fd4c233c306ef457f9f5dea40f474c9450f33fb2614dd02bb1662bb5cd6",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "San Francisco, CA, US; Remote, US",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-02T16:57:20.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Pinterest",
+          "displayName": "Hiring team · Pinterest",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1hz5a4",
+        "company": "Coinbase",
+        "title": "Staff Product Designer (Experience & Engagement)",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8014564?gh_jid=8014564",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8014564?gh_jid=8014564",
+          "fetchedAt": "2026-09-25T19:02:53.327Z",
+          "postingContentHash": "sha256:6f24c5729d39a1d9c44219c7fcfd82e5fc1273eb888b2335aa31971a0038edce",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-06-26T23:47:05.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-ha9s02",
+        "company": "Linear",
+        "title": "Principal Product Designer",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/linear/ba8a41d2-4198-481a-a7f4-e09c5364ff7f",
+          "applicationUrl": "https://jobs.ashbyhq.com/linear/ba8a41d2-4198-481a-a7f4-e09c5364ff7f",
+          "fetchedAt": "2026-09-25T19:02:53.403Z",
+          "postingContentHash": "sha256:d9bb17c033fc77e04b313b4204c843293c92f800a601f3014008da7275b8c886",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Europe · Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-04-29T18:16:36.164Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Linear",
+          "displayName": "Hiring team · Linear",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-gm5zil",
+        "company": "Render",
+        "title": "Staff Product Designer - Agent Experience",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/render/b4a86799-59d4-4bf3-9681-23264550f1ea",
+          "applicationUrl": "https://jobs.ashbyhq.com/render/b4a86799-59d4-4bf3-9681-23264550f1ea",
+          "fetchedAt": "2026-09-25T19:02:53.410Z",
+          "postingContentHash": "sha256:11602b095d099d4e05935a0d77a2e6f5b99aefccc573cdac48de6ac93cbebe29",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote: United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-07T17:29:31.093Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Render",
+          "displayName": "Hiring team · Render",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1mql4f3",
+        "company": "Ashby",
+        "title": "Staff Product Designer",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/ashby/2373fcd5-144b-4d66-a98b-dd0efb4eb9d1",
+          "applicationUrl": "https://jobs.ashbyhq.com/ashby/2373fcd5-144b-4d66-a98b-dd0efb4eb9d1",
+          "fetchedAt": "2026-09-25T19:02:53.410Z",
+          "postingContentHash": "sha256:263e334ea6b9f1c0453ca9dd278a46d67f9f07cfdf40cb2ea361a007e385133b",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - US · Austin · USA · Los Angeles · Portland · Salt Lake City · Boston · Remote - Canada · Canada · Seattle · New York · San Francisco · Vancouver · Denver · Toronto · Chicago",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2025-12-11T04:38:54.143Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Ashby",
+          "displayName": "Hiring team · Ashby",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1t0ibo6",
+        "company": "ElevenLabs",
+        "title": "Product Designer",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/elevenlabs/89da00ec-11b0-4359-913b-c3a89c1013bc",
+          "applicationUrl": "https://jobs.ashbyhq.com/elevenlabs/89da00ec-11b0-4359-913b-c3a89c1013bc",
+          "fetchedAt": "2026-09-25T19:02:53.412Z",
+          "postingContentHash": "sha256:4a9cdd7a21586c45a1026eb1e29ebd384b57c64d1dcfc503fceeba9ecdba0272",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "London · New York · New York City · United States · Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2025-10-06T10:37:28.625Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "ElevenLabs",
+          "displayName": "Hiring team · ElevenLabs",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1tp6ds2",
+        "company": "OpenAI",
+        "title": "Senior Technical Recruiter, Engineering Leadership",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/openai/72bbf10a-5300-4aa6-8bf9-38cb2a60811a",
+          "applicationUrl": "https://jobs.ashbyhq.com/openai/72bbf10a-5300-4aa6-8bf9-38cb2a60811a",
+          "fetchedAt": "2026-09-25T19:02:53.394Z",
+          "postingContentHash": "sha256:00e08c741b0f46192e9abd6d28ec5fd259f99f246eb123b2576ec3d675174edf",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "US - Remote · Seattle · United States · San Francisco",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-24T00:22:45.027Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "OpenAI",
+          "displayName": "Hiring team · OpenAI",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1kzi81d",
+        "company": "Clerk",
+        "title": "Brand Designer",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/clerk/22d74851-1657-4dc6-9a44-b81900131486",
+          "applicationUrl": "https://jobs.ashbyhq.com/clerk/22d74851-1657-4dc6-9a44-b81900131486",
+          "fetchedAt": "2026-09-25T19:02:53.408Z",
+          "postingContentHash": "sha256:1056f5bd41182fa2c74c055b786312df30383b0f2ba17413396c5e8306df4e59",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote or In-Office in San Francisco",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-23T17:45:24.573Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Clerk",
+          "displayName": "Hiring team · Clerk",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1hceeml",
+        "company": "Samsara",
+        "title": "Senior Platform Engineer, Growth Product Engineering",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.samsara.com/company/careers/roles/8223367?gh_jid=8223367",
+          "applicationUrl": "https://www.samsara.com/company/careers/roles/8223367?gh_jid=8223367",
+          "fetchedAt": "2026-09-25T19:02:53.378Z",
+          "postingContentHash": "sha256:9fd6e183e07e07bad97a926713beedcb8d71399d16fcf4add51ef303c7731d92",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - CA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-23T16:02:04.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Samsara",
+          "displayName": "Hiring team · Samsara",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1irrx6e",
+        "company": "Cloudflare",
+        "title": "Senior Systems Engineer - Application Security",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://boards.greenhouse.io/cloudflare/jobs/8222091?gh_jid=8222091",
+          "applicationUrl": "https://boards.greenhouse.io/cloudflare/jobs/8222091?gh_jid=8222091",
+          "fetchedAt": "2026-09-25T19:02:53.359Z",
+          "postingContentHash": "sha256:ff40b2ce1893b61d2bd1b6956b61455954312e02bb2a57d26a47aee9eb0ae1d5",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Hybrid · Amsterdam, Netherlands · Brussels, Belgium · Lisbon, Portugal · London, United Kingdom · Munich, Germany · Paris, France · Remote Sweden · Remote Switzerland",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-22T23:39:46.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Cloudflare",
+          "displayName": "Hiring team · Cloudflare",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1r37nmw",
+        "company": "Instacart",
+        "title": "Senior Product Marketing Manager, Instacart+",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8214827",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8214827",
+          "fetchedAt": "2026-09-25T19:02:53.344Z",
+          "postingContentHash": "sha256:38044b42ba26cdf2d8ff93b3e8022e4cc7a8e49f7df934e62d4b93ac398d3085",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-18T22:35:36.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-13plpab",
+        "company": "Temporal",
+        "title": "Senior Staff Product Marketing Engineer, Core and SDKs",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/temporal/66b66d5b-0aaa-4e4a-979f-96e43d846d4a",
+          "applicationUrl": "https://jobs.ashbyhq.com/temporal/66b66d5b-0aaa-4e4a-979f-96e43d846d4a",
+          "fetchedAt": "2026-09-25T19:02:53.414Z",
+          "postingContentHash": "sha256:7de7a3e81f87e3bc2e68e8afae2f0caae8198a7aceb4553caabe3c1f68f3b11c",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "San Francisco, California · Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-18T21:07:07.539Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Temporal",
+          "displayName": "Hiring team · Temporal",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1wc8wzh",
+        "company": "Dropbox",
+        "title": "Senior Financial Planning & Analysis Partner - Product & Growth",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.dropbox.com/listing/8207875?gh_jid=8207875",
+          "applicationUrl": "https://jobs.dropbox.com/listing/8207875?gh_jid=8207875",
+          "fetchedAt": "2026-09-25T19:02:53.345Z",
+          "postingContentHash": "sha256:efe2644fd96cc1e610b9685fefafa26a5beaef88d97837e76e7c11bc7151123b",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - Canada: Select locations",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-18T19:15:58.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Dropbox",
+          "displayName": "Hiring team · Dropbox",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-5r3dp9",
+        "company": "Dropbox",
+        "title": "Senior Financial Planning & Analysis Partner - Product & Growth",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.dropbox.com/listing/8207874?gh_jid=8207874",
+          "applicationUrl": "https://jobs.dropbox.com/listing/8207874?gh_jid=8207874",
+          "fetchedAt": "2026-09-25T19:02:53.345Z",
+          "postingContentHash": "sha256:5c5da5681cddd2122fce807a866002fa22d82920faf185a87a7e31620744cd88",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - US: Select locations",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-18T19:15:56.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Dropbox",
+          "displayName": "Hiring team · Dropbox",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1r37npj",
+        "company": "Instacart",
+        "title": "Senior Product Marketing Manager, Instacart+",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8214859",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8214859",
+          "fetchedAt": "2026-09-25T19:02:53.344Z",
+          "postingContentHash": "sha256:3e15a92ca08c40ba28f083e19d333174e7ca3edc73cd63358f367975c95823a9",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-18T22:35:38.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-cen7j4",
+        "company": "Stripe",
+        "title": "Integrated Marketing Lead, Cross Product",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=8187572",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=8187572",
+          "fetchedAt": "2026-09-25T19:02:53.423Z",
+          "postingContentHash": "sha256:a417a7f921732142ecdec67efcdba24f75287dabfeb57ced430f3e808d49a2ff",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote US",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-22T03:21:06.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-dpw45i",
+        "company": "Linear",
+        "title": "Production Designer",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/linear/5b9997fd-7507-4437-8fd7-14178c99ab5d",
+          "applicationUrl": "https://jobs.ashbyhq.com/linear/5b9997fd-7507-4437-8fd7-14178c99ab5d",
+          "fetchedAt": "2026-09-25T19:02:53.403Z",
+          "postingContentHash": "sha256:905e8e5cd94121ace76be223f2345b654f3e7c7931680385449ab056ed440370",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Europe · Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-06T19:59:06.175Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Linear",
+          "displayName": "Hiring team · Linear",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-90ppq4",
+        "company": "Coinbase",
+        "title": "Senior Data Scientist, Product",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8206668?gh_jid=8206668",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8206668?gh_jid=8206668",
+          "fetchedAt": "2026-09-25T19:02:53.326Z",
+          "postingContentHash": "sha256:af0c6d62d352591f6b8a47f5d95e7a98846e9924b7b4061384e31be90c7b635e",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - UK",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-16T23:45:14.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1a2v87n",
+        "company": "Figma",
+        "title": "Designer Advocate (Berlin, Germany)",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://boards.greenhouse.io/figma/jobs/6203089004?gh_jid=6203089004",
+          "applicationUrl": "https://boards.greenhouse.io/figma/jobs/6203089004?gh_jid=6203089004",
+          "fetchedAt": "2026-09-25T19:02:53.346Z",
+          "postingContentHash": "sha256:4f30719dc23ccadb75b916413b9076355ce5f1c5d7908bee440dd0c78b63e49d",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Berlin, Germany",
+        "workStyle": null,
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-24T17:48:22.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Figma",
+          "displayName": "Hiring team · Figma",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1r2n2tf",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Order Quality",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8203107",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8203107",
+          "fetchedAt": "2026-09-25T19:02:53.344Z",
+          "postingContentHash": "sha256:2c4bce3267e44ba1945f91fff323c319a7870b41b95d6c89be6da2b04e7c5914",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-16T16:36:01.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1r2n2th",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Order Quality",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8203109",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8203109",
+          "fetchedAt": "2026-09-25T19:02:53.344Z",
+          "postingContentHash": "sha256:31fc194cb2d04e37ba95376f359ea014cfa07a93d43a149782ee4722d4956c79",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-16T16:36:03.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qqmsu4",
+        "company": "Instacart",
+        "title": "Senior Product Manager, AI Control Studio",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8198161",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8198161",
+          "fetchedAt": "2026-09-25T19:02:53.344Z",
+          "postingContentHash": "sha256:6c78cec22726d9398dccc7234b6e1231408f4da3f8b4757e63f4a7be1001a848",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-16T16:35:44.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      }
+    ],
+    "assessments": [
+      {
+        "jobId": "job-1qqigdn",
+        "score5": 3.2,
+        "confidence": "medium",
+        "recommendation": "consider",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "5+ years as Senior Product Designer shipping consumer-facing mobile and web products, matching the seniority and craft expectations of the posting",
+          "Direct experience owning a design system used by 40 teams, relevant to the posting's emphasis on visual and interaction craft",
+          "Track record of end-to-end product design (upload flow redesign, brand refresh) aligning with the posting's call for shaping full customer journeys"
+        ],
+        "gaps": [
+          "No evidenced experience in growth, lifecycle, incentives, or retention-focused design work",
+          "No evidence of experimentation-driven design practice or A/B testing culture referenced in the posting",
+          "No evidence of working at the intersection of business strategy and growth mechanics"
+        ],
+        "requirements": [
+          {
+            "requirement": "Senior Product Designer with strong craft in visual, interaction, and motion design",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows 5+ years as Senior Product Designer, skills list includes Motion Design, Prototyping, Figma, and shipped end-to-end work like the mobile upload flow redesign."
+          },
+          {
+            "requirement": "0→1 exploration and highly conceptual, ambiguous problem-solving",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows end-to-end design (upload flow, brand refresh) but no explicit evidence of ambiguous 0→1 growth exploration or experimentation-driven design."
+          },
+          {
+            "requirement": "Experience with Growth/Lifecycle design: conversion, incentives, retention, reactivation",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No resume evidence of working on growth, lifecycle marketing, incentives, partnerships, or retention-focused product design; background is in design systems, checkout accessibility, and upload flows."
+          },
+          {
+            "requirement": "Understanding of business mechanics behind growth strategy",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence in resume of collaborating on business/growth strategy or experimentation programs."
+          },
+          {
+            "requirement": "Design systems and cross-platform cohesion",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Built and maintained design system used by 40 product teams at Zalando, cutting component duplication 62% — directly relevant craft strength, though not the core focus of this Growth role."
+          },
+          {
+            "requirement": "Consumer-facing product experience",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows consumer-facing work at Zalando (checkout) and SoundCloud (upload flow, brand refresh), matching Instacart's consumer product context."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "jobContentHash": "sha256:c26b50d3cd699f831a02413e6f7a559b938536fdbf440d3d7f543a8298f7780d",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T19:03:04.865Z"
+      },
+      {
+        "jobId": "job-1qqigdp",
+        "score5": 3,
+        "confidence": "medium",
+        "recommendation": "consider",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Senior-level product design experience (5+ years) matching the 'Senior Product Designer II' seniority",
+          "Strong Figma, prototyping, and motion design skills listed in resume, matching the posting's emphasis on 'exceptional visual, interaction, and motion design'",
+          "Track record of shipping measurable product improvements (24% completion lift, 62% duplication reduction), aligning with the posting's culture of 'experimentation, accountability, and craft'"
+        ],
+        "gaps": [
+          "No evidenced experience in Growth-specific design (lifecycle, incentives, partnerships, conversion/retention optimization)",
+          "No evidence of 0→1 ambiguous problem exploration; resume experience reads as systems maintenance and defined redesign projects",
+          "No stated experience with experimentation/A-B testing or growth strategy work referenced in the posting"
+        ],
+        "requirements": [
+          {
+            "requirement": "Senior Product Designer with strong craft in visual, interaction, and motion design",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows 5+ years as Senior Product Designer at Zalando with Figma, Motion Design, and Prototyping skills listed, plus a mobile upload flow redesign lifting completion 24%."
+          },
+          {
+            "requirement": "0→1 exploration and highly conceptual, ambiguous problem-solving",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows system-building and brand refresh work (structured, iterative) but no explicit evidence of greenfield 0→1 product exploration or ambiguous growth problem framing."
+          },
+          {
+            "requirement": "Experience designing for Growth: conversion, engagement, retention, lifecycle experiences",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows design systems, accessibility, and checkout work at Zalando, and a brand/upload flow at SoundCloud, but no evidence of lifecycle, incentives, partnerships, or growth-metric-driven design work."
+          },
+          {
+            "requirement": "Understanding of business mechanics behind growth initiatives (partnerships, incentives)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No resume evidence of working with partnership-led entry points, incentive structures, or growth strategy."
+          },
+          {
+            "requirement": "Cross-functional collaboration across product, brand, content, interaction design",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows cross-team design system work (40 product teams) and brand refresh across web/mobile, suggesting cross-functional collaboration, though not specifically in a growth context."
+          },
+          {
+            "requirement": "Design systems and cross-platform cohesion",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume explicitly states building/maintaining a design system used by 40 teams, cutting duplication 62%, directly evidencing this skill, though it is not the core ask of this Growth role."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "jobContentHash": "sha256:47e6240ac777ed3cb2916479b1c9f39f548243dfc74ebc40aec66209040937f9",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T19:03:06.618Z"
+      },
+      {
+        "jobId": "job-10mptfu",
+        "score5": 2.8,
+        "confidence": "medium",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "proceed_with_caution",
+        "strengths": [
+          "Design systems expertise: resume's design system work at Zalando (used by 40 teams, cut duplication 62%) aligns with the posting's emphasis on craft and consistency ('unmistakably Monzo').",
+          "Consumer product design experience: 5+ years shipping consumer-facing mobile/web products matches the posting's consumer fintech context.",
+          "Web and mobile brand/design work at SoundCloud aligns with the posting's specific focus on web experiences."
+        ],
+        "gaps": [
+          "No evidence of prior 'Lead' level scope — managing, mentoring, or setting direction for other designers.",
+          "No evidence of growth/experimentation experience (A/B testing, hypothesis-driven design, funnel optimization).",
+          "No evidence of working with quantitative data/analytics to drive design decisions.",
+          "No evidence of pre-app/acquisition web experience specifically, as opposed to in-product design."
+        ],
+        "requirements": [
+          {
+            "requirement": "Lead role (Lead Product Designer title)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows Senior Product Designer level with no evidence of leading other designers, mentoring, or acting as a design lead — a core expectation ('acting as a role model in Design, sharing your work broadly, mentoring others')."
+          },
+          {
+            "requirement": "Growth-focused, data-informed design with experimentation",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Posting wants someone comfortable running experiments, forming hypotheses, and using quantitative/qualitative data to drive growth outcomes. Resume shows outcome metrics (24% completion lift, 62% duplication reduction) but no evidence of experimentation frameworks, A/B testing, or growth methodology."
+          },
+          {
+            "requirement": "Web experience design (marketing/acquisition site pre-app)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume mentions 'brand refresh across web and mobile' at SoundCloud, which is adjacent but not focused on top-of-funnel discovery/acquisition web design."
+          },
+          {
+            "requirement": "Strong visual and interaction craft",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows design systems ownership, Figma library consolidation, and typography/motion design skills, indicating strong visual craft."
+          },
+          {
+            "requirement": "Partnering with Product, Engineering, Data, Research",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume implies cross-functional work at Zalando (40 product teams) but doesn't explicitly mention Data or Research partnership."
+          },
+          {
+            "requirement": "Defining product vision and direction beyond individual experiments",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence in resume of setting product vision or long-term strategic direction; experience is more execution-focused."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "jobContentHash": "sha256:c4ec417cf1a1e0383235b4183a9001851d8c0291538e6ab7f0c2825ba68bd473",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T19:03:17.221Z"
+      },
+      {
+        "jobId": "job-1qouaas",
+        "score5": 3,
+        "confidence": "medium",
+        "recommendation": "research_first",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Design systems expertise: resume's 'Built and maintained the design system used by 40 product teams' at Zalando directly aligns with JD's 'design systems collaboration' requirement.",
+          "Consumer-facing product design experience across web and mobile (SoundCloud upload flow, Zalando checkout) matches JD's core ask of 'consumer-facing digital products across web and mobile.'",
+          "Measurable outcomes track record (24% completion lift, 62% duplication reduction, WCAG AA compliance) echoes JD's emphasis on 'measurable outcomes' and craft-focused execution."
+        ],
+        "gaps": [
+          "Resume shows ~5 years total experience versus the stated 6+ year minimum.",
+          "No evidence of managing 3+ concurrent PM/engineering partnerships or multiple simultaneous complex problem spaces.",
+          "No evidence of presenting to senior/executive stakeholders or leadership crits.",
+          "No mention of applying AI tools in design workflows, which the JD calls out explicitly."
+        ],
+        "requirements": [
+          {
+            "requirement": "6+ years designing consumer-facing digital products across web and mobile",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows 5+ years (2017-present) across web/mobile at SoundCloud and Zalando; JD explicitly asks for 6+ years, a slight shortfall."
+          },
+          {
+            "requirement": "Portfolio demonstrating complex, multi-step product journeys with measurable outcomes",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows measurable outcomes (24% completion lift on upload flow, 62% duplication reduction) but these are design-system/single-flow projects, not clearly 'complex multi-step journeys' at Instacart's order-fulfillment scale."
+          },
+          {
+            "requirement": "Own work end-to-end from zero-to-one framing through execution",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows end-to-end ownership of design system and brand refresh, but no explicit zero-to-one product concept work described."
+          },
+          {
+            "requirement": "Experience working across multiple concurrent complex problem spaces with several PM/eng teams",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence of managing 3+ concurrent PM/eng partnerships; resume describes single-team, system-wide initiatives, not multi-stakeholder juggling."
+          },
+          {
+            "requirement": "Strong communication, presenting to senior/executive stakeholders",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No mention in resume of presenting to leadership, crits, or executive stakeholders."
+          },
+          {
+            "requirement": "Figma proficiency and design systems collaboration",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume: 'Built and maintained the design system used by 40 product teams at Zalando' and lists Figma as a core skill, directly matching JD's 'design systems collaboration' and Figma flows."
+          },
+          {
+            "requirement": "Accessibility / craft-level execution",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume: 'Ran accessibility audits raising WCAG compliance to AA across checkout' matches JD's craft-focused execution emphasis."
+          },
+          {
+            "requirement": "Applying AI tools in design workflow",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No mention of AI tool usage anywhere in the resume."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "jobContentHash": "sha256:82ef5b984b8e03868ec532bc9074a86db92057a8e9f1196e7e78e766fd6f0a84",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T19:03:20.538Z"
+      },
+      {
+        "jobId": "job-1qouaa5",
+        "score5": 3.2,
+        "confidence": "high",
+        "recommendation": "consider",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Resume's design-system ownership at Zalando ('used by 40 product teams', 'cutting component duplication 62%') directly matches JD's emphasis on 'design systems collaboration' and cross-platform cohesion.",
+          "Accessibility work ('WCAG AA compliance across checkout') aligns with the quality/craft rigor the Order Quality role implies for consumer-facing experiences.",
+          "Demonstrated measurable product impact (24% completion lift on mobile upload flow redesign) matches the JD's ask for 'a portfolio demonstrating... measurable outcomes.'"
+        ],
+        "gaps": [
+          "JD requires 6+ years; resume shows 5+ years total experience.",
+          "No evidence of partnering with 3+ concurrent product managers/engineering teams as the JD requires.",
+          "No evidence of zero-to-one concept exploration work as distinct from system maintenance and refresh work.",
+          "No evidence of presenting to senior/executive stakeholders or cross-functional crits at leadership level."
+        ],
+        "requirements": [
+          {
+            "requirement": "6+ years designing consumer-facing digital products across web and mobile",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows 5+ years (2017-Present) at SoundCloud and Zalando on consumer-facing web/mobile products; falls short of the stated 6+ year minimum."
+          },
+          {
+            "requirement": "Portfolio demonstrating complex, multi-step product journeys with measurable outcomes",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume cites measurable outcomes (24% completion lift on upload flow, 62% component duplication reduction) but these are single-flow/system projects, not clearly 'complex multi-step product journeys' like order fulfillment."
+          },
+          {
+            "requirement": "Ability to own work end-to-end from zero-to-one through execution",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows ownership of design system build and brand refresh end-to-end, but no explicit zero-to-one concept-to-delivery narrative described."
+          },
+          {
+            "requirement": "Experience working across multiple complex problem spaces with several PM/eng teams simultaneously",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume doesn't mention partnering with multiple (3+) product managers or juggling concurrent workstreams; describes single design-system ownership role."
+          },
+          {
+            "requirement": "Design systems collaboration and Figma craft",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume: 'Built and maintained the design system used by 40 product teams at Zalando' and lists Figma as a core skill, directly matching the JD's design systems and Figma craft expectations."
+          },
+          {
+            "requirement": "Accessibility and cross-platform cohesion",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume: 'drove accessibility audits to WCAG AA compliance across checkout' aligns with consumer-facing quality/craft focus implied in Order Quality work."
+          },
+          {
+            "requirement": "Strong communication, presenting to senior/executive stakeholders",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No resume evidence of presenting to heads of Product/Design or executive stakeholders."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "jobContentHash": "sha256:8ad610fea5a60a6620b543a60af9b2643fb0718c8dd41cee879b0579f61aa2c3",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T19:03:31.762Z"
+      },
+      {
+        "jobId": "job-18c7krg",
+        "score5": 3.3,
+        "confidence": "medium",
+        "recommendation": "research_first",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Design systems expertise: resume's 'design system used by 40 product teams' and 'cutting component duplication 62%' matches the posting's requirement for 'systems thinking across multiple entry points and surfaces, resulting in cohesive cross-platform experiences.'",
+          "Consumer-facing scale experience: 5+ years at Zalando and SoundCloud shipping mobile/web products aligns with the posting's '5+ years of product design experience shipping consumer-facing products at scale.'",
+          "Cross-platform craft: 'brand refreshes spanning web and mobile' matches the posting's need to own 'CB1 Member Home... across mobile and web.'"
+        ],
+        "gaps": [
+          "No demonstrated experience with membership, loyalty, subscription, or retention/engagement product design, which is a named requirement.",
+          "No mention of gamification mechanics, campaign design, or churn-reduction work central to the CB1 role.",
+          "No evidence of generative AI usage in design workflow, explicitly requested in the posting.",
+          "No explicit portfolio or case-study reference demonstrating strategy-to-execution narrative."
+        ],
+        "requirements": [
+          {
+            "requirement": "5+ years product design experience shipping consumer-facing products at scale (mobile and web)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows 5+ years at Zalando and SoundCloud shipping consumer-facing mobile/web products, e.g. mobile upload flow redesign and checkout accessibility work."
+          },
+          {
+            "requirement": "Portfolio demonstrating end-to-end product design from strategy through execution",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume states 'end-to-end product design' and cites specific outcomes (24% completion lift), but no explicit portfolio link or strategy narrative is provided."
+          },
+          {
+            "requirement": "Experience designing membership, loyalty, or engagement-driven products (subscriptions, rewards, retention)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence in resume of subscription, loyalty, rewards, or retention-focused design work; experience is design systems, checkout, and upload flows."
+          },
+          {
+            "requirement": "Systems thinking across multiple entry points and surfaces, cohesive cross-platform experiences",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume: 'Built and maintained the design system used by 40 product teams at Zalando' and 'brand refreshes spanning web and mobile' directly evidence cross-platform systems thinking."
+          },
+          {
+            "requirement": "Collaborating directly with engineering to incorporate technical constraints",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume implies cross-team work (design system used by 40 teams) but does not explicitly mention engineering collaboration or technical constraint handling."
+          },
+          {
+            "requirement": "Shipping iteratively in ambiguous problem spaces while maintaining long-term vision",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "not_applicable",
+            "explanation": "Not clearly evidenced or contradicted in resume; no specific mention of ambiguity or iterative shipping cadence."
+          },
+          {
+            "requirement": "Responsible use of generative AI in workflow",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No mention of generative AI tools or usage anywhere in the resume."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "jobContentHash": "sha256:07eaeeccd12c5c5a77ae791cbfa64fd5bf475ded10147bd7ab5c2665d9114f77",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T19:03:32.614Z"
+      },
+      {
+        "jobId": "job-buqtr7",
+        "score5": 2,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Design systems expertise: resume's 'Built and maintained the design system used by 40 product teams at Zalando, cutting component duplication 62%' aligns with posting's need to 'create beautiful patterns for risk and compliance experiences across Stripe' and 'adopt systems thinking'.",
+          "Accessibility craft: resume's WCAG AA accessibility audits across checkout speaks to the posting's emphasis on 'well-crafted experiences during some of the most important moments' and 'raise the craft bar'."
+        ],
+        "gaps": [
+          "No risk, compliance, fraud, or trust & safety domain experience evidenced.",
+          "No staff/principal-level scope or track record of setting design standards across dozens of teams — resume shows senior IC level.",
+          "No AI/agent-driven workflow design experience.",
+          "No 0-to-1 product strategy or new product creation experience under ambiguity."
+        ],
+        "requirements": [
+          {
+            "requirement": "Senior Staff level design leadership (staff/principal IC influencing org-wide standards)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows Senior Product Designer (5+ years) at Zalando/SoundCloud, not a staff/principal-level title or scope. No evidence of leading design across dozens of teams or setting org-wide strategy at that level."
+          },
+          {
+            "requirement": "Risk, compliance, onboarding/verification, or trust & safety domain experience",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume covers checkout accessibility, design systems, and upload flow/brand refresh — no mention of risk, fraud, compliance, or verification workflows."
+          },
+          {
+            "requirement": "Shaping new product strategy and 0-to-1 product creation in ambiguous, cross-functional, high-stakes domains",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows building/maintaining a design system used by 40 teams (cross-team influence), but no explicit 0-to-1 product strategy or ambiguity-driven product creation examples."
+          },
+          {
+            "requirement": "AI-driven / agent-friendly workflow design",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No AI or agent-workflow experience listed in resume skills or work history."
+          },
+          {
+            "requirement": "Design systems and cross-platform cohesion",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume: 'Built and maintained the design system used by 40 product teams at Zalando, cutting component duplication 62%' directly matches the posting's call to 'create beautiful patterns... across Stripe' and 'systems thinking'."
+          },
+          {
+            "requirement": "Accessibility / craft quality in trust-sensitive flows",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows WCAG AA accessibility audits on checkout, which is trust-adjacent but not the same as risk/compliance craft the posting emphasizes."
+          },
+          {
+            "requirement": "Cross-functional partnership with product, engineering, policy, operations, research",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume implies collaboration across product teams for design system work, but no explicit mention of policy or risk-ops partnership as the posting requires."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "jobContentHash": "sha256:d91910e94a5f9735602f4f32e14be253ae78eaba7dd34a17e88fca3432b0599e",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T19:03:47.079Z"
+      },
+      {
+        "jobId": "job-f08zn7",
+        "score5": 2.8,
+        "confidence": "medium",
+        "recommendation": "research_first",
+        "workAuthorization": "no_sponsorship",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Design systems expertise: resume shows building/maintaining a system used by 40 teams at Zalando, directly matching the posting's 'systems fluency' requirement.",
+          "Craft and visual polish: resume skills list (Typography, Motion Design, Prototyping) align with the posting's emphasis on 'exceptional taste and craft.'",
+          "Accessibility rigor: WCAG AA compliance work on checkout aligns with the posting's value on rigorous, detail-oriented design practice."
+        ],
+        "gaps": [
+          "No evidence of developer-tool, cloud infrastructure, or technical/CI-CD-adjacent design experience, which is central to this posting.",
+          "No evidence of dashboard, observability, or high-density data visualization design work.",
+          "No evidence of designing for failure states, error handling, or 'unglamorous' product moments as emphasized in the role.",
+          "No indication of experience with technical, engineering-adjacent collaboration or B2B/developer-facing products (background is consumer e-commerce/media)."
+        ],
+        "requirements": [
+          {
+            "requirement": "5+ years relevant experience (developer tools, cloud infra, or complex/high-stakes product)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows 5+ years as Product Designer (Zalando, SoundCloud), but experience is consumer e-commerce/media, not developer tools or infrastructure."
+          },
+          {
+            "requirement": "Fluent in developer language (services, CI/CD, deployments)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence in resume of working with developer-facing tools, CI/CD, or infrastructure concepts."
+          },
+          {
+            "requirement": "Design complex dashboards / high-density information design / observability",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows design system and checkout accessibility work, but no dashboards, monitoring, or data-dense console interfaces."
+          },
+          {
+            "requirement": "Systems fluency: comfortable extending a design system",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume: 'Built and maintained the design system used by 40 product teams at Zalando, cutting component duplication 62%.'"
+          },
+          {
+            "requirement": "Design the whole journey across surfaces, including failure/empty states",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows end-to-end flow redesign ('mobile upload flow redesign that lifted completion 24%') but no explicit mention of designing failure states or error handling."
+          },
+          {
+            "requirement": "Exceptional taste and craft, attention to detail (typography, spacing, motion)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume lists Typography and Motion Design as skills, and cites a brand refresh across web and mobile at SoundCloud."
+          },
+          {
+            "requirement": "Accessibility / respect for edge cases",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume: 'Ran accessibility audits raising WCAG compliance to AA across checkout' shows accessibility rigor, though not framed around failure-state design specifically."
+          },
+          {
+            "requirement": "No new visa sponsorship generally available",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "not_applicable",
+            "explanation": "Posting states sponsorship generally unavailable for new hires; candidate's authorization status is not stated in resume."
+          }
+        ],
+        "blockers": [
+          {
+            "code": "work_authorization",
+            "description": "Posting states role is 'generally not eligible for new visa sponsorship.' Candidate is based in Berlin, Germany, and resume does not state US work authorization status.",
+            "evidenceIds": [],
+            "certainty": "needs_candidate_input"
+          }
+        ],
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "jobContentHash": "sha256:83b05744b661dbdfe43d43cbc02fd53c44799db74e0616f643e2ef2e5fcb3824",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T19:03:47.508Z"
+      },
+      {
+        "jobId": "job-x5rwkt",
+        "score5": 3.2,
+        "confidence": "high",
+        "recommendation": "consider",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Design systems expertise: resume shows building/maintaining a design system used by 40 product teams, aligning with the posting's emphasis on cross-functional, scalable design work.",
+          "Cross-platform web and mobile design experience matches the posting's requirement for UX/UI across web & mobile applications.",
+          "Quantified impact track record (62% duplication reduction, 24% completion lift) aligns with the posting's ask for a portfolio showing 'quantified impact.'"
+        ],
+        "gaps": [
+          "Posting requires 6+ years of experience; resume shows approximately 5+ years (since 2017 at SoundCloud, more clearly senior since 2020).",
+          "No evidence of AI tool proficiency (Cursor, Figma Make) required by the posting.",
+          "No evidence of direct customer engagement/validation work called out as a core responsibility.",
+          "No portfolio referenced in resume facts, which the posting states is mandatory to be considered."
+        ],
+        "requirements": [
+          {
+            "requirement": "6+ years of product design experience designing UX/UI for web & mobile applications",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows 5+ years total (2017-Present) across SoundCloud and Zalando; posting requires 6+ years minimum."
+          },
+          {
+            "requirement": "Proven comparable design expertise in interaction and visual design",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows design system work, Figma library consolidation, typography, prototyping across web and mobile."
+          },
+          {
+            "requirement": "Strong portfolio/case studies with quantified impact",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume cites quantified outcomes (62% duplication reduction, 24% completion lift) but no portfolio link is mentioned in resume facts."
+          },
+          {
+            "requirement": "Demonstrated proficiency in AI tools (Cursor, Figma Make) for workflow acceleration",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No AI tooling experience listed in resume skills or work history."
+          },
+          {
+            "requirement": "Lead large, ambiguous projects influencing strategy and mentoring design team",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows ownership of design system used by 40 teams (structural leadership) but no explicit mention of mentoring others or strategic influence at leadership level."
+          },
+          {
+            "requirement": "Work directly with customers to validate designs and inform strategy",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume does not evidence direct customer engagement or research validation work."
+          },
+          {
+            "requirement": "Remote role open to candidates residing in the US",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "not_applicable",
+            "explanation": "Location/eligibility is tracked separately as a blocker, not a fit gap."
+          }
+        ],
+        "blockers": [
+          {
+            "code": "location",
+            "description": "Posting is 'remote role open to candidates residing in the US'; resume shows candidate based in Berlin, Germany.",
+            "evidenceIds": [],
+            "certainty": "confirmed_blocker"
+          }
+        ],
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "jobContentHash": "sha256:4ddecdb104db22fec6bf27e01e493520b5a12052fe702dc7c2056c9326203e9c",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T19:03:59.717Z"
+      },
+      {
+        "jobId": "job-1qchwt",
+        "score5": 2.8,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Design system expertise: resume shows building/maintaining a design system used by 40 product teams at Zalando, matching the posting's emphasis on shipping well-crafted, scalable design solutions.",
+          "End-to-end product design with quantified impact: resume's mobile upload flow redesign (24% completion lift) aligns with the posting's call for designs that unlock measurable customer/business value.",
+          "Cross-platform design experience: resume shows work spanning web and mobile (brand refresh, design system), matching the posting's web & mobile application scope."
+        ],
+        "gaps": [
+          "Posting requires 6+ years of experience; resume evidences roughly 5+ years total.",
+          "No demonstrated AI tool proficiency (Cursor, Figma Make) as explicitly required.",
+          "No evidence of direct customer engagement/validation work described in the posting's core responsibilities.",
+          "No evidence of mentorship or influencing a broader design team/culture, which the role explicitly calls for."
+        ],
+        "requirements": [
+          {
+            "requirement": "6+ years of product design experience for web & mobile",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows 5+ years (2017-Present) across SoundCloud and Zalando; posting requires 6+ years minimum."
+          },
+          {
+            "requirement": "Proven interaction and visual design expertise",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows design system work, Figma library consolidation, brand refresh across web and mobile, and mobile upload flow redesign."
+          },
+          {
+            "requirement": "Strong portfolio/case studies with quantified impact",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume lists quantified outcomes (62% duplication reduction, 24% completion lift, WCAG AA) but no portfolio link is provided in resume facts."
+          },
+          {
+            "requirement": "Lead large, ambiguous projects influencing strategy",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows ownership of a design system used by 40 teams (scale/influence) but no explicit mention of driving cross-functional strategy or ambiguous large-scope initiatives."
+          },
+          {
+            "requirement": "Direct customer engagement to validate design decisions",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence in resume of direct customer research or validation work."
+          },
+          {
+            "requirement": "Demonstrated proficiency with AI tools (Cursor, Figma Make) for design workflows",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume lists Figma, Prototyping, Motion Design but no AI tooling proficiency mentioned."
+          },
+          {
+            "requirement": "Mentorship / influence on design team culture",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence of mentoring other designers or shaping team culture in resume."
+          }
+        ],
+        "blockers": [
+          {
+            "code": "required_qualification",
+            "description": "Posting states a minimum of 6+ years of product design experience; resume shows approximately 5+ years.",
+            "evidenceIds": [],
+            "certainty": "needs_candidate_input"
+          },
+          {
+            "code": "other",
+            "description": "Posting states applications cannot be considered without a portfolio; resume facts do not confirm a portfolio was submitted.",
+            "evidenceIds": [],
+            "certainty": "needs_candidate_input"
+          }
+        ],
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "jobContentHash": "sha256:1fc7669051f67cb6a81364bde8e0dd7d81cb2af5ff1bcb21115300dba44dbba7",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T19:03:59.727Z"
+      }
+    ],
+    "applications": [
+      {
+        "jobId": "job-18c7krg",
+        "version": 2,
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "tailoredResumeArtifactId": "5bfd6a2f-6218-4ad3-81b8-de5082d90c4c",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I spent the last five years building the design infrastructure that lets large product organizations move fast without losing cohesion, which is exactly the challenge of owning a member experience across mobile and web.\n\nAt Zalando, I built and maintained the design system used by 40 product teams, cutting component duplication by 62% through consolidating the Figma library. That kind of systems thinking is what makes a persistent, personalized surface like CB1 Member Home hold together across every entry point instead of fragmenting over time. Earlier, at SoundCloud, I led a brand refresh spanning web and mobile and redesigned the mobile upload flow, lifting completion 24%, so I know what it takes to ship consumer-facing products end to end and see the impact land in real usage numbers.\n\nI also ran accessibility audits that brought checkout to WCAG AA compliance at Zalando, which speaks to the same care for craft and consistency that a subscriber-facing product at this scale demands.\n\nI'd welcome a short call to talk through how this experience maps to the CB1 Member Home work.",
+            "subject": "Application: Senior Product Designer, Coinbase One",
+            "updatedAt": "2026-09-25T19:04:08.121Z",
+            "contentHash": "sha256:8e23454503c9337d95477a04b37a018eb92f28d8272bba30d82be20c990f6b4f",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:07eaeeccd12c5c5a77ae791cbfa64fd5bf475ded10147bd7ab5c2665d9114f77"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:04:09.185Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:f3fddade24d1c601d45a3cee6f8eda9df84269194ce2d106a70129d1610d7602"
+      },
+      {
+        "jobId": "job-1qouaa5",
+        "version": 2,
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "tailoredResumeArtifactId": "a2540987-617a-4fbc-a4e5-a29107eddd90",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I read the Order Quality role as fundamentally a systems and craft problem wearing a consumer-experience hat, which is the kind of work I've spent the last several years doing.\n\nAt Zalando, I built and maintained the design system used by 40 product teams, cutting component duplication 62% by consolidating the Figma library. That kind of cross-team consistency work is exactly what design systems collaboration across a complex, multi-team org like Instacart's Fulfillment space requires. I also ran the accessibility audits that brought checkout up to WCAG AA compliance, which speaks directly to the craft rigor a high-visibility, every-customer-touches-it experience like Order Quality demands.\n\nEarlier, at SoundCloud, I redesigned the mobile upload flow and lifted completion 24%, which is the kind of measurable, end-to-end outcome your posting asks a portfolio to demonstrate.\n\nI'd welcome a short call to talk through how this experience maps to Order Quality's current priorities.",
+            "subject": "Application: Senior Product Designer II - Order Quality",
+            "updatedAt": "2026-09-25T19:04:16.254Z",
+            "contentHash": "sha256:0269bf848d24a8d33ef22f5b26494a21782b6a49aaebd51a2b7c130599b0078b",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:8ad610fea5a60a6620b543a60af9b2643fb0718c8dd41cee879b0579f61aa2c3"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:04:16.910Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:c5422975bd50acd69ba37c9eef37af7cc713e249a7ce75d8ede0276b63f89de2"
+      },
+      {
+        "jobId": "job-1qqigdn",
+        "version": 2,
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "tailoredResumeArtifactId": "ad8a84a4-60a7-4ae0-9ef7-86b7125ad487",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "A design system used by 40 teams only works if every screen it touches still feels considered. That's the standard I've held myself to for the past 5+ years as a Senior Product Designer, and it's what draws me to the Lifecycle & Growth role at Instacart.\n\nAt Zalando, I built and maintained the design system used across 40 product teams, consolidating the Figma library to cut component duplication 62% while keeping cross-platform cohesion intact. Before that, at SoundCloud, I owned a redesign of the mobile upload flow that lifted completion 24%, and led a brand refresh spanning web and mobile end to end, from concept through shipped product across both platforms.\n\nWhat appeals to me about this role is the craft bar: shaping full customer journeys with real visual and interaction depth, not just individual screens. That's the kind of end-to-end ownership I've had at both Zalando and SoundCloud, and I'd like to bring it to the kind of ambiguous, 0-to-1 problems your team is tackling.\n\nI'd welcome a short call to talk through where this could fit. Thank you for considering my application.",
+            "subject": "Application: Senior Product Designer II - Lifecycle & Growth",
+            "updatedAt": "2026-09-25T19:04:24.590Z",
+            "contentHash": "sha256:d7a9b03751bbd19a613dcedfb1c5597eb0737495fe40bd38a1007051b81b9df9",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:c26b50d3cd699f831a02413e6f7a559b938536fdbf440d3d7f543a8298f7780d"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:04:25.545Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:d15d06e60f97d12d1d44864310bac35a7b6dbbd68a363bef2021ffa59eda22f1"
+      },
+      {
+        "jobId": "job-x5rwkt",
+        "version": 2,
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "tailoredResumeArtifactId": "3c30c5ae-79d2-45da-8b58-338324acba1b",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I build design systems that scale across dozens of teams and ship product changes with measurable outcomes, which is the kind of design work that seems to matter most for this role at Samsara.\n\nAt Zalando, I built and maintained the design system used by 40 product teams, consolidating the Figma library and cutting component duplication by 62%. That kind of cross-team scale is close to what you'd need when shipping consistent, high-craft designs across large, ambiguous projects. Earlier, at SoundCloud, I redesigned the mobile upload flow and lifted completion by 24%, alongside leading a brand refresh spanning web and mobile, so I've worked end-to-end across both platforms, not just one.\n\nI'd welcome a short call to talk through where my background fits your team's needs and what you're looking for in a portfolio review.\n\nBest,\nMarek Novak",
+            "subject": "Application: Lead Product Designer",
+            "updatedAt": "2026-09-25T19:04:32.040Z",
+            "contentHash": "sha256:a742abc784de5592289151027fe56fee9c2f70fe75cb8d22ff0a650aa091c3b8",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:4ddecdb104db22fec6bf27e01e493520b5a12052fe702dc7c2056c9326203e9c"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:04:32.689Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:171a88e834a0b9a3c00290a87cedb250426ff2a737a7661a215aac0283518b35"
+      },
+      {
+        "jobId": "job-1qouaas",
+        "version": 2,
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "tailoredResumeArtifactId": "6da3c61e-cb6f-42a8-98b8-c8d033cce93c",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "Order quality is a design systems problem as much as a workflow problem, and that's the intersection I've spent the last several years working in.\n\nAt Zalando, I built and maintained the design system used by 40 product teams, cutting component duplication 62% by consolidating the Figma library. That work only matters if it holds up under real product pressure, which is why I also ran the accessibility audits that brought checkout to WCAG AA compliance. Before that, at SoundCloud, I redesigned the mobile upload flow end to end and lifted completion 24%, then led the brand refresh across web and mobile. Both experiences taught me that consumer-facing products live or die on the details between concept and delivery, not just the concept itself.\n\nI'm drawn to this role because Order Quality sits at exactly that intersection: high-visibility, cross-platform, and dependent on a design system that scales across teams. That's the kind of problem I've been solving, just at a different company.\n\nI'd welcome a short call to talk through how my background in design systems and end-to-end consumer product work could apply to Order Quality at Instacart.",
+            "subject": "Application: Senior Product Designer II - Order Quality",
+            "updatedAt": "2026-09-25T19:04:40.767Z",
+            "contentHash": "sha256:7fecf2a832e0c137cdfff447f31059f602d248e8e77ef4c99d6d1afff8cc91ee",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:82ef5b984b8e03868ec532bc9074a86db92057a8e9f1196e7e78e766fd6f0a84"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:04:41.894Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:5f64af9e5687f6e582a8f9bcf23adab15baa41d96a1740bd6a426d82faa7e953"
+      },
+      {
+        "jobId": "job-1qqigdp",
+        "version": 1,
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "tailoredResumeArtifactId": null,
+        "letterArtifactId": null,
+        "letter": {
+          "status": "not_started",
+          "current": null
+        },
+        "answers": [],
+        "readiness": {
+          "status": "preparing"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": null
+      },
+      {
+        "jobId": "job-10mptfu",
+        "version": 1,
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "tailoredResumeArtifactId": null,
+        "letterArtifactId": null,
+        "letter": {
+          "status": "not_started",
+          "current": null
+        },
+        "answers": [],
+        "readiness": {
+          "status": "preparing"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": null
+      },
+      {
+        "jobId": "job-f08zn7",
+        "version": 1,
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "tailoredResumeArtifactId": null,
+        "letterArtifactId": null,
+        "letter": {
+          "status": "not_started",
+          "current": null
+        },
+        "answers": [],
+        "readiness": {
+          "status": "preparing"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": null
+      },
+      {
+        "jobId": "job-buqtr7",
+        "version": 1,
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "tailoredResumeArtifactId": null,
+        "letterArtifactId": null,
+        "letter": {
+          "status": "not_started",
+          "current": null
+        },
+        "answers": [],
+        "readiness": {
+          "status": "preparing"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": null
+      },
+      {
+        "jobId": "job-1qchwt",
+        "version": 1,
+        "sourceResumeHash": "sha256:528215edc937dac697986b88531dbdceda5cd50abe72cb7347ac57bc41cc610f",
+        "tailoredResumeArtifactId": null,
+        "letterArtifactId": null,
+        "letter": {
+          "status": "not_started",
+          "current": null
+        },
+        "answers": [],
+        "readiness": {
+          "status": "preparing"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": null
+      }
+    ],
+    "selection": {
+      "jobIds": [
+        "job-18c7krg",
+        "job-1qouaa5",
+        "job-1qqigdn",
+        "job-x5rwkt",
+        "job-1qouaas",
+        "job-1qqigdp",
+        "job-10mptfu",
+        "job-1qchwt",
+        "job-f08zn7",
+        "job-buqtr7"
+      ],
+      "version": 1,
+      "updatedAt": "2026-09-25T19:03:59.732Z"
+    },
+    "artifacts": [
+      {
+        "kind": "original_resume",
+        "createdAt": "2026-09-25T19:02:42.798Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "4467ebcc-8223-4e37-b84e-bdee62a24c2c"
+      },
+      {
+        "kind": "refined_resume_pdf",
+        "createdAt": "2026-09-25T19:02:42.801Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "51e2a831-6e47-42ac-a07f-3e0d7b8328b9"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:04:09.187Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "5bfd6a2f-6218-4ad3-81b8-de5082d90c4c"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:04:16.912Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "a2540987-617a-4fbc-a4e5-a29107eddd90"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:04:25.546Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "ad8a84a4-60a7-4ae0-9ef7-86b7125ad487"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:04:32.691Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "3c30c5ae-79d2-45da-8b58-338324acba1b"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:04:41.896Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "6da3c61e-cb6f-42a8-98b8-c8d033cce93c"
+      }
+    ],
+    "billing": {
+      "status": "not_started",
+      "mode": "test",
+      "promotionalCredit": null,
+      "entitlement": null,
+      "amountChargedMinor": 0,
+      "error": null
+    }
+  },
+  "ownerSessionId": "fe273a2a86e96253b4dc938dec4651126e3a69b9bcfda1a20e5de94ec9c3444d",
+  "billingRecordId": null,
+  "artifacts": {
+    "4467ebcc-8223-4e37-b84e-bdee62a24c2c": {
+      "kind": "original_resume",
+      "createdAt": "2026-09-25T19:02:42.798Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "4467ebcc-8223-4e37-b84e-bdee62a24c2c",
+      "relativePath": "originals/resume.pdf"
+    },
+    "51e2a831-6e47-42ac-a07f-3e0d7b8328b9": {
+      "kind": "refined_resume_pdf",
+      "createdAt": "2026-09-25T19:02:42.801Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "51e2a831-6e47-42ac-a07f-3e0d7b8328b9",
+      "relativePath": "output/base-resume.pdf"
+    },
+    "5bfd6a2f-6218-4ad3-81b8-de5082d90c4c": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:04:09.187Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "5bfd6a2f-6218-4ad3-81b8-de5082d90c4c",
+      "relativePath": "output/jobs/job-18c7krg/cv.pdf"
+    },
+    "a2540987-617a-4fbc-a4e5-a29107eddd90": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:04:16.912Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "a2540987-617a-4fbc-a4e5-a29107eddd90",
+      "relativePath": "output/jobs/job-1qouaa5/cv.pdf"
+    },
+    "ad8a84a4-60a7-4ae0-9ef7-86b7125ad487": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:04:25.546Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "ad8a84a4-60a7-4ae0-9ef7-86b7125ad487",
+      "relativePath": "output/jobs/job-1qqigdn/cv.pdf"
+    },
+    "3c30c5ae-79d2-45da-8b58-338324acba1b": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:04:32.691Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "3c30c5ae-79d2-45da-8b58-338324acba1b",
+      "relativePath": "output/jobs/job-x5rwkt/cv.pdf"
+    },
+    "6da3c61e-cb6f-42a8-98b8-c8d033cce93c": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:04:41.896Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "6da3c61e-cb6f-42a8-98b8-c8d033cce93c",
+      "relativePath": "output/jobs/job-1qouaas/cv.pdf"
+    }
+  }
+}

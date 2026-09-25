@@ -15,8 +15,18 @@ export const LIMITS = {
   maxDiscoveredJobs: 40,
   defaultScoredJobs: 10,
   maxScoredJobs: 20,
-  maxConcurrentModelCalls: 2,
+  /**
+   * Concurrent model calls per run.
+   *
+   * Measured: scoring one job takes ~11s regardless of model, so throughput is
+   * concurrency-bound, not model-bound. Raising 2 → 5 is where the wall-clock
+   * win actually is. Still bounded per RUN, and the queue keeps one active run,
+   * so total in-flight calls stay predictable.
+   */
+  maxConcurrentModelCalls: 5,
   firstVisibleLetters: 5,
+  /** Letters drafted in parallel. The first visible batch is what a visitor waits on. */
+  maxConcurrentLetters: 3,
   maxSelectedPackages: 20,
   maxModelCallsPerRun: 60,
   maxOutputTokensPerRun: 120_000,

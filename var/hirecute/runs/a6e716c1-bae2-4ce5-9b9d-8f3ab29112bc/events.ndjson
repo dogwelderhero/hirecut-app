@@ -1,0 +1,2 @@
+{"version":1,"runId":"a6e716c1-bae2-4ce5-9b9d-8f3ab29112bc","seq":1,"time":"2026-09-25T19:01:40.222Z","input":{"journeyVersion":1,"sourceResumeHash":null,"preferencesVersion":1,"stageInputVersion":null,"stageAttempt":null},"type":"run.queued","payload":{"queuePosition":1}}
+{"version":1,"runId":"a6e716c1-bae2-4ce5-9b9d-8f3ab29112bc","seq":2,"time":"2026-09-25T19:02:19.543Z","input":{"journeyVersion":1,"sourceResumeHash":null,"preferencesVersion":1,"stageInputVersion":null,"stageAttempt":null},"type":"run.cancelled","payload":{"reason":"candidate_deleted_run"}}

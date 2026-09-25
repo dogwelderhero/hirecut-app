@@ -9,6 +9,7 @@ export const LIMITS: {
   defaultScoredJobs: number;
   maxScoredJobs: number;
   maxConcurrentModelCalls: number;
+  maxConcurrentLetters: number;
   firstVisibleLetters: number;
   maxSelectedPackages: number;
   maxModelCallsPerRun: number;

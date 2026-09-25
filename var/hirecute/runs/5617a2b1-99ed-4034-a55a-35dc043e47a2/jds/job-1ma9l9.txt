@@ -1,0 +1,5 @@
+The Platform team creates the technology that enables Spotify to learn quickly and scale easily, enabling rapid growth in our users and our business around the globe. Spanning many disciplines, we work to make the business work; creating the infrastructure, tooling, frameworks, and capabilities needed to welcome a billion customers.
+
+User Platform builds the identity and access capabilities that help people use Spotify safely and easily. We’re looking for a Senior Product Manager to shape how people access Spotify and stay connected across our apps, devices, and strategic partner integrations. You’ll focus on session management - how Spotify recognizes someone after they sign in, maintains their access, and enables them to connect or disconnect devices and applications.
+
+You’ll bring together consumer experience and technical product strategy, working closely with engineering, design, research, insights, security, and teams responsible for Spotify’s clients and partnerships. Your decisions will help people get to the experiences they want, stay in control of their access, and use Spotify with confidence.
