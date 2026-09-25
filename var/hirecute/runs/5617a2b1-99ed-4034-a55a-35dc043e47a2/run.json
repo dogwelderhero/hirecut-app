@@ -4,11 +4,11 @@
     "id": "5617a2b1-99ed-4034-a55a-35dc043e47a2",
     "origin": "uploaded_resume",
     "launchProfile": "activation_pilot",
-    "status": "running",
+    "status": "preparation_complete",
     "currentStage": "prepare",
     "createdAt": "2026-09-25T19:17:00.011Z",
-    "updatedAt": "2026-09-25T19:17:54.930Z",
-    "lastSequence": 101,
+    "updatedAt": "2026-09-25T19:18:31.855Z",
+    "lastSequence": 246,
     "journeyVersion": 1,
     "profile": null,
     "preferences": {
@@ -1003,7 +1003,7 @@
       },
       "prepare": {
         "stage": "prepare",
-        "status": "running",
+        "status": "completed",
         "inputVersion": 1,
         "inputHash": "",
         "attempt": 1,
@@ -1021,22 +1021,47 @@
             "id": "prepare-1",
             "stage": "prepare",
             "label": "Tailoring resumes",
-            "status": "in_progress",
+            "status": "completed",
             "startedAt": "2026-09-25T19:17:54.854Z",
-            "completedAt": null,
+            "completedAt": "2026-09-25T19:18:13.239Z",
             "error": null
           },
           {
             "id": "prepare-2",
             "stage": "prepare",
             "label": "Drafting letters",
-            "status": "in_progress",
+            "status": "completed",
             "startedAt": "2026-09-25T19:17:54.854Z",
-            "completedAt": null,
+            "completedAt": "2026-09-25T19:18:13.242Z",
+            "error": null
+          },
+          {
+            "id": "prepare-3",
+            "stage": "prepare",
+            "label": "Checking packages",
+            "status": "completed",
+            "startedAt": "2026-09-25T19:18:13.232Z",
+            "completedAt": "2026-09-25T19:18:31.848Z",
             "error": null
           }
         ],
-        "result": null,
+        "result": {
+          "kind": "prepare",
+          "preparedJobIds": [
+            "job-1r2n2tf",
+            "job-1r2n2th",
+            "job-10l2y3s",
+            "job-1ma9l9",
+            "job-crbu63",
+            "job-1qqmsu4",
+            "job-1r37nmw",
+            "job-1qqmsth",
+            "job-vyu5ee",
+            "job-1r37npj"
+          ],
+          "blockedJobIds": [],
+          "failedJobIds": []
+        },
         "error": null
       }
     },
@@ -3045,17 +3070,27 @@
     "applications": [
       {
         "jobId": "job-1r2n2tf",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "2f7ca1ba-2a8c-4983-a7a6-6f8a286b9438",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent the last six years owning products end-to-end, from early concept through scaled delivery, and building alignment across engineers, designers, and stakeholders without relying on direct authority. That's the core of what this Order Quality role asks for, and it's the kind of work I do well.\n\nAt Starling Bank, I owned the Faster Payments integration and cut settlement failures by 34%, leading a team of 6 engineers and 2 designers through the full arc from problem definition to shipped, measurable improvement. At Revolut, I launched card controls that reached 2.1 million customers and redesigned the claims flow to reduce chargeback disputes by 18%. Both cases required the same thing this role demands: defining success metrics, prioritizing ruthlessly, and communicating tradeoffs clearly enough that cross-functional teams could move fast together.\n\nMy background is in payments rather than grocery or physical retail, but the underlying discipline transfers directly: understanding a two-sided experience, protecting trust on both sides of a transaction, and using data to decide what matters most when priorities compete.\n\nI'd welcome a short call to talk through how this experience maps to Order Quality's roadmap and where I could add the most value early on.",
+            "subject": "Application: Senior Product Manager, Order Quality",
+            "updatedAt": "2026-09-25T19:18:03.230Z",
+            "contentHash": "sha256:df49e6a51bb8a090adb74509a2b162c0d2bf1c7822d3be4800a653ff90aa6ddb",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:2c4bce3267e44ba1945f91fff323c319a7870b41b95d6c89be6da2b04e7c5914"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:18:04.410Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3064,21 +3099,31 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:dc92285c120e3f402e279bc4a97d791e39709ff649e7dfaac7070b8cd6d9d9e1"
       },
       {
         "jobId": "job-10l2y3s",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "f994c21f-29a0-44d9-a949-c8a2431cadc1",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent the last several years owning payments products at two UK banks, and I'm drawn to how central Payments Platform is to Monzo's ability to scale and launch in new markets. That combination of business-critical infrastructure and cross-functional weight is exactly the kind of problem I like working on.\n\nAt Starling Bank, I owned the Faster Payments integration and cut settlement failures by 34%, working closely with a team of 6 engineers and 2 designers to get there. Before that, at Revolut, I redesigned the claims flow for card controls (a feature used by 2.1 million customers) and reduced chargeback disputes by 18%. Both of those were cases where the underlying payments mechanics mattered as much as the customer-facing product, and where getting the detail right had a direct, measurable effect on the business.\n\nI know this role sits deeper in financial infrastructure, ledgers, reconciliation and Finance partnership, than where most of my track record has been focused. My experience has been on the payments product side rather than internal financial systems, but I bring real payments domain depth, a BSc in Computer Science, SQL fluency, and experience leading engineers, which I'd want to put to use partnering with your Finance Infrastructure squad.\n\nI'd welcome a short call to talk through where my background fits and where it doesn't, and to hear more about what the team needs right now.",
+            "subject": "Application: Lead Product Manager, Payments",
+            "updatedAt": "2026-09-25T19:18:03.808Z",
+            "contentHash": "sha256:e3a9cd776dad257a2ccdfcd0e54e9e295d0b2cb5c4d7cf094783a7e12b124366",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:8c7ebf848c14709a4cb1542a4105cea4fa872d7665d8e7e3bab39240f3630e42"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:18:04.565Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3087,21 +3132,31 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:26aa0a20d37c2f375fc6b222b1738fafd7a7515d36513a937e497ae463ba7f18"
       },
       {
         "jobId": "job-1r2n2th",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "dff8389e-2a37-47af-ad9c-8115a2b28d1d",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my career taking payments products from concept to scaled delivery, in environments where reliability and customer trust are the whole game. That's the same job Order Quality is asking someone to do for shoppers and customers, just with groceries instead of transactions.\n\nAt Starling Bank, I owned the Faster Payments integration end to end, cutting settlement failures by 34%. That meant defining the roadmap, working through engineering tradeoffs, and holding a bar for quality while moving fast, which sounds close to what you need for reliable fulfillment and efficient picking experiences. At Revolut, I launched card controls that reached 2.1 million customers and redesigned the claims flow to cut chargeback disputes by 18%, work that required understanding a user experience deeply enough to fix the friction points that actually mattered.\n\nBoth roles also meant building alignment across engineers, designers, and stakeholders without formal authority over any of them, leading a team of 6 engineers and 2 designers at Starling while also working horizontally across the business. I'd bring that same approach to aligning Instacart's cross-functional Order Quality team around a shared roadmap.\n\nI'd welcome a conversation about where this role is headed and how my payments background might translate to the fulfillment space. Happy to find a time that works.",
+            "subject": "Application: Senior Product Manager, Order Quality",
+            "updatedAt": "2026-09-25T19:18:03.333Z",
+            "contentHash": "sha256:e5aa1955f398351565bf986a73c7aade30d8d05aaec950ea981b85a3b1494fd9",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:31fc194cb2d04e37ba95376f359ea014cfa07a93d43a149782ee4722d4956c79"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:18:04.413Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3110,21 +3165,31 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:7092465ab1409a595200a285dade014c71536ba1e26dd6c4a7f16d0fa4384b90"
       },
       {
         "jobId": "job-crbu63",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "8bad865f-a656-4757-89b8-b32b70d6126a",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent the last several years making payment systems fail less often and dispute less painfully, which is close to the core of what your Payments Intelligence team owns.\n\nAt Starling Bank, I led the Faster Payments integration and cut settlement failures by 34%, working alongside 6 engineers and 2 designers to get there. At Revolut, I redesigned the claims flow for card disputes and reduced chargeback disputes by 18%, on a product that reached 2.1 million customers. Both were cases of digging into the data to find where the system was losing money or trust, then building the fix.\n\nI'd like to bring that same approach to Radar, Authorization Boost, and Disputes: understanding where transactions fail or get contested, and shaping product that closes those gaps at scale.\n\nIf there's a fit, I'd welcome a short call to talk through where Payments Intelligence is headed and how this experience could apply.",
+            "subject": "Application: Staff Product Manager, Payments Intelligence",
+            "updatedAt": "2026-09-25T19:18:12.419Z",
+            "contentHash": "sha256:febd9183ea92bfc62c4629ff48f8b331f693a612ab0dfdda8f2084af376affac",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:54f624e09bb4400d67799747cd04bab0aa29c3fe65fbf78514aaecdf35073c9f"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:18:13.231Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3133,21 +3198,31 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:4aab56b7909a3cb6e25bb329d0c7f6591e0d576ebe549ea055457f337c038111"
       },
       {
         "jobId": "job-1ma9l9",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "6a9175e6-3552-463f-9540-b9b8e07306fc",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "Building products that people rely on to stay in control of something as personal as their access is a problem I've spent my career on, just from a different angle. At Revolut, I launched card controls used by 2.1 million customers, giving people a clear, trustworthy way to manage how their money moved. That same instinct, giving users confidence and control over a sensitive part of their experience, is what drew me to this role on the User Platform team.\n\nI've also spent years working the way this role demands: closely with engineering and design, not just briefing them. At Starling Bank, I lead a team of 6 engineers and 2 designers, and at Revolut I worked hands-on with cross-functional teams to redesign the claims flow, cutting chargeback disputes by 18%. I know what it takes to turn a technical, high-stakes system into something that feels simple on the other side.\n\nMy background is in payments rather than identity or session management specifically, but the underlying work is familiar: taking a system people depend on and making it safer and easier to use, without them having to think about the plumbing underneath.\n\nI'd welcome a conversation about where my experience overlaps with what User Platform needs, and where I'd need to ramp up. Happy to find a time that works.",
+            "subject": "Application: Senior Product Manager - User Platform",
+            "updatedAt": "2026-09-25T19:18:12.469Z",
+            "contentHash": "sha256:ab7f5024a01cc3b63235b53d98d9f350a794fdd67b99cf461e0fa30b85d50e0f",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:ca2ad9a90af7099db3f81d571e9e246a7173ce9e2d55702ae63b376763b14eba"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:18:13.230Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3156,21 +3231,31 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:0f6957e488d34c2f0a3f1814ac74531d79dc25aef24a9753e0d6ac45ec7661de"
       },
       {
         "jobId": "job-1qqmsth",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "0ae355e6-edf8-4eeb-bb85-7ac904cb95d1",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my career owning complex, high-stakes product areas end to end, from technical integration through team leadership, and I'd welcome the chance to bring that to Instacart's Enterprise Platform team.\n\nAt Starling Bank, I owned the Faster Payments integration outright, working closely with engineering to cut settlement failures by 34%. That kind of deep technical partnership, where the PM has to understand the system well enough to make the right tradeoffs with senior engineers, seems central to what this role needs in balancing retailer flexibility with platform coherence.\n\nI also led a team of 6 engineers and 2 designers at Starling, which gave me practice aligning a cross-functional group around a shared roadmap and pushing decisions through ambiguity rather than around it. Earlier at Revolut, I launched card controls used by 2.1 million customers and redesigned the claims flow to cut chargeback disputes by 18%, both cases of taking a customer-facing product from concept to measurable outcome.\n\nMy background is consumer fintech rather than B2B or enterprise platforms, but the core of the job, owning ambiguous problems, partnering with engineering, and shipping things that move real numbers, is exactly what I've done for years. I'd welcome a short call to talk through how that maps to what you're building.",
+            "subject": "Application: Senior Product Manager, AI Control Studio",
+            "updatedAt": "2026-09-25T19:18:22.581Z",
+            "contentHash": "sha256:aeecb87a5249fc186e494f06989ca3264a07c60f1a1e78e02ee0d4616aec4d77",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:83e258439fbbdb40355a4f9191466b1740d1d5e20445ae6699c4781d52d98699"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:18:23.216Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3179,21 +3264,31 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:09496f5080cd8c6db78f2786da159a35d1f7580aba6748b99ab91a7a139148a2"
       },
       {
         "jobId": "job-1qqmsu4",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "316288af-8048-46a9-91bb-adb1bb45237b",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my career figuring out how to give complex stakeholder groups a shared vision while keeping cross-functional teams moving fast, which is the crux of what this role needs for the Enterprise Platform.\n\nAt Starling Bank, I own the Faster Payments integration and lead a team of 6 engineers and 2 designers, working through the kind of technical ambiguity and stakeholder alignment that a platform-level bet like this requires. That integration cut settlement failures by 34%, which came from balancing competing technical constraints without losing sight of the end outcome.\n\nBefore that, at Revolut, I launched card controls that reached 2.1 million customers and redesigned the claims flow to cut chargeback disputes by 18%. Both projects meant translating a sophisticated set of needs, from engineering, compliance, and customers, into a roadmap that could actually ship and scale.\n\nMy background is consumer fintech rather than enterprise retail, but the core of the job, aligning stakeholders around a long-term vision and partnering closely with engineering, is exactly what I do. I'd welcome a conversation about how that experience could translate to what you're building with AI Control Studio.",
+            "subject": "Application: Senior Product Manager, AI Control Studio",
+            "updatedAt": "2026-09-25T19:18:21.303Z",
+            "contentHash": "sha256:d1a6916d4088e23a0b9a199eb82ada9d20e5d3424b319d1039b2aafb6588bcc7",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:6c78cec22726d9398dccc7234b6e1231408f4da3f8b4757e63f4a7be1001a848"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:18:21.883Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3202,21 +3297,31 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:12e4be190846165b44d6f8d605688cc9d98dd892394a1e51d67e40c45c962357"
       },
       {
         "jobId": "job-1r37nmw",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "4a320e66-f689-44a3-8087-1483d83b6910",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I'm writing to express interest in the Senior Product Marketing Manager, Instacart+ role. My background is in product management for consumer payments products, and I want to be upfront that this would be a shift from product into product marketing. What I bring is direct experience building and improving features that serve millions of consumers, plus the stakeholder skills that come from running cross-functional launches.\n\nAt Revolut, I launched card controls that reached 2.1 million customers and redesigned the claims flow in a way that cut chargeback disputes by 18%. Both required understanding what customers actually needed from a financial product and translating that into a feature people used and trusted. At Starling Bank, I've owned the Faster Payments integration, working across a team of 6 engineers and 2 designers to cut settlement failures by 34%, which meant coordinating closely with stakeholders across engineering, compliance, and support to get the details right.\n\nI recognize the role calls for deep grounding in subscription or loyalty marketing and GTM ownership, which isn't the lane I've worked in. What I can offer is proven experience shipping consumer products at scale and managing the kind of cross-functional relationships this role depends on.\n\nI'd welcome a short call to talk through where my background might be useful and where the gaps are, so we can both figure out if there's a fit worth pursuing further.",
+            "subject": "Application: Senior Product Marketing Manager, Instacart+",
+            "updatedAt": "2026-09-25T19:18:22.459Z",
+            "contentHash": "sha256:e071a4592560d8dc3946e983471739d91baa70d5ed18d4923d71963d1ff238b5",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:38044b42ba26cdf2d8ff93b3e8022e4cc7a8e49f7df934e62d4b93ac398d3085"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:18:23.082Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3225,21 +3330,31 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:a45d53d6c95fbdc863a1baa93178b968f6237707ff4996cdd2450921896d9cc5"
       },
       {
         "jobId": "job-vyu5ee",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "93da1e5f-d4fa-43ed-bda2-8631790a736e",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my career owning products end-to-end, from roadmap through to measurable outcomes, and I'd like to bring that to Cloudflare's Application Protection & Governance team.\n\nAt Starling Bank, I owned the Faster Payments integration outright, from technical direction through delivery, and cut settlement failures by 34% while leading a team of 6 engineers and 2 designers. At Revolut, I launched card controls that reached 2.1 million customers and redesigned the claims flow to cut chargeback disputes by 18%. Both were cases of taking full ownership of a customer-facing product journey, working closely with engineering, and using data to drive iteration, which is exactly the kind of end-to-end ownership this role calls for.\n\nI'm based in London, one of the locations you've listed for this role, and I'm drawn to the scale and technical depth of what Cloudflare protects. My background is in payments product management rather than application security specifically, but the core discipline of turning complex technical requirements into products people can actually use is the same muscle.\n\nI'd welcome a short call to talk through where my experience overlaps with what you need and where I'd need to ramp up.",
+            "subject": "Application: Senior Product Manager - Application Protection & Governance",
+            "updatedAt": "2026-09-25T19:18:29.621Z",
+            "contentHash": "sha256:b48bae90215383b87386d39e26fa8c12d925dcea1fd6c411ad0e3ca0b47a42d8",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:3984a3c39ba76b76da9e3fc7b68a225fdbf671eef81eecd072fe294df4ff1071"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:18:30.431Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3248,21 +3363,31 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:26ef7d8d531808696486eb4eb266b470a92d451fb3f5f1deff1808d59300e0c4"
       },
       {
         "jobId": "job-1r37npj",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "448a6cdd-918b-4c3f-bd79-0dd8bfaa7097",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my career making financial products that millions of people rely on work better, and I'm drawn to what Instacart+ is trying to do: turn a transactional relationship into a lasting one.\n\nMy background is product management, not product marketing, so I want to be upfront about that. What I bring is direct experience shipping features at scale and working closely with the stakeholders who decide what gets built. At Revolut, I launched card controls that reached 2.1 million customers, which meant getting the messaging, the rollout, and the cross-functional coordination right at real volume. At Starling Bank, I owned the Faster Payments integration end to end, cutting settlement failures by 34%, while leading a team of 6 engineers and 2 designers through the kind of stakeholder alignment this role clearly demands.\n\nI know the must-haves here point toward someone with a subscription or loyalty marketing track record, which isn't the shape of my resume. But if you're open to a conversation about how product-side experience with consumer trust and adoption at scale might transfer into the GTM and lifecycle work this role needs, I'd welcome the chance to talk it through.\n\nHappy to jump on a call whenever suits.",
+            "subject": "Application: Senior Product Marketing Manager, Instacart+",
+            "updatedAt": "2026-09-25T19:18:31.313Z",
+            "contentHash": "sha256:c1d0a400ac6ecfb56c8523a2e2ac934272d3087791ac6cfc2ad2297c3bc719d1",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:3e15a92ca08c40ba28f083e19d333174e7ca3edc73cd63358f367975c95823a9"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T19:18:31.843Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3271,7 +3396,7 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:0a2a91a51849beecbc76022d52aee2b406b4b7473c268899b98cc0a4f514f895"
       }
     ],
     "selection": {
@@ -3304,6 +3429,76 @@
         "bytes": 0,
         "contentHash": "",
         "id": "3217ba69-b06c-4d66-b13d-7cc4ec090dcb"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:18:04.411Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "2f7ca1ba-2a8c-4983-a7a6-6f8a286b9438"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:18:04.414Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "dff8389e-2a37-47af-ad9c-8115a2b28d1d"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:18:04.566Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "f994c21f-29a0-44d9-a949-c8a2431cadc1"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:18:13.232Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "6a9175e6-3552-463f-9540-b9b8e07306fc"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:18:13.235Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "8bad865f-a656-4757-89b8-b32b70d6126a"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:18:21.884Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "316288af-8048-46a9-91bb-adb1bb45237b"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:18:23.083Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "4a320e66-f689-44a3-8087-1483d83b6910"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:18:23.217Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "0ae355e6-edf8-4eeb-bb85-7ac904cb95d1"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:18:30.433Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "93da1e5f-d4fa-43ed-bda2-8631790a736e"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T19:18:31.845Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "448a6cdd-918b-4c3f-bd79-0dd8bfaa7097"
       }
     ],
     "billing": {
@@ -3333,6 +3528,86 @@
       "contentHash": "",
       "id": "3217ba69-b06c-4d66-b13d-7cc4ec090dcb",
       "relativePath": "output/base-resume.pdf"
+    },
+    "2f7ca1ba-2a8c-4983-a7a6-6f8a286b9438": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:18:04.411Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "2f7ca1ba-2a8c-4983-a7a6-6f8a286b9438",
+      "relativePath": "output/jobs/job-1r2n2tf/cv.pdf"
+    },
+    "dff8389e-2a37-47af-ad9c-8115a2b28d1d": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:18:04.414Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "dff8389e-2a37-47af-ad9c-8115a2b28d1d",
+      "relativePath": "output/jobs/job-1r2n2th/cv.pdf"
+    },
+    "f994c21f-29a0-44d9-a949-c8a2431cadc1": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:18:04.566Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "f994c21f-29a0-44d9-a949-c8a2431cadc1",
+      "relativePath": "output/jobs/job-10l2y3s/cv.pdf"
+    },
+    "6a9175e6-3552-463f-9540-b9b8e07306fc": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:18:13.232Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "6a9175e6-3552-463f-9540-b9b8e07306fc",
+      "relativePath": "output/jobs/job-1ma9l9/cv.pdf"
+    },
+    "8bad865f-a656-4757-89b8-b32b70d6126a": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:18:13.235Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "8bad865f-a656-4757-89b8-b32b70d6126a",
+      "relativePath": "output/jobs/job-crbu63/cv.pdf"
+    },
+    "316288af-8048-46a9-91bb-adb1bb45237b": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:18:21.884Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "316288af-8048-46a9-91bb-adb1bb45237b",
+      "relativePath": "output/jobs/job-1qqmsu4/cv.pdf"
+    },
+    "4a320e66-f689-44a3-8087-1483d83b6910": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:18:23.083Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "4a320e66-f689-44a3-8087-1483d83b6910",
+      "relativePath": "output/jobs/job-1r37nmw/cv.pdf"
+    },
+    "0ae355e6-edf8-4eeb-bb85-7ac904cb95d1": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:18:23.217Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "0ae355e6-edf8-4eeb-bb85-7ac904cb95d1",
+      "relativePath": "output/jobs/job-1qqmsth/cv.pdf"
+    },
+    "93da1e5f-d4fa-43ed-bda2-8631790a736e": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:18:30.433Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "93da1e5f-d4fa-43ed-bda2-8631790a736e",
+      "relativePath": "output/jobs/job-vyu5ee/cv.pdf"
+    },
+    "448a6cdd-918b-4c3f-bd79-0dd8bfaa7097": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T19:18:31.845Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "448a6cdd-918b-4c3f-bd79-0dd8bfaa7097",
+      "relativePath": "output/jobs/job-1r37npj/cv.pdf"
     }
   }
 }

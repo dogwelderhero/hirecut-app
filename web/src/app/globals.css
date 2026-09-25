@@ -1,5 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+/*
+ * The finished design system from the MVP screens pack, ported verbatim: ~180
+ * tokens (type scale, tracking, spacing, layout widths, per-screen component
+ * dimensions) and 223 classes, all namespaced `hc-*` so nothing collides with
+ * Tailwind or shadcn/ui. Its @font-face blocks were stripped — the font is
+ * vendored once via next/font in src/lib/fonts.ts.
+ */
+@import "./hirecute-screens.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -42,12 +50,11 @@
   /* Geist — shadcn/ui's recommended pairing, self-hosted via the `geist`
      package (next/font). Display/serif alias Geist Sans: the app has ~24
      `font-display` usages and no serif face ships with Geist. */
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  /* The prototype sets its hero in a serif italic. Geist ships no serif, so
-     this is a system stack until a display face is vendored. */
-  --font-serif: ui-serif, Georgia, "Times New Roman", serif;
-  --font-display: ui-serif, Georgia, "Times New Roman", serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  /* Matches the reference design's own stack. */
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 /* ──────────────────────────────────────────────────────────────────────────

@@ -60,3 +60,15 @@
 {"time":"2026-09-25T19:17:52.854Z","entry":{"scored":{"jobId":"job-1qqmsu4","score5":2,"usage":{"inputTokens":5408,"outputTokens":1113}}}}
 {"time":"2026-09-25T19:17:53.794Z","entry":{"scored":{"jobId":"job-1qqmsth","score5":2,"usage":{"inputTokens":5392,"outputTokens":1172}}}}
 {"time":"2026-09-25T19:17:54.848Z","entry":{"scored":{"jobId":"job-1r2n2tf","score5":3.3,"usage":{"inputTokens":5428,"outputTokens":1408}}}}
+{"time":"2026-09-25T19:18:03.246Z","entry":{"package":{"jobId":"job-1r2n2tf","usage":{"inputTokens":4423,"outputTokens":705}}}}
+{"time":"2026-09-25T19:18:03.334Z","entry":{"package":{"jobId":"job-1r2n2th","usage":{"inputTokens":4325,"outputTokens":737}}}}
+{"time":"2026-09-25T19:18:03.809Z","entry":{"package":{"jobId":"job-10l2y3s","usage":{"inputTokens":4471,"outputTokens":754}}}}
+{"time":"2026-09-25T19:18:12.435Z","entry":{"package":{"jobId":"job-crbu63","usage":{"inputTokens":4271,"outputTokens":620}}}}
+{"time":"2026-09-25T19:18:12.472Z","entry":{"package":{"jobId":"job-1ma9l9","usage":{"inputTokens":3372,"outputTokens":662}}}}
+{"time":"2026-09-25T19:18:21.314Z","entry":{"package":{"jobId":"job-1qqmsu4","usage":{"inputTokens":4266,"outputTokens":697}}}}
+{"time":"2026-09-25T19:18:22.461Z","entry":{"package":{"jobId":"job-1r37nmw","usage":{"inputTokens":4305,"outputTokens":732}}}}
+{"time":"2026-09-25T19:18:22.582Z","entry":{"package":{"jobId":"job-1qqmsth","usage":{"inputTokens":4278,"outputTokens":736}}}}
+{"time":"2026-09-25T19:18:29.634Z","entry":{"package":{"jobId":"job-vyu5ee","usage":{"inputTokens":4281,"outputTokens":703}}}}
+{"time":"2026-09-25T19:18:31.316Z","entry":{"package":{"jobId":"job-1r37npj","usage":{"inputTokens":4269,"outputTokens":690}}}}
+{"time":"2026-09-25T19:18:31.844Z","entry":{"prepared":10,"blocked":0,"failed":0}}
+{"time":"2026-09-25T19:18:31.875Z","entry":{"exit":{"code":0,"signal":null}}}

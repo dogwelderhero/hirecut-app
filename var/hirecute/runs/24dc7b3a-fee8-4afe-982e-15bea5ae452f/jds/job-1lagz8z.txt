@@ -1,0 +1,58 @@
+ROLE SUMMARY
+
+Temporal helps developers build and run reliable systems with durable execution. Many customers want to use Temporal in environments where standard Temporal Cloud may not be an option given regulatory, infrastructure, or control requirements—such as self-hosted deployments, FedRAMP-aligned needs, sovereign clouds, and hybrid architectures that span cloud and on‑prem environments.
+
+In this role, you’ll own the product surface area that enables companies to deploy, operate, and connect Temporal across self-hosted and Temporal Cloud environments. You’ll partner closely with Engineering, Resident Architects, and self-hosted services to deliver durable, operable capabilities that let customers run Temporal in the environment that best fits their risk and compliance posture.
+
+
+
+
+WHAT YOU’LL DO
+
+ - Own supported self-hosted and hybrid deployment models, including clear positioning, lifecycle expectations, and customer outcomes.
+
+ - Improve installation, configuration, upgrades, and operability so customers can run Temporal confidently in production across varied infrastructure.
+
+ - Drive product direction for production readiness and operational tooling (observability, benchmarking, runbooks, diagnostics, upgrade safety).
+
+ - Define strategy and requirements around database and storage choices, balancing operability, reliability, and customer constraints.
+
+ - Own multi-region and multi-cloud topology capabilities for self-hosted environments, including performance and resilience tradeoffs.
+
+ - Partner with Resident Architects and self-hosted services teams to translate customer needs into roadmap, packaging, and repeatable deployment patterns.
+
+ - Own Temporal Proxy as an end-to-end product: roadmap, packaging, customer deployment experience, and operability.
+
+
+
+
+WHAT YOU’LL BRING
+
+ - Product leadership experience shipping and iterating on infrastructure/platform products, ideally with high reliability and operational requirements.
+
+ - Strong ability to translate complex customer needs (security/compliance, networking, topology, data, ops) into clear product requirements and high-leverage roadmaps.
+
+ - Comfort partnering with engineering on technical domains like deployment architecture, replication, storage systems, and operational tooling (without needing to write production code).
+
+ - Experience driving alignment across stakeholders (Engineering, Security, Support, Field/Resident Architects, Solutions, Sales) and making durable decisions in ambiguous environments.
+
+ - Strong written communication skills—able to produce crisp PRDs, decision docs, and customer-facing guidance.
+
+ - A customer-first mindset and appreciation for “last mile” quality: docs, upgrade paths, diagnostics, and operational clarity.
+
+
+
+
+NICE TO HAVES
+
+ - Familiarity with regulated and controlled environments (e.g., FedRAMP-aligned, sovereign cloud constraints) and the operational realities of enterprise self-hosting.
+
+ - Experience with hybrid architectures, migration programs, or long-lived interoperability across environments.
+
+ - Experience with benchmarking/performance testing and turning results into product improvements and guidance.
+
+ - Understanding of multi-region replication patterns and failure modes in distributed systems.
+
+Temporal Technologies is an Equal Opportunity Employer. Temporal Technologies does not discriminate on the basis of race, religion, color, sex, gender identity, sexual orientation, age, non-disqualifying physical or mental disability, national origin, veteran status, or any other basis covered by appropriate law. All employment is decided on the basis of qualifications, merit, and business need. We embrace and celebrate differences and diversity.
+
+Temporal is committed to providing access, equal opportunity, and reasonable accommodation for individuals with disabilities in employment, its services, programs, and activities. If you need to request a reasonable accommodation, please let your Recruiter know so we can assist.

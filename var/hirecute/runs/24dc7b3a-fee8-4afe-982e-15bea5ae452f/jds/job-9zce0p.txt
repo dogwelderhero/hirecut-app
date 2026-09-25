@@ -1,0 +1,96 @@
+At Render, we’re building the modern cloud platform for developers creating AI-native, full-stack, multi-service applications. Our mission is to eliminate the tradeoff between the power of hyperscalers and the simplicity of developer-friendly platforms—so teams can ship fast, scale reliably, and focus on their product, not infrastructure.
+
+Unlike complex hyperscalers or ephemeral edge/serverless solutions, Render offers a developer-first experience with persistent compute, dynamic autoscaling, built-in orchestration, and observability, allowing teams to launch, scale, and manage real-world applications without writing infrastructure code or managing servers. Whether you're building LLM-powered applications, scalable SaaS products, or async processing pipelines, Render empowers teams to move fast and scale confidently from MVP to millions of users.
+
+Our platform is trusted by over 7 million developers worldwide and continues to grow rapidly. In February 2026, we raised an additional $100M in Series C financing, bringing our total funding to $260M, to accelerate our vision of making cloud infrastructure both powerful and intuitive—designed for the speed of modern AI development.
+
+We’re a diverse and talented team that values craft, velocity, and user experience. If you’re excited to help shape the future of the intelligent cloud and empower developers everywhere, we’d love to hear from you.
+
+
+
+
+APPLYING TO RENDER
+
+We're seeking candidates who possess high integrity, humility, and an insatiable drive to learn. Through reasoned discussions and continuous feedback, we strive to improve both individually and collectively. We foster an environment of mutual trust and respect, empowering effective debate to achieve the best outcomes for our customers and team.
+
+We especially encourage members of underrepresented groups in the tech community to apply and understand that not all successful candidates will meet each requirement listed.
+
+Our interview process is unique to each role, and we value the candidate experience just as much as our customer experience. We hope your conversations with us reflect a thoughtful process that is illuminative, enjoyable, and respectful of your time.
+
+
+
+We're looking for a Staff Product Manager to own the vision and roadmap for Render's datastores portfolio, with our Postgres offering at the center. You will define what a modern managed database experience looks like, including how database products will adapt to new state patterns from agents and how agents as users of state-keeping products should be accommodated.
+
+You'll drive the technical and strategic direction for Render Postgres and our broader data layer, working directly with your team and infrastructure engineering to shape architectural decisions. You'll engage with Render's customers and our product development teams to develop a deep understanding of their data needs and build conviction about where the datastores portfolio needs to go next.
+
+
+
+
+WHAT YOU'LL DO
+
+ - Own the vision, strategy, and roadmap for Render's datastores, anchored on Postgres. Your scope spans provisioning and lifecycle management, high availability and disaster recovery, backups and point-in-time recovery, scaling and performance, connection management, and the extension ecosystem.
+
+ - Drive prioritization across Render's data investments, balancing the leverage of foundational reliability work — replication, failover, storage performance — against near-term product and business needs, and being able to negotiate those tradeoffs.
+
+ - Partner deeply with Engineering & other Product teams to shape the technical direction of Render's data layer, ensuring architectural decisions optimize for durability, performance, and operational simplicity. Databases are where customer trust is won or lost, so an instinct for reliability and data safety is essential.
+
+ - Develop a strong, opinionated point of view on how managed Postgres needs to evolve to serve AI-native builders — from vector workloads and retrieval pipelines to databases that are spun up, branched, and torn down programmatically by agents at scale.
+
+ - Set the standard for how developers experience data on Render, providing clear guidance, sensible defaults, and abstractions that make it easy for teams to run production databases with confidence — without needing a DBA on staff.
+
+
+WE'RE LOOKING FOR
+
+ - 7+ years in Product Management, with the majority spent on databases, data infrastructure, developer tools, or platform products.
+
+ - Familiarity with Postgres — its architecture, operational model, ecosystem, and the tradeoffs teams face running it in production. Bonus if you have strong perspective on how agentic workloads and AI-native applications are reshaping database usage patterns.
+
+ - Deep developer empathy, for both internal engineering teams and our customers, and the technical depth to make sound architectural tradeoffs in collaboration with engineering.
+
+ - A track record of taking ambiguous, high-stakes reliability and infrastructure problems and turning them into clear strategy and shipped outcomes.
+
+ - Strong communication and storytelling skills.
+
+
+WHAT WOULD BE NICE TO HAVE BUT NOT REQUIRED
+
+ - Experience as a database engineer, DBA, or infrastructure engineer.
+
+ - Hands-on experience with Postgres internals, replication tooling, or the extension ecosystem (e.g., pgvector, PostGIS).
+
+ - Experience building AI agents or the data infrastructure that powers them.
+
+If this role excites you but you don’t meet every single requirement, we’d still love to hear from you—your unique experience might be just what we need.
+
+
+
+
+BENEFITS
+
+ - 4 weeks of paid vacation.
+
+ - 14 weeks of fully paid parental leave for all parents to bond with a newly born, adopted, or fostered child. We will also work with you to create a supportive plan of return.
+
+ - Long-term disability, life insurance, and 401K plans.
+
+ - 100% employer-paid medical coverage and 99% employer-paid dental and vision coverage for you and a dependent. FSAs and HSAs are available as well.
+
+ - Monthly lifestyle stipend for wellness, mental health and therapy, hobbies, etc.
+
+ - Monthly cell phone and internet subsidy.
+
+ - Commuter benefits for Renders in the Bay Area, and home office stipends for remote Renders.
+
+ - Continuous learning benefits & related support.
+
+This position is generally not eligible for new visa sponsorship. At Render's discretion, the business may sponsor existing visa transfers. Applicants who require sponsorship must receive business authorization.
+
+Render is an equal-opportunity employer. We know that employing a team rich in diverse thoughts, experiences, and opinions allows our employees, product, and community to flourish. We make all employment decisions including hiring, evaluation, termination, promotional, and training opportunities, without regard to race, religion, color, sex, age, national origin, ancestry, sexual orientation, physical handicap, mental disability, medical condition, disability, gender or identity or expression, pregnancy or pregnancy-related condition, marital status, height and/or weight.
+
+We will ensure that individuals with disabilities are provided reasonable accommodation to participate in the job application or interview process, to perform essential job functions, and to receive other benefits and privileges of employment. Please contact us to request accommodation.
+
+We encourage all who are interested to apply. We can't wait to hear from you!
+
+Render — CCPA Applicant Privacy Notice https://drive.google.com/file/d/1wKr9IejoT5McFrs9I2mahQnf6AFwb3z2/view
+
+Render — GDPR Applicant Privacy Notice https://drive.google.com/file/d/1_8jtyXQ1HdRdTdQn9sZ7n-R-zAGBmsFa/view

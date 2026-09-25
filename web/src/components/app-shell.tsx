@@ -16,7 +16,7 @@ import { FirstScoreView } from "@/components/explore/first-score-view";
 import { BetaBanner } from "@/components/beta/beta-banner";
 import { WorkerPills } from "@/components/jobs/worker-pills";
 import { UsageMeter } from "@/components/usage-meter";
-import { GeistSans } from "@/lib/fonts";
+import { inter } from "@/lib/fonts";
 import { NAV_ITEMS, isActivePath } from "@/lib/nav-items";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -31,7 +31,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col overflow-y-auto border-r border-border bg-card/30 p-4 md:flex">
           <Link href="/" className="mb-8 flex items-center gap-2.5 px-1">
             <BrandMark size={32} />
-            <span className={`${GeistSans.className} relative -top-px text-2xl font-normal tracking-tight text-foreground`}>
+            <span className={`${inter.className} relative -top-px text-2xl font-normal tracking-tight text-foreground`}>
               hirecute
             </span>
           </Link>
@@ -66,7 +66,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="mt-auto space-y-3 pt-4">
             <UsageMeter />
             <div className="flex items-center justify-between px-1">
-              <span className={`${GeistSans.className} text-sm text-muted-foreground`}>local-first · v0</span>
+              <span className={`${inter.className} text-sm text-muted-foreground`}>local-first · v0</span>
               <ThemeToggle />
             </div>
           </div>

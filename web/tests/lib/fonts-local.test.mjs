@@ -1,66 +1,44 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, existsSync, readdirSync } from "node:fs";
-import { createRequire } from "node:module";
-import path from "node:path";
+import { readFileSync, existsSync } from "node:fs";
 
-// hirecute serves Geist (shadcn/ui's recommended pairing) from the `geist`
-// package instead of the woff2 files upstream vendored under src/assets/fonts.
-//
-// The invariant these tests protect is unchanged, and is the reason they
-// exist: a build must never reach Google's font CDN. Only the mechanism moved
-// — from our own vendored files to a package that itself wraps
-// next/font/local around vendored files. So the assertions follow the fonts to
-// their new home rather than being deleted along with them.
+/**
+ * hirecute serves Inter, matching the finished designs in the MVP screens pack.
+ *
+ * The invariant these tests protect has never changed and is the reason they
+ * exist: a build must never reach a font CDN. Only the mechanism has moved —
+ * upstream's vendored Inter/Instrument Serif, then the `geist` package, now a
+ * single vendored Inter subset extracted from the reference screens. The
+ * assertions follow the fonts rather than being deleted along with them.
+ */
 
-const require = createRequire(import.meta.url);
 const fontsSource = readFileSync(new URL("../../src/lib/fonts.ts", import.meta.url), "utf8");
-
-// The package restricts its `exports` map, so geist/package.json is not
-// resolvable. Anchor on a real export (dist/sans.js) and step up to the
-// package root — still layout-agnostic, no hoisting assumption.
-const geistRoot = path.resolve(path.dirname(require.resolve("geist/font/sans")), "..");
+const SUBSET = new URL("../../src/assets/fonts/inter/Inter-subset.woff2", import.meta.url);
 
 test("web fonts are local and never use the Google build-time loader", () => {
+  assert.match(fontsSource, /next\/font\/local/);
   assert.doesNotMatch(fontsSource, /next\/font\/google/);
-  for (const entry of ["dist/sans.js", "dist/mono.js"]) {
-    const source = readFileSync(path.join(geistRoot, entry), "utf8");
-    assert.doesNotMatch(source, /next\/font\/google/, `${entry} must not use the Google loader`);
-    assert.match(source, /next\/font\/local/, `${entry} must load its faces locally`);
-  }
-});
-
-test("the app loads Geist Sans and Geist Mono, and nothing else", () => {
-  assert.match(fontsSource, /from "geist\/font\/sans"/);
-  assert.match(fontsSource, /from "geist\/font\/mono"/);
-  // The vendored asset directory is gone; this keeps a second font source from
-  // being reintroduced silently.
-  assert.equal(
-    existsSync(new URL("../../src/assets/fonts", import.meta.url)),
-    false,
-    "src/assets/fonts is expected to be removed — fonts now come from the geist package",
-  );
+  // No remote URL of any kind in the font config.
+  assert.doesNotMatch(fontsSource, /https?:\/\//);
 });
 
 test("every configured WOFF2 asset is vendored", () => {
-  const fontsDir = path.join(geistRoot, "dist/fonts");
-  const woff2 = readdirSync(fontsDir, { recursive: true })
-    .map(String)
-    .filter((f) => f.endsWith(".woff2"));
-  assert.ok(woff2.length > 0, "geist must ship its own woff2 faces");
-  for (const relativePath of woff2) {
-    const bytes = readFileSync(path.join(fontsDir, relativePath));
-    assert.equal(
-      bytes.subarray(0, 4).toString("ascii"),
-      "wOF2",
-      `${relativePath} is not a WOFF2 file`,
-    );
-  }
+  assert.ok(existsSync(SUBSET), "the Inter subset must be committed, not fetched");
+  const bytes = readFileSync(SUBSET);
+  assert.equal(bytes.subarray(0, 4).toString("ascii"), "wOF2", "not a WOFF2 file");
+  // The reference screens inline this same subset nine times, once per declared
+  // weight; all nine payloads are byte-identical, so one file covers 100-900.
+  assert.match(fontsSource, /weight:\s*"100 900"/);
 });
 
-test("the vendored font family includes its license", () => {
-  assert.ok(
-    existsSync(path.join(geistRoot, "LICENSE.txt")),
-    "geist must ship LICENSE.txt alongside its faces",
-  );
+test("the font config points only at the vendored file", () => {
+  const paths = [...fontsSource.matchAll(/path:\s*"([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(paths, ["../assets/fonts/inter/Inter-subset.woff2"]);
+});
+
+test("the serif stack needs no vendored face", () => {
+  // The reference design's --font-serif is Georgia, so the serif-italic hero
+  // line uses a system stack. Nothing to download, nothing to license.
+  const globals = readFileSync(new URL("../../src/app/globals.css", import.meta.url), "utf8");
+  assert.match(globals, /--font-serif:\s*Georgia/);
 });
