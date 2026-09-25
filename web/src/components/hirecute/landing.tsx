@@ -1,69 +1,124 @@
 "use client";
 
 /**
- * Screen 1 — Landing and upload (02-screen-guide.md §3).
+ * Screen 1 — Landing and upload.
  *
- * Preserved from the prototype: hero, drop zone, sample link, activity panel,
- * company wordmarks, feature grid, pricing explanation, FAQs.
+ * Ported from `MVP architecture and screens/hirecute-screens/screens/
+ * 01-upload-resume@desktop.html`: the same structure, the same `hc-*` classes,
+ * the same copy. The stylesheet is that file's own, imported by globals.css, so
+ * layout, type scale, spacing and colour come from the design rather than from
+ * an approximation of it.
  *
- * Changed, deliberately, because §3 requires it:
- *  - Headline language matches the ACTUAL capability. With submission disabled
- *    the hero cannot promise auto-apply or "up to 100 jobs daily"; the brief
- *    says that copy "must become preparation/assistance copy".
- *  - The activity panel carries no invented aggregates. "28,746 boards",
- *    "130 boards checked" and "19 matches" were the provider table from a one-off
- *    test, not live facts about this visitor, so the rows are non-numeric.
- *  - The processing note says the resume is processed ON THE SERVER and sent to
- *    the configured AI provider. §3 forbids claiming it stays on the device.
- *  - Company wordmarks are captioned as prospective employers, never partners.
- *  - The reference "Sign in" placeholder is gone: no login in this MVP.
+ * Two places where the reference copy is made CONDITIONAL rather than
+ * reproduced verbatim, both flagged inline:
+ *
+ *  1. Auto-apply claims. The design promises "Auto-apply for up to 100 jobs
+ *     daily" and "let your agent handle the applications". Submission is
+ *     disabled (`HIRECUTE_SUBMISSION_ENABLED=false`), so today that would be a
+ *     false statement to a visitor. 04-coding-agent-brief.md is explicit: "For
+ *     the activation pilot, 'Auto-apply to up to 100 jobs daily' must become
+ *     preparation/assistance copy." These strings therefore switch on
+ *     `launchProfile`, which is derived server-side from whether an adapter is
+ *     actually enabled — so the original wording returns by itself once
+ *     milestone 8 ships, with no edit here.
+ *  2. The agent activity panel's counts. "28,746 company boards to explore" and
+ *     "130 boards checked · 19 matches" came from a one-off provider test, not
+ *     from live data. 02-screen-guide.md §3 forbids carrying them over as
+ *     facts. The rows keep their exact layout and use the real curated-board
+ *     count instead.
  */
 
 import { useRef, useState } from "react";
-import { Upload, FileText, ArrowRight } from "lucide-react";
 import type { LaunchProfile } from "@/lib/hirecute/contracts";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/cn";
+import { CURATED_BOARDS } from "@/lib/hirecute/boards.mjs";
 
-const ACCEPTED = [".pdf", ".docx"];
 const ACCEPT_MIME =
   "application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
-/** Non-numeric activity rows: real product activity, no fabricated counts. */
-const ACTIVITY = [
-  { agent: "job explorer", status: "ready", line: "Reads public ATS boards for open roles" },
-  { agent: "match agent", status: "ready", line: "Scores each role against your own resume" },
-  { agent: "resume agent", status: "ready", line: "Refines your wording without adding facts" },
-  { agent: "letter agent", status: "ready", line: "Drafts one letter per role from your experience" },
-];
-
 const FEATURES = [
-  ["Find roles that fit", "Your resume becomes the search, not a keyword box."],
-  ["See why each role ranked", "Every score cites evidence from your resume and the posting."],
-  ["A letter per role", "Written from your own experience, editable before you send it."],
-  ["Resume refinement", "Clearer wording and formatting. No invented facts."],
-  ["Your batch, your call", "Pick the roles worth applying to. Nothing is sent automatically."],
-  ["Keep the originals", "Your uploaded file is preserved and downloadable."],
+  [
+    "Auto-apply to jobs",
+    "Spend less time filling forms and more time preparing for interviews. Choose the jobs you like, approve your batch, and let your agent handle the applications.",
+    // Activation-profile wording: preparation, not submission.
+    "Spend less time filling forms and more time preparing for interviews. Choose the jobs you like and your agent prepares each application for you to send.",
+  ],
+  [
+    "Smart resume optimization",
+    "Give your experience the clarity it deserves. Sharpen your bullet points, surface your strongest skills, and build a resume that’s easier for people and hiring systems to read.",
+    null,
+  ],
+  [
+    "AI cover letters",
+    "Start with something more personal than a blank page. Get a thoughtful introduction that connects your experience to each role, ready for your final touches.",
+    null,
+  ],
+  [
+    "AI resume tailor",
+    "One career. Different opportunities. Adapt your resume to each job’s priorities and keywords, while keeping your experience and achievements true to you.",
+    null,
+  ],
+  [
+    "Set your match threshold",
+    "You decide what a good fit looks like. Set a minimum match score so your agent focuses on the roles that line up with your skills and goals.",
+    null,
+  ],
+  [
+    "Job application tracker",
+    "Know where every application stands. See what’s ready, what’s been submitted, and what needs your input—all in one place, without another spreadsheet.",
+    "Know where every application stands. See what’s ready and what needs your input—all in one place, without another spreadsheet.",
+  ],
+] as const;
+
+const CONTROL = [
+  [
+    "01",
+    "You choose the direction.",
+    "Change your preferences, skip a job, or refine your shortlist. Your next move should feel like yours.",
+  ],
+  [
+    "02",
+    "You see the work.",
+    "Read the resume changes, match explanations and cover letters before making a decision.",
+  ],
+  [
+    "03",
+    "You keep the final say.",
+    "Applications that need a personal answer come back to you. Your agent handles the admin; you make the calls.",
+  ],
 ] as const;
 
 const FAQS = [
   [
-    "Does hirecute apply to jobs for me?",
-    "Not in this version. It prepares a tailored resume and letter for each role you select, and links you to the employer's own application form. You press the button.",
+    "What do I need to get started?",
+    "A PDF or DOCX resume up to 10 MB. Your agent starts refining it as soon as you upload. You can adjust job preferences while it works, or try the sample resume first.",
   ],
   [
-    "What happens to my resume?",
-    "It is uploaded to our server, and the relevant text is sent to the AI provider we have configured in order to produce your results. You can delete your run at any time.",
+    "What does hirecute change in my resume?",
+    "The structure, wording and emphasis. The aim is to make your relevant experience easier to understand, while keeping your facts intact. You can review the original and refined versions before continuing.",
   ],
   [
-    "Do I need an account?",
-    "No. Your work is tied to this browser session.",
+    "How do I know why a job is a good match?",
+    "Each match shows how your experience and preferences line up with the role, plus areas to check. A match score is a guide to fit, not a prediction that you’ll get an interview.",
   ],
   [
-    "What do the $30 credits cover?",
-    "Preparing up to 20 applications. Saving a card unlocks them and charges $0 today. There is no subscription.",
+    "Will applications go out without my approval?",
+    "No. Review your selected jobs and prepared applications first. Anything needing information only you can provide is flagged for your attention.",
+  ],
+  [
+    "When do I pay?",
+    "Preview your resume and matches for free, then activate $30 in credits for your first applications. Nothing is charged today. When your credits run out, you decide whether to top up; there are no automatic charges.",
+  ],
+  [
+    "Does hirecute guarantee an interview or a job?",
+    "No. Hiring decisions belong to employers. hirecute is designed to help you focus your search, present your experience clearly and handle repetitive application work.",
+  ],
+  [
+    "Can I explore without sharing a resume?",
+    "Yes. Choose “Try a sample resume” to see the full experience. This preview uses sample jobs and outcomes; it doesn’t upload files, take payments or submit applications.",
   ],
 ] as const;
+
+const WORDMARKS = ["Revolut", "Wise", "Monzo", "Linear", "Notion"] as const;
 
 export function Landing({
   launchProfile,
@@ -82,208 +137,391 @@ export function Landing({
   const [dragging, setDragging] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
 
-  /** Client-side validation. The server validates the ACTUAL file type again. */
+  const autoApply = launchProfile === "auto_apply_pilot";
+  const maxMb = Math.floor(maxUploadBytes / 1024 / 1024);
+
+  /** Client-side validation. The server re-checks the ACTUAL file bytes. */
   function accept(file: File | undefined) {
     setLocalError(null);
     if (!file) return;
-    const named = ACCEPTED.some((ext) => file.name.toLowerCase().endsWith(ext));
-    if (!named) {
+    if (!/\.(pdf|docx)$/i.test(file.name)) {
       setLocalError("Please choose a PDF or DOCX file.");
-      return;
-    }
-    if (file.size > maxUploadBytes) {
-      setLocalError(`That file is larger than ${Math.floor(maxUploadBytes / 1024 / 1024)} MB.`);
       return;
     }
     if (file.size === 0) {
       setLocalError("That file is empty.");
       return;
     }
+    if (file.size > maxUploadBytes) {
+      setLocalError(`That file is larger than ${maxMb} MB.`);
+      return;
+    }
     onUpload(file);
   }
 
   const shown = error ?? localError;
+  const choose = () => inputRef.current?.click();
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-5 py-10">
-      {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <div className="text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 text-[12px] text-muted-foreground">
-          <span className="size-1.5 rounded-full bg-primary" /> A little help. A big next step.
-        </span>
+    <main className="hc-landing">
+      <header className="hc-nav">
+        <a className="hc-brand" href="#top">
+          <span>hirecute</span>
+        </a>
+        <nav className="hc-navlinks">
+          <a href="#how-it-works">How it works</a>
+          <a href="#privacy">Your privacy</a>
+          {/*
+            The reference has a "Sign in" placeholder. §3: "Remove any
+            functional dependency on the reference 'Sign in' placeholder; it
+            must not start an authentication project." This MVP has no accounts,
+            so it is not rendered at all rather than shown and broken.
+          */}
+        </nav>
+      </header>
 
-        <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-          Build a better resume.
-        </h1>
-        {/* The serif italic second line, from the prototype's hero. */}
-        <p className="font-display mt-1 text-4xl italic leading-[1.05] text-primary sm:text-5xl">
-          {launchProfile === "auto_apply_pilot"
-            ? "Auto-apply to the roles that fit."
-            : "Then apply to the roles that actually fit."}
-        </p>
-
-        <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
-          {launchProfile === "auto_apply_pilot"
-            ? "Upload your resume, approve your matches, and let your agent tailor and send every application."
-            : "Upload your resume. Your agent refines it, finds real openings, ranks them against your experience, and prepares a tailored resume and letter for each one you pick."}
-        </p>
-      </div>
-
-      {/* ── Agent activity panel ─────────────────────────────────────── */}
-      <div className="mt-8 overflow-hidden rounded-xl border border-border bg-card">
-        <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
-          <span className="inline-flex items-center gap-2 font-mono text-[12px] text-muted-foreground">
-            <span className="size-1.5 rounded-full bg-primary" /> hirecute agent
-          </span>
-          <span className="font-mono text-[12px] text-muted-foreground">
-            next job: <span className="text-foreground">your resume</span>
-          </span>
+      <section className="hc-hero hc-hero--landing" id="top">
+        <div className="hc-eyebrow">
+          <i className="hc-dot" />
+          <span>A little help. A big next step.</span>
         </div>
-        <ul className="divide-y divide-border">
-          {ACTIVITY.map((row) => (
-            <li key={row.agent} className="flex items-center gap-3 px-4 py-2.5">
-              <span className="font-mono text-[12px] text-muted-foreground">{row.line}</span>
-              <span className="ml-auto inline-flex items-center gap-1.5 font-mono text-[12px] whitespace-nowrap">
-                <span className="size-1.5 rounded-full bg-primary" />
-                <span className="text-muted-foreground">{row.agent}</span>
-                <span className="text-primary">· {row.status}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* ── Upload ───────────────────────────────────────────────────── */}
-      <div
-        onDragOver={(e) => {
-          e.preventDefault();
-          setDragging(true);
-        }}
-        onDragLeave={() => setDragging(false)}
-        onDrop={(e) => {
-          e.preventDefault();
-          setDragging(false);
-          accept(e.dataTransfer.files?.[0]);
-        }}
-        className={cn(
-          "mt-5 rounded-xl border-2 border-dashed p-6 text-center transition-colors",
-          dragging ? "border-primary bg-primary/5" : "border-border bg-card",
-        )}
-      >
-        <FileText className="mx-auto size-5 text-muted-foreground" />
-        <p className="mt-2 text-[14px]">Drop your resume here, or choose a file.</p>
-        <p className="mt-1 text-[12px] text-muted-foreground">
-          PDF or DOCX, up to {Math.floor(maxUploadBytes / 1024 / 1024)} MB.
+        <h1>
+          <span>Build a better resume.</span>
+          {/* The reference breaks the headline explicitly here. */}
+          <br />
+          {/*
+            `hc-hero--landing h1 em` is `white-space: nowrap`, so this line
+            must stay close to the original's length or it overflows the hero.
+          */}
+          <em>
+            {autoApply ? "Auto-apply for up to 100 jobs daily." : "Then apply where you actually fit."}
+          </em>
+        </h1>
+        <p>
+          {autoApply
+            ? "Upload your resume, approve your matches, and let your agent tailor and send every application."
+            : "Upload your resume, approve your matches, and let your agent tailor a resume and letter for every application."}
         </p>
+      </section>
 
-        <input
-          ref={inputRef}
-          type="file"
-          accept={ACCEPT_MIME}
-          className="sr-only"
-          onChange={(e) => accept(e.target.files?.[0] ?? undefined)}
-        />
+      <div className="hc-upload">
+        {/*
+          The agent activity panel. Same rows and layout as the reference; the
+          invented aggregates are replaced with what we can actually stand
+          behind (§3: "Do not carry over '28,746 boards', '130 boards checked',
+          '19 matches' ... as real facts").
+        */}
+        <section className="hc-agent-activity">
+          <header className="hc-agent-header">
+            <div className="hc-agent-title">
+              <i className="hc-agent-dot" />
+              <span>hirecute agent · ready when you are</span>
+            </div>
+            <div className="hc-agent-next">
+              <span>next job: </span>
+              <strong>your resume</strong>
+            </div>
+          </header>
+          <div className="hc-agent-feed">
+            <div className="hc-agent-row">
+              <div className="hc-agent-task">
+                <span className="hc-agent-marker">✓</span>
+                <span>{CURATED_BOARDS.length} company boards to explore</span>
+              </div>
+              <div className="hc-agent-state">
+                <i className="hc-agent-dot" />
+                <span>job explorer · </span>
+                <strong>ready</strong>
+              </div>
+            </div>
+            <div className="hc-agent-row">
+              <div className="hc-agent-task">
+                <span className="hc-agent-marker">✓</span>
+                <span>scores each role against your own resume</span>
+              </div>
+              <div className="hc-agent-state">
+                <i className="hc-agent-dot" />
+                <span>match agent · </span>
+                <strong>ready</strong>
+              </div>
+            </div>
+            <div className="hc-agent-row">
+              <div className="hc-agent-task">
+                <span className="hc-agent-marker">›</span>
+                <span>refines your wording without adding facts</span>
+              </div>
+              <div className="hc-agent-state">
+                <i className="hc-agent-dot" />
+                <span>resume agent · </span>
+                <strong>ready</strong>
+              </div>
+            </div>
+            <div className="hc-agent-row">
+              <div className="hc-agent-task">
+                <span className="hc-agent-marker">›</span>
+                <span>drafts a personal cover letter per role</span>
+              </div>
+              <div className="hc-agent-state">
+                <i className="hc-agent-dot" />
+                <span>cover letter agent · </span>
+                <strong>ready</strong>
+              </div>
+            </div>
+            <div className="hc-agent-prompt">
+              <div className="hc-agent-task">
+                <span className="hc-agent-marker">›</span>
+                <strong>next up: your resume…</strong>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-          <Button type="button" onClick={() => inputRef.current?.click()}>
-            <Upload className="size-3.5" /> Choose file
-          </Button>
-          {/* An explicitly marked sample journey, excluded from live conversion. */}
-          <Button type="button" variant="outline" onClick={onSample}>
-            Try a sample resume <ArrowRight className="size-3.5" />
-          </Button>
+        <div
+          className={`hc-drop${dragging ? " is-dragging" : ""}`}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragging(true);
+          }}
+          onDragLeave={() => setDragging(false)}
+          onDrop={(e) => {
+            e.preventDefault();
+            setDragging(false);
+            accept(e.dataTransfer.files?.[0]);
+          }}
+        >
+          <div className="hc-letter" aria-hidden />
+          <div className="hc-grow">
+            <h3>Drop your resume here</h3>
+            <p className="hc-small hc-muted">or choose a file to get started</p>
+          </div>
+          <input
+            ref={inputRef}
+            type="file"
+            accept={ACCEPT_MIME}
+            className="hc-visually-hidden"
+            onChange={(e) => accept(e.target.files?.[0] ?? undefined)}
+          />
+          <button type="button" className="hc-button" onClick={choose}>
+            <span>Upload resume</span>
+          </button>
+        </div>
+
+        <div className="hc-upload-bottom">
+          <span>PDF or DOCX · up to {maxMb} MB</span>
+          <span>No account. No card. Just your next step.</span>
         </div>
 
         {shown && (
-          /* A failure stays beside the drop zone. There is no error screen. */
-          <p
-            role="alert"
-            className="mx-auto mt-3 max-w-sm rounded-md border border-destructive/40 bg-[var(--hc-danger-soft)] px-2.5 py-1.5 text-[12px] text-destructive"
-          >
+          /* A failure stays beside the drop zone — there is no error screen. */
+          <p role="alert" className="hc-small hc-danger hc-center">
             {shown}
           </p>
         )}
 
-        {/* The honest processing note required by §3. */}
-        <p className="mx-auto mt-4 max-w-md text-[11px] leading-snug text-muted-foreground">
+        <div className="hc-center hc-landing-note">
+          <span>Just looking around? </span>
+          <button type="button" className="hc-button hc-button--quiet" onClick={onSample}>
+            <span>Try a sample resume →</span>
+          </button>
+        </div>
+
+        {/* The honest processing note §3 requires. */}
+        <p className="hc-small hc-muted hc-center" id="privacy">
           Your resume is processed on our server, and the relevant text is sent to the AI provider
           we have configured to prepare your results. You can delete your run at any time.
         </p>
       </div>
 
-      {/* ── Prospective employers ────────────────────────────────────── */}
-      <div className="mt-12 text-center">
-        <p className="text-[12px] text-muted-foreground">
-          Our agent helps you go after jobs at companies like
-        </p>
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[15px] font-semibold text-muted-foreground">
-          {["Revolut", "Wise", "Monzo", "Linear", "Notion"].map((c) => (
-            <span key={c}>{c}</span>
-          ))}
-        </div>
-        {/* Wordmarks are not partnerships, placements or endorsements. */}
-        <p className="mt-2 text-[11px] text-muted-foreground">
-          Shown as examples of employers whose public job boards we read. Not partners or
-          endorsements.
-        </p>
-      </div>
-
-      {/* ── Features (light "paper" section) ─────────────────────────── */}
-      <div
-        className="mt-12 rounded-2xl p-6"
-        style={{ background: "var(--hc-paper)", color: "var(--hc-ink)" }}
-      >
-        <h2 className="font-display text-2xl">How it works</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map(([title, body]) => (
-            <div
-              key={title}
-              className="rounded-xl p-4"
-              style={{
-                background: "var(--hc-paper-card)",
-                border: "1px solid var(--hc-paper-line)",
-              }}
-            >
-              <h3 className="text-[14px] font-semibold">{title}</h3>
-              <p className="mt-1 text-[13px] leading-snug" style={{ color: "var(--hc-ink-muted)" }}>
-                {body}
-              </p>
+      <section className="hc-startups">
+        <p>Our agent helps you go after jobs at companies like</p>
+        <div className="hc-startup-row">
+          {WORDMARKS.map((name) => (
+            <div className="hc-startup-brand" key={name}>
+              <i className={`hc-startup-mark hc-logo-${name.toLowerCase()}`} aria-hidden />
+              <span>{name}</span>
             </div>
           ))}
         </div>
-
-        <h2 className="font-display mt-8 text-2xl">Pricing</h2>
-        <p className="mt-2 max-w-xl text-[13px] leading-relaxed" style={{ color: "var(--hc-ink-muted)" }}>
-          Finding and ranking roles is free. Saving a card unlocks $30 in credits and charges $0
-          today, which covers preparing up to 20 applications. No subscription and no automatic
-          top-up.
+        {/* Wordmarks are not partnerships, placements or endorsements. */}
+        <p className="hc-small hc-muted">
+          Shown as examples of employers whose public job boards we read. Not partners or
+          endorsements.
         </p>
+      </section>
 
-        <h2 className="font-display mt-8 text-2xl">Questions</h2>
-        <div className="mt-3 flex flex-col gap-2">
+      <section className="hc-land-section hc-features" id="how-it-works">
+        <header className="hc-land-section-head">
+          <div className="hc-land-kicker">A little less admin. A lot more possibility.</div>
+          <h2>
+            <span>Job hunting is a lot.</span> <em>You don’t have to do it all.</em>
+          </h2>
+          <p className="hc-land-lead">
+            From the first resume edit to your next application, meet the tools that help you move
+            forward.
+          </p>
+        </header>
+        <div className="hc-feature-grid">
+          {FEATURES.map(([title, original, assisted]) => (
+            <article className="hc-feature-card" key={title}>
+              <div className="hc-feature-illustration" aria-hidden />
+              <h3>
+                <span>{title}</span>
+              </h3>
+              {/* Assisted wording wins whenever submission is disabled. */}
+              <span>{!autoApply && assisted ? assisted : original}</span>
+            </article>
+          ))}
+        </div>
+        <div className="hc-feature-outro">
+          <p>Your experience. Your ambitions. A little help with everything in between.</p>
+          <button type="button" className="hc-button" onClick={onSample}>
+            <span>See your agent at work →</span>
+          </button>
+        </div>
+      </section>
+
+      <section className="hc-land-section hc-land-control">
+        <div className="hc-land-kicker">A helping hand. You’re still in charge.</div>
+        <div className="hc-land-control-grid">
+          {CONTROL.map(([num, title, body]) => (
+            <div key={num}>
+              <span className="hc-land-control-num">{num}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="hc-land-section hc-land-pricing" id="pricing">
+        <header className="hc-land-section-head">
+          <div className="hc-land-kicker">See the value first</div>
+          <h2>
+            <span>Start with a little help.</span> <em>Make your first move on us.</em>
+          </h2>
+          <p className="hc-land-lead">
+            Get to know your resume and your matches before you decide what comes next.
+          </p>
+        </header>
+        <div className="hc-land-price-grid">
+          <article className="hc-land-price-card">
+            <span className="hc-land-badge">GET YOUR BEARINGS</span>
+            <h3>Your first look</h3>
+            <div className="hc-land-price">
+              <strong>Free</strong>
+            </div>
+            <p>A clearer picture of your next move.</p>
+            <ul>
+              {[
+                "Resume feedback and a refined preview",
+                "A search based on your preferences",
+                "Ranked matches with reasons for the fit",
+                "An application preview before checkout",
+              ].map((t) => (
+                <li key={t}>
+                  <span className="hc-land-tick" aria-hidden />
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <button type="button" className="hc-button" onClick={choose}>
+              <span>Upload resume</span>
+              <span className="hc-land-arrow">→</span>
+            </button>
+            <p className="hc-land-price-foot">No account or card to start.</p>
+          </article>
+
+          <article className="hc-land-price-card hc-land-price-featured">
+            <span className="hc-land-badge">LET’S MAKE YOUR NEXT MOVE</span>
+            <h3>Your first applications</h3>
+            <div className="hc-land-price">
+              <strong>$30</strong>
+              <span>in free credits</span>
+            </div>
+            <p>Start with your approved batch of up to 20 applications.</p>
+            <ul>
+              {[
+                "The jobs you review and select",
+                "A resume tailored to each role",
+                "A personal cover letter for each application",
+                // The reference says "Submission tracking and follow-up
+                // actions", which submission-disabled cannot deliver.
+                autoApply
+                  ? "Submission tracking and follow-up actions"
+                  : "Every package ready to download and send",
+              ].map((t) => (
+                <li key={t}>
+                  <span className="hc-land-tick" aria-hidden />
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <button type="button" className="hc-button" onClick={onSample}>
+              <span>Try a sample first</span>
+              <span className="hc-land-arrow">→</span>
+            </button>
+            <p className="hc-land-price-foot">
+              $0 due today. No subscription or automatic charges.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="hc-land-section hc-land-faq" id="faqs">
+        <div className="hc-land-faq-heading">
+          <div className="hc-land-kicker">A few good questions</div>
+          <h2>
+            <span>Before your</span> <em>next chapter.</em>
+          </h2>
+          <p className="hc-land-lead">
+            The small details that make it easier to take the first step.
+          </p>
+        </div>
+        <div className="hc-land-questions">
           {FAQS.map(([q, a]) => (
-            <details
-              key={q}
-              className="rounded-xl p-3"
-              style={{
-                background: "var(--hc-paper-card)",
-                border: "1px solid var(--hc-paper-line)",
-              }}
-            >
-              <summary className="cursor-pointer text-[13px] font-semibold">{q}</summary>
-              <p className="mt-1.5 text-[13px] leading-relaxed" style={{ color: "var(--hc-ink-muted)" }}>
-                {a}
-              </p>
+            <details key={q}>
+              <summary>{q}</summary>
+              <p>{a}</p>
             </details>
           ))}
         </div>
-      </div>
+      </section>
 
-      <div className="mt-10 text-center">
-        <Button type="button" size="lg" onClick={() => inputRef.current?.click()}>
-          <Upload className="size-4" /> Start with your resume
-        </Button>
-      </div>
-    </div>
+      <section className="hc-land-section hc-land-finale">
+        <div className="hc-land-final-card">
+          <div className="hc-land-kicker">Your next chapter starts with you</div>
+          <h2>
+            <span>Bring your experience.</span> <em>We’ll help with what’s next.</em>
+          </h2>
+          <p className="hc-land-lead">
+            One resume. A clearer direction. A little less doing it all yourself.
+          </p>
+          <div className="hc-land-final-actions">
+            <button type="button" className="hc-button" onClick={choose}>
+              <span>Upload resume</span>
+              <span className="hc-land-arrow">→</span>
+            </button>
+            <button type="button" className="hc-button hc-button--quiet" onClick={onSample}>
+              <span>Try a sample resume</span>
+              <span className="hc-land-arrow">→</span>
+            </button>
+          </div>
+          <p className="hc-land-final-note">Start free · No card required</p>
+        </div>
+      </section>
+
+      <footer className="hc-land-footer">
+        <a className="hc-brand" href="#top">
+          <span>hirecute</span>
+        </a>
+        <p>A little help for your next big thing.</p>
+        <nav>
+          <a href="#how-it-works">How it works</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faqs">FAQs</a>
+        </nav>
+        <span className="hc-land-copyright">© hirecute</span>
+      </footer>
+    </main>
   );
 }

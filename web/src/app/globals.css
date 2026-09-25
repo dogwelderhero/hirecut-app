@@ -47,9 +47,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Geist — shadcn/ui's recommended pairing, self-hosted via the `geist`
-     package (next/font). Display/serif alias Geist Sans: the app has ~24
-     `font-display` usages and no serif face ships with Geist. */
+  /* Inter, vendored from the reference screens (src/lib/fonts.ts). */
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   /* Matches the reference design's own stack. */
   --font-serif: Georgia, "Times New Roman", serif;
