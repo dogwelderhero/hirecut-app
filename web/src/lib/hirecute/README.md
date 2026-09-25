@@ -3,7 +3,9 @@
 Built against `MVP architecture and screens/hirecute-mvp/` (local-only, gitignored).
 Upstream is pinned at `career-ops-hq/career-ops@71554e8` (core 1.34.0, web alpha 0.12.0).
 
-## Milestone 1 — done
+## Milestones 1-2 — done
+
+### Milestone 1 — visual shell and fixture journey
 
 The six-screen journey runs end to end on typed fixtures, with the journey
 state and the presentation timing as **separate** machines.

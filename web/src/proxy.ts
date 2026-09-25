@@ -5,6 +5,7 @@ import {
   parseAllowedHosts,
   parseAllowedOrigins,
 } from "@/lib/origin-guard.mjs";
+import { deniedInPublicBuild } from "@/lib/hirecute/public-boundary";
 
 // Single choke point over the API surface. Every /api request is gated on the
 // same-origin + loopback guard before it can reach a route handler (which may
@@ -20,6 +21,15 @@ import {
 // from a chrome-extension:// origin, which Fetch Metadata always reports as
 // "cross-site", so every one of its requests is refused otherwise.
 export function proxy(req: NextRequest) {
+  // hirecute: in a public build only /api/hirecute/* is reachable. The legacy
+  // alpha API can spawn CLIs, read operator files and drive a local browser, so
+  // it is denied by ALLOWLIST here rather than by enumerating today's routes —
+  // a route added upstream tomorrow is closed by default. This runs before the
+  // origin guard because "not part of the product" outranks "wrong origin".
+  if (deniedInPublicBuild(req.nextUrl.pathname)) {
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
+  }
+
   const decision = checkRequest({
     secFetchSite: req.headers.get("sec-fetch-site"),
     origin: req.headers.get("origin"),

@@ -30,7 +30,7 @@ import {
   type ClickOrigin,
   type ClickZone,
 } from "@/lib/hirecute/checkout-counter";
-import { displayText, editLetter, letterSaved, type LetterMap } from "@/lib/hirecute/letters";
+import { editLetter, type LetterMap } from "@/lib/hirecute/letters";
 import { rankByScore } from "@/lib/hirecute/match";
 import {
   initialPresentationState,
@@ -82,6 +82,7 @@ export function Workspace({
   letters,
   onLettersChange,
   onSelectionChange,
+  onSaveLetter,
   onRestart,
 }: {
   runState: RunState;
@@ -90,6 +91,8 @@ export function Workspace({
   letters: LetterMap;
   onLettersChange: (next: LetterMap) => void;
   onSelectionChange: (ids: JobId[]) => void;
+  /** Persists via PATCH .../jobs/:id/letter with the expected draft version. */
+  onSaveLetter: (id: JobId) => void;
   onRestart: () => void;
 }) {
   const reducedMotion = useReducedMotion();
@@ -406,22 +409,7 @@ export function Workspace({
                 )
               }
               onEditLetter={(id, text) => onLettersChange(editLetter(letters, id, text))}
-              onSaveLetter={(id) => {
-                const view = letters[id];
-                if (!view) return;
-                onLettersChange(
-                  letterSaved(letters, id, {
-                    version: view.serverVersion + 1,
-                    author: "candidate",
-                    text: displayText(view),
-                    subject: `Application: ${runState.jobs[id]?.title ?? ""}`,
-                    updatedAt: new Date().toISOString(),
-                    contentHash: "",
-                    sourceFactIds: [],
-                    jobContentHash: runState.jobs[id]?.source.postingContentHash ?? "",
-                  }),
-                );
-              }}
+              onSaveLetter={onSaveLetter}
             />
           </section>
         )}

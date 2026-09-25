@@ -1,22 +1,17 @@
 /**
- * A fixture event source for Milestone 1.
+ * The scripted stage timeline for the fixture journey — plain ESM.
  *
- * It emits the SAME public NDJSON envelopes a real worker will emit, so the run
- * store, the presentation machine and the screens are exercised against the
- * real protocol rather than a shortcut. Milestone 2 replaces this with
- * `GET /api/hirecute/runs/current/events`; nothing downstream has to change.
+ * `.mjs` because the journey WORKER imports it. It emits the SAME public
+ * envelopes a real worker will emit, so the parent's event pipeline, the run
+ * store and the screens are exercised against the real protocol rather than a
+ * shortcut. Milestones 3-6 replace these stage bodies with real work.
  *
- * Two honesty constraints from the brief:
- *  - A fixture journey is explicitly a `sample` run and is excluded from live
- *    conversion analytics. It is never a silent fallback for a failed provider.
- *  - The timings here animate a plausible sequence, but they are the *worker's*
- *    pace, not the presentation clock. The 2s dwell and 780ms pack are applied
- *    by `presentation.ts` independently, which is exactly the separation the
- *    guide requires.
+ * The timings here are the WORKER's pace, not the presentation clock: the 2s
+ * dwell and 780ms pack are applied independently by presentation.ts, which is
+ * exactly the separation the guide requires.
  */
 
-import type { ActionProgress, PublicRunEvent, StageId } from "./contracts";
-import { ACTION_LABELS, rankingActionLabel } from "./actions";
+import { ACTION_LABELS, rankingActionLabel } from "./action-labels.mjs";
 import {
   FIXTURE_ASSESSMENTS,
   FIXTURE_COVERAGE,
@@ -24,21 +19,12 @@ import {
   FIXTURE_REFINEMENT_CHANGES,
   fixtureApplications,
   fixtureLetterText,
-} from "./fixtures";
+} from "./fixture-data.mjs";
 
-export interface EmittedEvent {
-  /** Milliseconds from journey start. */
-  at: number;
-  event: PublicRunEvent;
-}
 
 const RUN_ID = "sample-run";
 
-function envelope<T extends PublicRunEvent["type"]>(
-  seq: number,
-  type: T,
-  payload: Extract<PublicRunEvent, { type: T }>["payload"],
-): PublicRunEvent {
+function envelope(seq, type, payload) {
   return {
     version: 1,
     runId: RUN_ID,
@@ -53,10 +39,10 @@ function envelope<T extends PublicRunEvent["type"]>(
     },
     type,
     payload,
-  } as PublicRunEvent;
+  };
 }
 
-function action(stage: StageId, index: number, label: string): ActionProgress {
+function action(stage, index, label) {
   return {
     id: `${stage}-${index}`,
     stage,
@@ -72,25 +58,20 @@ function action(stage: StageId, index: number, label: string): ActionProgress {
  * Build the whole scripted timeline up front. A caller schedules each entry;
  * the store's `seq` guard means a double-delivered entry is harmless.
  */
-export function fixtureTimeline(): EmittedEvent[] {
-  const out: EmittedEvent[] = [];
+export function fixtureTimeline() {
+  const out = [];
   let seq = 0;
   let t = 0;
-  const push = (
-    at: number,
-    type: PublicRunEvent["type"],
-    payload: unknown,
-  ) => {
+  const push = (at, type, payload) => {
     seq += 1;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    out.push({ at, event: envelope(seq, type as any, payload as any) });
+    out.push({ at, event: envelope(seq, type, payload) });
   };
 
   push((t += 0), "run.queued", { queuePosition: 1 });
   push((t += 400), "run.started", { stage: "refine" });
 
   /** Reveal one action at a time: start, wait, complete, then the next starts. */
-  function runActions(stage: StageId, labels: readonly string[], each = 550) {
+  function runActions(stage, labels, each = 550) {
     labels.forEach((label, i) => {
       push((t += each), "action.started", { action: action(stage, i, label) });
       push((t += each), "action.completed", { stage, actionId: `${stage}-${i}` });
@@ -174,7 +155,7 @@ export function fixtureTimeline(): EmittedEvent[] {
     });
 
     // Stream the letter in a few chunks, as the model will.
-    const job = FIXTURE_JOBS.find((j) => j.id === app.jobId)!;
+    const job = FIXTURE_JOBS.find((j) => j.id === app.jobId);
     const text = fixtureLetterText(job.company, job.title);
     const chunks = text.match(/[\s\S]{1,90}/g) ?? [text];
     chunks.forEach((chunk) =>
@@ -189,7 +170,7 @@ export function fixtureTimeline(): EmittedEvent[] {
     push((t += 120), "letter.completed", {
       jobId: app.jobId,
       generationId: `gen-${app.jobId}`,
-      revision: app.letter.current!,
+      revision: app.letter.current,
     });
     // Readiness flips only now, on the real package state.
     push((t += 60), "application.updated", { application: app });
