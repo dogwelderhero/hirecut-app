@@ -73,7 +73,17 @@ export async function runExploreStage(ctx) {
     preferences.targetRoles?.length > 0
       ? preferences.targetRoles
       : [searchSeed.currentTitle, ...(searchSeed.targetRoles ?? [])].filter(Boolean);
-  const locations = preferences.locations?.length > 0 ? preferences.locations : [];
+  // The resume's stated location is a SOFT hint about where to look — not a
+  // claim about work authorization, and not a hard filter. Using it stops the
+  // incoherence of surfacing US-only roles for a London candidate and then
+  // scoring them down for being in the US (location is score-neutral in the
+  // rubric, so the filter is where geography belongs).
+  const locations =
+    preferences.locations?.length > 0
+      ? preferences.locations
+      : searchSeed.location
+        ? [String(searchSeed.location).split(",")[0].trim()]
+        : [];
 
   diag({ search: { targetRoles, locations, seededFrom: preferences.targetRoles?.length ? "candidate" : "resume" } });
   emit("action.completed", { stage: "explore", actionId: "explore-0" }, "explore");

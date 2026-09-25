@@ -106,44 +106,58 @@ async function main() {
     return;
   }
 
-  // ── Stages 3-4: NOT YET IMPLEMENTED (milestones 5-6). ─────────────────
+  // ── Stage 3: match. REAL (milestone 5). ────────────────────────────────
+  const { runMatchStage } = await import("./stages/match.mjs");
+  const matched = await runMatchStage({
+    emit,
+    diag,
+    runDir: DATA_ROOT,
+    codeRoot: CODE_ROOT,
+    jobs: explored.jobs,
+    sourceFactsPath: refined.sourceFactsPath,
+    sourceResumeHash: refined.sourceResumeHash,
+  });
+
+  if (!matched.ok) {
+    // An unscorable shortlist stays in Top Matches with a scoped retry. The
+    // discovered roles remain real, visible and openable.
+    diag({ stopped: "match stage produced no usable assessment" });
+    return;
+  }
+
+  // ── Stage 4: prepare. NOT YET IMPLEMENTED (milestone 6). ───────────────
   //
-  // The fixture timeline is deliberately NOT replayed here any more. It would
-  // attach invented 92% rings and invented letters to the REAL jobs stage 2
-  // just discovered, and the brief is explicit: "never silently fall back to
-  // mock results when a real provider or model fails."
+  // The fixture timeline is deliberately NOT replayed. It would attach invented
+  // letters and "Ready to apply" badges to jobs that have just been REALLY
+  // scored, and the brief is explicit: "never silently fall back to mock
+  // results when a real provider or model fails." A fixture letter beside a
+  // genuine 88% ring is indistinguishable from a real one to the visitor, which
+  // makes it the most damaging available shortcut.
   //
-  // A fixture score on a real Monzo posting is indistinguishable from a real
-  // one to the visitor, which makes it the most damaging possible shortcut. So
-  // the run stops here with `capability_disabled` — an honest statement that
-  // ranking is not built yet, carrying every real artifact stage 1 and 2
-  // produced.
-  diag({ handover: { jobs: explored.jobs.length, coverage: explored.coverage.status } });
+  // So the run stops with `capability_disabled` on prepare and does NOT send
+  // `run.done`: that means `preparation_complete`, and preparation never ran.
+  // Claiming it did is precisely the false terminal the event protocol exists
+  // to prevent. Every real artifact from stages 1-3 is retained.
+  diag({ handover: { scored: matched.assessments.length, ranked: matched.ranked.length } });
 
   emit(
     "stage.error",
     {
-      stage: "match",
+      stage: "prepare",
       inputVersion: 1,
       error: {
         code: "capability_disabled",
         message:
-          "Ranking these roles against your resume is not enabled on this deployment yet. Your refined resume and the roles we found are saved and downloadable.",
+          "Preparing tailored applications is not enabled on this deployment yet. Your refined resume and your ranked matches are saved, and you can open any posting.",
         retryable: false,
-        stage: "match",
+        stage: "prepare",
         jobId: null,
       },
     },
-    "match",
+    "prepare",
   );
 
-  // Deliberately NOT `done`. `run.done` means `preparation_complete`, and
-  // preparation never ran — claiming it did is exactly the kind of false
-  // terminal the event protocol exists to prevent. The parent marks an
-  // unfinished run `interrupted`, which is what this is, and every real
-  // artifact from stages 1-2 is retained.
-  diag({ stopped: "match stage not implemented (milestone 5)" });
-  return;
+  diag({ stopped: "prepare stage not implemented (milestone 6)" });
 }
 
 main().catch((err) => {

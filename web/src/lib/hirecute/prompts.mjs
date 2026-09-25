@@ -259,3 +259,207 @@ export function resumeRefinementUser(untrustedResumeText) {
     untrustedResumeText,
   ].join("\n");
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Milestone 5 — evidence-backed matching
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * The scoring standard, lifted from career-ops's own rubric.
+ *
+ * `modes/_shared.md` § Scoring System defines five dimensions integrated into
+ * ONE global 1-5 score, explicitly "no arithmetic formula", with these bands:
+ * 4.5+ strong, 4.0-4.4 good, 3.5-3.9 decent, below 3.5 not recommended.
+ *
+ * Two adaptations, because a hirecute visitor is not the career-ops operator:
+ *  - There is no `modes/_profile.md` North Star or comp target for a stranger,
+ *    so "target alignment" is measured against the roles derived from THEIR
+ *    resume, and an unknown salary cannot move the score either way. The audit
+ *    says exactly this: "Adapt archetypes to the actual candidate."
+ *  - There is no `culture_screen` config, so that dimension is scored
+ *    qualitatively from what the posting actually says, or left out.
+ *
+ * `oferta.md`'s own separations are preserved: requirement importance and
+ * posting legitimacy do NOT feed the numeric score, and work authorization is
+ * score-neutral unless the posting states there is no sponsorship.
+ */
+const SCORING_RUBRIC = `SCORING (career-ops rubric, modes/_shared.md):
+Integrate these dimensions into ONE holistic score from 1 to 5. There is no
+arithmetic formula — do not average anything.
+- CV match: skills, experience and proof points actually evidenced in the resume
+- Target alignment: fit against the roles this person's own experience supports
+- Compensation: only if the posting states it. An unpublished salary must NOT
+  move the score in either direction.
+- Cultural/stability signals: only from what the posting says
+- Red flags: concrete blockers or warnings in the posting
+
+BANDS: 4.5+ strong · 4.0-4.4 good · 3.5-3.9 decent · below 3.5 not recommended.
+
+SEPARATIONS (do not collapse these into the score):
+- Requirement importance is a prioritization surface, not a score input.
+- Posting legitimacy is reported separately.
+- Work authorization is SCORE-NEUTRAL. Only an explicit "no sponsorship" for a
+  role this person could not take is a hard blocker. Silence is "unstated" —
+  never infer authorization, and never infer its absence.
+- LOCATION AND RELOCATION ARE SCORE-NEUTRAL (modes/oferta.md: "do not apply a
+  location or relocation penalty"). Never list a geography difference as a fit
+  gap and never let it lower score5. If a posting genuinely cannot be done from
+  where this person is, record it as a BLOCKER with code "location" — that is a
+  separate eligibility fact, not a measure of how well they fit the work.
+  Score the WORK, not the commute.`;
+
+/** No tools, no research, no invented scale. */
+const MATCH_DISCIPLINE = `EVIDENCE RULES:
+- You have NO tools and NO internet. Everything you assert must come from the
+  resume facts or the job description supplied below. Never claim you researched
+  the company, checked Glassdoor, or read anything else.
+- Every strength must quote or paraphrase something actually present in BOTH the
+  resume and the posting. A strength with no evidence is not a strength.
+- Gaps are what the posting asks for and the resume does not evidence.
+- If the job description is missing or unusable, say so by returning
+  scorable: false. Do NOT score a posting you could not read.
+- Never invent a salary, headcount, funding stage, applicant count or team size.`;
+
+export async function matchSystem(codeRoot) {
+  const shared = await readMode(codeRoot, "modes/_shared.md");
+  const oferta = await readMode(codeRoot, "modes/oferta.md");
+
+  const parts = [
+    "You assess how well ONE job posting fits ONE candidate, based only on their resume and that posting.",
+    SCORING_RUBRIC,
+    MATCH_DISCIPLINE,
+  ];
+
+  // Lift the evidence-tier and gap guidance from oferta.md's Block B rather
+  // than restating it, so the factual standard tracks upstream. The mode also
+  // contains agent-workflow steps (liveness gates, report writing, tracker
+  // rows) that are meaningless to a tool-less call, so the excerpt is bounded
+  // to the lines about evidence.
+  if (oferta) {
+    const evidence = oferta
+      .split("\n")
+      .filter((l) => /evidence|stated|inferred|gap|must-have|nice-to-have/i.test(l))
+      .slice(0, 20)
+      .join("\n");
+    if (evidence.trim()) {
+      parts.push(`EVIDENCE TIERS (from career-ops modes/oferta.md Block B):\n${evidence}`);
+    }
+  }
+
+  if (shared) {
+    const untrustedRule = shared
+      .split("\n")
+      .filter((l) => /untrusted|never obey|data, never instructions/i.test(l))
+      .slice(0, 8)
+      .join("\n");
+    if (untrustedRule.trim()) {
+      parts.push(`UNTRUSTED CONTENT (from career-ops modes/_shared.md):\n${untrustedRule}`);
+    }
+  }
+
+  return parts.join("\n\n");
+}
+
+/**
+ * Schema for one assessment.
+ *
+ * `score5` is the single canonical number. There is no percentage field: the
+ * display value is derived every time by `match.ts` as
+ * `round(score5 / 5 * 100)`, so a card can never drift from the stored score.
+ */
+export const MATCH_SCHEMA = {
+  type: "object",
+  properties: {
+    scorable: {
+      type: "boolean",
+      description:
+        "False if the job description was missing or unusable. Return nothing else then — an unread posting is never scored.",
+    },
+    score5: {
+      type: "number",
+      description:
+        "Holistic fit, 1 to 5, at most one decimal place. Not a probability of anything.",
+    },
+    confidence: { type: "string", enum: ["low", "medium", "high"] },
+    recommendation: { type: "string", enum: ["apply", "consider", "research_first", "skip"] },
+    workAuthorization: {
+      type: "string",
+      enum: ["sponsors", "not_needed", "unstated", "no_sponsorship"],
+      description:
+        "Only what the posting states. Silence is 'unstated' — never inferred from the candidate's location.",
+    },
+    legitimacy: {
+      type: "string",
+      enum: ["high_confidence", "proceed_with_caution", "suspicious"],
+      description: "Reported separately; does not feed score5.",
+    },
+    strengths: {
+      type: "array",
+      maxItems: 4,
+      items: { type: "string" },
+      description: "Each must cite something present in BOTH the resume and the posting.",
+    },
+    gaps: {
+      type: "array",
+      maxItems: 4,
+      items: { type: "string" },
+      description: "What the posting asks for that the resume does not evidence.",
+    },
+    requirements: {
+      type: "array",
+      maxItems: 8,
+      items: {
+        type: "object",
+        properties: {
+          requirement: { type: "string" },
+          match: { type: "string", enum: ["strong", "partial", "missing", "not_applicable"] },
+          explanation: { type: "string" },
+        },
+        required: ["requirement", "match", "explanation"],
+      },
+    },
+    blockers: {
+      type: "array",
+      maxItems: 4,
+      description: "Hard eligibility stops, kept separate from fit.",
+      items: {
+        type: "object",
+        properties: {
+          code: {
+            type: "string",
+            enum: [
+              "work_authorization",
+              "location",
+              "required_qualification",
+              "posting_closed",
+              "other",
+            ],
+          },
+          description: { type: "string" },
+          certainty: { type: "string", enum: ["confirmed_blocker", "needs_candidate_input"] },
+        },
+        required: ["code", "description", "certainty"],
+      },
+    },
+    worthChecking: {
+      type: "string",
+      description: "One short note for the card's 'Worth checking' line. Optional.",
+    },
+  },
+  required: ["scorable"],
+};
+
+export function matchUser({ resumeFacts, job, jobDescription }) {
+  return [
+    "Assess the fit between this candidate and this posting.",
+    "",
+    `POSTING: ${job.title} at ${job.company}${job.location ? ` (${job.location})` : ""}`,
+    job.salary ? `Stated compensation: ${job.salary.advertisedText}` : "Compensation: not stated in the posting.",
+    "",
+    resumeFacts,
+    "",
+    jobDescription,
+    "",
+    "Return the structured assessment. If you could not read the job description, set scorable: false.",
+  ].join("\n");
+}
