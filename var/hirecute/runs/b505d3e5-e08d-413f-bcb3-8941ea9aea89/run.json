@@ -1,14 +1,14 @@
 {
   "snapshot": {
     "schemaVersion": 1,
-    "id": "676f14b3-a1b3-41f7-9734-eb34f72e02d3",
-    "origin": "sample",
+    "id": "b505d3e5-e08d-413f-bcb3-8941ea9aea89",
+    "origin": "uploaded_resume",
     "launchProfile": "activation_pilot",
     "status": "preparation_complete",
     "currentStage": "prepare",
-    "createdAt": "2026-09-25T17:18:09.984Z",
-    "updatedAt": "2026-09-25T17:18:34.963Z",
-    "lastSequence": 94,
+    "createdAt": "2026-09-25T18:02:05.544Z",
+    "updatedAt": "2026-09-25T18:02:42.789Z",
+    "lastSequence": 93,
     "journeyVersion": 1,
     "profile": null,
     "preferences": {
@@ -16,7 +16,7 @@
       "targetRoles": [],
       "locations": [],
       "workStyles": [],
-      "origin": "suggested_from_resume"
+      "origin": "confirmed_by_candidate"
     },
     "stages": {
       "refine": {
@@ -31,8 +31,8 @@
             "stage": "refine",
             "label": "Reading your resume",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:11.652Z",
+            "startedAt": "2026-09-25T18:02:05.679Z",
+            "completedAt": "2026-09-25T18:02:06.375Z",
             "error": null
           },
           {
@@ -40,8 +40,8 @@
             "stage": "refine",
             "label": "Extracting your experience and skills",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:12.758Z",
+            "startedAt": "2026-09-25T18:02:06.373Z",
+            "completedAt": "2026-09-25T18:02:16.886Z",
             "error": null
           },
           {
@@ -49,8 +49,8 @@
             "stage": "refine",
             "label": "Refining your summary and bullet points",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:13.864Z",
+            "startedAt": "2026-09-25T18:02:16.870Z",
+            "completedAt": "2026-09-25T18:02:16.888Z",
             "error": null
           },
           {
@@ -58,45 +58,63 @@
             "stage": "refine",
             "label": "Checking formatting and readability",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:14.966Z",
+            "startedAt": "2026-09-25T18:02:16.870Z",
+            "completedAt": "2026-09-25T18:02:17.860Z",
             "error": null
           }
         ],
         "result": {
           "kind": "refine",
-          "originalArtifactId": "art-original",
-          "refinedResumeArtifactId": "art-refined",
+          "originalArtifactId": "09f1b248-5ba5-43de-a649-f831edc01b51",
+          "refinedResumeArtifactId": "00c2fb30-33f9-4311-96b6-4bff7e6ba015",
           "changes": [
             {
-              "id": "chg-1",
+              "id": "8df994f9-4709-4916-976b-f6228562ba08",
               "kind": "clarity",
-              "before": "Experienced product person who has worked on lots of fintech things.",
-              "after": "Product leader with 8 years in regulated fintech, focused on payments platforms.",
-              "explanation": "Replaced a vague claim with the specifics already present in the experience section.",
-              "sourceFactIds": [
-                "fact-1"
-              ]
+              "before": "Experienced product person who has worked on lots of payments things over the years.",
+              "after": "(removed; replaced with a factual summary)",
+              "explanation": "Vague, informal filler that states no verifiable facts was removed in favor of a concrete summary built from the experience section.",
+              "sourceFactIds": []
             },
             {
-              "id": "chg-2",
+              "id": "05cd29d8-b882-44ed-9e0e-201e9270ffc2",
               "kind": "formatting",
-              "before": "• built payments stuff • also did some hiring",
-              "after": "• Built the payments platform serving card and bank transfers\n• Hired and led a team of six",
-              "explanation": "Split a compound bullet; no new claims introduced.",
-              "sourceFactIds": [
-                "fact-1"
-              ]
+              "before": "2021–Present",
+              "after": "2021-Present",
+              "explanation": "Standardized en-dash to hyphen per date-range formatting convention.",
+              "sourceFactIds": []
             },
             {
-              "id": "chg-3",
-              "kind": "relevance",
-              "before": "Payments",
-              "after": "Payments · Card schemes · Bank transfers · Reconciliation",
-              "explanation": "Surfaced terms already evidenced in the experience bullets.",
-              "sourceFactIds": [
-                "fact-1"
-              ]
+              "id": "a74e2012-7273-4cb3-9f0d-d8f5dee7bcab",
+              "kind": "clarity",
+              "before": "built payments stuff and also did some hiring",
+              "after": "Managed hiring for the payments team",
+              "explanation": "Replaced vague, informal phrasing with a clear, professional statement of the same fact; the payments work is already covered by the following bullet.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "9d688539-edf7-461c-9d95-a2b388b080d7",
+              "kind": "formatting",
+              "before": "Reduced chargeback disputes 18% by redesigning the claims fl ow",
+              "after": "Reduced chargeback disputes by 18% by redesigning the claims flow",
+              "explanation": "Fixed broken word spacing ('fl ow') and added missing preposition for grammatical clarity.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "ad67bfe8-5b2c-4ec3-9f36-ff0266d820b5",
+              "kind": "structure",
+              "before": "BSc Computer Science, University of Manchester (2014)",
+              "after": "Structured into title/org/year fields",
+              "explanation": "Split single-line education entry into structured fields for consistent formatting.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "b9609fc7-c875-47cf-a908-64886f2565cc",
+              "kind": "structure",
+              "before": "Payments, SQL, Product Analytics, Figma, Stakeholder Management",
+              "after": "Structured into a skills list",
+              "explanation": "Converted comma-separated skills string into a structured list item.",
+              "sourceFactIds": []
             }
           ],
           "originalPreserved": true
@@ -115,8 +133,8 @@
             "stage": "explore",
             "label": "Building a search from your experience",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:16.571Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:24.382Z",
             "error": null
           },
           {
@@ -124,8 +142,8 @@
             "stage": "explore",
             "label": "Checking company career pages",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:17.673Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:25.480Z",
             "error": null
           },
           {
@@ -133,8 +151,8 @@
             "stage": "explore",
             "label": "Removing duplicates and expired listings",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:18.778Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:26.586Z",
             "error": null
           },
           {
@@ -142,8 +160,8 @@
             "stage": "explore",
             "label": "Saving relevant openings",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:19.879Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:27.685Z",
             "error": null
           }
         ],
@@ -188,8 +206,8 @@
             "stage": "match",
             "label": "Comparing skills and seniority",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:22.088Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:29.902Z",
             "error": null
           },
           {
@@ -197,8 +215,8 @@
             "stage": "match",
             "label": "Checking location and salary fit where evidence exists",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:23.191Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:30.997Z",
             "error": null
           },
           {
@@ -206,8 +224,8 @@
             "stage": "match",
             "label": "Finding evidence for each match",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:24.297Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:32.104Z",
             "error": null
           },
           {
@@ -215,8 +233,8 @@
             "stage": "match",
             "label": "Ranking your top 4 roles",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:25.404Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:33.206Z",
             "error": null
           }
         ],
@@ -366,8 +384,8 @@
             "stage": "prepare",
             "label": "Matching evidence to roles",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:27.615Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:35.427Z",
             "error": null
           },
           {
@@ -375,8 +393,8 @@
             "stage": "prepare",
             "label": "Tailoring resumes",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:28.612Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:36.434Z",
             "error": null
           },
           {
@@ -384,8 +402,8 @@
             "stage": "prepare",
             "label": "Drafting letters",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:29.614Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:37.442Z",
             "error": null
           },
           {
@@ -393,8 +411,8 @@
             "stage": "prepare",
             "label": "Checking packages",
             "status": "completed",
-            "startedAt": "2026-09-25T17:18:10.040Z",
-            "completedAt": "2026-09-25T17:18:30.616Z",
+            "startedAt": "2026-09-25T18:02:17.860Z",
+            "completedAt": "2026-09-25T18:02:38.448Z",
             "error": null
           }
         ],
@@ -867,9 +885,24 @@
         "job-4"
       ],
       "version": 1,
-      "updatedAt": "2026-09-25T17:18:10.040Z"
+      "updatedAt": "2026-09-25T18:02:17.860Z"
     },
-    "artifacts": [],
+    "artifacts": [
+      {
+        "kind": "original_resume",
+        "createdAt": "2026-09-25T18:02:17.860Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "09f1b248-5ba5-43de-a649-f831edc01b51"
+      },
+      {
+        "kind": "refined_resume_pdf",
+        "createdAt": "2026-09-25T18:02:17.861Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "00c2fb30-33f9-4311-96b6-4bff7e6ba015"
+      }
+    ],
     "billing": {
       "status": "not_started",
       "mode": "test",
@@ -879,7 +912,24 @@
       "error": null
     }
   },
-  "ownerSessionId": "cb6b0dc842d79f9d52f31e9d2cbb4ab1305ce8d61467901c49a54fa8b8b5f090",
+  "ownerSessionId": "aba85986ad92870a4075c4cda87d03d7768a6cac5f5dbe78b97bf38df460aeb5",
   "billingRecordId": null,
-  "artifacts": {}
+  "artifacts": {
+    "09f1b248-5ba5-43de-a649-f831edc01b51": {
+      "kind": "original_resume",
+      "createdAt": "2026-09-25T18:02:17.860Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "09f1b248-5ba5-43de-a649-f831edc01b51",
+      "relativePath": "originals/resume.pdf"
+    },
+    "00c2fb30-33f9-4311-96b6-4bff7e6ba015": {
+      "kind": "refined_resume_pdf",
+      "createdAt": "2026-09-25T18:02:17.861Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "00c2fb30-33f9-4311-96b6-4bff7e6ba015",
+      "relativePath": "output/base-resume.pdf"
+    }
+  }
 }

@@ -1,0 +1,85 @@
+{
+  "snapshot": {
+    "schemaVersion": 1,
+    "id": "46e68a2e-d8c9-4780-a3f0-7938d2a1fd1d",
+    "origin": "sample",
+    "launchProfile": "activation_pilot",
+    "status": "cancelled",
+    "currentStage": null,
+    "createdAt": "2026-09-25T18:04:19.571Z",
+    "updatedAt": "2026-09-25T18:04:50.094Z",
+    "lastSequence": 2,
+    "journeyVersion": 1,
+    "profile": null,
+    "preferences": {
+      "version": 1,
+      "targetRoles": [],
+      "locations": [],
+      "workStyles": [],
+      "origin": "suggested_from_resume"
+    },
+    "stages": {
+      "refine": {
+        "stage": "refine",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      },
+      "explore": {
+        "stage": "explore",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      },
+      "match": {
+        "stage": "match",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      },
+      "prepare": {
+        "stage": "prepare",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      }
+    },
+    "evidence": [],
+    "jobs": [],
+    "assessments": [],
+    "applications": [],
+    "selection": {
+      "jobIds": [],
+      "version": 1,
+      "updatedAt": "2026-09-25T18:04:19.571Z"
+    },
+    "artifacts": [],
+    "billing": {
+      "status": "not_started",
+      "mode": "test",
+      "promotionalCredit": null,
+      "entitlement": null,
+      "amountChargedMinor": 0,
+      "error": null
+    }
+  },
+  "ownerSessionId": "7bdab6f8f54d7f29800b1bd54c28dd00e76c072914354c14295b3b252ef9414c",
+  "billingRecordId": null,
+  "artifacts": {}
+}

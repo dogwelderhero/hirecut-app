@@ -104,7 +104,23 @@ export async function bootstrapRunDir(runId: string): Promise<string> {
  * default. Stripe and model credentials are deliberately absent: neither a
  * scanner nor a PDF renderer needs them.
  */
-export function childEnv(runId: string, extra: Record<string, string> = {}): Record<string, string> {
+/**
+ * Credentials a child may be granted. Default: none.
+ *
+ * The journey worker needs the model key; `build-cv-html.mjs` and
+ * `generate-pdf.mjs` do not, and a renderer that never holds a credential
+ * cannot leak one. So the grant is per-child and explicit rather than
+ * inherited.
+ */
+export interface EnvGrants {
+  model?: boolean;
+}
+
+export function childEnv(
+  runId: string,
+  extra: Record<string, string> = {},
+  grants: EnvGrants = {},
+): Record<string, string> {
   const dir = runDir(runId);
   const KEEP = ["PATH", "HOME", "TMPDIR", "LANG", "LC_ALL", "NODE_ENV", "TZ"];
   const base: Record<string, string> = {};
@@ -112,8 +128,23 @@ export function childEnv(runId: string, extra: Record<string, string> = {}): Rec
     const value = process.env[key];
     if (value !== undefined) base[key] = value;
   }
+
+  const credentials: Record<string, string> = {};
+  if (grants.model) {
+    for (const key of [
+      "HIRECUTE_MODEL_API_BASE_URL",
+      "HIRECUTE_MODEL_API_KEY",
+      "HIRECUTE_MODEL",
+    ]) {
+      const value = process.env[key];
+      if (value !== undefined) credentials[key] = value;
+    }
+  }
+  // Stripe secrets are never granted to any child. Billing runs in the parent.
+
   return {
     ...base,
+    ...credentials,
     // The data root for this ONE run.
     CAREER_OPS_ROOT: dir,
     // Explicit, for the reason in this file's header comment.
@@ -126,6 +157,15 @@ export function childEnv(runId: string, extra: Record<string, string> = {}): Rec
     CAREER_OPS_DATA_DIR: dir,
     ...extra,
   };
+}
+
+/**
+ * Env for a deterministic utility child (HTML build, PDF render, fact check).
+ *
+ * Same run-owned paths, zero credentials — by construction, not by convention.
+ */
+export function utilityEnv(runId: string): Record<string, string> {
+  return childEnv(runId, {}, {});
 }
 
 /**

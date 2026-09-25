@@ -14,7 +14,13 @@
 import { spawn, type ChildProcess } from "node:child_process";
 import path from "node:path";
 import type { EventPayloadMap, StageId } from "./contracts";
-import { appendDiagnostic, appendEvent, readRunFile, updateRun } from "@/lib/hirecute/store";
+import {
+  appendDiagnostic,
+  appendEvent,
+  readRunFile,
+  registerArtifact,
+  updateRun,
+} from "@/lib/hirecute/store";
 import { childEnv, codeRoot } from "@/lib/hirecute/paths";
 
 /** Messages a child may send. Closed set. */
@@ -64,7 +70,8 @@ export function startWorker(runId: string): WorkerHandle {
     cwd: codeRoot(),
     // Cast: childEnv returns a plain allowlisted record, which is exactly
     // what fork() needs; NodeJS.ProcessEnv additionally demands NODE_ENV.
-    env: childEnv(runId, { HIRECUTE_RUN_ID: runId }) as NodeJS.ProcessEnv,
+    // The journey worker is the one child granted the model credential.
+    env: childEnv(runId, { HIRECUTE_RUN_ID: runId }, { model: true }) as NodeJS.ProcessEnv,
     // Argument array + IPC. No shell, so no user text can become a command.
     stdio: ["ignore", "pipe", "pipe", "ipc"],
   });
@@ -146,10 +153,19 @@ async function handleMessage(runId: string, message: WorkerMessage): Promise<voi
         return;
       }
 
+      // The parent owns the artifact registry, so a worker reports RELATIVE
+      // PATHS and the IDs are minted here. A worker cannot mint an artifact ID,
+      // which is what keeps `GET /artifacts/:id` resolvable only through the
+      // owning run's registry.
+      let payload = message.payload;
+      if (message.type === "stage.result") {
+        payload = await registerResultArtifacts(runId, payload);
+      }
+
       await appendEvent(
         runId,
         message.type,
-        message.payload as EventPayloadMap[keyof EventPayloadMap],
+        payload as EventPayloadMap[keyof EventPayloadMap],
         message.stage ?? null,
       );
       return;
@@ -193,4 +209,44 @@ async function handleMessage(runId: string, message: WorkerMessage): Promise<voi
     default:
       await appendDiagnostic(runId, { rejected: "unknown worker message kind" });
   }
+}
+
+/**
+ * Replace the relative paths a worker reported with registered artifact IDs.
+ *
+ * Only known result shapes are touched. An unrecognized field is left alone
+ * rather than guessed at, so a future stage cannot accidentally publish a path.
+ */
+async function registerResultArtifacts(runId: string, payload: unknown): Promise<unknown> {
+  if (!payload || typeof payload !== "object") return payload;
+  const p = payload as { result?: Record<string, unknown> };
+  const result = p.result;
+  if (!result || result.kind !== "refine") return payload;
+
+  const register = async (relativePath: unknown, kind: string) => {
+    if (typeof relativePath !== "string" || !relativePath) return null;
+    const artifact = await registerArtifact(
+      runId,
+      {
+        kind,
+        createdAt: new Date().toISOString(),
+        bytes: 0,
+        contentHash: "",
+      } as never,
+      relativePath,
+    );
+    return artifact.id;
+  };
+
+  const originalId = await register(result.originalArtifactId, "original_resume");
+  const refinedId = await register(result.refinedResumeArtifactId, "refined_resume_pdf");
+
+  return {
+    ...p,
+    result: {
+      ...result,
+      originalArtifactId: originalId ?? result.originalArtifactId,
+      refinedResumeArtifactId: refinedId ?? result.refinedResumeArtifactId,
+    },
+  };
 }

@@ -50,13 +50,52 @@ process.on("SIGTERM", () => {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+/**
+ * The env this worker hands to a deterministic utility child.
+ *
+ * Same run-owned paths, but the model credential is stripped: build-cv-html,
+ * generate-pdf and verify-cv-facts have no use for it, and a renderer that
+ * never holds a credential cannot leak one.
+ */
+function utilityEnv() {
+  const out = {};
+  for (const [k, v] of Object.entries(process.env)) {
+    if (k.startsWith("HIRECUTE_MODEL") || k.startsWith("STRIPE_")) continue;
+    if (v !== undefined) out[k] = v;
+  }
+  return out;
+}
+
 async function main() {
-  // Plain ESM, so a child process needs no type stripping to read it.
-  const { fixtureTimeline } = await import("../src/lib/hirecute/fixture-journey.mjs");
+  const CODE_ROOT = process.cwd();
 
   diag({ started: { runId: RUN_ID, dataRoot: DATA_ROOT } });
 
-  const timeline = fixtureTimeline();
+  // ── Stage 1: refine. REAL (milestone 3). ────────────────────────────────
+  const { runRefineStage } = await import("./stages/refine.mjs");
+  const refined = await runRefineStage({
+    emit,
+    diag,
+    runDir: DATA_ROOT,
+    codeRoot: CODE_ROOT,
+    env: utilityEnv(),
+  });
+
+  // An inline stage failure is terminal for this attempt; the visitor retries
+  // that stage in place rather than the whole journey.
+  if (!refined.ok) {
+    diag({ stopped: "refine stage failed" });
+    return;
+  }
+
+  // ── Stages 2-4 still replay fixtures (milestones 4-6). ─────────────────
+  // The search seed from the REAL refinement is carried forward so the seam is
+  // visible in diagnostics and the handover is already wired.
+  diag({ searchSeed: refined.searchSeed });
+  const { fixtureTimeline } = await import("../src/lib/hirecute/fixture-journey.mjs");
+  const timeline = fixtureTimeline().filter(
+    (entry) => !String(entry.event.type).startsWith("action.") || entry.event.payload?.action?.stage !== "refine",
+  );
   let last = 0;
   for (const { at, event } of timeline) {
     if (cancelled) {
@@ -72,6 +111,12 @@ async function main() {
     if (event.type === "run.queued" || event.type === "run.done" || event.type === "run.error") {
       continue;
     }
+    // Stage 1 is real now; its fixture events must not be replayed on top.
+    const evStage =
+      typeof event.payload === "object" && event.payload !== null && "stage" in event.payload
+        ? event.payload.stage
+        : null;
+    if (evStage === "refine") continue;
     const stage =
       typeof event.payload === "object" && event.payload !== null && "stage" in event.payload
         ? event.payload.stage

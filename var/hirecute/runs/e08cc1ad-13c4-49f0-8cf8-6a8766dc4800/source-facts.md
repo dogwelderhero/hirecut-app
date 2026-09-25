@@ -1,0 +1,3 @@
+# Source resume (verbatim extraction)
+
+Priya Raman London, United Kingdom · priya.raman@example.com · linkedin.com/in/priyaraman Experienced product person who has worked on lots of payments things over the years. Work Experience Starling Bank — London Senior Product Manager, Payments 2021–Present built payments stuff and also did some hiring Owned the Faster Payments integration, cutting settlement failures by 34% Led a team of 6 engineers and 2 designers Revolut — London Product Manager 2018–2021 Launched card controls used by 2.1 million customers Reduced chargeback disputes 18% by redesigning the claims fl ow Education BSc Computer Science, University of Manchester (2014) Skills Payments, SQL, Product Analytics, Figma, Stakeholder Management

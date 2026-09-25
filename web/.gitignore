@@ -7,6 +7,10 @@
 *.tsbuildinfo
 next-env.d.ts
 .env*.local
+# Belt and braces: a bare .env here would otherwise be committable.
+.env
+.env.*
+!.env.example
 .DS_Store
 
 # local QA artifacts (screenshots live in the workspace root, outside this tree)
