@@ -25,46 +25,14 @@ function bool(name: string, fallback: boolean): boolean {
 }
 
 /**
- * Pilot limits. Tunable by an operator through this module — deliberately not a
- * settings UI (brief: "Make these tunable without building a settings UI").
+ * Pilot limits and presentation timings.
+ *
+ * The values live in `limits.mjs` so the journey worker can read a budget
+ * without type stripping; this module re-exports them for the typed side.
+ * Tunable by an operator by editing that file — deliberately not a settings UI.
  */
-export const LIMITS = {
-  /** One active journey worker; raise only after measuring isolation + memory. */
-  activeWorkers: 1,
-  /** One queued journey per anonymous session. */
-  queuedRunsPerSession: 1,
-  /** Small total queue; excess work is rejected politely, never silently dropped. */
-  maxQueueLength: 8,
-  /** Upload ceiling, enforced client- AND server-side. */
-  maxUploadBytes: 10 * 1024 * 1024,
-  /** Discovery target, not a hard kill: partial coverage is a real result. */
-  discoveryTargetMs: 45_000,
-  /** Default scored shortlist; hard maximum regardless of discovery volume. */
-  defaultScoredJobs: 10,
-  maxScoredJobs: 20,
-  /** At most two concurrent model calls per run. */
-  maxConcurrentModelCalls: 2,
-  /** Prepare the first visible letters before the rest of the batch. */
-  firstVisibleLetters: 5,
-  /** Selection ceiling for the pilot entitlement. */
-  maxSelectedPackages: 20,
-  /** Explicit per-run budgets. */
-  maxModelCallsPerRun: 60,
-  maxOutputTokensPerRun: 120_000,
-  maxRunWallClockMs: 15 * 60_000,
-} as const;
-
-/** Presentation timings from 02-screen-guide.md §2. Animation only — never success. */
-export const PRESENTATION = {
-  /** Foreground dwell before a stage result packs away. */
-  resultDwellMs: 2_000,
-  /** Result card travel into its conversation receipt. */
-  packMs: 780,
-  /** Checkout testimonial rotation. */
-  testimonialRotateMs: 7_000,
-  /** Eligible main-area clicks in Bulk Apply before the offer opens. */
-  checkoutClickThreshold: 4,
-} as const;
+export { LIMITS, PRESENTATION } from "@/lib/hirecute/limits.mjs";
+import { LIMITS as LIMIT_VALUES, PRESENTATION as PRESENTATION_VALUES } from "@/lib/hirecute/limits.mjs";
 
 export interface ServerConfig {
   /** Absolute path to the pinned immutable career-ops checkout. */
@@ -125,7 +93,7 @@ export interface PublicConfig {
   billingMode: "test" | "live";
   maxUploadBytes: number;
   maxSelectedPackages: number;
-  presentation: typeof PRESENTATION;
+  presentation: typeof PRESENTATION_VALUES;
 }
 
 export function publicConfig(cfg: ServerConfig = serverConfig()): PublicConfig {
@@ -136,9 +104,9 @@ export function publicConfig(cfg: ServerConfig = serverConfig()): PublicConfig {
     // Mode is read off the key prefix so the UI cannot be told it is live by a
     // client flag. A missing key reads as test.
     billingMode: key?.startsWith("pk_live_") ? "live" : "test",
-    maxUploadBytes: LIMITS.maxUploadBytes,
-    maxSelectedPackages: LIMITS.maxSelectedPackages,
-    presentation: PRESENTATION,
+    maxUploadBytes: LIMIT_VALUES.maxUploadBytes,
+    maxSelectedPackages: LIMIT_VALUES.maxSelectedPackages,
+    presentation: PRESENTATION_VALUES,
   };
 }
 

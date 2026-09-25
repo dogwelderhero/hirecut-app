@@ -3,7 +3,7 @@
 Built against `MVP architecture and screens/hirecute-mvp/` (local-only, gitignored).
 Upstream is pinned at `career-ops-hq/career-ops@71554e8` (core 1.34.0, web alpha 0.12.0).
 
-## Milestones 1-3 — done
+## Milestones 1-4 — done
 
 ### Milestone 1 — visual shell and fixture journey
 

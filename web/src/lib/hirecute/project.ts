@@ -206,18 +206,21 @@ export function projectEvent(snapshot: RunSnapshot, event: Applied): RunSnapshot
     case "run.done":
       return { ...s, status: "preparation_complete" };
 
-    case "run.interrupted":
+    case "run.interrupted": {
+      const stage = event.payload.stage as StageId;
+      const current = s.stages[stage];
+      // A run-level interruption must not rewrite a stage that already
+      // COMPLETED or FAILED with its own reason. Overwriting a finished
+      // explore with "interrupted" loses the fact that its jobs are real.
+      const rewritable = current.status !== "completed" && current.status !== "failed";
       return {
         ...s,
         status: "interrupted",
-        stages: {
-          ...s.stages,
-          [event.payload.stage as StageId]: {
-            ...s.stages[event.payload.stage as StageId],
-            status: "interrupted",
-          },
-        },
+        stages: rewritable
+          ? { ...s.stages, [stage]: { ...current, status: "interrupted" } }
+          : s.stages,
       };
+    }
 
     case "run.error":
       return { ...s, status: "failed" };

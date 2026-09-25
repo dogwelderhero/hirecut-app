@@ -88,43 +88,62 @@ async function main() {
     return;
   }
 
-  // ── Stages 2-4 still replay fixtures (milestones 4-6). ─────────────────
-  // The search seed from the REAL refinement is carried forward so the seam is
-  // visible in diagnostics and the handover is already wired.
-  diag({ searchSeed: refined.searchSeed });
-  const { fixtureTimeline } = await import("../src/lib/hirecute/fixture-journey.mjs");
-  const timeline = fixtureTimeline().filter(
-    (entry) => !String(entry.event.type).startsWith("action.") || entry.event.payload?.action?.stage !== "refine",
-  );
-  let last = 0;
-  for (const { at, event } of timeline) {
-    if (cancelled) {
-      diag({ cancelled: true });
-      return;
-    }
-    // Preserve the scripted pacing without a wall-clock scheduler.
-    await sleep(Math.max(0, at - last));
-    last = at;
+  // ── Stage 2: explore. REAL (milestone 4). ───────────────────────────────
+  const { runExploreStage } = await import("./stages/explore.mjs");
+  const explored = await runExploreStage({
+    emit,
+    diag,
+    runDir: DATA_ROOT,
+    codeRoot: CODE_ROOT,
+    searchSeed: refined.searchSeed,
+    preferences: {},
+  });
 
-    // run.queued/run.done/run.error are lifecycle events the PARENT owns; the
-    // child only reports the work in between.
-    if (event.type === "run.queued" || event.type === "run.done" || event.type === "run.error") {
-      continue;
-    }
-    // Stage 1 is real now; its fixture events must not be replayed on top.
-    const evStage =
-      typeof event.payload === "object" && event.payload !== null && "stage" in event.payload
-        ? event.payload.stage
-        : null;
-    if (evStage === "refine") continue;
-    const stage =
-      typeof event.payload === "object" && event.payload !== null && "stage" in event.payload
-        ? event.payload.stage
-        : null;
-    emit(event.type, event.payload, stage);
+  if (!explored.ok) {
+    // An empty or failed search stays in Explore Jobs with a scoped retry; it
+    // does not advance to a pretend shortlist.
+    diag({ stopped: "explore stage produced no usable result" });
+    return;
   }
 
-  send({ kind: "done" });
+  // ── Stages 3-4: NOT YET IMPLEMENTED (milestones 5-6). ─────────────────
+  //
+  // The fixture timeline is deliberately NOT replayed here any more. It would
+  // attach invented 92% rings and invented letters to the REAL jobs stage 2
+  // just discovered, and the brief is explicit: "never silently fall back to
+  // mock results when a real provider or model fails."
+  //
+  // A fixture score on a real Monzo posting is indistinguishable from a real
+  // one to the visitor, which makes it the most damaging possible shortcut. So
+  // the run stops here with `capability_disabled` — an honest statement that
+  // ranking is not built yet, carrying every real artifact stage 1 and 2
+  // produced.
+  diag({ handover: { jobs: explored.jobs.length, coverage: explored.coverage.status } });
+
+  emit(
+    "stage.error",
+    {
+      stage: "match",
+      inputVersion: 1,
+      error: {
+        code: "capability_disabled",
+        message:
+          "Ranking these roles against your resume is not enabled on this deployment yet. Your refined resume and the roles we found are saved and downloadable.",
+        retryable: false,
+        stage: "match",
+        jobId: null,
+      },
+    },
+    "match",
+  );
+
+  // Deliberately NOT `done`. `run.done` means `preparation_complete`, and
+  // preparation never ran — claiming it did is exactly the kind of false
+  // terminal the event protocol exists to prevent. The parent marks an
+  // unfinished run `interrupted`, which is what this is, and every real
+  // artifact from stages 1-2 is retained.
+  diag({ stopped: "match stage not implemented (milestone 5)" });
+  return;
 }
 
 main().catch((err) => {

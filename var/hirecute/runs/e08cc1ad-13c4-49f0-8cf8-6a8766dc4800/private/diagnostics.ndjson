@@ -1,8 +1,0 @@
-{"time":"2026-09-25T18:04:13.739Z","entry":{"started":{"runId":"e08cc1ad-13c4-49f0-8cf8-6a8766dc4800","dataRoot":"/Users/germankukhtenkov/hirecut-app/var/hirecute/runs/e08cc1ad-13c4-49f0-8cf8-6a8766dc4800"}}}
-{"time":"2026-09-25T18:04:14.205Z","entry":{"extraction":{"chars":716,"pages":1,"truncated":false}}}
-{"time":"2026-09-25T18:04:26.568Z","entry":{"model":{"usage":{"inputTokens":3556,"outputTokens":1583},"model":"claude-sonnet-5"}}}
-{"time":"2026-09-25T18:04:26.568Z","entry":{"payloadValidation":{"errors":[],"warnings":[]}}}
-{"time":"2026-09-25T18:04:27.655Z","entry":{"factCheck":{"ran":true,"findings":0,"detail":""}}}
-{"time":"2026-09-25T18:04:27.655Z","entry":{"searchSeed":{"currentTitle":"Senior Product Manager, Payments","location":"London, United Kingdom","seniority":"Senior","skills":["Payments","SQL","Product Analytics","Figma","Stakeholder Management"],"targetRoles":["Senior Product Manager, Payments","Product Manager, Payments","Group Product Manager, Payments","Head of Product, Payments","Product Lead, Financial Services"]}}}
-{"time":"2026-09-25T18:04:52.494Z","entry":{"rejected":"event type not child-emittable","type":"billing.updated"}}
-{"time":"2026-09-25T18:04:52.617Z","entry":{"exit":{"code":0,"signal":null}}}

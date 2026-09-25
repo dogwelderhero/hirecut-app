@@ -1,0 +1,38 @@
+{"time":"2026-09-25T18:20:06.083Z","entry":{"started":{"runId":"b537cb29-5d67-407b-b933-4289aaedb556","dataRoot":"/Users/germankukhtenkov/hirecut-app/var/hirecute/runs/b537cb29-5d67-407b-b933-4289aaedb556"}}}
+{"time":"2026-09-25T18:20:06.691Z","entry":{"extraction":{"chars":716,"pages":1,"truncated":false}}}
+{"time":"2026-09-25T18:20:16.999Z","entry":{"model":{"usage":{"inputTokens":3556,"outputTokens":1250},"model":"claude-sonnet-5"}}}
+{"time":"2026-09-25T18:20:17.001Z","entry":{"payloadValidation":{"errors":[],"warnings":[]}}}
+{"time":"2026-09-25T18:20:18.297Z","entry":{"factCheck":{"ran":true,"findings":0,"detail":""}}}
+{"time":"2026-09-25T18:20:18.299Z","entry":{"search":{"targetRoles":["Senior Product Manager, Payments","Senior Product Manager","Product Manager, Payments","Group Product Manager","Head of Product, Payments"],"locations":[],"seededFrom":"resume"}}}
+{"time":"2026-09-25T18:20:18.567Z","entry":{"board":{"board":"Wise","ok":true,"count":16}}}
+{"time":"2026-09-25T18:20:18.589Z","entry":{"board":{"board":"GoCardless","ok":true,"count":28}}}
+{"time":"2026-09-25T18:20:18.623Z","entry":{"board":{"board":"Monzo","ok":true,"count":71}}}
+{"time":"2026-09-25T18:20:18.816Z","entry":{"board":{"board":"Figma","ok":true,"count":163}}}
+{"time":"2026-09-25T18:20:19.499Z","entry":{"board":{"board":"Databricks","ok":true,"count":888}}}
+{"time":"2026-09-25T18:20:19.685Z","entry":{"board":{"board":"Anthropic","ok":true,"count":624}}}
+{"time":"2026-09-25T18:20:19.768Z","entry":{"board":{"board":"Coinbase","ok":true,"count":208}}}
+{"time":"2026-09-25T18:20:20.056Z","entry":{"board":{"board":"Robinhood","ok":true,"count":161}}}
+{"time":"2026-09-25T18:20:20.327Z","entry":{"board":{"board":"Reddit","ok":true,"count":151}}}
+{"time":"2026-09-25T18:20:20.480Z","entry":{"board":{"board":"Duolingo","ok":true,"count":82}}}
+{"time":"2026-09-25T18:20:20.875Z","entry":{"board":{"board":"Stripe","ok":true,"count":698}}}
+{"time":"2026-09-25T18:20:21.021Z","entry":{"board":{"board":"Discord","ok":true,"count":48}}}
+{"time":"2026-09-25T18:20:21.253Z","entry":{"board":{"board":"Cloudflare","ok":true,"count":394}}}
+{"time":"2026-09-25T18:20:21.501Z","entry":{"board":{"board":"OpenAI","ok":true,"count":831}}}
+{"time":"2026-09-25T18:20:21.525Z","entry":{"board":{"board":"Notion","ok":true,"count":129}}}
+{"time":"2026-09-25T18:20:21.530Z","entry":{"board":{"board":"Deel","ok":true,"count":0}}}
+{"time":"2026-09-25T18:20:21.576Z","entry":{"board":{"board":"Mistral AI","ok":true,"count":0}}}
+{"time":"2026-09-25T18:20:21.595Z","entry":{"board":{"board":"Vercel","ok":true,"count":0}}}
+{"time":"2026-09-25T18:20:21.711Z","entry":{"board":{"board":"Linear","ok":true,"count":30}}}
+{"time":"2026-09-25T18:20:21.733Z","entry":{"board":{"board":"Ramp","ok":true,"count":159}}}
+{"time":"2026-09-25T18:20:21.743Z","entry":{"board":{"board":"PostHog","ok":true,"count":9}}}
+{"time":"2026-09-25T18:20:21.807Z","entry":{"board":{"board":"Cursor","ok":true,"count":126}}}
+{"time":"2026-09-25T18:20:21.854Z","entry":{"board":{"board":"Clerk","ok":true,"count":2}}}
+{"time":"2026-09-25T18:20:21.865Z","entry":{"board":{"board":"Replit","ok":true,"count":74}}}
+{"time":"2026-09-25T18:20:21.867Z","entry":{"board":{"board":"Modal","ok":true,"count":39}}}
+{"time":"2026-09-25T18:20:21.929Z","entry":{"board":{"board":"Ashby","ok":true,"count":65}}}
+{"time":"2026-09-25T18:20:23.901Z","entry":{"board":{"board":"Palantir","ok":true,"count":324}}}
+{"time":"2026-09-25T18:20:23.901Z","entry":{"harvest":{"postings":5320,"succeeded":27,"failed":0}}}
+{"time":"2026-09-25T18:20:24.045Z","entry":{"dedup":{"unique":5320,"duplicatesDropped":0}}}
+{"time":"2026-09-25T18:20:24.070Z","entry":{"handover":{"jobs":40,"coverage":"complete_within_scope"}}}
+{"time":"2026-09-25T18:20:24.070Z","entry":{"stopped":"match stage not implemented (milestone 5)"}}
+{"time":"2026-09-25T18:20:33.919Z","entry":{"exit":{"code":0,"signal":null}}}
