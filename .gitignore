@@ -204,3 +204,11 @@ documents/*
 # Intake fingerprints — the recorded source filenames may themselves carry
 # PII (e.g. cv/jane-doe-master-cv.pdf). #1723
 data/intake-state.json
+
+# Local-only design/spec material — kept on disk, never committed.
+# The hirecute MVP pack (architecture docs, Flowkit source, 6-screen prototype,
+# mock employer forms). Reference material for a later implementation pass.
+/MVP architecture and screens/
+
+# Scratch dir used by the web app's PDF path helpers.
+/.hirecute-web/
