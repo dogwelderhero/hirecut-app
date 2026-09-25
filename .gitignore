@@ -224,3 +224,7 @@ data/intake-state.json
 
 # Scratch dir used by the web app's PDF path helpers.
 /.hirecute-web/
+
+# Per-run visitor data written at runtime: uploaded resumes, generated CVs,
+# JD captures, event logs and session records. Never belongs in the repo.
+var/
