@@ -59,6 +59,10 @@ export async function buildCvPdf(opts) {
   const outDir = path.join(runDir, "output");
   await mkdir(outDir, { recursive: true });
 
+  // `basename` may contain a job-keyed subdirectory (jobs/<id>/cv), so the
+  // parent is created rather than assumed.
+  await mkdir(path.dirname(path.join(outDir, `${basename}.json`)), { recursive: true });
+
   const jsonPath = path.join(outDir, `${basename}.json`);
   const htmlPath = path.join(outDir, `${basename}.html`);
   const pdfPath = path.join(outDir, `${basename}.pdf`);

@@ -125,39 +125,32 @@ async function main() {
     return;
   }
 
-  // ── Stage 4: prepare. NOT YET IMPLEMENTED (milestone 6). ───────────────
-  //
-  // The fixture timeline is deliberately NOT replayed. It would attach invented
-  // letters and "Ready to apply" badges to jobs that have just been REALLY
-  // scored, and the brief is explicit: "never silently fall back to mock
-  // results when a real provider or model fails." A fixture letter beside a
-  // genuine 88% ring is indistinguishable from a real one to the visitor, which
-  // makes it the most damaging available shortcut.
-  //
-  // So the run stops with `capability_disabled` on prepare and does NOT send
-  // `run.done`: that means `preparation_complete`, and preparation never ran.
-  // Claiming it did is precisely the false terminal the event protocol exists
-  // to prevent. Every real artifact from stages 1-3 is retained.
-  diag({ handover: { scored: matched.assessments.length, ranked: matched.ranked.length } });
+  // ── Stage 4: prepare. REAL (milestone 6). ──────────────────────────────
+  const { runPrepareStage } = await import("./stages/prepare.mjs");
+  const preparedResult = await runPrepareStage({
+    emit,
+    diag,
+    runDir: DATA_ROOT,
+    codeRoot: CODE_ROOT,
+    utilityEnv: utilityEnv(),
+    jobs: explored.jobs,
+    assessments: matched.assessments,
+    ranked: matched.ranked,
+    payload: refined.payload,
+    sourceFactsPath: refined.sourceFactsPath,
+    sourceResumeHash: refined.sourceResumeHash,
+  });
 
-  emit(
-    "stage.error",
-    {
-      stage: "prepare",
-      inputVersion: 1,
-      error: {
-        code: "capability_disabled",
-        message:
-          "Preparing tailored applications is not enabled on this deployment yet. Your refined resume and your ranked matches are saved, and you can open any posting.",
-        retryable: false,
-        stage: "prepare",
-        jobId: null,
-      },
-    },
-    "prepare",
-  );
+  if (!preparedResult.ok) {
+    // Bulk Apply stays mounted with its real matches and a scoped retry.
+    diag({ stopped: "prepare stage produced no usable package" });
+    return;
+  }
 
-  diag({ stopped: "prepare stage not implemented (milestone 6)" });
+  // Preparation genuinely finished, so `run.done` is now the truth rather than
+  // a claim. It means `preparation_complete` and nothing more: no card has been
+  // saved, no application has been sent, and no letter has left this machine.
+  send({ kind: "done" });
 }
 
 main().catch((err) => {

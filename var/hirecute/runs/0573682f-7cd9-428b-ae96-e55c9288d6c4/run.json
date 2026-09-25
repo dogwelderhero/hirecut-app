@@ -1,0 +1,107 @@
+{
+  "snapshot": {
+    "schemaVersion": 1,
+    "id": "0573682f-7cd9-428b-ae96-e55c9288d6c4",
+    "origin": "sample",
+    "launchProfile": "activation_pilot",
+    "status": "cancelled",
+    "currentStage": "refine",
+    "createdAt": "2026-09-25T18:45:18.517Z",
+    "updatedAt": "2026-09-25T18:45:45.642Z",
+    "lastSequence": 8,
+    "journeyVersion": 1,
+    "profile": null,
+    "preferences": {
+      "version": 1,
+      "targetRoles": [],
+      "locations": [],
+      "workStyles": [],
+      "origin": "suggested_from_resume"
+    },
+    "stages": {
+      "refine": {
+        "stage": "refine",
+        "status": "failed",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "refine-0",
+            "stage": "refine",
+            "label": "Reading your resume",
+            "status": "failed",
+            "startedAt": "2026-09-25T18:45:18.690Z",
+            "completedAt": "2026-09-25T18:45:18.695Z",
+            "error": {
+              "code": "invalid_upload",
+              "message": "We could not find your uploaded file.",
+              "retryable": false,
+              "stage": "refine",
+              "jobId": null
+            }
+          }
+        ],
+        "result": null,
+        "error": {
+          "code": "invalid_upload",
+          "message": "We could not find your uploaded file.",
+          "retryable": false,
+          "stage": "refine",
+          "jobId": null
+        }
+      },
+      "explore": {
+        "stage": "explore",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      },
+      "match": {
+        "stage": "match",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      },
+      "prepare": {
+        "stage": "prepare",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      }
+    },
+    "evidence": [],
+    "jobs": [],
+    "assessments": [],
+    "applications": [],
+    "selection": {
+      "jobIds": [],
+      "version": 1,
+      "updatedAt": "2026-09-25T18:45:18.517Z"
+    },
+    "artifacts": [],
+    "billing": {
+      "status": "not_started",
+      "mode": "test",
+      "promotionalCredit": null,
+      "entitlement": null,
+      "amountChargedMinor": 0,
+      "error": null
+    }
+  },
+  "ownerSessionId": "fe273a2a86e96253b4dc938dec4651126e3a69b9bcfda1a20e5de94ec9c3444d",
+  "billingRecordId": null,
+  "artifacts": {}
+}

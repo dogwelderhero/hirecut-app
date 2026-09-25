@@ -1,0 +1,3635 @@
+{
+  "snapshot": {
+    "schemaVersion": 1,
+    "id": "13a97f36-475c-49fb-b178-67909534b492",
+    "origin": "uploaded_resume",
+    "launchProfile": "activation_pilot",
+    "status": "preparation_complete",
+    "currentStage": "prepare",
+    "createdAt": "2026-09-25T18:46:00.568Z",
+    "updatedAt": "2026-09-25T18:49:12.851Z",
+    "lastSequence": 248,
+    "journeyVersion": 1,
+    "profile": null,
+    "preferences": {
+      "version": 1,
+      "targetRoles": [],
+      "locations": [],
+      "workStyles": [],
+      "origin": "confirmed_by_candidate"
+    },
+    "stages": {
+      "refine": {
+        "stage": "refine",
+        "status": "completed",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "refine-0",
+            "stage": "refine",
+            "label": "Reading your resume",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:46:00.744Z",
+            "completedAt": "2026-09-25T18:46:01.491Z",
+            "error": null
+          },
+          {
+            "id": "refine-1",
+            "stage": "refine",
+            "label": "Extracting your experience and skills",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:46:01.490Z",
+            "completedAt": "2026-09-25T18:46:12.383Z",
+            "error": null
+          },
+          {
+            "id": "refine-2",
+            "stage": "refine",
+            "label": "Refining your summary and bullet points",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:46:12.377Z",
+            "completedAt": "2026-09-25T18:46:12.384Z",
+            "error": null
+          },
+          {
+            "id": "refine-3",
+            "stage": "refine",
+            "label": "Checking formatting and readability",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:46:12.378Z",
+            "completedAt": "2026-09-25T18:46:13.441Z",
+            "error": null
+          }
+        ],
+        "result": {
+          "kind": "refine",
+          "originalArtifactId": "1a2bc87d-8ff5-4382-9cfa-13d4d8fc06c3",
+          "refinedResumeArtifactId": "53237844-9159-4da7-bb50-5c272ef91cf6",
+          "changes": [
+            {
+              "id": "91ce3bcb-6b9d-4b96-85db-2f1f6bfbb432",
+              "kind": "structure",
+              "before": "Priya Raman priya.raman@example.com | linkedin.com/in/priyaraman | London, United Kingdom PROFESSIONAL SUMMARY Product leader with a payments and banking background at Starling Bank and Revolut, known for turning customer and market insight into shipped outcomes: a 34% cut in settlement failures on Faster Payments, and an 18% reduction in chargeback disputes through a redesigned claims flow reaching 2.1 million customers. WORK EXPERIENCE Starling Bank 2021-Present Senior Product Manager, Payments London Owned the Faster Payments integration, cutting settlement failures by 34% Led a team of 6 engineers and 2 designers Built payments features and led hiring for the team Revolut 2018-2021 Product Manager London Launched card controls used by 2.1 million customers Reduced chargeback disputes by 18% by redesigning the claims flow EDUCATION BSc Computer Science University of Manchester 2014 SKILLS Payments, SQL, Product Analytics, Figma, Stakeholder Management",
+              "after": "Parsed into distinct fields: contact info, summary, work experience (with company/role/dates/location/bullets), education, and skills.",
+              "explanation": "The original was a single unbroken block of text; splitting it into structured sections improves readability and ATS parsing.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "6bf4271c-85f6-4e9c-8f02-2fbb4076ddb8",
+              "kind": "clarity",
+              "before": "2.1 million customers used by card controls (merged with claims flow sentence)",
+              "after": "Separated the card controls launch metric from the chargeback disputes metric into distinct bullets under Revolut.",
+              "explanation": "The summary conflated two separate achievements (card controls reach and chargeback reduction) into one sentence; the experience bullets already separate them correctly, so the summary was reworded to avoid implying the 2.1 million figure applies to the claims flow specifically.",
+              "sourceFactIds": []
+            }
+          ],
+          "originalPreserved": true
+        },
+        "error": null
+      },
+      "explore": {
+        "stage": "explore",
+        "status": "completed",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "explore-0",
+            "stage": "explore",
+            "label": "Building a search from your experience",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:46:13.441Z",
+            "completedAt": "2026-09-25T18:46:13.446Z",
+            "error": null
+          },
+          {
+            "id": "explore-1",
+            "stage": "explore",
+            "label": "Checking company career pages",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:46:13.441Z",
+            "completedAt": "2026-09-25T18:46:27.122Z",
+            "error": null
+          },
+          {
+            "id": "explore-2",
+            "stage": "explore",
+            "label": "Removing duplicates and expired listings",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:46:27.116Z",
+            "completedAt": "2026-09-25T18:46:27.226Z",
+            "error": null
+          },
+          {
+            "id": "explore-3",
+            "stage": "explore",
+            "label": "Saving relevant openings",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:46:27.224Z",
+            "completedAt": "2026-09-25T18:46:27.326Z",
+            "error": null
+          }
+        ],
+        "result": {
+          "kind": "explore",
+          "jobIds": [
+            "job-crbu63",
+            "job-vyu5ee",
+            "job-nyv7rq",
+            "job-10l2y3s",
+            "job-cccvpd",
+            "job-10jcevb",
+            "job-1sprd0f",
+            "job-vgmpb0",
+            "job-1sbjtqu",
+            "job-1l1o124",
+            "job-ks0rj0",
+            "job-oh4k0h",
+            "job-o1156k",
+            "job-1hdh1x8",
+            "job-1vmae1o",
+            "job-1gl3ifw",
+            "job-yr4irg",
+            "job-p8gt2c",
+            "job-xml5r",
+            "job-xqw4z",
+            "job-koj076",
+            "job-1wqsjlt",
+            "job-6ddk89",
+            "job-18tdv75",
+            "job-1w8t5c4",
+            "job-nvyeja",
+            "job-1t6tmgw",
+            "job-90ppq4",
+            "job-lh6kae",
+            "job-hqnqu7",
+            "job-1rw6rmk",
+            "job-10z9w4k",
+            "job-w8o0bg",
+            "job-cej9t5",
+            "job-ylnfw6",
+            "job-ccbjf0",
+            "job-gqhrfa",
+            "job-11529t8",
+            "job-ceiqj3",
+            "job-1st26th"
+          ],
+          "coverage": {
+            "status": "partial",
+            "boardsAttempted": 27,
+            "boardsSucceeded": 26,
+            "boardsFailed": 1,
+            "availableCompanies": null,
+            "capHit": false,
+            "staleDataset": false,
+            "stoppedByOutage": false,
+            "undatedPostingsDropped": 0,
+            "jobsFound": 4997,
+            "jobsRetained": 40,
+            "scopeDescription": "27 curated Ashby, Greenhouse, Lever boards",
+            "warnings": [
+              "Palantir: did not respond in time"
+            ]
+          }
+        },
+        "error": null
+      },
+      "match": {
+        "stage": "match",
+        "status": "completed",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "match-0",
+            "stage": "match",
+            "label": "Comparing skills and seniority",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:46:27.249Z",
+            "completedAt": "2026-09-25T18:46:27.332Z",
+            "error": null
+          },
+          {
+            "id": "match-1",
+            "stage": "match",
+            "label": "Checking location and salary fit where evidence exists",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:46:27.255Z",
+            "completedAt": "2026-09-25T18:46:27.334Z",
+            "error": null
+          },
+          {
+            "id": "match-2",
+            "stage": "match",
+            "label": "Finding evidence for each match",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:46:27.255Z",
+            "completedAt": "2026-09-25T18:47:33.771Z",
+            "error": null
+          },
+          {
+            "id": "match-3",
+            "stage": "match",
+            "label": "Ranking your top 10 roles",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:47:33.760Z",
+            "completedAt": "2026-09-25T18:47:33.783Z",
+            "error": null
+          }
+        ],
+        "result": {
+          "kind": "match",
+          "assessments": [
+            {
+              "jobId": "job-vyu5ee",
+              "score5": 1.5,
+              "confidence": "high",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Demonstrated end-to-end product ownership (owned Faster Payments integration, led team of 6 engineers + 2 designers) matching the posting's call for owning the entire user journey and cross-functional leadership.",
+                "Track record of shipping measurable outcomes (34% reduction in settlement failures, 18% reduction in chargeback disputes) aligning with the posting's emphasis on measurement, feedback loops, and iteration."
+              ],
+              "gaps": [
+                "No evidence of application security, API/web protection, or abuse/threat pattern experience required for this role.",
+                "No evidence of working with security specialists, security roadmaps, or technical security documentation.",
+                "No LLM/API protection, schema-aware enforcement, or third/fourth-party integration risk experience evidenced.",
+                "Domain background is entirely payments/banking, not security or infrastructure/network products relevant to Cloudflare's core offering."
+              ],
+              "requirements": [
+                {
+                  "requirement": "Experience with application security, web/API protection, threat/abuse patterns",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows payments and banking product management (Faster Payments, chargeback claims flow) with no evidence of application security, API protection, or threat/abuse mitigation work."
+                },
+                {
+                  "requirement": "Own product roadmap for security controls (schema-aware enforcement, LLM/API protection)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No security-domain roadmap ownership evidenced; candidate's roadmap experience is in payments settlement and card controls."
+                },
+                {
+                  "requirement": "Partner with security specialists and engineering on protection products",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Candidate partnered with engineers/designers on payments features, not security specialists or security product lines."
+                },
+                {
+                  "requirement": "Voice of customer / GTM enablement for technical security features",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "not_applicable",
+                  "explanation": "Resume shows customer-facing work (claims flow reaching 2.1M customers) but in a payments/banking context, not security GTM enablement."
+                },
+                {
+                  "requirement": "Cross-functional leadership owning end-to-end product journey",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows leading a team of 6 engineers and 2 designers and owning Faster Payments integration end-to-end, demonstrating cross-functional product ownership."
+                },
+                {
+                  "requirement": "Stakeholder management and shipping measurable outcomes",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume demonstrates shipped outcomes (34% reduction in settlement failures, 18% reduction in chargeback disputes) paired with 'Stakeholder Management' skill, matching the posting's emphasis on measurement and iteration."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+              "jobContentHash": "sha256:3984a3c39ba76b76da9e3fc7b68a225fdbf671eef81eecd072fe294df4ff1071",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T18:46:38.706Z"
+            },
+            {
+              "jobId": "job-crbu63",
+              "score5": 2.6,
+              "confidence": "high",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Direct payments domain experience: Faster Payments settlement failure reduction (34%) and chargeback dispute claims flow redesign (18%) map closely to the team's Radar/Authorization Boost/Disputes product ownership.",
+                "Quantified, outcome-driven track record (34% settlement failure cut, 18% chargeback reduction reaching 2.1M customers) aligns with the posting's emphasis on analytical rigor and measurable business impact.",
+                "Experience owning payments features end-to-end (Faster Payments integration) matches the posting's call to 'build and launch new capabilities and products' in payments."
+              ],
+              "gaps": [
+                "Posting requires 10+ years of PM experience; resume shows roughly 6-7 years of PM experience (2018-present).",
+                "No evidence of AI/ML-driven prediction or intelligence platform work, which the posting highlights as core to the role.",
+                "No evidence of direct customer or third-party partner-facing experience, a stated minimum requirement.",
+                "No evidence of setting long-term multi-year product vision/strategy at a Staff-level cross-functional scope."
+              ],
+              "requirements": [
+                {
+                  "requirement": "10+ years of Product Management experience",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows PM roles starting 2018 (Revolut) through present at Starling — roughly 6-7 years of experience, not the 10+ minimum stated."
+                },
+                {
+                  "requirement": "Payments domain expertise",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows direct payments work: Faster Payments settlement failure reduction (34%) at Starling and chargeback/dispute claims flow redesign (18% reduction) at Revolut, closely aligned to the team's ownership of Radar/Authorization Boost/Disputes."
+                },
+                {
+                  "requirement": "Building fraud/risk/intelligence platform features (Radar, Authorization Boost)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Chargeback disputes reduction touches fraud/risk adjacent work, but no evidence of building AI/ML-driven prediction or scoring platforms, which the posting emphasizes ('real-time predictions', 'leverage AI')."
+                },
+                {
+                  "requirement": "Customer and partner-facing experience",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume emphasizes internal team leadership (led 6 engineers, 2 designers) and stakeholder management skill, but does not evidence direct customer/partner-facing conversations."
+                },
+                {
+                  "requirement": "Setting long-term vision/strategy and roadmap for a platform",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows feature ownership (Faster Payments integration, claims flow redesign) but no explicit evidence of setting multi-year platform vision or strategy at the scale implied by 'Staff' level."
+                },
+                {
+                  "requirement": "Analytical horsepower / data-driven decision making",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume lists Product Analytics and SQL as skills, and quantifies outcomes (34% and 18% reductions), matching the posting's 'dig deep into the data' requirement."
+                },
+                {
+                  "requirement": "Staff-level scope (cross-functional leadership across Eng, Design, Data Science, Marketing, Sales)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows leading a team of 6 engineers and 2 designers, smaller in scope than the posting's cross-org collaboration across Engineering, Design, Data Science, Marketing, Sales, Account Management, Operations."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+              "jobContentHash": "sha256:54f624e09bb4400d67799747cd04bab0aa29c3fe65fbf78514aaecdf35073c9f",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T18:46:41.548Z"
+            },
+            {
+              "jobId": "job-nyv7rq",
+              "score5": 1.8,
+              "confidence": "high",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Both the resume and posting emphasize turning customer/market insight into shipped, quantified product outcomes — resume cites 34% settlement failure reduction and 18% chargeback reduction, posting seeks someone who can 'ship faster' and iterate.",
+                "Resume demonstrates leading cross-functional teams (6 engineers, 2 designers) matching the posting's need for a PM who can 'connect customer needs across the enterprise' and drive initiatives with dedicated leadership.",
+                "London is listed as one of the posting's available locations, matching the candidate's current location."
+              ],
+              "gaps": [
+                "No evidence of email security, cybersecurity, threat intelligence, or Zero Trust domain experience — the posting's core subject matter.",
+                "No evidence of technical/infrastructure product management (Gateway, CASB, cloud-native security stack integration).",
+                "Entire resume background is in payments/banking (Starling, Revolut), a distinctly different vertical from enterprise security software.",
+                "No evidence of experience differentiating an enterprise-grade platform against competitors in a security market."
+              ],
+              "requirements": [
+                {
+                  "requirement": "Experienced, technical product manager owning an enterprise-grade email security platform",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows PM experience but entirely in consumer/enterprise payments (Faster Payments, card controls, chargebacks) at Starling and Revolut — no evidence of security, email security, or cybersecurity domain work."
+                },
+                {
+                  "requirement": "Deep familiarity with threat intelligence, detections, phishing/BEC, Zero Trust security concepts",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No mention in the resume of threat intelligence, security detections, Zero Trust, or any adjacent security domain knowledge."
+                },
+                {
+                  "requirement": "Own strategic roadmap for a technical security product integrated with a broader security stack (Gateway, CASB)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Candidate has owned payments feature roadmaps (Faster Payments integration) but no evidence of infrastructure/security-stack product ownership."
+                },
+                {
+                  "requirement": "Cross-functional leadership shaping product direction with engineering/design teams",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows leading a team of 6 engineers and 2 designers at Starling Bank, demonstrating cross-functional PM leadership."
+                },
+                {
+                  "requirement": "Data/insight-driven decision-making translating customer and market insight into shipped outcomes",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume states 'turning customer and market insight into shipped outcomes' with quantified results (34% settlement failure cut, 18% chargeback reduction), showing a similar insight-to-execution pattern, though in a different domain (payments, not security)."
+                },
+                {
+                  "requirement": "Technical fluency for an 'AI-first, cloud-native' security product",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume lists SQL, Product Analytics, Figma, Stakeholder Management — no cloud, AI, or security-platform technical skills evidenced."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+              "jobContentHash": "sha256:1a3c080d6847001dd0b6a5c0e49733eb0831cb5f5cb49e0e3bc066dc69a9c161",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T18:46:51.829Z"
+            },
+            {
+              "jobId": "job-10l2y3s",
+              "score5": 3.2,
+              "confidence": "medium",
+              "recommendation": "consider",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Direct payments domain background: resume title 'Senior Product Manager, Payments' at Starling Bank matches the posting's Payments team focus.",
+                "Resume shows measurable payments-reliability impact ('cutting settlement failures by 34%') aligning with the posting's emphasis on financial infrastructure that 'help Monzo scale... and keep the bank running safely.'",
+                "Cross-functional team leadership (6 engineers, 2 designers) supports the posting's requirement to 'build trusted relationships with senior stakeholders across Finance, Engineering, Product and Operations.'",
+                "BSc Computer Science plus hands-on engineering-team leadership offers some technical grounding for the posting's ask of partnering credibly with engineers on systems and trade-offs."
+              ],
+              "gaps": [
+                "No evidenced experience with ledgers, reconciliation, or financial-systems/platform infrastructure — the posting's core subject matter.",
+                "No evidence of working across multiple entities, countries, currencies, or regulatory environments as the role requires.",
+                "No evidence of Finance-team stakeholder partnership specifically (vs. general stakeholder management).",
+                "No evidence of shifting a team from reactive delivery to a strategic, product-led roadmap approach, which is an explicit expectation."
+              ],
+              "requirements": [
+                {
+                  "requirement": "Senior PM experience owning complex technical, platform, infrastructure or financial systems",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows senior PM ownership of Faster Payments integration at Starling and card controls at Revolut — payments product ownership, but not explicitly platform/infrastructure or ledger-level systems."
+                },
+                {
+                  "requirement": "Experience with ledgers, reconciliation, financial data, controls, reporting, internal platforms",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume mentions settlement failures and chargeback disputes but no evidence of ledger design, reconciliation systems, or internal platform/abstraction work."
+                },
+                {
+                  "requirement": "Technical depth to partner credibly with engineers on architecture/trade-offs",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows a BSc Computer Science and leading engineering/design teams, suggesting technical fluency, but no direct evidence of systems architecture reasoning."
+                },
+                {
+                  "requirement": "Partnering with Finance, Engineering, Product and Operations stakeholders",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume lists 'Stakeholder Management' as a skill and cross-functional team leadership, but no specific Finance-stakeholder experience is evidenced."
+                },
+                {
+                  "requirement": "Moving teams from reactive delivery to strategic, product-led approach across multiple products/entities/currencies",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No resume evidence of multi-entity, multi-currency, or regulatory-environment platform scaling work."
+                },
+                {
+                  "requirement": "Payments domain experience",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume: 'Senior Product Manager, Payments' at Starling and payments-focused PM role at Revolut, directly matching Monzo's Payments team context."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+              "jobContentHash": "sha256:8c7ebf848c14709a4cb1542a4105cea4fa872d7665d8e7e3bab39240f3630e42",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T18:46:54.686Z"
+            },
+            {
+              "jobId": "job-cccvpd",
+              "score5": 1.8,
+              "confidence": "high",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Deep payments domain expertise (Faster Payments integration, chargeback/claims flow) directly relevant to the payments products this role markets",
+                "Track record of data-driven, measurable outcomes (34% settlement failure reduction, 18% chargeback reduction) matching the posting's emphasis on leveraging data for impact"
+              ],
+              "gaps": [
+                "No product marketing experience — resume is entirely product management (roadmap, engineering leadership, feature delivery)",
+                "No evidence of messaging/positioning development or sales enablement material creation",
+                "No evidence of cross-functional GTM execution with sales and demand-gen teams",
+                "No content creation or thought leadership experience"
+              ],
+              "requirements": [
+                {
+                  "requirement": "7+ years of product marketing experience at a technology company",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows product management experience (Senior PM, PM) at fintechs, not product marketing. No marketing titles, campaigns, or GTM ownership evidenced."
+                },
+                {
+                  "requirement": "Experience developing messaging, positioning, and sales enablement materials",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No mention of messaging, positioning, or sales enablement work in the resume; work described is engineering/feature delivery and team leadership."
+                },
+                {
+                  "requirement": "Managing cross-functional GTM efforts with product, sales, and marketing",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows cross-functional work with engineers and designers on product delivery, not GTM coordination with sales/marketing."
+                },
+                {
+                  "requirement": "Creating thought leadership content and marketing materials",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No content creation, thought leadership, or marketing collateral experience listed."
+                },
+                {
+                  "requirement": "Leverage data to identify opportunities and drive results",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume demonstrates data-driven outcomes (34% reduction in settlement failures, 18% reduction in chargebacks) via Product Analytics, though applied to product improvement, not marketing strategy."
+                },
+                {
+                  "requirement": "Domain knowledge of payments products (Link, Financial Connections)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Deep payments domain experience at Starling Bank and Revolut (Faster Payments, card controls, claims flow) is relevant subject-matter background, though not specific to Stripe's Link/Financial Connections products."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+              "jobContentHash": "sha256:ad6673cb7d4624f7ea740cf92b0b89cdbdc5bced4f3c5de63a187e0c8795234d",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T18:47:01.959Z"
+            },
+            {
+              "jobId": "job-10jcevb",
+              "score5": 2,
+              "confidence": "medium",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Resume shows payments and banking domain experience (Faster Payments integration at Starling, card controls at Revolut) which overlaps with Monzo's banking product space",
+                "Resume demonstrates ability to translate customer/market insight into shipped outcomes, a theme central to the Monzo Product Marketing role's 'insight into positioning' remit"
+              ],
+              "gaps": [
+                "No product marketing experience (positioning, messaging, GTM, sales enablement) — resume is entirely product management/engineering delivery focused",
+                "No business/SMB banking or European market expansion experience",
+                "No evidence of cross-functional marketing/growth campaign partnership",
+                "No prior title or scope indicating ownership of a product marketing function"
+              ],
+              "requirements": [
+                {
+                  "requirement": "Senior Product Marketing experience owning positioning, messaging, GTM strategy for a product area",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows Senior Product Manager / Product Manager roles (Starling, Revolut) with engineering/design team leadership and feature delivery, not product marketing ownership of positioning, messaging, or go-to-market strategy."
+                },
+                {
+                  "requirement": "Partnering with Integrated Marketing/Growth on campaign strategy, creative direction, channel execution",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No marketing, campaign, or channel execution experience evidenced; resume focuses on payments engineering delivery and product analytics."
+                },
+                {
+                  "requirement": "Sales enablement and working at intersection of Product and commercial teams",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No evidence of sales enablement or commercial narrative work in the resume."
+                },
+                {
+                  "requirement": "Business Banking / SMB domain knowledge, especially expansion into European markets",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume experience is in consumer payments (Faster Payments, card controls, chargebacks) at Starling and Revolut, not business/SMB banking or European market expansion."
+                },
+                {
+                  "requirement": "Deep customer and market insight translated into product strategy",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows use of customer/market insight to ship product outcomes (34% settlement failure cut, 18% chargeback reduction), which is adjacent but framed as product management, not product marketing strategy."
+                },
+                {
+                  "requirement": "Payments/fintech domain background",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows direct payments background: 'Owned the Faster Payments integration' at Starling Bank and card/claims work at Revolut, aligning with Monzo's banking domain generally."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+              "jobContentHash": "sha256:0d516d3fbbd70f31c057b22867daac71601ba0161a34ccc75c3fbe11418af105",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T18:47:06.050Z"
+            },
+            {
+              "jobId": "job-1sprd0f",
+              "score5": 1.8,
+              "confidence": "high",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Both resume and posting require substantial Product Management tenure - candidate has ~6-7 years of PM experience against the 5+ year requirement.",
+                "Both show experience leading and working with engineering teams - candidate led 6 engineers and 2 designers, matching the posting's expectation of cross-functional engineering collaboration.",
+                "Both involve shipping measurable, high-impact product outcomes - candidate's 34% settlement failure reduction and 18% chargeback reduction parallel the posting's emphasis on driving concrete metrics like ROAS."
+              ],
+              "gaps": [
+                "No AdTech, retail media, marketplaces, or e-commerce platform experience (posting requires 3+ years).",
+                "No evidence of product knowledge graph, entity resolution, or taxonomy work at scale.",
+                "No AI/LLM product-building experience or agentic workflow fluency.",
+                "No shopping or digital commerce domain background; entire career is in payments/banking."
+              ],
+              "requirements": [
+                {
+                  "requirement": "5+ years of Product Management experience",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume shows PM roles from 2018-present (Revolut, then Starling Bank), roughly 6-7 years."
+                },
+                {
+                  "requirement": "At least 3 years in AdTech, retail media, marketplaces, or shopping/e-commerce platforms",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows payments and banking product experience (Starling Bank, Revolut) with no evidence of AdTech, retail media, marketplaces, or e-commerce platforms."
+                },
+                {
+                  "requirement": "Experience with product knowledge graphs, product entity resolution, or product taxonomies at scale",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No mention of product knowledge graphs, entity resolution, or taxonomy work in the resume."
+                },
+                {
+                  "requirement": "Understanding of how digital shopping works (organic or paid)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No shopping, e-commerce, or advertising domain experience evidenced; background is in payments/claims/card controls."
+                },
+                {
+                  "requirement": "AI fluency - building AI products, agentic workflows",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No AI or LLM-related product work is mentioned in the resume."
+                },
+                {
+                  "requirement": "Cross-functional leadership spanning 3+ engineering teams plus PMM, Sales, Ops",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows leading a team of 6 engineers and 2 designers, but no evidence of cross-functional work spanning 3+ eng teams with PMM/Sales/Ops."
+                },
+                {
+                  "requirement": "0-1 instincts with execution rigor (built net-new and improved production systems)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Owned Faster Payments integration and redesigned claims flow, showing some build/improve range, but not in the shopping/ads domain the posting targets."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+              "jobContentHash": "sha256:d5b5e078b15e83df5a91e283ecc334e4e219fac849fb7d307543b8ca11abd4d9",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T18:47:14.085Z"
+            },
+            {
+              "jobId": "job-vgmpb0",
+              "score5": 1.5,
+              "confidence": "high",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Both resume and posting involve consumer-facing fintech products at scale (2.1M customers for Revolut card controls vs. Coinbase retail trading app)",
+                "Resume shows data-driven feature impact (34% settlement failure reduction, 18% chargeback reduction) aligning with the posting's emphasis on defining success metrics and measurable outcomes",
+                "Resume lists Product Analytics and SQL, matching the posting's ask for advanced quantitative and analytical skills"
+              ],
+              "gaps": [
+                "No product marketing, growth marketing, or GTM experience — resume is entirely product management/engineering delivery",
+                "No trading, investing, derivatives, or crypto industry experience",
+                "No evidence of campaign execution, channel planning, creative briefing, or CRM/growth partnership work",
+                "No experience with trader segments or financial trading customer behavior"
+              ],
+              "requirements": [
+                {
+                  "requirement": "8+ years of product marketing, growth marketing, or product management experience in a consumer-facing app driving trading/financial product adoption",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Candidate has ~7 years (2018-present) of product management (not marketing) experience in consumer-facing fintech/payments apps, but no product marketing or growth marketing background."
+                },
+                {
+                  "requirement": "Hands-on experience marketing trading, investing, or derivatives products (Robinhood, SoFi, Kraken, Binance, etc.)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows payments and card-controls experience at Starling Bank and Revolut; no trading, investing, derivatives, or crypto product experience evidenced."
+                },
+                {
+                  "requirement": "Proven ability to own product launches and growth strategy end-to-end (positioning, messaging, channel execution, performance measurement)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows product management delivery (engineering, feature ownership) not marketing positioning, messaging, or channel/growth campaign ownership."
+                },
+                {
+                  "requirement": "Experience running large-scale growth programs, engagement campaigns, or win-back initiatives",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No evidence of running marketing campaigns, CRM programs, or win-back initiatives; work described is product/engineering delivery."
+                },
+                {
+                  "requirement": "Advanced quantitative/analytical skills defining success metrics and running experiments",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume lists Product Analytics and SQL skills and cites metrics like 34% reduction and 18% reduction, suggesting some data-driven work, though not tied to marketing experimentation."
+                },
+                {
+                  "requirement": "Deep customer understanding across trader segments",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No trading customer segmentation or trader behavior work evidenced; customer work is around payments/chargebacks/card controls."
+                }
+              ],
+              "blockers": [
+                {
+                  "code": "required_qualification",
+                  "description": "Role requires hands-on trading/investing/derivatives product marketing experience and 8+ years in product marketing or growth marketing; candidate's background is product management in payments/banking with no marketing or trading domain experience.",
+                  "evidenceIds": [],
+                  "certainty": "confirmed_blocker"
+                }
+              ],
+              "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+              "jobContentHash": "sha256:5c9ead34cffff346dc0a2c82aafde59f6aef57cb5fe18f0739d9e87187b10590",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T18:47:18.106Z"
+            },
+            {
+              "jobId": "job-1sbjtqu",
+              "score5": 1.5,
+              "confidence": "high",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Both resume and posting involve payments-adjacent product work: candidate 'Owned the Faster Payments integration' while the role oversees 'treasury/investments/EPM' and payments-related finance systems.",
+                "Both value stakeholder/cross-functional leadership: resume lists 'Stakeholder Management' and led a team of 6 engineers/2 designers; posting requires navigating 'complex matrixed environments' and coaching a team of PMs.",
+                "Both emphasize data-driven, measurable product outcomes: resume cites concrete metrics (34% cut in settlement failures, 18% reduction in chargeback disputes); posting wants roadmap prioritization using 'measurable outcomes such as close cycle reduction, automation rates.'"
+              ],
+              "gaps": [
+                "No evidence of enterprise Finance SaaS/ERP systems experience (treasury, P2P, R2R, QTC, payroll, equity, EPM) — resume is consumer banking/fintech focused",
+                "No evidence of managing other product managers (player-coach structure) as opposed to engineers/designers",
+                "No evidence of AI/automation transformation work in finance operations",
+                "No evidence of vendor selection, build-vs-buy decisions, or executive-level advisory work"
+              ],
+              "requirements": [
+                {
+                  "requirement": "Lead product management for enterprise Finance SaaS portfolio (treasury, P2P, R2R, QTC, payroll, equity)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows consumer/fintech payments product work at Starling Bank and Revolut, not enterprise finance systems (ERP, treasury, R2R, EPM)."
+                },
+                {
+                  "requirement": "Player-coach managing a team of SaaS product managers",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Candidate led a team of 6 engineers and 2 designers at Starling, showing people leadership, but not management of other product managers or SaaS-specific domains."
+                },
+                {
+                  "requirement": "Advise senior executives and navigate complex matrixed environments for Finance & AI Transformation",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No evidence of executive advisory work or finance transformation initiatives in resume; experience is focused on payments feature delivery."
+                },
+                {
+                  "requirement": "Build-vs-buy and vendor selection decisions for enterprise SaaS stack",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No vendor management or procurement experience evidenced."
+                },
+                {
+                  "requirement": "AI-enabled finance workflows (close automation, anomaly detection, approval copilots)",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows Product Analytics and SQL skills but no AI/automation project experience, and nothing in finance operations (close, SOX, R2R)."
+                },
+                {
+                  "requirement": "Product analytics and stakeholder management",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Resume lists Stakeholder Management and Product Analytics as skills, and shows cross-functional delivery (34% settlement failure reduction, 18% chargeback reduction) working with engineers and designers."
+                },
+                {
+                  "requirement": "Payments domain knowledge",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "strong",
+                  "explanation": "Candidate owned Faster Payments integration and card controls at Starling Bank/Revolut, which touches payments but is consumer-facing, not the treasury/payments-ops finance-systems scope this role describes."
+                }
+              ],
+              "blockers": [],
+              "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+              "jobContentHash": "sha256:a6a4522f6f36db424ee5fc5ef3befa5ee5acf6971c3538dba71a20046b8f2366",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T18:47:28.992Z"
+            },
+            {
+              "jobId": "job-1l1o124",
+              "score5": 1.8,
+              "confidence": "high",
+              "recommendation": "skip",
+              "workAuthorization": "unstated",
+              "legitimacy": "high_confidence",
+              "strengths": [
+                "Experience in regulated financial services operations: Starling Bank Faster Payments integration cutting settlement failures 34%, aligning with the posting's need for operational rigor in regulated environments",
+                "Track record of cross-functional delivery leading engineers and designers, matching the posting's requirement to 'partner closely with Product, Engineering, Risk, Accounting, Compliance' though in a different domain",
+                "Demonstrated ability to redesign processes for measurable outcomes (18% reduction in chargeback disputes via redesigned claims flow), similar in spirit to the posting's ask for 'process redesign' work"
+              ],
+              "gaps": [
+                "No listed derivatives, futures, options, or FCM/broker-dealer domain experience at all",
+                "No trade processing systems, margin monitoring, or books-and-records experience",
+                "Background is Product Management (people leadership) rather than Product Operations/Business Operations IC track the posting explicitly seeks",
+                "No evidence of regulatory reporting experience in US derivatives markets or transformation initiatives in that ecosystem"
+              ],
+              "requirements": [
+                {
+                  "requirement": "Deep knowledge of listed derivatives, futures operations, and broker-dealer or FCM workflows",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "Resume shows retail payments and card products (Faster Payments, chargebacks) at Starling and Revolut, no derivatives, futures, or FCM/broker-dealer experience."
+                },
+                {
+                  "requirement": "Significant experience in operations, product operations, business operations, or program leadership in regulated financial services",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Candidate worked in regulated fintech (Starling, Revolut, UK banking/payments), but titles are Product Manager, not product/business operations or program leadership."
+                },
+                {
+                  "requirement": "Hands-on technical knowledge of trade processing systems, books and records",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No trade processing, books and records, or capital markets infrastructure experience evidenced; skills listed are SQL, Figma, Product Analytics."
+                },
+                {
+                  "requirement": "Experience leading large-scale transformation initiatives in the listed derivatives ecosystem",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "missing",
+                  "explanation": "No derivatives ecosystem exposure; transformation work cited is in payments settlement and claims flow, unrelated domain."
+                },
+                {
+                  "requirement": "Proven ability to operate autonomously at senior IC level with strategic and hands-on execution",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume shows people-management (led team of 6 engineers, 2 designers) rather than senior IC track, and posting explicitly wants an IC role."
+                },
+                {
+                  "requirement": "Partnering with Product and Engineering to build scalable operating solutions",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Candidate has cross-functional product delivery experience (owned Faster Payments integration, led engineers/designers), which is transferable collaboration experience but not in an operations-partnering capacity."
+                },
+                {
+                  "requirement": "Excellent analytical, prioritization, communication and systems-thinking skills",
+                  "jobEvidenceIds": [],
+                  "candidateFactIds": [],
+                  "match": "partial",
+                  "explanation": "Resume demonstrates analytical impact (34% settlement failure cut, 18% chargeback reduction) suggesting strong analytical skill, though not in the FCM/regulatory reporting context specified."
+                }
+              ],
+              "blockers": [
+                {
+                  "code": "required_qualification",
+                  "description": "Posting requires 'deep knowledge of listed derivatives, futures operations, and broker-dealer or FCM workflows' — resume shows no evidence of this domain at all, in payments/banking only.",
+                  "evidenceIds": [],
+                  "certainty": "confirmed_blocker"
+                }
+              ],
+              "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+              "jobContentHash": "sha256:f0429ef013e41c79423a72a3cd72827b4b9ae79f4de7cec0f9bb858be407063d",
+              "preferencesVersion": 1,
+              "modelVersion": "claude-sonnet-5",
+              "schemaVersion": 1,
+              "completedAt": "2026-09-25T18:47:33.758Z"
+            }
+          ],
+          "rankedJobIds": [
+            "job-10l2y3s",
+            "job-crbu63",
+            "job-10jcevb",
+            "job-1l1o124",
+            "job-1sprd0f",
+            "job-cccvpd",
+            "job-nyv7rq",
+            "job-1sbjtqu",
+            "job-vgmpb0",
+            "job-vyu5ee"
+          ]
+        },
+        "error": null
+      },
+      "prepare": {
+        "stage": "prepare",
+        "status": "completed",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "prepare-0",
+            "stage": "prepare",
+            "label": "Matching evidence to roles",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:47:33.771Z",
+            "completedAt": "2026-09-25T18:47:33.846Z",
+            "error": null
+          },
+          {
+            "id": "prepare-1",
+            "stage": "prepare",
+            "label": "Tailoring resumes",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:47:33.774Z",
+            "completedAt": "2026-09-25T18:48:25.273Z",
+            "error": null
+          },
+          {
+            "id": "prepare-2",
+            "stage": "prepare",
+            "label": "Drafting letters",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:47:33.774Z",
+            "completedAt": "2026-09-25T18:48:25.275Z",
+            "error": null
+          },
+          {
+            "id": "prepare-3",
+            "stage": "prepare",
+            "label": "Checking packages",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:48:25.267Z",
+            "completedAt": "2026-09-25T18:49:12.845Z",
+            "error": null
+          }
+        ],
+        "result": {
+          "kind": "prepare",
+          "preparedJobIds": [
+            "job-10l2y3s",
+            "job-crbu63",
+            "job-10jcevb",
+            "job-1l1o124",
+            "job-1sprd0f",
+            "job-cccvpd",
+            "job-nyv7rq",
+            "job-1sbjtqu",
+            "job-vgmpb0",
+            "job-vyu5ee"
+          ],
+          "blockedJobIds": [],
+          "failedJobIds": []
+        },
+        "error": null
+      }
+    },
+    "evidence": [],
+    "jobs": [
+      {
+        "id": "job-crbu63",
+        "company": "Stripe",
+        "title": "Staff Product Manager, Payments Intelligence",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=8209996",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=8209996",
+          "fetchedAt": "2026-09-25T18:46:27.195Z",
+          "postingContentHash": "sha256:54f624e09bb4400d67799747cd04bab0aa29c3fe65fbf78514aaecdf35073c9f",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "NYC, SF, Seattle, US - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-21T12:39:58.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-vyu5ee",
+        "company": "Cloudflare",
+        "title": "Senior Product Manager - Application Protection & Governance",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://boards.greenhouse.io/cloudflare/jobs/8200670?gh_jid=8200670",
+          "applicationUrl": "https://boards.greenhouse.io/cloudflare/jobs/8200670?gh_jid=8200670",
+          "fetchedAt": "2026-09-25T18:46:27.160Z",
+          "postingContentHash": "sha256:3984a3c39ba76b76da9e3fc7b68a225fdbf671eef81eecd072fe294df4ff1071",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Hybrid · London, United Kingdom · New York, NY",
+        "workStyle": "hybrid",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-17T08:38:57.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Cloudflare",
+          "displayName": "Hiring team · Cloudflare",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-nyv7rq",
+        "company": "Cloudflare",
+        "title": "Senior Product Manager, Email Security",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://boards.greenhouse.io/cloudflare/jobs/8173954?gh_jid=8173954",
+          "applicationUrl": "https://boards.greenhouse.io/cloudflare/jobs/8173954?gh_jid=8173954",
+          "fetchedAt": "2026-09-25T18:46:27.160Z",
+          "postingContentHash": "sha256:1a3c080d6847001dd0b6a5c0e49733eb0831cb5f5cb49e0e3bc066dc69a9c161",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Hybrid · Austin, TX · Lisbon, Portugal · London, United Kingdom",
+        "workStyle": "hybrid",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-11T19:30:11.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Cloudflare",
+          "displayName": "Hiring team · Cloudflare",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-10l2y3s",
+        "company": "Monzo",
+        "title": "Lead Product Manager, Payments",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/monzo/jobs/8156058",
+          "applicationUrl": "https://job-boards.greenhouse.io/monzo/jobs/8156058",
+          "fetchedAt": "2026-09-25T18:46:27.126Z",
+          "postingContentHash": "sha256:8c7ebf848c14709a4cb1542a4105cea4fa872d7665d8e7e3bab39240f3630e42",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "London",
+        "workStyle": null,
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-25T11:25:10.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Monzo",
+          "displayName": "Hiring team · Monzo",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-cccvpd",
+        "company": "Stripe",
+        "title": "Product Marketing Manager, Payments",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=8142770",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=8142770",
+          "fetchedAt": "2026-09-25T18:46:27.192Z",
+          "postingContentHash": "sha256:ad6673cb7d4624f7ea740cf92b0b89cdbdc5bced4f3c5de63a187e0c8795234d",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote in the US, Chicago, Toronto",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-19T20:38:49.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-10jcevb",
+        "company": "Monzo",
+        "title": "Senior Product Marketing Manager, Business Banking",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/monzo/jobs/8121253",
+          "applicationUrl": "https://job-boards.greenhouse.io/monzo/jobs/8121253",
+          "fetchedAt": "2026-09-25T18:46:27.127Z",
+          "postingContentHash": "sha256:0d516d3fbbd70f31c057b22867daac71601ba0161a34ccc75c3fbe11418af105",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Cardiff, London or Remote (UK)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-12T07:54:42.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Monzo",
+          "displayName": "Hiring team · Monzo",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1sprd0f",
+        "company": "Reddit",
+        "title": "Senior Product Manager, Ads -  Shopping Catalogs",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/reddit/jobs/8120503",
+          "applicationUrl": "https://job-boards.greenhouse.io/reddit/jobs/8120503",
+          "fetchedAt": "2026-09-25T18:46:27.203Z",
+          "postingContentHash": "sha256:d5b5e078b15e83df5a91e283ecc334e4e219fac849fb7d307543b8ca11abd4d9",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-11T19:00:25.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Reddit",
+          "displayName": "Hiring team · Reddit",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-vgmpb0",
+        "company": "Coinbase",
+        "title": "Senior Product Marketing Manager, Trading",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8077090?gh_jid=8077090",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8077090?gh_jid=8077090",
+          "fetchedAt": "2026-09-25T18:46:27.199Z",
+          "postingContentHash": "sha256:5c9ead34cffff346dc0a2c82aafde59f6aef57cb5fe18f0739d9e87187b10590",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-10T19:18:26.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1sbjtqu",
+        "company": "Reddit",
+        "title": "Group Product Manager, Finance Technology",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/reddit/jobs/8075185",
+          "applicationUrl": "https://job-boards.greenhouse.io/reddit/jobs/8075185",
+          "fetchedAt": "2026-09-25T18:46:27.202Z",
+          "postingContentHash": "sha256:a6a4522f6f36db424ee5fc5ef3befa5ee5acf6971c3538dba71a20046b8f2366",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-06T15:00:50.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Reddit",
+          "displayName": "Hiring team · Reddit",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1l1o124",
+        "company": "Coinbase",
+        "title": "Senior Manager Product Operations, FCM Ops",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8110496?gh_jid=8110496",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8110496?gh_jid=8110496",
+          "fetchedAt": "2026-09-25T18:46:27.199Z",
+          "postingContentHash": "sha256:f0429ef013e41c79423a72a3cd72827b4b9ae79f4de7cec0f9bb858be407063d",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-06T04:37:18.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-ks0rj0",
+        "company": "Coinbase",
+        "title": "Senior Enterprise Product  Marketing Manager, Base",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8084049?gh_jid=8084049",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8084049?gh_jid=8084049",
+          "fetchedAt": "2026-09-25T18:46:27.199Z",
+          "postingContentHash": "sha256:2b1e08368199a3f3507a347f9f9cc8c4d2ecd00f11bf402b83bf3f487096f3f4",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-24T19:58:07.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-oh4k0h",
+        "company": "GoCardless",
+        "title": "Senior Product Manager",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/gocardless/jobs/8064518",
+          "applicationUrl": "https://job-boards.greenhouse.io/gocardless/jobs/8064518",
+          "fetchedAt": "2026-09-25T18:46:27.124Z",
+          "postingContentHash": "sha256:4ed4de27e2ec3b1e02d1a0fff69880239ce2483c1bae8ba015378fac6cb2205d",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "London, UK",
+        "workStyle": null,
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-20T08:01:05.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "GoCardless",
+          "displayName": "Hiring team · GoCardless",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-o1156k",
+        "company": "Coinbase",
+        "title": "Group Product Manager, Compliance Agent Experience",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8060662?gh_jid=8060662",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8060662?gh_jid=8060662",
+          "fetchedAt": "2026-09-25T18:46:27.198Z",
+          "postingContentHash": "sha256:8c7b6ae318b0040275002c9426b8b5fe117c07ee9845ba49cae3fda5fb888c5f",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-14T05:16:28.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1hdh1x8",
+        "company": "Coinbase",
+        "title": "Senior Product Manager, Help Center (CX Automation)",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8031208?gh_jid=8031208",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8031208?gh_jid=8031208",
+          "fetchedAt": "2026-09-25T18:46:27.199Z",
+          "postingContentHash": "sha256:0d4fde3bb544e2bbc79d160446c56c2da1a4aca115c205a7a6414cf6158ccd19",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - India",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-06T21:04:46.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1vmae1o",
+        "company": "Coinbase",
+        "title": "Group Product Manager, Developer Infrastructure",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8017607?gh_jid=8017607",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8017607?gh_jid=8017607",
+          "fetchedAt": "2026-09-25T18:46:27.198Z",
+          "postingContentHash": "sha256:d2c682d463eb0b02b8ce8a1446fc3a26018b912131d5fdf2bb8834a57d930527",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-06-19T19:25:19.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1gl3ifw",
+        "company": "Coinbase",
+        "title": "Group Product Manager, Compliance Automation",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/7701642?gh_jid=7701642",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/7701642?gh_jid=7701642",
+          "fetchedAt": "2026-09-25T18:46:27.198Z",
+          "postingContentHash": "sha256:43b5e8fe4c578b5bcbfb98a79ca42bf4b98b6ad84901a6da1adc9915df247c82",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-06-12T21:08:36.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-yr4irg",
+        "company": "Coinbase",
+        "title": "Group Product Manager, Core Infrastructure & Reliability",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/7997785?gh_jid=7997785",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/7997785?gh_jid=7997785",
+          "fetchedAt": "2026-09-25T18:46:27.198Z",
+          "postingContentHash": "sha256:94fe39b6879a6e215df2ea1a67065a0c1e7d0a1aff8d80ad0e6d539d368bbf22",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-06-10T20:30:15.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-p8gt2c",
+        "company": "Monzo",
+        "title": "Senior Product Marketing Manager",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/monzo/jobs/7861991",
+          "applicationUrl": "https://job-boards.greenhouse.io/monzo/jobs/7861991",
+          "fetchedAt": "2026-09-25T18:46:27.127Z",
+          "postingContentHash": "sha256:7737a4bc72ab30c677b6e3bfb3005d02d1ce2b90c7d73abcb73588540fc86b67",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Cardiff, London or Remote (UK)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-04-29T12:33:47.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Monzo",
+          "displayName": "Hiring team · Monzo",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-xml5r",
+        "company": "Stripe",
+        "title": "Senior Product Manager, Enterprise",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=7812856",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=7812856",
+          "fetchedAt": "2026-09-25T18:46:27.193Z",
+          "postingContentHash": "sha256:b666869cf9bbd5073b153acf7b329680c90cee4378ebdfeeac6552fd94e3d382",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "San Francisco, Seattle, New York, Chicago, Atlanta, Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-04-22T00:01:23.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-xqw4z",
+        "company": "Stripe",
+        "title": "Staff Product Manager, Payments",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=7819059",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=7819059",
+          "fetchedAt": "2026-09-25T18:46:27.195Z",
+          "postingContentHash": "sha256:6d8dec2f9b780484b1b6a4ce872f671fede579499622dc3361c7504f5f3ee6dc",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "SF, SEA, NYC, Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-04-15T18:12:39.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-koj076",
+        "company": "Ramp",
+        "title": "Senior Manager, Head of Talent Operations",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/ramp/bdd28c40-f95b-43df-bebe-3b8a25c8f602",
+          "applicationUrl": "https://jobs.ashbyhq.com/ramp/bdd28c40-f95b-43df-bebe-3b8a25c8f602",
+          "fetchedAt": "2026-09-25T18:46:27.218Z",
+          "postingContentHash": "sha256:666fe86501901e17a2694f2961878dbdd14f04c49e2980853c2b990e4b1b62d2",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "New York, NY (HQ) · San Francisco, CA · San Fransisco · USA · Remote (US) · United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-02-16T21:45:14.991Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Ramp",
+          "displayName": "Hiring team · Ramp",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1wqsjlt",
+        "company": "Stripe",
+        "title": "Product Manager, Payments",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=7176530",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=7176530",
+          "fetchedAt": "2026-09-25T18:46:27.192Z",
+          "postingContentHash": "sha256:5ac7531a8124b065f556e5c0d0cee9a9fbbe56976fdf0b6e7fc937ca331b118b",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "SF, NY, SEA, Remote-US",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2025-08-25T17:00:49.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-6ddk89",
+        "company": "Ramp",
+        "title": "Senior Channel Partner Manager, Strategic Advisory",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/ramp/d2beca4a-7409-404b-8382-761e5db6e917",
+          "applicationUrl": "https://jobs.ashbyhq.com/ramp/d2beca4a-7409-404b-8382-761e5db6e917",
+          "fetchedAt": "2026-09-25T18:46:27.218Z",
+          "postingContentHash": "sha256:4aa42bb17257ab4d7dc9ed3adaea039b59f0d31c53fa9d21615c34928ce51878",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "New York, NY (HQ) · Remote (US) · United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-25T17:58:44.966Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Ramp",
+          "displayName": "Hiring team · Ramp",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-18tdv75",
+        "company": "Ramp",
+        "title": "Senior Channel Partner Manager, Global Advisory / GSI",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/ramp/b4908db8-ac21-4c7f-b544-a66fffbfb97e",
+          "applicationUrl": "https://jobs.ashbyhq.com/ramp/b4908db8-ac21-4c7f-b544-a66fffbfb97e",
+          "fetchedAt": "2026-09-25T18:46:27.218Z",
+          "postingContentHash": "sha256:fec016b03383772cec7e632bb34b588e2ed97ed7ce90c9e84297028945e7d309",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "New York, NY (HQ) · Remote (US) · United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-25T17:54:58.408Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Ramp",
+          "displayName": "Hiring team · Ramp",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1w8t5c4",
+        "company": "Databricks",
+        "title": "Staff Product Manager, US Public Sector",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8831555002",
+          "applicationUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8831555002",
+          "fetchedAt": "2026-09-25T18:46:27.179Z",
+          "postingContentHash": "sha256:4b82c7a2aec40eed17860d1b4a1b8fc446ec29490f78eb7d1215674292bb126e",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - California; Remote - Virginia; Remote - Washington D.C.",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-23T20:56:53.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Databricks",
+          "displayName": "Hiring team · Databricks",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-nvyeja",
+        "company": "Cloudflare",
+        "title": "Senior Sales Manager, Central Eastern Europe - Digital Natives",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://boards.greenhouse.io/cloudflare/jobs/8219962?gh_jid=8219962",
+          "applicationUrl": "https://boards.greenhouse.io/cloudflare/jobs/8219962?gh_jid=8219962",
+          "fetchedAt": "2026-09-25T18:46:27.161Z",
+          "postingContentHash": "sha256:ff17dcfeb807824dff9bc92602718c4914e42ce854111e4b26d411d493f033e8",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Hybrid · London, United Kingdom",
+        "workStyle": "hybrid",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-22T09:37:54.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Cloudflare",
+          "displayName": "Hiring team · Cloudflare",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1t6tmgw",
+        "company": "Reddit",
+        "title": "Senior Technical Solutions Manager",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/reddit/jobs/8221539",
+          "applicationUrl": "https://job-boards.greenhouse.io/reddit/jobs/8221539",
+          "fetchedAt": "2026-09-25T18:46:27.203Z",
+          "postingContentHash": "sha256:ee0444a1dcdd4eec2251b9d19ac959c74167579fd5a5dbd4a6ba5be47c65c15a",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "London, United Kingdom",
+        "workStyle": null,
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-21T20:27:23.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Reddit",
+          "displayName": "Hiring team · Reddit",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-90ppq4",
+        "company": "Coinbase",
+        "title": "Senior Data Scientist, Product",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8206668?gh_jid=8206668",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8206668?gh_jid=8206668",
+          "fetchedAt": "2026-09-25T18:46:27.199Z",
+          "postingContentHash": "sha256:af0c6d62d352591f6b8a47f5d95e7a98846e9924b7b4061384e31be90c7b635e",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - UK",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-16T23:45:14.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-lh6kae",
+        "company": "Cloudflare",
+        "title": "Senior Engineering Manager, Observability",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://boards.greenhouse.io/cloudflare/jobs/8185558?gh_jid=8185558",
+          "applicationUrl": "https://boards.greenhouse.io/cloudflare/jobs/8185558?gh_jid=8185558",
+          "fetchedAt": "2026-09-25T18:46:27.158Z",
+          "postingContentHash": "sha256:d7c3db0106e65c3bdaaf5b54a1c5ee000c9e1b3869a2504d8170d11d38738bf4",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Hybrid · Austin, TX · Lisbon, Portugal · London, United Kingdom · New York, NY",
+        "workStyle": "hybrid",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-16T15:37:45.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Cloudflare",
+          "displayName": "Hiring team · Cloudflare",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-hqnqu7",
+        "company": "Databricks",
+        "title": "Senior Manager, AI Forward Deployed Engineering - London",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8793863002",
+          "applicationUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8793863002",
+          "fetchedAt": "2026-09-25T18:46:27.169Z",
+          "postingContentHash": "sha256:6e566889487688949cb68482cc5fc7d54bd59a1bf06a2fe027af9966dd4ac31d",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "London, United Kingdom",
+        "workStyle": null,
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-16T13:15:12.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Databricks",
+          "displayName": "Hiring team · Databricks",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1rw6rmk",
+        "company": "Coinbase",
+        "title": "Product Manager II, Growth - Notifications",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8204571?gh_jid=8204571",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8204571?gh_jid=8204571",
+          "fetchedAt": "2026-09-25T18:46:27.199Z",
+          "postingContentHash": "sha256:feab658b2c1232c89a5e4e5650f9258f38727ecf19e9583c3a02aff62c4400d3",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-15T17:09:55.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-10z9w4k",
+        "company": "Monzo",
+        "title": "Operational Tax, Senior Manager",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/monzo/jobs/8200681",
+          "applicationUrl": "https://job-boards.greenhouse.io/monzo/jobs/8200681",
+          "fetchedAt": "2026-09-25T18:46:27.126Z",
+          "postingContentHash": "sha256:af290a2ac9c063ee33387ecf8ef5b4deea3f3d6427c98155963a32eebbde77ab",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Cardiff, London or Remote (UK)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-15T15:34:38.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Monzo",
+          "displayName": "Hiring team · Monzo",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-w8o0bg",
+        "company": "Coinbase",
+        "title": "Senior Performance Marketing Manager, Global Paid Social & Mobile UA",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8192485?gh_jid=8192485",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8192485?gh_jid=8192485",
+          "fetchedAt": "2026-09-25T18:46:27.199Z",
+          "postingContentHash": "sha256:9f99be48505dd1581765a245df442a3241efb8f638234b075e4c5de6a2addbca",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-15T15:27:26.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-cej9t5",
+        "company": "Stripe",
+        "title": "Sales Manager, Product- Fraud & Risk",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=8181036",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=8181036",
+          "fetchedAt": "2026-09-25T18:46:27.193Z",
+          "postingContentHash": "sha256:d0e69cc02ac5cf8dd013daaa472628814e81b52069f5b6b5e7089bdff976d025",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "San Francisco, NYC, Seattle, Chicago, Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-11T23:43:50.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-ylnfw6",
+        "company": "Cloudflare",
+        "title": "Senior Engineering Manager — Network Connectivity",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://boards.greenhouse.io/cloudflare/jobs/8185723?gh_jid=8185723",
+          "applicationUrl": "https://boards.greenhouse.io/cloudflare/jobs/8185723?gh_jid=8185723",
+          "fetchedAt": "2026-09-25T18:46:27.158Z",
+          "postingContentHash": "sha256:990d1fc5ba293c3dc56dc5b6f42dcaa2d415b08d0072454555dc56a7418ea8bb",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Hybrid · Austin, TX · Lisbon, Portugal · London, United Kingdom",
+        "workStyle": "hybrid",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-10T09:55:27.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Cloudflare",
+          "displayName": "Hiring team · Cloudflare",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-ccbjf0",
+        "company": "Stripe",
+        "title": "Product Manager, Mobile",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=8140438",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=8140438",
+          "fetchedAt": "2026-09-25T18:46:27.192Z",
+          "postingContentHash": "sha256:b1c34206f1a4347ab595a9feb9b39a9038fbd4b92ba2939616dfabe30399a047",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "New York City, Toronto, Chicago, or Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-09T17:11:56.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-gqhrfa",
+        "company": "Cloudflare",
+        "title": "Product Manager, Browser Extension",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://boards.greenhouse.io/cloudflare/jobs/8173899?gh_jid=8173899",
+          "applicationUrl": "https://boards.greenhouse.io/cloudflare/jobs/8173899?gh_jid=8173899",
+          "fetchedAt": "2026-09-25T18:46:27.156Z",
+          "postingContentHash": "sha256:f9f9c20153d9e022cbc36d3e1c1dd23cd66074cc985b35609985435c15b369ab",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Hybrid · Austin, TX · Lisbon, Portugal · London, United Kingdom",
+        "workStyle": "hybrid",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-08T22:04:23.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Cloudflare",
+          "displayName": "Hiring team · Cloudflare",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-11529t8",
+        "company": "Ramp",
+        "title": "Senior Channel Partner Manager, Canada",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/ramp/ad9d3118-1ab4-488a-a6e8-3784082f92a4",
+          "applicationUrl": "https://jobs.ashbyhq.com/ramp/ad9d3118-1ab4-488a-a6e8-3784082f92a4",
+          "fetchedAt": "2026-09-25T18:46:27.219Z",
+          "postingContentHash": "sha256:f8f6ddf063f58499d543c038dbdaf861e0c7b103c4dfc1ebacfdd2b8b7eb4112",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Toronto, ON · Remote (Canada) · Canada",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-08T19:01:52.588Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Ramp",
+          "displayName": "Hiring team · Ramp",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-ceiqj3",
+        "company": "Stripe",
+        "title": "Engineering Manager, Billing Products",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=8180536",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=8180536",
+          "fetchedAt": "2026-09-25T18:46:27.188Z",
+          "postingContentHash": "sha256:eac8aff6674b0e085ac3d5aff2c238475e7ac774010e62db754c6341d5948636",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "US-Remote, Chicago",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-08T16:06:52.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1st26th",
+        "company": "Reddit",
+        "title": "Senior Manager, Community Growth & Intelligence",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/reddit/jobs/8180811",
+          "applicationUrl": "https://job-boards.greenhouse.io/reddit/jobs/8180811",
+          "fetchedAt": "2026-09-25T18:46:27.202Z",
+          "postingContentHash": "sha256:4af753912d7b49aea3822ee8ceefc6579b65b8e0fa68801ce112108735453f51",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-04T20:38:11.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Reddit",
+          "displayName": "Hiring team · Reddit",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      }
+    ],
+    "assessments": [
+      {
+        "jobId": "job-vyu5ee",
+        "score5": 1.5,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Demonstrated end-to-end product ownership (owned Faster Payments integration, led team of 6 engineers + 2 designers) matching the posting's call for owning the entire user journey and cross-functional leadership.",
+          "Track record of shipping measurable outcomes (34% reduction in settlement failures, 18% reduction in chargeback disputes) aligning with the posting's emphasis on measurement, feedback loops, and iteration."
+        ],
+        "gaps": [
+          "No evidence of application security, API/web protection, or abuse/threat pattern experience required for this role.",
+          "No evidence of working with security specialists, security roadmaps, or technical security documentation.",
+          "No LLM/API protection, schema-aware enforcement, or third/fourth-party integration risk experience evidenced.",
+          "Domain background is entirely payments/banking, not security or infrastructure/network products relevant to Cloudflare's core offering."
+        ],
+        "requirements": [
+          {
+            "requirement": "Experience with application security, web/API protection, threat/abuse patterns",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows payments and banking product management (Faster Payments, chargeback claims flow) with no evidence of application security, API protection, or threat/abuse mitigation work."
+          },
+          {
+            "requirement": "Own product roadmap for security controls (schema-aware enforcement, LLM/API protection)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No security-domain roadmap ownership evidenced; candidate's roadmap experience is in payments settlement and card controls."
+          },
+          {
+            "requirement": "Partner with security specialists and engineering on protection products",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Candidate partnered with engineers/designers on payments features, not security specialists or security product lines."
+          },
+          {
+            "requirement": "Voice of customer / GTM enablement for technical security features",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "not_applicable",
+            "explanation": "Resume shows customer-facing work (claims flow reaching 2.1M customers) but in a payments/banking context, not security GTM enablement."
+          },
+          {
+            "requirement": "Cross-functional leadership owning end-to-end product journey",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows leading a team of 6 engineers and 2 designers and owning Faster Payments integration end-to-end, demonstrating cross-functional product ownership."
+          },
+          {
+            "requirement": "Stakeholder management and shipping measurable outcomes",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume demonstrates shipped outcomes (34% reduction in settlement failures, 18% reduction in chargeback disputes) paired with 'Stakeholder Management' skill, matching the posting's emphasis on measurement and iteration."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "jobContentHash": "sha256:3984a3c39ba76b76da9e3fc7b68a225fdbf671eef81eecd072fe294df4ff1071",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:46:38.706Z"
+      },
+      {
+        "jobId": "job-crbu63",
+        "score5": 2.6,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Direct payments domain experience: Faster Payments settlement failure reduction (34%) and chargeback dispute claims flow redesign (18%) map closely to the team's Radar/Authorization Boost/Disputes product ownership.",
+          "Quantified, outcome-driven track record (34% settlement failure cut, 18% chargeback reduction reaching 2.1M customers) aligns with the posting's emphasis on analytical rigor and measurable business impact.",
+          "Experience owning payments features end-to-end (Faster Payments integration) matches the posting's call to 'build and launch new capabilities and products' in payments."
+        ],
+        "gaps": [
+          "Posting requires 10+ years of PM experience; resume shows roughly 6-7 years of PM experience (2018-present).",
+          "No evidence of AI/ML-driven prediction or intelligence platform work, which the posting highlights as core to the role.",
+          "No evidence of direct customer or third-party partner-facing experience, a stated minimum requirement.",
+          "No evidence of setting long-term multi-year product vision/strategy at a Staff-level cross-functional scope."
+        ],
+        "requirements": [
+          {
+            "requirement": "10+ years of Product Management experience",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows PM roles starting 2018 (Revolut) through present at Starling — roughly 6-7 years of experience, not the 10+ minimum stated."
+          },
+          {
+            "requirement": "Payments domain expertise",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows direct payments work: Faster Payments settlement failure reduction (34%) at Starling and chargeback/dispute claims flow redesign (18% reduction) at Revolut, closely aligned to the team's ownership of Radar/Authorization Boost/Disputes."
+          },
+          {
+            "requirement": "Building fraud/risk/intelligence platform features (Radar, Authorization Boost)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Chargeback disputes reduction touches fraud/risk adjacent work, but no evidence of building AI/ML-driven prediction or scoring platforms, which the posting emphasizes ('real-time predictions', 'leverage AI')."
+          },
+          {
+            "requirement": "Customer and partner-facing experience",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume emphasizes internal team leadership (led 6 engineers, 2 designers) and stakeholder management skill, but does not evidence direct customer/partner-facing conversations."
+          },
+          {
+            "requirement": "Setting long-term vision/strategy and roadmap for a platform",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows feature ownership (Faster Payments integration, claims flow redesign) but no explicit evidence of setting multi-year platform vision or strategy at the scale implied by 'Staff' level."
+          },
+          {
+            "requirement": "Analytical horsepower / data-driven decision making",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume lists Product Analytics and SQL as skills, and quantifies outcomes (34% and 18% reductions), matching the posting's 'dig deep into the data' requirement."
+          },
+          {
+            "requirement": "Staff-level scope (cross-functional leadership across Eng, Design, Data Science, Marketing, Sales)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows leading a team of 6 engineers and 2 designers, smaller in scope than the posting's cross-org collaboration across Engineering, Design, Data Science, Marketing, Sales, Account Management, Operations."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "jobContentHash": "sha256:54f624e09bb4400d67799747cd04bab0aa29c3fe65fbf78514aaecdf35073c9f",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:46:41.548Z"
+      },
+      {
+        "jobId": "job-nyv7rq",
+        "score5": 1.8,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Both the resume and posting emphasize turning customer/market insight into shipped, quantified product outcomes — resume cites 34% settlement failure reduction and 18% chargeback reduction, posting seeks someone who can 'ship faster' and iterate.",
+          "Resume demonstrates leading cross-functional teams (6 engineers, 2 designers) matching the posting's need for a PM who can 'connect customer needs across the enterprise' and drive initiatives with dedicated leadership.",
+          "London is listed as one of the posting's available locations, matching the candidate's current location."
+        ],
+        "gaps": [
+          "No evidence of email security, cybersecurity, threat intelligence, or Zero Trust domain experience — the posting's core subject matter.",
+          "No evidence of technical/infrastructure product management (Gateway, CASB, cloud-native security stack integration).",
+          "Entire resume background is in payments/banking (Starling, Revolut), a distinctly different vertical from enterprise security software.",
+          "No evidence of experience differentiating an enterprise-grade platform against competitors in a security market."
+        ],
+        "requirements": [
+          {
+            "requirement": "Experienced, technical product manager owning an enterprise-grade email security platform",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows PM experience but entirely in consumer/enterprise payments (Faster Payments, card controls, chargebacks) at Starling and Revolut — no evidence of security, email security, or cybersecurity domain work."
+          },
+          {
+            "requirement": "Deep familiarity with threat intelligence, detections, phishing/BEC, Zero Trust security concepts",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No mention in the resume of threat intelligence, security detections, Zero Trust, or any adjacent security domain knowledge."
+          },
+          {
+            "requirement": "Own strategic roadmap for a technical security product integrated with a broader security stack (Gateway, CASB)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Candidate has owned payments feature roadmaps (Faster Payments integration) but no evidence of infrastructure/security-stack product ownership."
+          },
+          {
+            "requirement": "Cross-functional leadership shaping product direction with engineering/design teams",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows leading a team of 6 engineers and 2 designers at Starling Bank, demonstrating cross-functional PM leadership."
+          },
+          {
+            "requirement": "Data/insight-driven decision-making translating customer and market insight into shipped outcomes",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume states 'turning customer and market insight into shipped outcomes' with quantified results (34% settlement failure cut, 18% chargeback reduction), showing a similar insight-to-execution pattern, though in a different domain (payments, not security)."
+          },
+          {
+            "requirement": "Technical fluency for an 'AI-first, cloud-native' security product",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume lists SQL, Product Analytics, Figma, Stakeholder Management — no cloud, AI, or security-platform technical skills evidenced."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "jobContentHash": "sha256:1a3c080d6847001dd0b6a5c0e49733eb0831cb5f5cb49e0e3bc066dc69a9c161",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:46:51.829Z"
+      },
+      {
+        "jobId": "job-10l2y3s",
+        "score5": 3.2,
+        "confidence": "medium",
+        "recommendation": "consider",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Direct payments domain background: resume title 'Senior Product Manager, Payments' at Starling Bank matches the posting's Payments team focus.",
+          "Resume shows measurable payments-reliability impact ('cutting settlement failures by 34%') aligning with the posting's emphasis on financial infrastructure that 'help Monzo scale... and keep the bank running safely.'",
+          "Cross-functional team leadership (6 engineers, 2 designers) supports the posting's requirement to 'build trusted relationships with senior stakeholders across Finance, Engineering, Product and Operations.'",
+          "BSc Computer Science plus hands-on engineering-team leadership offers some technical grounding for the posting's ask of partnering credibly with engineers on systems and trade-offs."
+        ],
+        "gaps": [
+          "No evidenced experience with ledgers, reconciliation, or financial-systems/platform infrastructure — the posting's core subject matter.",
+          "No evidence of working across multiple entities, countries, currencies, or regulatory environments as the role requires.",
+          "No evidence of Finance-team stakeholder partnership specifically (vs. general stakeholder management).",
+          "No evidence of shifting a team from reactive delivery to a strategic, product-led roadmap approach, which is an explicit expectation."
+        ],
+        "requirements": [
+          {
+            "requirement": "Senior PM experience owning complex technical, platform, infrastructure or financial systems",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows senior PM ownership of Faster Payments integration at Starling and card controls at Revolut — payments product ownership, but not explicitly platform/infrastructure or ledger-level systems."
+          },
+          {
+            "requirement": "Experience with ledgers, reconciliation, financial data, controls, reporting, internal platforms",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume mentions settlement failures and chargeback disputes but no evidence of ledger design, reconciliation systems, or internal platform/abstraction work."
+          },
+          {
+            "requirement": "Technical depth to partner credibly with engineers on architecture/trade-offs",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows a BSc Computer Science and leading engineering/design teams, suggesting technical fluency, but no direct evidence of systems architecture reasoning."
+          },
+          {
+            "requirement": "Partnering with Finance, Engineering, Product and Operations stakeholders",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume lists 'Stakeholder Management' as a skill and cross-functional team leadership, but no specific Finance-stakeholder experience is evidenced."
+          },
+          {
+            "requirement": "Moving teams from reactive delivery to strategic, product-led approach across multiple products/entities/currencies",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No resume evidence of multi-entity, multi-currency, or regulatory-environment platform scaling work."
+          },
+          {
+            "requirement": "Payments domain experience",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume: 'Senior Product Manager, Payments' at Starling and payments-focused PM role at Revolut, directly matching Monzo's Payments team context."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "jobContentHash": "sha256:8c7ebf848c14709a4cb1542a4105cea4fa872d7665d8e7e3bab39240f3630e42",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:46:54.686Z"
+      },
+      {
+        "jobId": "job-cccvpd",
+        "score5": 1.8,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Deep payments domain expertise (Faster Payments integration, chargeback/claims flow) directly relevant to the payments products this role markets",
+          "Track record of data-driven, measurable outcomes (34% settlement failure reduction, 18% chargeback reduction) matching the posting's emphasis on leveraging data for impact"
+        ],
+        "gaps": [
+          "No product marketing experience — resume is entirely product management (roadmap, engineering leadership, feature delivery)",
+          "No evidence of messaging/positioning development or sales enablement material creation",
+          "No evidence of cross-functional GTM execution with sales and demand-gen teams",
+          "No content creation or thought leadership experience"
+        ],
+        "requirements": [
+          {
+            "requirement": "7+ years of product marketing experience at a technology company",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows product management experience (Senior PM, PM) at fintechs, not product marketing. No marketing titles, campaigns, or GTM ownership evidenced."
+          },
+          {
+            "requirement": "Experience developing messaging, positioning, and sales enablement materials",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No mention of messaging, positioning, or sales enablement work in the resume; work described is engineering/feature delivery and team leadership."
+          },
+          {
+            "requirement": "Managing cross-functional GTM efforts with product, sales, and marketing",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows cross-functional work with engineers and designers on product delivery, not GTM coordination with sales/marketing."
+          },
+          {
+            "requirement": "Creating thought leadership content and marketing materials",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No content creation, thought leadership, or marketing collateral experience listed."
+          },
+          {
+            "requirement": "Leverage data to identify opportunities and drive results",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume demonstrates data-driven outcomes (34% reduction in settlement failures, 18% reduction in chargebacks) via Product Analytics, though applied to product improvement, not marketing strategy."
+          },
+          {
+            "requirement": "Domain knowledge of payments products (Link, Financial Connections)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Deep payments domain experience at Starling Bank and Revolut (Faster Payments, card controls, claims flow) is relevant subject-matter background, though not specific to Stripe's Link/Financial Connections products."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "jobContentHash": "sha256:ad6673cb7d4624f7ea740cf92b0b89cdbdc5bced4f3c5de63a187e0c8795234d",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:47:01.959Z"
+      },
+      {
+        "jobId": "job-10jcevb",
+        "score5": 2,
+        "confidence": "medium",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Resume shows payments and banking domain experience (Faster Payments integration at Starling, card controls at Revolut) which overlaps with Monzo's banking product space",
+          "Resume demonstrates ability to translate customer/market insight into shipped outcomes, a theme central to the Monzo Product Marketing role's 'insight into positioning' remit"
+        ],
+        "gaps": [
+          "No product marketing experience (positioning, messaging, GTM, sales enablement) — resume is entirely product management/engineering delivery focused",
+          "No business/SMB banking or European market expansion experience",
+          "No evidence of cross-functional marketing/growth campaign partnership",
+          "No prior title or scope indicating ownership of a product marketing function"
+        ],
+        "requirements": [
+          {
+            "requirement": "Senior Product Marketing experience owning positioning, messaging, GTM strategy for a product area",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows Senior Product Manager / Product Manager roles (Starling, Revolut) with engineering/design team leadership and feature delivery, not product marketing ownership of positioning, messaging, or go-to-market strategy."
+          },
+          {
+            "requirement": "Partnering with Integrated Marketing/Growth on campaign strategy, creative direction, channel execution",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No marketing, campaign, or channel execution experience evidenced; resume focuses on payments engineering delivery and product analytics."
+          },
+          {
+            "requirement": "Sales enablement and working at intersection of Product and commercial teams",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence of sales enablement or commercial narrative work in the resume."
+          },
+          {
+            "requirement": "Business Banking / SMB domain knowledge, especially expansion into European markets",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume experience is in consumer payments (Faster Payments, card controls, chargebacks) at Starling and Revolut, not business/SMB banking or European market expansion."
+          },
+          {
+            "requirement": "Deep customer and market insight translated into product strategy",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows use of customer/market insight to ship product outcomes (34% settlement failure cut, 18% chargeback reduction), which is adjacent but framed as product management, not product marketing strategy."
+          },
+          {
+            "requirement": "Payments/fintech domain background",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows direct payments background: 'Owned the Faster Payments integration' at Starling Bank and card/claims work at Revolut, aligning with Monzo's banking domain generally."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "jobContentHash": "sha256:0d516d3fbbd70f31c057b22867daac71601ba0161a34ccc75c3fbe11418af105",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:47:06.050Z"
+      },
+      {
+        "jobId": "job-1sprd0f",
+        "score5": 1.8,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Both resume and posting require substantial Product Management tenure - candidate has ~6-7 years of PM experience against the 5+ year requirement.",
+          "Both show experience leading and working with engineering teams - candidate led 6 engineers and 2 designers, matching the posting's expectation of cross-functional engineering collaboration.",
+          "Both involve shipping measurable, high-impact product outcomes - candidate's 34% settlement failure reduction and 18% chargeback reduction parallel the posting's emphasis on driving concrete metrics like ROAS."
+        ],
+        "gaps": [
+          "No AdTech, retail media, marketplaces, or e-commerce platform experience (posting requires 3+ years).",
+          "No evidence of product knowledge graph, entity resolution, or taxonomy work at scale.",
+          "No AI/LLM product-building experience or agentic workflow fluency.",
+          "No shopping or digital commerce domain background; entire career is in payments/banking."
+        ],
+        "requirements": [
+          {
+            "requirement": "5+ years of Product Management experience",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows PM roles from 2018-present (Revolut, then Starling Bank), roughly 6-7 years."
+          },
+          {
+            "requirement": "At least 3 years in AdTech, retail media, marketplaces, or shopping/e-commerce platforms",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows payments and banking product experience (Starling Bank, Revolut) with no evidence of AdTech, retail media, marketplaces, or e-commerce platforms."
+          },
+          {
+            "requirement": "Experience with product knowledge graphs, product entity resolution, or product taxonomies at scale",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No mention of product knowledge graphs, entity resolution, or taxonomy work in the resume."
+          },
+          {
+            "requirement": "Understanding of how digital shopping works (organic or paid)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No shopping, e-commerce, or advertising domain experience evidenced; background is in payments/claims/card controls."
+          },
+          {
+            "requirement": "AI fluency - building AI products, agentic workflows",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No AI or LLM-related product work is mentioned in the resume."
+          },
+          {
+            "requirement": "Cross-functional leadership spanning 3+ engineering teams plus PMM, Sales, Ops",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows leading a team of 6 engineers and 2 designers, but no evidence of cross-functional work spanning 3+ eng teams with PMM/Sales/Ops."
+          },
+          {
+            "requirement": "0-1 instincts with execution rigor (built net-new and improved production systems)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Owned Faster Payments integration and redesigned claims flow, showing some build/improve range, but not in the shopping/ads domain the posting targets."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "jobContentHash": "sha256:d5b5e078b15e83df5a91e283ecc334e4e219fac849fb7d307543b8ca11abd4d9",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:47:14.085Z"
+      },
+      {
+        "jobId": "job-vgmpb0",
+        "score5": 1.5,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Both resume and posting involve consumer-facing fintech products at scale (2.1M customers for Revolut card controls vs. Coinbase retail trading app)",
+          "Resume shows data-driven feature impact (34% settlement failure reduction, 18% chargeback reduction) aligning with the posting's emphasis on defining success metrics and measurable outcomes",
+          "Resume lists Product Analytics and SQL, matching the posting's ask for advanced quantitative and analytical skills"
+        ],
+        "gaps": [
+          "No product marketing, growth marketing, or GTM experience — resume is entirely product management/engineering delivery",
+          "No trading, investing, derivatives, or crypto industry experience",
+          "No evidence of campaign execution, channel planning, creative briefing, or CRM/growth partnership work",
+          "No experience with trader segments or financial trading customer behavior"
+        ],
+        "requirements": [
+          {
+            "requirement": "8+ years of product marketing, growth marketing, or product management experience in a consumer-facing app driving trading/financial product adoption",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Candidate has ~7 years (2018-present) of product management (not marketing) experience in consumer-facing fintech/payments apps, but no product marketing or growth marketing background."
+          },
+          {
+            "requirement": "Hands-on experience marketing trading, investing, or derivatives products (Robinhood, SoFi, Kraken, Binance, etc.)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows payments and card-controls experience at Starling Bank and Revolut; no trading, investing, derivatives, or crypto product experience evidenced."
+          },
+          {
+            "requirement": "Proven ability to own product launches and growth strategy end-to-end (positioning, messaging, channel execution, performance measurement)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows product management delivery (engineering, feature ownership) not marketing positioning, messaging, or channel/growth campaign ownership."
+          },
+          {
+            "requirement": "Experience running large-scale growth programs, engagement campaigns, or win-back initiatives",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence of running marketing campaigns, CRM programs, or win-back initiatives; work described is product/engineering delivery."
+          },
+          {
+            "requirement": "Advanced quantitative/analytical skills defining success metrics and running experiments",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume lists Product Analytics and SQL skills and cites metrics like 34% reduction and 18% reduction, suggesting some data-driven work, though not tied to marketing experimentation."
+          },
+          {
+            "requirement": "Deep customer understanding across trader segments",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No trading customer segmentation or trader behavior work evidenced; customer work is around payments/chargebacks/card controls."
+          }
+        ],
+        "blockers": [
+          {
+            "code": "required_qualification",
+            "description": "Role requires hands-on trading/investing/derivatives product marketing experience and 8+ years in product marketing or growth marketing; candidate's background is product management in payments/banking with no marketing or trading domain experience.",
+            "evidenceIds": [],
+            "certainty": "confirmed_blocker"
+          }
+        ],
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "jobContentHash": "sha256:5c9ead34cffff346dc0a2c82aafde59f6aef57cb5fe18f0739d9e87187b10590",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:47:18.106Z"
+      },
+      {
+        "jobId": "job-1sbjtqu",
+        "score5": 1.5,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Both resume and posting involve payments-adjacent product work: candidate 'Owned the Faster Payments integration' while the role oversees 'treasury/investments/EPM' and payments-related finance systems.",
+          "Both value stakeholder/cross-functional leadership: resume lists 'Stakeholder Management' and led a team of 6 engineers/2 designers; posting requires navigating 'complex matrixed environments' and coaching a team of PMs.",
+          "Both emphasize data-driven, measurable product outcomes: resume cites concrete metrics (34% cut in settlement failures, 18% reduction in chargeback disputes); posting wants roadmap prioritization using 'measurable outcomes such as close cycle reduction, automation rates.'"
+        ],
+        "gaps": [
+          "No evidence of enterprise Finance SaaS/ERP systems experience (treasury, P2P, R2R, QTC, payroll, equity, EPM) — resume is consumer banking/fintech focused",
+          "No evidence of managing other product managers (player-coach structure) as opposed to engineers/designers",
+          "No evidence of AI/automation transformation work in finance operations",
+          "No evidence of vendor selection, build-vs-buy decisions, or executive-level advisory work"
+        ],
+        "requirements": [
+          {
+            "requirement": "Lead product management for enterprise Finance SaaS portfolio (treasury, P2P, R2R, QTC, payroll, equity)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows consumer/fintech payments product work at Starling Bank and Revolut, not enterprise finance systems (ERP, treasury, R2R, EPM)."
+          },
+          {
+            "requirement": "Player-coach managing a team of SaaS product managers",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Candidate led a team of 6 engineers and 2 designers at Starling, showing people leadership, but not management of other product managers or SaaS-specific domains."
+          },
+          {
+            "requirement": "Advise senior executives and navigate complex matrixed environments for Finance & AI Transformation",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence of executive advisory work or finance transformation initiatives in resume; experience is focused on payments feature delivery."
+          },
+          {
+            "requirement": "Build-vs-buy and vendor selection decisions for enterprise SaaS stack",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No vendor management or procurement experience evidenced."
+          },
+          {
+            "requirement": "AI-enabled finance workflows (close automation, anomaly detection, approval copilots)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows Product Analytics and SQL skills but no AI/automation project experience, and nothing in finance operations (close, SOX, R2R)."
+          },
+          {
+            "requirement": "Product analytics and stakeholder management",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume lists Stakeholder Management and Product Analytics as skills, and shows cross-functional delivery (34% settlement failure reduction, 18% chargeback reduction) working with engineers and designers."
+          },
+          {
+            "requirement": "Payments domain knowledge",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Candidate owned Faster Payments integration and card controls at Starling Bank/Revolut, which touches payments but is consumer-facing, not the treasury/payments-ops finance-systems scope this role describes."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "jobContentHash": "sha256:a6a4522f6f36db424ee5fc5ef3befa5ee5acf6971c3538dba71a20046b8f2366",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:47:28.992Z"
+      },
+      {
+        "jobId": "job-1l1o124",
+        "score5": 1.8,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Experience in regulated financial services operations: Starling Bank Faster Payments integration cutting settlement failures 34%, aligning with the posting's need for operational rigor in regulated environments",
+          "Track record of cross-functional delivery leading engineers and designers, matching the posting's requirement to 'partner closely with Product, Engineering, Risk, Accounting, Compliance' though in a different domain",
+          "Demonstrated ability to redesign processes for measurable outcomes (18% reduction in chargeback disputes via redesigned claims flow), similar in spirit to the posting's ask for 'process redesign' work"
+        ],
+        "gaps": [
+          "No listed derivatives, futures, options, or FCM/broker-dealer domain experience at all",
+          "No trade processing systems, margin monitoring, or books-and-records experience",
+          "Background is Product Management (people leadership) rather than Product Operations/Business Operations IC track the posting explicitly seeks",
+          "No evidence of regulatory reporting experience in US derivatives markets or transformation initiatives in that ecosystem"
+        ],
+        "requirements": [
+          {
+            "requirement": "Deep knowledge of listed derivatives, futures operations, and broker-dealer or FCM workflows",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows retail payments and card products (Faster Payments, chargebacks) at Starling and Revolut, no derivatives, futures, or FCM/broker-dealer experience."
+          },
+          {
+            "requirement": "Significant experience in operations, product operations, business operations, or program leadership in regulated financial services",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Candidate worked in regulated fintech (Starling, Revolut, UK banking/payments), but titles are Product Manager, not product/business operations or program leadership."
+          },
+          {
+            "requirement": "Hands-on technical knowledge of trade processing systems, books and records",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No trade processing, books and records, or capital markets infrastructure experience evidenced; skills listed are SQL, Figma, Product Analytics."
+          },
+          {
+            "requirement": "Experience leading large-scale transformation initiatives in the listed derivatives ecosystem",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No derivatives ecosystem exposure; transformation work cited is in payments settlement and claims flow, unrelated domain."
+          },
+          {
+            "requirement": "Proven ability to operate autonomously at senior IC level with strategic and hands-on execution",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows people-management (led team of 6 engineers, 2 designers) rather than senior IC track, and posting explicitly wants an IC role."
+          },
+          {
+            "requirement": "Partnering with Product and Engineering to build scalable operating solutions",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Candidate has cross-functional product delivery experience (owned Faster Payments integration, led engineers/designers), which is transferable collaboration experience but not in an operations-partnering capacity."
+          },
+          {
+            "requirement": "Excellent analytical, prioritization, communication and systems-thinking skills",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume demonstrates analytical impact (34% settlement failure cut, 18% chargeback reduction) suggesting strong analytical skill, though not in the FCM/regulatory reporting context specified."
+          }
+        ],
+        "blockers": [
+          {
+            "code": "required_qualification",
+            "description": "Posting requires 'deep knowledge of listed derivatives, futures operations, and broker-dealer or FCM workflows' — resume shows no evidence of this domain at all, in payments/banking only.",
+            "evidenceIds": [],
+            "certainty": "confirmed_blocker"
+          }
+        ],
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "jobContentHash": "sha256:f0429ef013e41c79423a72a3cd72827b4b9ae79f4de7cec0f9bb858be407063d",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:47:33.758Z"
+      }
+    ],
+    "applications": [
+      {
+        "jobId": "job-10l2y3s",
+        "version": 2,
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "tailoredResumeArtifactId": "ac692201-3630-4611-a914-35dd5c0e51a2",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent the last several years making payments infrastructure more reliable at scale, and Monzo's Finance Infrastructure squad is exactly the kind of \"boring but critical\" problem I want to work on next.\n\nAt Starling Bank, I own the Faster Payments integration as Senior Product Manager, Payments, where I cut settlement failures by 34%. That work meant getting deep into the mechanics of how payments actually clear and fail, and working closely with engineers to fix the systems underneath rather than just the symptoms customers saw. I led a team of 6 engineers and 2 designers through that, which meant building the trust and shared context with engineering that this role clearly needs.\n\nBefore Starling, at Revolut, I redesigned the claims flow for card controls used by 2.1 million customers, cutting chargeback disputes by 18%. That project taught me how much product discipline it takes to untangle a messy operational process into something scalable, which sounds close to what you're describing with reconciliation and controls at Monzo.\n\nI'd welcome a conversation about how this experience maps to what you need in Finance Infrastructure specifically. Happy to find a time that works.",
+            "subject": "Application: Lead Product Manager, Payments",
+            "updatedAt": "2026-09-25T18:47:41.972Z",
+            "contentHash": "sha256:f983b71f749a90d8804da12761dec066cbc1714cb2c81626de04ba72b80a2889",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:8c7ebf848c14709a4cb1542a4105cea4fa872d7665d8e7e3bab39240f3630e42"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:47:43.065Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:632b45b6f7aa065812e607dff313ff60cec0493cde6743b8d49eaddcd31bfc54"
+      },
+      {
+        "jobId": "job-10jcevb",
+        "version": 2,
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "tailoredResumeArtifactId": "56a72747-00b7-41f9-944a-3950c4b60457",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my career sitting exactly where this role starts: upstream, turning customer and market signal into decisions about what actually gets built and shipped. That's been my job at Starling and Revolut, in payments and banking products used by millions, and it's the instinct I'd bring to Business Banking as Monzo expands into Europe.\n\nTwo examples that map directly onto what you're describing. At Starling, I owned the Faster Payments integration end to end, working from a clear read of where the product was failing customers to a 34% cut in settlement failures. That meant translating a technical and customer problem into a plan the team could actually execute against, then owning it through to the result. At Revolut, I led a redesign of the claims flow based on where customers were getting stuck, which cut chargeback disputes by 18% and touched 2.1 million customers. Both were about reading the problem correctly before deciding what to launch.\n\nI haven't held a product marketing title before. My background is product management and delivery, not positioning or campaign work, so I want to be upfront about that rather than have it surface later. What I do bring is direct, hands-on experience in the exact domain you're hiring into: banking and payments, at the scale Monzo operates at, with a track record of shipping outcomes rather than just recommendations.\n\nIf that combination is worth a conversation, I'd welcome a short call to talk through how it might fit.",
+            "subject": "Application: Senior Product Marketing Manager, Business Banking",
+            "updatedAt": "2026-09-25T18:48:03.258Z",
+            "contentHash": "sha256:4ca113055fa9f5c0c2124800940860682da7d99ab9448b7b7b2704eed7fc4977",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:0d516d3fbbd70f31c057b22867daac71601ba0161a34ccc75c3fbe11418af105"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:48:04.320Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:447d888ed49ae63419955dd7971c183026d5506791d1e35d93b0a73765d45fb9"
+      },
+      {
+        "jobId": "job-1l1o124",
+        "version": 2,
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "tailoredResumeArtifactId": "68e930ca-7c25-4b61-8c26-4f8fc6054dbc",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my career making regulated payments infrastructure more reliable, working across engineering, design, and the constraints of financial services to ship changes that measurably reduce failure rates. That's the same problem FCM Ops is solving, just in a different market.\n\nAt Starling Bank, I owned the Faster Payments integration and cut settlement failures by 34%, working through the operational rigor that regulated payment rails demand. At Revolut, I redesigned the claims flow behind card disputes and reduced chargeback disputes by 18%, a change that reached 2.1 million customers. Both were cross-functional efforts: at Starling I led a team of 6 engineers and 2 designers to get there, which is the kind of partnership across Product, Engineering, and other functions this role calls for.\n\nI should be upfront that my background is in listed derivatives-adjacent work rather than futures, options, or FCM/broker-dealer operations specifically, and my experience sits more in product management than the product operations track you're hiring for. What I bring is a proven pattern: taking a regulated, high-stakes workflow, finding where it breaks, and redesigning it with the people who run it day to day.\n\nIf that combination is worth a conversation, I'd welcome a call to talk through where it might fit.",
+            "subject": "Application: Senior Manager, Product Operations, FCM Ops",
+            "updatedAt": "2026-09-25T18:48:14.113Z",
+            "contentHash": "sha256:b29676c611bc8afb1a0e17691f50cdaf773d4d8849d5b9e3aab9057d739437bf",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:f0429ef013e41c79423a72a3cd72827b4b9ae79f4de7cec0f9bb858be407063d"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:48:15.017Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:7d0462df876e3b33eef4bebac015ae81292cfbcef3ae7b431eb2b2aed1da942e"
+      },
+      {
+        "jobId": "job-cccvpd",
+        "version": 2,
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "tailoredResumeArtifactId": "010674de-c4c0-4a40-87d4-eac2fa94e6d8",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent the last several years living inside payments products, not marketing them, but the two problems overlap more than people expect. Knowing why a settlement fails or why a customer disputes a charge is the same insight that shapes how you'd explain a product like Link or Financial Connections to the market.\n\nAt Starling Bank, I owned the Faster Payments integration and cut settlement failures by 34%. At Revolut, I redesigned the claims flow and reduced chargeback disputes by 18%, a change that reached 2.1 million customers through the card controls we launched. Both came from digging into data to find where the product was actually failing users, then fixing it. That instinct for using data to find the real opportunity, not just the obvious one, is what I'd bring to a role focused on GTM for payments products.\n\nMy background is product management, not product marketing, so I'd be stepping into messaging, positioning, and sales enablement as new territory. What I do bring is genuine fluency in how payments products break, why they matter to customers, and how to translate that technical reality into something clear.\n\nI'd welcome a short call to talk through whether that combination is useful for this role.",
+            "subject": "Application: Product Marketing Manager, Payments",
+            "updatedAt": "2026-09-25T18:48:33.503Z",
+            "contentHash": "sha256:10a741317a21e690b7872dbaf8f7eca923592f9d95fa259f0e7a2804e768041d",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:ad6673cb7d4624f7ea740cf92b0b89cdbdc5bced4f3c5de63a187e0c8795234d"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:48:34.244Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:fa3b97fd8491a18c4d8418566df90a49a34009203403f48619a96909da5560e8"
+      },
+      {
+        "jobId": "job-nyv7rq",
+        "version": 2,
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "tailoredResumeArtifactId": "46b85f09-983a-4bc9-a368-c467af8fa5af",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my career turning customer and market signal into shipped product outcomes that move real numbers, and I'd like to bring that same instinct to Cloudflare's Email Security team.\n\nAt Starling Bank, I owned the Faster Payments integration end to end, leading a team of 6 engineers and 2 designers, and cut settlement failures by 34%. At Revolut, I redesigned the claims flow for card disputes, reducing chargebacks by 18% for a feature used by 2.1 million customers. Both were cases of taking a trusted but flawed process, finding where it was breaking under real-world pressure, and shipping a fix that held up at scale, which is close to the kind of problem I understand your Email Security team is solving for the enterprise's most targeted communication channel.\n\nI should be upfront that my background is in payments and banking, not security or Zero Trust. What I do bring is experience leading cross-functional teams to ship measurable outcomes and a habit of turning ambiguous customer pain into a roadmap that a team can execute against. I'm currently based in London, one of the locations listed for this role.\n\nIf that combination is worth a conversation, I'd welcome a short call to talk through where it might fit.",
+            "subject": "Application: Senior Product Manager, Email Security",
+            "updatedAt": "2026-09-25T18:48:43.619Z",
+            "contentHash": "sha256:8e23f4d06c00ee4cacbd630145b5db2f9c107161ef5c634db033aa90b9aaa4b6",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:1a3c080d6847001dd0b6a5c0e49733eb0831cb5f5cb49e0e3bc066dc69a9c161"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:48:45.566Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:bffa635e5757dafb1528f3956011ed35bbfe007cd07781501fea3b61256fe7b2"
+      },
+      {
+        "jobId": "job-1sprd0f",
+        "version": 2,
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "tailoredResumeArtifactId": "21a7ff93-15ed-48a7-957d-c4df5baabdf0",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "Hello,\n\nCutting friction out of a system that touches millions of transactions is the kind of problem I've spent my career on, and it's what caught my eye about the Catalogs and Applied PKG role. Reducing advertiser onboarding time from days to hours is a systems and trust problem before it's anything else, and that's the space I've worked in.\n\nAt Starling Bank, I owned the Faster Payments integration and cut settlement failures by 34%, leading a team of 6 engineers and 2 designers through the kind of error-handling and reliability work that underpins any high-volume pipeline. Before that, at Revolut, I redesigned the claims flow for card disputes and reduced chargeback disputes by 18%, a change that reached 2.1 million customers. Both were cases of taking a system with real operational drag and shipping a fix that moved a hard number, not just a feature.\n\nI don't come from AdTech or shopping, and I want to be upfront about that rather than let it surface later. What I do bring is direct experience owning a piece of infrastructure that other teams and external users depend on, shipping improvements with engineering rigor, and being accountable for the metric it moves.\n\nIf that combination is useful for where Catalogs is headed, I'd welcome a short call to talk through where my background might fit and where it wouldn't.\n\nBest,\nPriya Raman",
+            "subject": "Application: Senior Product Manager, Ads - Shopping Catalogs",
+            "updatedAt": "2026-09-25T18:48:24.383Z",
+            "contentHash": "sha256:86e0c71a90ecb617127cadbe639f5b8011f509077c8de93f956aed2a1bf29049",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:d5b5e078b15e83df5a91e283ecc334e4e219fac849fb7d307543b8ca11abd4d9"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:48:25.266Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:fa8ddfa3df2b56e7dfbed72847528a373f3be156bf67f1118121e967c06f8751"
+      },
+      {
+        "jobId": "job-vgmpb0",
+        "version": 2,
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "tailoredResumeArtifactId": "b98cac9c-0130-47bc-885a-3ff84e28f7c9",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my career shipping consumer-facing fintech products where the metrics mattered as much as the feature itself, which is exactly the discipline this trading PMM role calls for.\n\nAt Revolut, I launched card controls that reached 2.1 million customers, and paired that scale with a redesign of the claims flow that cut chargeback disputes by 18%. At Starling Bank, I owned the Faster Payments integration and reduced settlement failures by 34%, working closely with a team of 6 engineers and 2 designers to get there. Both cases meant defining what success looked like up front, then using data (I work daily in SQL and product analytics) to prove the feature moved the number.\n\nI know the required background here points toward direct trading or growth marketing experience, which isn't the shape of my resume. What I bring instead is a track record of taking a complex product, breaking it down to what actually changes customer behavior, and holding myself to a measurable outcome rather than a shipped feature. That's the same job, applied to a different product surface.\n\nI'd welcome a short call to talk through where that translates and where it doesn't.",
+            "subject": "Application: Senior Product Marketing Manager, Trading",
+            "updatedAt": "2026-09-25T18:49:03.011Z",
+            "contentHash": "sha256:88c825a13ff9ed18815eadb5e0ecd37fb79282b6e3b8253dfb484e899720b151",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:5c9ead34cffff346dc0a2c82aafde59f6aef57cb5fe18f0739d9e87187b10590"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:49:03.651Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:595465f09c32d2aa74592a1cb8511e15ff015feb718657ab8207593ac170cb13"
+      },
+      {
+        "jobId": "job-1sbjtqu",
+        "version": 2,
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "tailoredResumeArtifactId": "49be40bb-2864-4b5d-9027-37a1ec91c231",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my career making payments systems more reliable and easier to manage, and I'm drawn to the scope of this role: setting product direction across a Finance SaaS portfolio while staying hands-on with the work.\n\nAt Starling Bank, I owned the Faster Payments integration end to end, cutting settlement failures by 34%. That work meant thinking about a payments system the way this role asks about the Finance stack: where the manual points of failure are, what a fix looks like operationally, and how to measure whether it actually worked. At Revolut, I redesigned the claims flow for card disputes and reduced chargeback disputes by 18%, a project that reached 2.1 million customers and required translating a messy operational process into something a product team could actually build and ship against.\n\nBoth roles put me in the seam between engineering, operations, and the people who had to live with the process day to day. I led a team of 6 engineers and 2 designers at Starling and worked stakeholder management into every roadmap decision I made, because in payments the loudest requirements rarely come from a single team.\n\nI'd welcome a conversation about how that payments and stakeholder background maps onto the Finance SaaS portfolio you're building here.",
+            "subject": "Application: Group Product Manager, Finance Technology",
+            "updatedAt": "2026-09-25T18:48:54.167Z",
+            "contentHash": "sha256:d5faf4276efda16c4bfcff0c1987b1fc8409cb54cb474d64e5a82d80ca8d6f9a",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:a6a4522f6f36db424ee5fc5ef3befa5ee5acf6971c3538dba71a20046b8f2366"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:48:54.775Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:c4f9b396e942231e74cbca2c3f6061f27c7c077a766add3bbfeb68f01488d276"
+      },
+      {
+        "jobId": "job-crbu63",
+        "version": 2,
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "tailoredResumeArtifactId": "69ea0617-f6a2-44ab-918a-4949a12acbb5",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my product career in the exact problem space this team owns: keeping payments succeeding and disputes down at scale. At Starling Bank, I owned the Faster Payments integration end to end and cut settlement failures by 34%. At Revolut, I redesigned the chargeback claims flow, reducing disputes by 18% for a product reaching 2.1 million customers. Both are the kind of measurable, user-facing wins I'd want to bring to Radar, Authorization Boost, and Disputes.\n\nWhat draws me to this role is the mix of infrastructure ownership and direct business impact. Reducing settlement failures at Starling meant going deep on the technical mechanics of a payment rail while also thinking about what actually moved the needle for customers, which is the same balance this posting describes for Payments Intelligence. I led a team of 6 engineers and 2 designers on that work, so I'm used to setting direction for a cross-functional group and staying close to the data to know if it's working.\n\nI'll be upfront that my background is UK payments and banking rather than a platform serving billions of transactions with AI-driven predictions, and my product management experience runs about six to seven years rather than ten-plus. What I can point to is a consistent pattern of taking a payments problem, understanding it deeply, and shipping something that measurably reduces failures or disputes.\n\nI'd welcome a short call to talk through how that experience maps to what your team needs right now.\n\nPriya Raman",
+            "subject": "Application: Staff Product Manager, Payments Intelligence",
+            "updatedAt": "2026-09-25T18:47:52.677Z",
+            "contentHash": "sha256:c14680aca73a21a1b5797fca544d758b68e27cf88d44ab6385d96ddb5baf1340",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:54f624e09bb4400d67799747cd04bab0aa29c3fe65fbf78514aaecdf35073c9f"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:47:53.878Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:3d1bbec3527794fc0015b498df8d2dc36f36d604c32219e5d414946c9108efb8"
+      },
+      {
+        "jobId": "job-vyu5ee",
+        "version": 2,
+        "sourceResumeHash": "sha256:e02bd1bae0cf603c8ac26561680027b3026514419544568d7244e22a7c9aed39",
+        "tailoredResumeArtifactId": "bb604bcd-f5c4-46c6-8532-fee0db2942ce",
+        "letterArtifactId": null,
+        "letter": {
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my career owning products end to end, from roadmap to shipped outcome, and translating complex technical requirements into features that customers actually adopt. That's the core of what this role asks for, and it's what I do well.\n\nAt Starling Bank, I owned the Faster Payments integration outright, leading a team of 6 engineers and 2 designers, and cut settlement failures by 34%. That meant working through the full technical picture with engineering, setting priorities, and staying close to the metric until it moved. At Revolut, I redesigned the claims flow for card controls used by 2.1 million customers, reducing chargeback disputes by 18%. Both were cases of turning a messy operational problem into a measurable, shipped improvement, then iterating on what the data showed.\n\nMy background is in payments and banking rather than application security, so I'd bring a builder's instinct for ownership and measurement to a domain that's new to me. I'd welcome the chance to talk about how that experience could translate to protecting web and API applications at Cloudflare's scale.\n\nWould you be open to a short call to discuss the role further?",
+            "subject": "Application: Senior Product Manager - Application Protection & Governance",
+            "updatedAt": "2026-09-25T18:49:12.273Z",
+            "contentHash": "sha256:a073a1984a2f6f552d29c64da881bef852014030d3381ee270de8c3eb1f94c90",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:3984a3c39ba76b76da9e3fc7b68a225fdbf671eef81eecd072fe294df4ff1071"
+          }
+        },
+        "answers": [],
+        "readiness": {
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:49:12.838Z"
+        },
+        "capability": {
+          "kind": "manual_only",
+          "reason": "pilot_disabled"
+        },
+        "submission": {
+          "status": "not_approved"
+        },
+        "packageHash": "sha256:bbab95162167838d9e066deab548b93e45b68df6d99e1e6b9ae43a682aac63a0"
+      }
+    ],
+    "selection": {
+      "jobIds": [
+        "job-10l2y3s",
+        "job-crbu63",
+        "job-10jcevb",
+        "job-1l1o124",
+        "job-1sprd0f",
+        "job-cccvpd",
+        "job-nyv7rq",
+        "job-1sbjtqu",
+        "job-vgmpb0",
+        "job-vyu5ee"
+      ],
+      "version": 1,
+      "updatedAt": "2026-09-25T18:47:33.771Z"
+    },
+    "artifacts": [
+      {
+        "kind": "original_resume",
+        "createdAt": "2026-09-25T18:46:13.440Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "1a2bc87d-8ff5-4382-9cfa-13d4d8fc06c3"
+      },
+      {
+        "kind": "refined_resume_pdf",
+        "createdAt": "2026-09-25T18:46:13.445Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "53237844-9159-4da7-bb50-5c272ef91cf6"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:47:43.068Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "ac692201-3630-4611-a914-35dd5c0e51a2"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:47:53.879Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "69ea0617-f6a2-44ab-918a-4949a12acbb5"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:48:04.322Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "56a72747-00b7-41f9-944a-3950c4b60457"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:48:15.018Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "68e930ca-7c25-4b61-8c26-4f8fc6054dbc"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:48:25.269Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "21a7ff93-15ed-48a7-957d-c4df5baabdf0"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:48:34.245Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "010674de-c4c0-4a40-87d4-eac2fa94e6d8"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:48:45.567Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "46b85f09-983a-4bc9-a368-c467af8fa5af"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:48:54.777Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "49be40bb-2864-4b5d-9027-37a1ec91c231"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:49:03.653Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "b98cac9c-0130-47bc-885a-3ff84e28f7c9"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:49:12.840Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "bb604bcd-f5c4-46c6-8532-fee0db2942ce"
+      }
+    ],
+    "billing": {
+      "status": "not_started",
+      "mode": "test",
+      "promotionalCredit": null,
+      "entitlement": null,
+      "amountChargedMinor": 0,
+      "error": null
+    }
+  },
+  "ownerSessionId": "fe273a2a86e96253b4dc938dec4651126e3a69b9bcfda1a20e5de94ec9c3444d",
+  "billingRecordId": null,
+  "artifacts": {
+    "1a2bc87d-8ff5-4382-9cfa-13d4d8fc06c3": {
+      "kind": "original_resume",
+      "createdAt": "2026-09-25T18:46:13.440Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "1a2bc87d-8ff5-4382-9cfa-13d4d8fc06c3",
+      "relativePath": "originals/resume.pdf"
+    },
+    "53237844-9159-4da7-bb50-5c272ef91cf6": {
+      "kind": "refined_resume_pdf",
+      "createdAt": "2026-09-25T18:46:13.445Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "53237844-9159-4da7-bb50-5c272ef91cf6",
+      "relativePath": "output/base-resume.pdf"
+    },
+    "ac692201-3630-4611-a914-35dd5c0e51a2": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:47:43.068Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "ac692201-3630-4611-a914-35dd5c0e51a2",
+      "relativePath": "output/jobs/job-10l2y3s/cv.pdf"
+    },
+    "69ea0617-f6a2-44ab-918a-4949a12acbb5": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:47:53.879Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "69ea0617-f6a2-44ab-918a-4949a12acbb5",
+      "relativePath": "output/jobs/job-crbu63/cv.pdf"
+    },
+    "56a72747-00b7-41f9-944a-3950c4b60457": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:48:04.322Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "56a72747-00b7-41f9-944a-3950c4b60457",
+      "relativePath": "output/jobs/job-10jcevb/cv.pdf"
+    },
+    "68e930ca-7c25-4b61-8c26-4f8fc6054dbc": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:48:15.018Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "68e930ca-7c25-4b61-8c26-4f8fc6054dbc",
+      "relativePath": "output/jobs/job-1l1o124/cv.pdf"
+    },
+    "21a7ff93-15ed-48a7-957d-c4df5baabdf0": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:48:25.269Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "21a7ff93-15ed-48a7-957d-c4df5baabdf0",
+      "relativePath": "output/jobs/job-1sprd0f/cv.pdf"
+    },
+    "010674de-c4c0-4a40-87d4-eac2fa94e6d8": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:48:34.245Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "010674de-c4c0-4a40-87d4-eac2fa94e6d8",
+      "relativePath": "output/jobs/job-cccvpd/cv.pdf"
+    },
+    "46b85f09-983a-4bc9-a368-c467af8fa5af": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:48:45.567Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "46b85f09-983a-4bc9-a368-c467af8fa5af",
+      "relativePath": "output/jobs/job-nyv7rq/cv.pdf"
+    },
+    "49be40bb-2864-4b5d-9027-37a1ec91c231": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:48:54.777Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "49be40bb-2864-4b5d-9027-37a1ec91c231",
+      "relativePath": "output/jobs/job-1sbjtqu/cv.pdf"
+    },
+    "b98cac9c-0130-47bc-885a-3ff84e28f7c9": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:49:03.653Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "b98cac9c-0130-47bc-885a-3ff84e28f7c9",
+      "relativePath": "output/jobs/job-vgmpb0/cv.pdf"
+    },
+    "bb604bcd-f5c4-46c6-8532-fee0db2942ce": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:49:12.840Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "bb604bcd-f5c4-46c6-8532-fee0db2942ce",
+      "relativePath": "output/jobs/job-vyu5ee/cv.pdf"
+    }
+  }
+}

@@ -463,3 +463,138 @@ export function matchUser({ resumeFacts, job, jobDescription }) {
     "Return the structured assessment. If you could not read the job description, set scorable: false.",
   ].join("\n");
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Milestone 6 — per-job packages (tailored CV emphasis + one letter)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Letter register.
+ *
+ * `modes/_writing.md`'s two-tier rule is load-bearing here and cuts the OTHER
+ * way from the CV: Tier 2 conversational voice applies to "conversational
+ * candidate-facing prose: cover letters, LinkedIn outreach, follow-up emails"
+ * and must NOT be applied to CV bullets. So a letter may use first person and
+ * contractions where a CV bullet may not.
+ *
+ * Structure follows `modes/email.md` § Cold application structure: value first,
+ * two proof points tied to the company/domain, a specific ask. Explicitly NOT
+ * "I am looking for a job".
+ */
+const LETTER_REGISTER = `LETTER REGISTER (career-ops modes/_writing.md, Tier 2 — conversational prose):
+- First person and contractions are fine. This is a letter, not a CV bullet.
+- Value proposition FIRST. Never open with "I am looking for a job" or
+  "I am writing to apply for".
+- Exactly 2 proof points, each tied to this company or this domain, each drawn
+  from the candidate's own evidenced experience.
+- End with a specific, modest ask — a short call or a conversation.
+- No filler adjectives, no flattery about the company's "mission to disrupt",
+  no em dashes.
+- 4 short paragraphs maximum. A recruiter reads the first two lines.`;
+
+export async function letterSystem(codeRoot) {
+  const email = await readMode(codeRoot, "modes/email.md");
+  const writing = await readMode(codeRoot, "modes/_writing.md");
+
+  const parts = [
+    "You write ONE cover letter for ONE job, from this candidate's own evidenced experience.",
+    FACTUAL_STANDARD,
+    LETTER_REGISTER,
+  ];
+
+  if (email) {
+    // Only the structure and guardrail lines. The mode also tells an agent to
+    // resolve attachments, pick contacts and write files, none of which applies
+    // to a tool-less call.
+    const structure = email
+      .split("\n")
+      .filter((l) => /proof point|value proposition|specific ask|never|guardrail|do not/i.test(l))
+      .slice(0, 16)
+      .join("\n");
+    if (structure.trim()) {
+      parts.push(`STRUCTURE (from career-ops modes/email.md):\n${structure}`);
+    }
+  }
+
+  if (writing) {
+    const antiSlop = writing
+      .split("\n")
+      .filter((l) => /banned|dead phrase|avoid|em-dash/i.test(l))
+      .slice(0, 12)
+      .join("\n");
+    if (antiSlop.trim()) parts.push(`ANTI-SLOP GUARDRAIL:\n${antiSlop}`);
+  }
+
+  parts.push(
+    `THIS LETTER IS A DRAFT THE CANDIDATE WILL READ AND SEND THEMSELVES. Never
+state or imply that it has been sent, that a CV is attached, or that you
+contacted anyone. Do not invent a recipient name.`,
+  );
+
+  return parts.join("\n\n");
+}
+
+/**
+ * Package schema: the letter plus the emphasis for this job's tailored CV.
+ *
+ * `cvEmphasis` is a REORDERING instruction, not new content — it names which of
+ * the candidate's existing bullets matter most for this posting. The tailored
+ * CV is then built from the SAME payload stage 1 validated, reordered. That is
+ * what keeps "keywords get reformulated, never fabricated" true by
+ * construction: the builder never receives a sentence the model invented.
+ */
+export const PACKAGE_SCHEMA = {
+  type: "object",
+  properties: {
+    subject: {
+      type: "string",
+      description: 'Email subject. Plain, e.g. "Application: {role}".',
+    },
+    letter: {
+      type: "string",
+      description:
+        "The full letter body, ready to read. Plain text with blank lines between paragraphs. No markdown, no placeholders, no [BRACKETS].",
+    },
+    summary: {
+      type: "string",
+      description:
+        "A 2-3 line professional summary for the tailored CV, rewritten to lead with what this posting cares about. Facts only from the resume.",
+    },
+    emphasisOrder: {
+      type: "array",
+      items: { type: "string" },
+      description:
+        "The candidate's existing experience bullets, VERBATIM, reordered so the most relevant to this posting come first. Copy them exactly — do not reword, merge or add any.",
+    },
+  },
+  required: ["subject", "letter"],
+};
+
+export function packageUser({ resumeFacts, job, jobDescription, assessment }) {
+  const evidence = [
+    assessment?.strengths?.length
+      ? `Assessed strengths for this role:\n${assessment.strengths.map((s) => `- ${s}`).join("\n")}`
+      : "",
+    assessment?.gaps?.length
+      ? `Known gaps (do NOT claim these away, and do not raise them unprompted):\n${assessment.gaps.map((g) => `- ${g}`).join("\n")}`
+      : "",
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+
+  return [
+    `Write the letter and tailoring for this role.`,
+    "",
+    `ROLE: ${job.title} at ${job.company}${job.location ? ` (${job.location})` : ""}`,
+    // No invented recipient. The panel shows "Hiring team · Company".
+    `RECIPIENT: unknown. Address the hiring team generically. Do NOT invent a name.`,
+    "",
+    evidence,
+    "",
+    resumeFacts,
+    "",
+    jobDescription,
+    "",
+    "Return the structured package.",
+  ].join("\n");
+}

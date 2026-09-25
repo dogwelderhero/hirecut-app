@@ -160,6 +160,8 @@ async function handleMessage(runId: string, message: WorkerMessage): Promise<voi
       let payload = message.payload;
       if (message.type === "stage.result") {
         payload = await registerResultArtifacts(runId, payload);
+      } else if (message.type === "application.updated") {
+        payload = await registerPackageArtifacts(runId, payload);
       }
 
       await appendEvent(
@@ -249,4 +251,34 @@ async function registerResultArtifacts(runId: string, payload: unknown): Promise
       refinedResumeArtifactId: refinedId ?? result.refinedResumeArtifactId,
     },
   };
+}
+
+/**
+ * Mint artifact IDs for a package's tailored CV.
+ *
+ * Same rule as a stage result: the worker reports a relative path and the
+ * parent owns the registry, so `GET /artifacts/:id` resolves only through the
+ * owning run. A path that is already an ID is left alone, which makes this safe
+ * to run on the repeated `application.updated` events one package emits.
+ */
+async function registerPackageArtifacts(runId: string, payload: unknown): Promise<unknown> {
+  if (!payload || typeof payload !== "object") return payload;
+  const p = payload as { application?: Record<string, unknown> };
+  const app = p.application;
+  const rel = app?.tailoredResumeArtifactId;
+  if (!app || typeof rel !== "string" || !rel) return payload;
+  // Already an artifact ID (uuid), not a path — nothing to do.
+  if (/^[0-9a-f-]{36}$/.test(rel)) return payload;
+
+  const artifact = await registerArtifact(
+    runId,
+    {
+      kind: "tailored_resume_pdf",
+      createdAt: new Date().toISOString(),
+      bytes: 0,
+      contentHash: "",
+    } as never,
+    rel,
+  );
+  return { ...p, application: { ...app, tailoredResumeArtifactId: artifact.id } };
 }
