@@ -1,47 +1,90 @@
 "use client";
 
 /**
- * Screen 6 — the checkout overlay (02-screen-guide.md §8).
+ * Screen 11 — the checkout overlay.
  *
- * A modal over the PRESERVED live workspace, blurred and inert. Not a seventh
- * screen, and not a separately compiled static background.
+ * Ported to the reference tree exactly: `div.hc-credit-layer` IS the dialog
+ * (it carries `role="dialog"`), holding `button.hc-credit-close` and
+ * `div.hc-credit-grid` > (`div.hc-credit-left` > `section.hc-credit-offer` +
+ * `section.hc-credit-stories`) + `section.hc-checkout-form`.
  *
- * What this component does NOT do, by design:
- *  - It never charges. The experiment is card setup with $30 promotional credit
- *    and $0 due today: no PaymentIntent, no subscription, no off-session path.
- *  - It never collects a card number. Milestone 7 mounts Stripe's Payment
- *    Element in the slot below; the prototype's `4242` / expiry / CVC fields are
- *    deliberately absent so a PAN cannot reach a hirecute input, log or
- *    artifact even by accident.
- *  - Save-card consent is its OWN checkbox. §8 is explicit that the
- *    prototype's "approve applying to this batch" checkbox must not be reused
- *    as silent authorization to save a card.
- *  - Closing while a confirmation is pending claims neither success nor
- *    failure; the saved billing state reconciles on reopen.
+ * The blurred workspace behind it (`hc-credit-stage` / `hc-credit-background`)
+ * is the caller's job — here the layer is the scrim.
  *
- * Testimonials rotate every 7s with dots and pause/play, and pause on hover,
- * keyboard focus, hidden tab and reduced motion. They carry an explicit
- * "Illustrative example" label because no authenticated customer stories exist
- * yet — §8 forbids presenting unverified social proof as evidence.
+ * Four things the reference contains that §8 forbids shipping, each handled
+ * rather than reproduced:
+ *
+ *  1. **Card fields.** "Card number 4242 4242 4242 4242 / 12 / 30 / 123" as
+ *     read-only inputs with VISA and AMEX marks. §8: "Remove 4242, sample
+ *     expiry/CVC and read-only prototype fields ... Card numbers/CVC go
+ *     directly to Stripe, never into hirecute inputs, logs or run artifacts."
+ *     The `hc-credit-card-input` slot is kept and reserved for Stripe's
+ *     Payment Element, which also collects country. Until keys exist it says
+ *     so instead of pretending.
+ *  2. **Scarcity.** `hc-credit-capacity` — "Only 6 free trial spots left this
+ *     hour" over a twelve-bar meter. §8 permits a capacity count "only if
+ *     backed by real capacity; otherwise omit the scarcity count rather than
+ *     animate a fabricated one." Omitted entirely.
+ *  3. **Testimonial metrics.** `hc-story-results` — "Applications 24 /
+ *     Interviews 3 / Time saved 6 hrs". Not live evidence. The carousel, the
+ *     quotes and the "Illustrative example" label are kept; the figures are
+ *     not, so the invented block is dropped.
+ *  4. **The consent checkbox.** The reference's box reads "I approve applying
+ *     to my 20 selected jobs". §8: "Do not reuse that checkbox as silent
+ *     authorization to save a card. Use clear save-card consent; keep
+ *     application consent separate." This is save-card consent only — with
+ *     submission disabled there is no application approval to give here.
+ *
+ * It never charges: card setup with $30 promotional credit, $0 due today.
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Loader2, Lock, Pause, Play, X } from "lucide-react";
 import type { BillingPublicState, LaunchProfile } from "@/lib/hirecute/contracts";
 import { PRESENTATION } from "@/lib/hirecute/config";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/cn";
 
-const TESTIMONIALS = [
-  "Getting a straight read on which roles actually fit saved me a weekend of guessing.",
-  "The letters started from my own experience instead of a template, which is the part I always stall on.",
-  "I could see why each role was ranked where it was, and change the ones I disagreed with.",
-];
+/** Authentic stories do not exist yet, so the set carries an explicit label. */
+const STORIES = [
+  {
+    initials: "MC",
+    name: "Maya Chen",
+    role: "Product Designer",
+    quote:
+      "I used to spend my evenings rewriting the same application. Now I review the roles I like, and my agent takes care of the repetitive part.",
+  },
+  {
+    initials: "JL",
+    name: "Jamie Lee",
+    role: "Career switcher",
+    quote:
+      "The tailored resume helped me explain how my past experience fits a new role. I finally felt ready to put myself forward.",
+  },
+  {
+    initials: "SK",
+    name: "Sam Kim",
+    role: "Software Engineer",
+    quote:
+      "Having my shortlist, tailored resumes and application updates in one place made the whole search feel manageable again.",
+  },
+] as const;
 
-function Testimonials({ reducedMotion }: { reducedMotion: boolean }) {
+function ArrowIcon() {
+  return (
+    <svg
+      className="hc-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m5 12 14 0m-6-6 6 6-6 6" />
+    </svg>
+  );
+}
+
+function Stories({ reducedMotion }: { reducedMotion: boolean }) {
   const [index, setIndex] = useState(0);
   // Reduced motion starts paused (§8).
   const [paused, setPaused] = useState(reducedMotion);
@@ -56,51 +99,76 @@ function Testimonials({ reducedMotion }: { reducedMotion: boolean }) {
   useEffect(() => {
     if (paused || hidden) return;
     const id = setInterval(
-      () => setIndex((i) => (i + 1) % TESTIMONIALS.length),
+      () => setIndex((i) => (i + 1) % STORIES.length),
       PRESENTATION.testimonialRotateMs,
     );
     return () => clearInterval(id);
   }, [paused, hidden]);
 
   return (
-    <div
-      className="rounded-lg border border-border bg-secondary/60 p-3"
+    <section
+      className="hc-credit-card hc-credit-stories"
+      aria-label="Illustrative candidate testimonials"
+      aria-roledescription="carousel"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(reducedMotion)}
       onFocus={() => setPaused(true)}
     >
-      <p className="text-[13px] leading-relaxed text-muted-foreground">
-        &ldquo;{TESTIMONIALS[index]}&rdquo;
-      </p>
-      <div className="mt-2 flex items-center gap-2">
-        <span className="rounded border border-border px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground">
-          Illustrative example
-        </span>
-        <div className="ml-auto flex items-center gap-1.5">
-          {TESTIMONIALS.map((_, i) => (
+      <div className="hc-story-top">
+        <span className="hc-credit-eyebrow">CANDIDATE STORIES</span>
+        <span className="hc-credit-sample">Illustrative example</span>
+      </div>
+
+      {STORIES.map((story, i) => (
+        <article
+          key={story.initials}
+          className="hc-credit-story"
+          role="group"
+          aria-roledescription="slide"
+          aria-label={`Story ${i + 1} of ${STORIES.length}`}
+          hidden={i !== index}
+        >
+          <div className="hc-story-person">
+            <div className="hc-story-avatar" aria-hidden="true">
+              {story.initials}
+            </div>
+            <div>
+              <h3>{story.name}</h3>
+              <p>{story.role}</p>
+            </div>
+          </div>
+          <blockquote>“{story.quote}”</blockquote>
+          {/*
+            `hc-story-results` ("Applications 24 / Interviews 3 / Time saved
+            6 hrs") is omitted: those are not outcomes we can evidence.
+          */}
+        </article>
+      ))}
+
+      <div className="hc-story-controls">
+        <div className="hc-story-dots" aria-label="Choose testimonial">
+          {STORIES.map((story, i) => (
             <button
-              key={i}
+              key={story.initials}
               type="button"
               aria-label={`Show story ${i + 1}`}
-              aria-current={i === index}
+              aria-pressed={i === index}
               onClick={() => setIndex(i)}
-              className={cn(
-                "size-1.5 rounded-full transition-colors",
-                i === index ? "bg-primary" : "bg-border",
-              )}
-            />
+            >
+              <i />
+            </button>
           ))}
-          <button
-            type="button"
-            onClick={() => setPaused((p) => !p)}
-            aria-label={paused ? "Play stories" : "Pause stories"}
-            className="ml-1 text-muted-foreground hover:text-foreground"
-          >
-            {paused ? <Play className="size-3" /> : <Pause className="size-3" />}
-          </button>
         </div>
+        <button
+          type="button"
+          className="hc-story-pause"
+          aria-pressed={paused}
+          onClick={() => setPaused((p) => !p)}
+        >
+          <span>{paused ? "Play stories" : "Pause stories"}</span>
+        </button>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -128,33 +196,31 @@ export function CheckoutOverlay({
 }) {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
+  const layerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
 
   const activated = billing?.status === "activated";
   const pending = billing?.status === "processing" || billing?.status === "requires_action";
 
-  // Focus enters the modal heading; Escape closes.
   useEffect(() => {
     if (!open) return;
-    headingRef.current?.focus();
+    titleRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     document.addEventListener("keydown", onKey);
-    // Prevent background scrolling while the overlay is up.
-    const prevOverflow = document.body.style.overflow;
+    const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prevOverflow;
+      document.body.style.overflow = prev;
     };
   }, [open, onClose]);
 
-  // Trap Tab inside the dialog.
+  /** Trap Tab inside the layer. */
   const onKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key !== "Tab" || !dialogRef.current) return;
-    const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+    if (e.key !== "Tab" || !layerRef.current) return;
+    const focusable = layerRef.current.querySelectorAll<HTMLElement>(
       'a[href],button:not([disabled]),input:not([disabled]),textarea,select,[tabindex]:not([tabindex="-1"])',
     );
     if (focusable.length === 0) return;
@@ -173,96 +239,119 @@ export function CheckoutOverlay({
 
   const entitlementNoun =
     launchProfile === "auto_apply_pilot" ? "applications" : "prepared applications";
+  const readyCount = selectedCount > 0 ? selectedCount : includedPackages;
+  const canSubmit = consent && Boolean(email) && !pending && stripeConfigured;
 
   return (
-    /* The backdrop blurs and darkens the real workspace underneath. */
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
-      style={{ background: "var(--hc-overlay)" }}
+      ref={layerRef}
+      onKeyDown={onKeyDown}
+      className="hc-credit-layer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="credit-title"
       data-hc-zone="modal"
     >
-      <div
-        ref={dialogRef}
-        onKeyDown={onKeyDown}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="hc-checkout-heading"
-        className="grid w-full max-w-3xl gap-0 overflow-hidden rounded-2xl border border-border bg-card shadow-xl md:grid-cols-2"
+      <button
+        className="hc-credit-close"
+        type="button"
+        onClick={onClose}
+        aria-label="Close checkout and return to applications"
       >
-        {/* ── Offer ──────────────────────────────────────────────────── */}
-        <div className="border-b border-border p-5 md:border-b-0 md:border-r">
-          <h2
-            id="hc-checkout-heading"
-            ref={headingRef}
-            tabIndex={-1}
-            className="font-display text-2xl leading-tight outline-none"
-          >
-            $30 in free credits
-          </h2>
-          <p className="mt-1 text-[13px] text-muted-foreground">
-            {/* The true entitlement and $0 due today, before submission. */}
-            Covers up to {includedPackages} {entitlementNoun}
-            {selectedCount > 0 ? ` · ${selectedCount} selected now` : ""} ·{" "}
-            <span className="text-foreground">$0 due today</span>
-          </p>
+        <svg
+          className="hc-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m6 6 12 12M18 6 6 18" />
+        </svg>
+      </button>
 
-          <ul className="mt-4 flex flex-col gap-1.5 text-[13px] text-muted-foreground">
-            <li>· No charge now and no subscription</li>
-            <li>· Saving a card unlocks the credits</li>
-            {launchProfile === "activation_pilot" && (
-              /* Honest activation-profile copy: credits unlock preparation. */
-              <li>· Credits cover preparing applications, which you send yourself</li>
-            )}
-          </ul>
+      <div className="hc-credit-grid">
+        <div className="hc-credit-left">
+          <section className="hc-credit-card hc-credit-offer">
+            <h1 id="credit-title" ref={titleRef} tabIndex={-1}>
+              $30 FREE CREDITS
+            </h1>
+            <ul>
+              <li>Find the roles that fit your experience</li>
+              <li>Tailor your resume and cover letter for every job</li>
+              <li>
+                {launchProfile === "auto_apply_pilot"
+                  ? "Approve your shortlist. Your agent handles the forms."
+                  : "Approve your shortlist. Your agent prepares every application."}
+              </li>
+            </ul>
+            <h2>A head start on your next chapter.</h2>
+            <div className="hc-credit-metrics">
+              <div>
+                <span>Free credits</span>
+                <strong>$30</strong>
+              </div>
+              <div>
+                <span>Ready to apply</span>
+                {/* Derived from the real selection, never a hardcoded 20. */}
+                <strong>
+                  {readyCount} {readyCount === 1 ? "job" : "jobs"}
+                </strong>
+              </div>
+              <div>
+                <span>Due today</span>
+                <strong>$0</strong>
+              </div>
+            </div>
+          </section>
 
-          <div className="mt-4">
-            <Testimonials reducedMotion={reducedMotion} />
-          </div>
+          <Stories reducedMotion={reducedMotion} />
         </div>
 
-        {/* ── Card setup ─────────────────────────────────────────────── */}
-        <div className="p-5">
-          <div className="flex items-start justify-between gap-2">
-            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-              save a card
-            </span>
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Close"
-              className="rounded p-1 text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <X className="size-4" />
-            </button>
-          </div>
-
+        <section className="hc-credit-card hc-checkout-form hc-credit-form">
           {activated ? (
-            /* Server-confirmed only. Shown in this same overlay — no 7th screen. */
-            <div className="mt-6">
-              <p className="text-[15px] font-semibold text-primary">
-                $30 credits unlocked · $0 charged
-              </p>
-              <p className="mt-1 text-[13px] text-muted-foreground">
-                Nothing has been sent to any employer.
-              </p>
-              <Button type="button" className="mt-4 w-full" onClick={onClose}>
-                Back to your applications
-              </Button>
-            </div>
+            /* Server-confirmed only, and shown in this same layer — no 7th screen. */
+            <>
+              <div className="hc-credit-reassurance">
+                <strong>$30 credits unlocked · $0 charged</strong>
+              </div>
+              <div className="hc-credit-nocharge">
+                <h2>
+                  <i />
+                  <span>Nothing has been sent to any employer</span>
+                </h2>
+                <p>
+                  Your credits cover up to {includedPackages} {entitlementNoun}. You approve each
+                  one.
+                </p>
+              </div>
+              <button className="hc-button hc-credit-submit" type="button" onClick={onClose}>
+                <span>Back to your applications</span>
+                <ArrowIcon />
+              </button>
+            </>
           ) : (
             <form
-              className="mt-4 flex flex-col gap-3"
               onSubmit={(e) => {
                 e.preventDefault();
                 onStartSetup(email);
               }}
             >
-              <div className="flex flex-col gap-1.5">
-                <Label htmlFor="hc-email" className="text-[12px]">
-                  Email
-                </Label>
-                <Input
-                  id="hc-email"
+              <div className="hc-credit-reassurance">
+                <strong>Your next move starts with $30 on us.</strong>
+              </div>
+
+              {/*
+                `hc-credit-capacity` ("Only 6 free trial spots left this hour")
+                is omitted — see the header note, rule 2.
+              */}
+
+              <label className="hc-field">
+                <span>Email for application updates</span>
+                <input
+                  className="hc-input"
                   type="email"
                   required
                   value={email}
@@ -270,63 +359,92 @@ export function CheckoutOverlay({
                   placeholder="you@example.com"
                   autoComplete="email"
                 />
+              </label>
+
+              <div className="hc-credit-nocharge">
+                <h2>
+                  <i />
+                  <span>You won’t be charged today</span>
+                </h2>
+                <p>
+                  Your $30 credits cover your first approved batch of up to {includedPackages}{" "}
+                  {entitlementNoun}. When your balance runs out, choose whether to top up. No
+                  automatic charges.
+                </p>
               </div>
 
               {/*
-                Milestone 7 mounts Stripe's Payment Element here. Until then the
-                slot says what it is rather than rendering fake card inputs —
-                a placeholder PAN field is exactly the thing §8 removes.
+                Stripe's Payment Element mounts here in milestone 7 and collects
+                card number, expiry, CVC and country itself. The reference's own
+                inputs are deliberately absent: a PAN must never reach a
+                hirecute input.
               */}
-              <div className="rounded-lg border border-dashed border-border bg-secondary/40 p-3">
-                <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
-                  <Lock className="size-3.5 shrink-0" />
-                  Card details are entered directly with Stripe and never reach hirecute.
-                </div>
-                <div
-                  id="hc-stripe-payment-element"
-                  className="mt-2 text-[12px] text-muted-foreground"
-                >
+              <div className="hc-credit-card-input" id="hc-stripe-payment-element">
+                <span className="hc-credit-demo-note">
                   {stripeConfigured
-                    ? "Loading secure card form…"
+                    ? "Loading the secure card form…"
                     : "Card setup is not configured on this deployment yet."}
-                </div>
+                </span>
               </div>
 
-              <Label className="flex items-start gap-2 text-[12px] font-normal leading-snug text-muted-foreground">
-                <Checkbox
+              <div className="hc-credit-total">
+                <span>Total due today</span>
+                <strong>$0.00 USD</strong>
+              </div>
+
+              {/* Save-card consent ONLY — see the header note, rule 4. */}
+              <label className="hc-checkbox hc-credit-consent">
+                <input
+                  type="checkbox"
                   checked={consent}
-                  onCheckedChange={(c) => setConsent(c === true)}
-                  aria-label="Save card consent"
+                  onChange={(e) => setConsent(e.target.checked)}
                 />
                 <span>
-                  Save my card to unlock $30 in credits. I understand $0 is charged today.
+                  Save my card to unlock $30 in credits. I understand $0 is charged today, and that
+                  no applications are sent without my approval.
                 </span>
-              </Label>
+              </label>
 
               {billing?.error && (
-                <p className="rounded-md border border-destructive/40 bg-[var(--hc-danger-soft)] px-2.5 py-1.5 text-[12px] text-destructive">
+                <p className="hc-credit-demo-note" role="alert">
                   {billing.error.message}
                 </p>
               )}
 
-              <Button
+              <button
+                className={`hc-button hc-credit-submit${canSubmit ? "" : " hc-button--disabled"}`}
                 type="submit"
-                /* Duplicate confirms are disabled while a setup is pending. */
-                disabled={!consent || !email || pending || !stripeConfigured}
-                className="w-full"
+                disabled={!canSubmit}
               >
-                {pending && <Loader2 className="size-3.5 animate-spin" />}
-                {pending ? "Confirming with your bank…" : "Unlock $30 in credits"}
-              </Button>
+                <span>{pending ? "Confirming with your bank…" : "Unlock $30 in credits"}</span>
+                <ArrowIcon />
+              </button>
 
-              <p className="text-[11px] leading-snug text-muted-foreground">
+              <div className="hc-credit-security">
+                <svg
+                  className="hc-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="5" y="10" width="14" height="11" rx="3" />
+                  <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                </svg>
+                <span>No charge today · No subscription</span>
+              </div>
+
+              <p className="hc-credit-demo-note" id="credit-demo-note">
                 {billing?.mode === "live"
-                  ? "Card setup only. No payment is taken."
+                  ? "Card setup only. No payment is taken today."
                   : "Test mode — no real card is charged or stored."}
               </p>
             </form>
           )}
-        </div>
+        </section>
       </div>
     </div>
   );

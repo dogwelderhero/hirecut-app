@@ -1,28 +1,36 @@
 "use client";
 
 /**
- * Screen 5 — Bulk Apply (02-screen-guide.md §7).
+ * Screen 09 — Bulk Apply, ported to `div.hc-ap-workspace`.
  *
- * Layout rules this preserves:
- *  - A narrow job list INSIDE the work area (separate from the far-left agent
- *    transcript), and a wider clean letter panel.
- *  - Match percentage in a fixed translucent green circle at the card's
- *    top-right, never wrapping.
- *  - ONE readiness badge per card. No second "Ready to auto-apply" row, and no
+ * The reference layout: `section.hc-ap-list` (batch header, method filters, a
+ * scrolling list of `article.hc-ap-row` = checkbox + `hc-ap-mark` +
+ * `hc-ap-row-body` + `hc-ap-row-end`) beside
+ * `section.hc-ap-detail.hc-ap-mail-detail` (`hc-ap-recruiter`,
+ * `hc-ap-email-pane` with To/Subj rows, the letter, `hc-ap-email-tools`, and
+ * the `hc-ap-launch` bar).
+ *
+ * Rules §7 is strict about, preserved:
+ *  - ONE readiness badge per row, in the method position. No second row, no
  *    "20 selected / 18 ready / 2 wait" summary strip.
- *  - The right panel is one letter with To, Subject, editable body and a small
- *    draft status. No tabs, no "Application details & auto-apply method", no
- *    "HOW WE'LL APPLY", no "Tailored resume attached", no work-authorization
- *    callout.
+ *  - The match percentage sits in `hc-ap-row-end` and never wraps.
+ *  - No tabs inside the detail pane, no "Application details & auto-apply
+ *    method", no "HOW WE'LL APPLY", no "Tailored resume attached", no
+ *    work-authorization callout.
+ *  - The checkbox changes inclusion only; `hc-ap-pick` selects the letter; the
+ *    employer link keeps its native action.
+ *  - Readiness comes from actual artifacts, never elapsed time.
  *
- * Behavioural rules:
- *  - Card click changes the letter context; checkbox click changes inclusion
- *    only; the employer link keeps its native action.
- *  - This screen never packs away or auto-advances when preparation finishes.
- *  - Readiness comes from actual artifacts/capability, never from elapsed time.
+ * Two reference details are adapted rather than copied. Its filter tabs bucket
+ * by delivery method (All / Auto-apply / Browser / Needs input), which only
+ * describes reality in the auto-apply pilot — with submission disabled every
+ * package is `manual_only` and an "Auto-apply 12" tab would be a lie, so the
+ * activation pilot buckets by readiness instead. And its masked sample
+ * recruiter ("Sa••• M•••••", "sa•••@fo•••.example") is never reproduced: a
+ * contact we do not have reads "Hiring team · {company}", never a fake mask.
  */
 
-import { ExternalLink, Loader2 } from "lucide-react";
+import { useMemo, useState } from "react";
 import type {
   ApplicationPackage,
   Job,
@@ -30,40 +38,79 @@ import type {
   LaunchProfile,
   MatchAssessment,
 } from "@/lib/hirecute/contracts";
-import { matchPresentation, MATCH_LABEL, NOT_SCORED_LABEL } from "@/lib/hirecute/match";
+import { matchPresentation } from "@/lib/hirecute/match";
 import { displayText, type LetterView } from "@/lib/hirecute/letters";
-import { MatchRing } from "./job-card";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/cn";
 
 /** One readiness label, derived from the package — never from a timer. */
-function readinessLabel(
+function readiness(
   pkg: ApplicationPackage | undefined,
   launchProfile: LaunchProfile,
-): { text: string; tone: "neutral" | "ready" | "warn" | "bad"; busy?: boolean } {
-  if (!pkg) return { text: "In your agent's queue", tone: "neutral" };
+): { text: string; cls: string; bucket: Bucket } {
+  if (!pkg) return { text: "In your agent’s queue", cls: "hc-ap-prep", bucket: "preparing" };
   const r = pkg.readiness;
-  if (r.status === "preparing") return { text: "Preparing application…", tone: "neutral", busy: true };
-  if (r.status === "failed") return { text: "Couldn't prepare", tone: "bad" };
-  if (r.status === "needs_input") return { text: "Needs your input", tone: "warn" };
-
-  // Drafts are validated. Whether that means auto-apply depends entirely on a
-  // verified adapter — material readiness alone never earns the stronger label.
-  if (pkg.submission.status === "confirmed") return { text: "Submitted", tone: "ready" };
+  if (r.status === "preparing")
+    return { text: "Preparing application…", cls: "hc-ap-prep", bucket: "preparing" };
+  if (r.status === "failed")
+    return { text: "Couldn’t prepare", cls: "hc-ap-blocked", bucket: "failed" };
+  if (r.status === "needs_input")
+    return { text: "Needs your input", cls: "hc-ap-manual", bucket: "needs_input" };
+  if (pkg.submission.status === "confirmed")
+    return { text: "Submitted", cls: "hc-ap-ready", bucket: "ready" };
+  // Material readiness alone never earns the auto-apply label.
   if (launchProfile === "auto_apply_pilot" && pkg.capability.kind !== "manual_only") {
-    return { text: "Ready to auto-apply", tone: "ready" };
+    return { text: "Ready to auto-apply", cls: "hc-ap-ready", bucket: "ready" };
   }
-  return { text: "Ready to apply", tone: "ready" };
+  return { text: "Ready to apply", cls: "hc-ap-ready", bucket: "ready" };
 }
 
-const TONE_CLASS = {
-  neutral: "border-border text-muted-foreground",
-  ready: "border-primary/40 bg-primary/10 text-primary",
-  warn: "border-[var(--hc-warning)]/40 bg-[var(--hc-warning-soft)] text-[var(--hc-warning)]",
-  bad: "border-destructive/40 bg-[var(--hc-danger-soft)] text-destructive",
-} as const;
+type Bucket = "ready" | "needs_input" | "preparing" | "failed";
+
+const WORK_STYLE: Record<NonNullable<Job["workStyle"]>, string> = {
+  remote: "Remote",
+  hybrid: "Hybrid",
+  onsite: "On-site",
+};
+
+function ExternalIcon() {
+  return (
+    <svg
+      className="hc-ap-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M14 3h7v7m0-7L10 14M11 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6" />
+    </svg>
+  );
+}
+
+/** "Hiring team · {company}" when unknown — never an invented masked address. */
+function recruiterLines(job: Job) {
+  if (job.recruiter.status === "identified") {
+    const name = job.recruiter.name.status === "known" ? job.recruiter.name.value : null;
+    const title = job.recruiter.title.status === "known" ? job.recruiter.title.value : null;
+    const email = job.recruiter.email.status === "known" ? job.recruiter.email.value : null;
+    return {
+      name: name ?? `Hiring team · ${job.company}`,
+      role: [title, job.company].filter(Boolean).join(" · "),
+      email,
+      note: email ? null : "Email not listed on this posting",
+    };
+  }
+  return {
+    name: job.recruiter.displayName,
+    role: job.company,
+    email: null,
+    note:
+      job.recruiter.reason === "contact_not_listed"
+        ? "Contact not listed on this posting"
+        : "Contact could not be verified",
+  };
+}
 
 export function BulkApply({
   jobs,
@@ -78,6 +125,7 @@ export function BulkApply({
   onToggleInclude,
   onEditLetter,
   onSaveLetter,
+  onClaimCredits,
 }: {
   jobs: Job[];
   applications: Record<JobId, ApplicationPackage>;
@@ -91,212 +139,288 @@ export function BulkApply({
   onToggleInclude: (id: JobId, included: boolean) => void;
   onEditLetter: (id: JobId, text: string) => void;
   onSaveLetter: (id: JobId) => void;
+  onClaimCredits: () => void;
 }) {
+  const [filter, setFilter] = useState<"all" | Bucket>("all");
+  const [editing, setEditing] = useState(false);
+  const selected = new Set(selectedIds);
+
+  const buckets = useMemo(() => {
+    const counts: Record<Bucket, number> = { ready: 0, needs_input: 0, preparing: 0, failed: 0 };
+    for (const job of jobs) counts[readiness(applications[job.id], launchProfile).bucket] += 1;
+    return counts;
+  }, [jobs, applications, launchProfile]);
+
+  const visible = jobs.filter(
+    (j) => filter === "all" || readiness(applications[j.id], launchProfile).bucket === filter,
+  );
+
   const activeJob = jobs.find((j) => j.id === activeJobId) ?? null;
   const activePkg = activeJobId ? applications[activeJobId] : undefined;
   const activeLetter = activeJobId ? letters[activeJobId] : undefined;
-  const selected = new Set(selectedIds);
+  const allSelected = jobs.length > 0 && jobs.every((j) => selected.has(j.id));
+  const contact = activeJob ? recruiterLines(activeJob) : null;
+  const activeMatch = activeJobId ? matchPresentation(assessments[activeJobId]) : null;
+
+  const tabs: Array<{ key: "all" | Bucket; label: string; count: number }> = [
+    { key: "all", label: "All", count: jobs.length },
+    { key: "ready", label: "Ready", count: buckets.ready },
+    { key: "needs_input", label: "Needs input", count: buckets.needs_input },
+  ];
+  if (buckets.preparing > 0) {
+    tabs.push({ key: "preparing", label: "Preparing", count: buckets.preparing });
+  }
+  if (buckets.failed > 0) {
+    tabs.push({ key: "failed", label: "Couldn’t prepare", count: buckets.failed });
+  }
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
-      {/* ── Narrow job list ───────────────────────────────────────────── */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between px-1">
-          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-            your batch
-          </span>
-          <span className="text-[11px] text-muted-foreground tabular-nums">
-            {/* Derived from the actual selection, never a replaced "20". */}
-            {selectedIds.length} selected
-          </span>
+    <div className="hc-ap-workspace">
+      <section className="hc-ap-list" aria-label="Your application batch">
+        <div className="hc-ap-list-head">
+          <div>
+            <h2>YOUR APPLICATION BATCH</h2>
+            {/* Real counts; "0 sent" is a fact while submission is disabled. */}
+            <span>
+              {jobs.length} prepared · {selectedIds.length} selected · 0 sent
+            </span>
+          </div>
+          <label className="hc-ap-select-all">
+            <input
+              type="checkbox"
+              checked={allSelected}
+              onChange={(e) => jobs.forEach((j) => onToggleInclude(j.id, e.target.checked))}
+              data-hc-origin="input"
+            />
+            <span>Select all</span>
+          </label>
         </div>
 
-        <ul className="flex flex-col gap-2">
-          {jobs.map((job) => {
+        <div className="hc-ap-filters" role="group" aria-label="Filter by readiness">
+          {tabs.map((t) => (
+            <button
+              key={t.key}
+              type="button"
+              aria-pressed={filter === t.key}
+              onClick={() => setFilter(t.key)}
+              data-hc-origin="input"
+            >
+              <span>{t.label}</span>
+              <span>{t.count}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="hc-ap-list-scroll">
+          {visible.map((job, i) => {
             const pkg = applications[job.id];
-            const badge = readinessLabel(pkg, launchProfile);
+            const badge = readiness(pkg, launchProfile);
             const presentation = matchPresentation(assessments[job.id]);
             const isActive = job.id === activeJobId;
+            // Skip a work style the location line already states ("Remote ·
+            // Remote"), and never print the raw enum value.
+            const style = job.workStyle ? WORK_STYLE[job.workStyle] : null;
+            const meta = [
+              job.location,
+              style && !job.location?.toLowerCase().includes(style.toLowerCase())
+                ? style
+                : null,
+            ]
+              .filter(Boolean)
+              .join(" · ");
             return (
-              <li key={job.id}>
-                {/*
-                  Clicking the card selects this job's letter. The checkbox and
-                  the employer link each stop propagation so they keep their own
-                  action, which is the §7 acceptance check.
-                */}
-                <div
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => onSelectJob(job.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      onSelectJob(job.id);
-                    }
-                  }}
-                  data-hc-origin="card"
-                  className={cn(
-                    "cursor-pointer rounded-xl border p-3 transition-colors",
-                    isActive
-                      ? "border-primary/50 bg-secondary"
-                      : "border-border bg-card hover:border-[var(--hc-border-strong)]",
-                  )}
-                >
-                  <div className="flex items-start gap-2">
-                    <span onClick={(e) => e.stopPropagation()} data-hc-origin="input">
-                      <Checkbox
-                        checked={selected.has(job.id)}
-                        onCheckedChange={(c) => onToggleInclude(job.id, c === true)}
-                        aria-label={`Include ${job.title} at ${job.company}`}
-                      />
-                    </span>
-
-                    <div className="min-w-0 flex-1">
-                      <div className="truncate text-[13px] font-semibold">{job.title}</div>
-                      <div className="truncate text-[12px] text-muted-foreground">
-                        {job.company}
-                        {job.location ? ` · ${job.location}` : ""}
-                      </div>
-                    </div>
-
-                    {/* Fixed circle, top-right, never wrapping. */}
-                    {presentation ? (
-                      <MatchRing percent={presentation.matchPercent} />
-                    ) : (
-                      <span className="shrink-0 rounded-md border border-border px-1.5 py-0.5 text-[10px] whitespace-nowrap text-muted-foreground">
-                        {NOT_SCORED_LABEL}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="mt-2 flex items-center gap-2">
-                    {/* Exactly one readiness badge. */}
-                    <span
-                      className={cn(
-                        "inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-[11px]",
-                        TONE_CLASS[badge.tone],
-                      )}
-                    >
-                      {badge.busy && <Loader2 className="size-2.5 animate-spin" />}
-                      {badge.text}
-                    </span>
-
-                    <a
-                      href={job.source.applicationUrl ?? job.source.canonicalPostingUrl}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      onClick={(e) => e.stopPropagation()}
-                      data-hc-origin="link"
-                      className="ml-auto inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
-                    >
-                      Open application <ExternalLink className="size-2.5" />
-                    </a>
-                  </div>
+              <article
+                key={job.id}
+                className={`hc-ap-row${isActive ? " is-active" : ""}`}
+                data-hc-origin="card"
+              >
+                <input
+                  type="checkbox"
+                  checked={selected.has(job.id)}
+                  aria-label={`Include ${job.title} at ${job.company}`}
+                  onChange={(e) => onToggleInclude(job.id, e.target.checked)}
+                  data-hc-origin="input"
+                />
+                <div className={`hc-ap-mark hc-ap-mark--${i % 4}`} aria-hidden="true">
+                  <span>{job.company.slice(0, 1).toUpperCase()}</span>
                 </div>
-              </li>
+                <div className="hc-ap-row-body">
+                  {/* Selecting the letter — inclusion is the checkbox's job. */}
+                  <button
+                    type="button"
+                    className="hc-ap-pick"
+                    aria-pressed={isActive}
+                    onClick={() => {
+                      setEditing(false);
+                      onSelectJob(job.id);
+                    }}
+                  >
+                    <strong>{job.title}</strong>
+                    <span>
+                      <span>{job.company}</span>
+                      {meta && <span> · {meta}</span>}
+                    </span>
+                  </button>
+                  <div className="hc-ap-row-meta">
+                    {/* Exactly one readiness badge. */}
+                    <span className={`hc-ap-method ${badge.cls}`}>
+                      <i aria-hidden="true" />
+                      <span>{badge.text}</span>
+                    </span>
+                    <span className="hc-ap-provider">{job.source.provider}</span>
+                  </div>
+                  <a
+                    href={job.source.applicationUrl ?? job.source.canonicalPostingUrl}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    onClick={(e) => e.stopPropagation()}
+                    data-hc-origin="link"
+                  >
+                    <span>Application page</span>
+                    <ExternalIcon />
+                  </a>
+                </div>
+                {presentation && (
+                  <div className="hc-ap-row-end" aria-label={`${presentation.matchPercent}% match`}>
+                    <strong>{presentation.matchPercent}%</strong>
+                  </div>
+                )}
+              </article>
             );
           })}
-        </ul>
-      </div>
+          {visible.length === 0 && <p className="hc-ap-muted">Nothing in this group.</p>}
+        </div>
+      </section>
 
-      {/* ── Letter panel ──────────────────────────────────────────────── */}
-      <div className="rounded-xl border border-border bg-card p-4">
-        {!activeJob ? (
-          <p className="text-[13px] text-muted-foreground">
-            Select a role to read and edit its letter.
-          </p>
+      <section className="hc-ap-detail hc-ap-mail-detail" aria-label="Your cover letter">
+        {!activeJob || !contact ? (
+          <p className="hc-ap-muted">Select a role to read and edit its letter.</p>
         ) : (
           <>
-            <dl className="flex flex-col gap-1 border-b border-border pb-3 text-[13px]">
-              <div className="flex gap-2">
-                <dt className="w-16 shrink-0 text-muted-foreground">To</dt>
-                {/*
-                  No invented address. An unverified contact is exactly
-                  "Hiring team · Company" plus "Contact not listed".
-                */}
-                <dd className="min-w-0">
-                  {activeJob.recruiter.status === "identified" &&
-                  activeJob.recruiter.email.status === "known" ? (
-                    <span>{activeJob.recruiter.email.value}</span>
-                  ) : (
-                    <span>
-                      {activeJob.recruiter.status === "unknown"
-                        ? activeJob.recruiter.displayName
-                        : `Hiring team · ${activeJob.company}`}
-                      <span className="ml-2 text-muted-foreground">Contact not listed</span>
-                    </span>
-                  )}
-                </dd>
-              </div>
-              <div className="flex gap-2">
-                <dt className="w-16 shrink-0 text-muted-foreground">Subject</dt>
-                <dd className="min-w-0 truncate">
-                  {activePkg?.letter.current?.subject ?? `Application: ${activeJob.title}`}
-                </dd>
-              </div>
-            </dl>
-
-            {activeLetter?.error && (
-              <p className="mt-3 rounded-md border border-destructive/40 bg-[var(--hc-danger-soft)] px-2.5 py-1.5 text-[12px] text-destructive">
-                {activeLetter.error.message}
-              </p>
-            )}
-
-            <Textarea
-              // Keyed by job so switching cards cannot carry one letter's
-              // editor state onto another.
-              key={activeJob.id}
-              value={displayText(activeLetter)}
-              onChange={(e) => onEditLetter(activeJob.id, e.target.value)}
-              data-hc-origin="editor"
-              rows={16}
-              className="mt-3 resize-none font-sans text-[13px] leading-relaxed"
-              aria-label={`Cover letter for ${activeJob.title} at ${activeJob.company}`}
-            />
-
-            <div className="mt-3 flex items-center gap-3">
-              <Button
-                type="button"
-                size="sm"
-                disabled={!activeLetter?.dirty}
-                onClick={() => onSaveLetter(activeJob.id)}
-              >
-                Save draft
-              </Button>
-              {/* A small draft status, not a claim that anything was sent. */}
-              <span className="text-[12px] text-muted-foreground">
-                {activeLetter?.streaming ? (
-                  <span className="inline-flex items-center gap-1">
-                    <Loader2 className="size-3 animate-spin" /> Drafting…
+            <header className="hc-ap-recruiter">
+              <div className="hc-ap-detail-company">
+                <div className="hc-ap-mark hc-ap-mark--0" aria-hidden="true">
+                  <span>{activeJob.company.slice(0, 1).toUpperCase()}</span>
+                </div>
+                <div>
+                  <strong>{contact.name}</strong>
+                  <p className="hc-ap-muted">{contact.role}</p>
+                </div>
+                {activeMatch && (
+                  <span className="hc-ap-match">
+                    <span>{activeMatch.matchPercent}% match</span>
                   </span>
-                ) : activeLetter?.dirty ? (
-                  "Unsaved changes"
-                ) : activeLetter?.receivedText ? (
-                  "Your draft saved · Not sent"
-                ) : (
-                  "No draft yet"
                 )}
-              </span>
-              {preparing && (
-                <span className="ml-auto inline-flex items-center gap-1 text-[12px] text-muted-foreground">
-                  <Loader2 className="size-3 animate-spin" /> Still preparing other roles
+              </div>
+              <small className="hc-ap-muted">
+                {contact.note ? `${contact.note} · ` : ""}Draft only · nothing is sent from here
+              </small>
+            </header>
+
+            <section className="hc-ap-email-pane" aria-label="Cover letter">
+              <div className="hc-ap-email-meta">
+                <span className="hc-ap-muted">To</span>
+                <span>{contact.email ?? contact.name}</span>
+              </div>
+              <div className="hc-ap-email-meta">
+                <span className="hc-ap-muted">Subj</span>
+                <strong>
+                  {activePkg?.letter.current?.subject ?? `Application: ${activeJob.title}`}
+                </strong>
+              </div>
+
+              <div className="hc-ap-email-content">
+                {editing ? (
+                  <label className="hc-ap-email-editor">
+                    <span className="hc-visually-hidden">
+                      Cover letter for {activeJob.title} at {activeJob.company}
+                    </span>
+                    <textarea
+                      // Keyed by job, so switching rows cannot carry one
+                      // letter's editor state onto another.
+                      key={activeJob.id}
+                      value={displayText(activeLetter)}
+                      onChange={(e) => onEditLetter(activeJob.id, e.target.value)}
+                      rows={18}
+                      spellCheck
+                      data-hc-origin="editor"
+                    />
+                  </label>
+                ) : (
+                  <div className="hc-ap-email-body">
+                    <span>{displayText(activeLetter)}</span>
+                    {activeLetter?.streaming && <i className="hc-ap-email-cursor" aria-hidden />}
+                  </div>
+                )}
+              </div>
+
+              <div className="hc-ap-email-tools">
+                {/* A draft status — never a claim that anything was sent. */}
+                <span className="hc-ap-email-state" role="status" aria-live="polite">
+                  {activeLetter?.streaming
+                    ? "Drafting…"
+                    : activeLetter?.dirty
+                      ? "Unsaved changes"
+                      : activeLetter?.receivedText
+                        ? "Draft ready · Not sent"
+                        : "No draft yet"}
                 </span>
-              )}
-            </div>
+                {editing ? (
+                  <button
+                    type="button"
+                    disabled={!activeLetter?.dirty}
+                    onClick={() => {
+                      onSaveLetter(activeJob.id);
+                      setEditing(false);
+                    }}
+                  >
+                    <span>Save draft</span>
+                  </button>
+                ) : (
+                  <button type="button" onClick={() => setEditing(true)}>
+                    <span>Edit draft</span>
+                  </button>
+                )}
+              </div>
+            </section>
 
             {activePkg?.readiness.status === "needs_input" && (
               /*
-                Removing the large callout does not authorize guessing. This is
-                a compact job-level status that keeps the job manual-only.
+                Removing the reference's large callout does not authorize
+                guessing: this compact status keeps the role manual-only.
               */
-              <p className="mt-3 rounded-md border border-[var(--hc-warning)]/40 bg-[var(--hc-warning-soft)] px-2.5 py-1.5 text-[12px] text-[var(--hc-warning)]">
+              <p className="hc-ap-muted">
                 {activePkg.readiness.explanation} This role stays manual — open the employer
                 application to answer it yourself.
               </p>
             )}
+
+            <div className="hc-ap-launch hc-ap-email-launch">
+              <div>
+                <strong>Your agent is ready when you are.</strong>
+                <p>
+                  $30 free credits · $0 due today
+                  {buckets.needs_input > 0 &&
+                    ` · ${buckets.needs_input} application${
+                      buckets.needs_input === 1 ? "" : "s"
+                    } will wait for your input`}
+                  {preparing && " · still preparing the rest"}
+                </p>
+              </div>
+              <button
+                type="button"
+                className="hc-button"
+                onClick={onClaimCredits}
+                /* Manual checkout entry, excluded from the click counter. */
+                data-hc-zone="credit_banner_cta"
+              >
+                <span>Claim $30 free credits</span>
+                <ExternalIcon />
+              </button>
+            </div>
           </>
         )}
-      </div>
+      </section>
     </div>
   );
 }

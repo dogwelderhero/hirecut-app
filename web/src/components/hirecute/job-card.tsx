@@ -1,72 +1,123 @@
 "use client";
 
 /**
- * The role card, shared by Explore (§5) and Top Matches (§6).
+ * The role card — `article.hc-sr-card`.
  *
- * §6 requires the SAME card design in both places, with the match panel added
- * on the right. Rules encoded here:
- *  - The match percentage is a fixed translucent green circle. `whitespace-nowrap`
- *    plus a fixed size is the "never split the percentage across lines" rule.
- *  - Unscored jobs get NO ring — "Not scored", never a default 98%.
- *  - Missing facts are omitted or labelled unknown. No funding, valuation,
- *    alumni or applicant chips: §5 lists those as absent unless a real source
- *    exists.
- *  - There is no "Ask Orion" control.
- *  - The employer link performs its native action and must not be swallowed by
- *    card selection, so it stops propagation.
+ * Ported from screens 05 (Explore) and 07 (Top matches). §6 requires the SAME
+ * card in both places, with the match panel added on the right, which is how
+ * the reference does it: `hc-sr-card.hc-topmatch-card` wraps the body in
+ * `div.hc-topmatch-body` and appends `aside.hc-match-panel`.
+ *
+ * The reference's six fact rows line up exactly with the six optional fields on
+ * `Job` (location, employmentType, salary, workStyle, seniority,
+ * experienceYearsMin) — each row renders only when its field is present, so a
+ * board that publishes little produces a shorter card rather than a padded one.
+ *
+ * Honesty rules from §5, all about what NOT to render:
+ *  - a missing date is "Date not listed", never derived from fetch time
+ *  - salary comes from a sourced amount or is omitted
+ *  - the reference's `Series B` / `B2B SaaS` chips and its "Fewer than 25
+ *    applicants" line are dropped: funding, valuation, alumni and applicant
+ *    counts have no source, and `Job` deliberately has no field for them
+ *  - an unscored job gets NO ring — never a default percentage
+ *  - there is no "Ask Orion" control
  */
 
-import { ExternalLink, Bookmark, ChevronDown } from "lucide-react";
 import type { Job, MatchAssessment } from "@/lib/hirecute/contracts";
-import { matchPresentation, postingAgeLabel, MATCH_LABEL, NOT_SCORED_LABEL } from "@/lib/hirecute/match";
-import { cn } from "@/lib/cn";
+import {
+  NOT_SCORED_LABEL,
+  matchPresentation,
+  postingAgeLabel,
+} from "@/lib/hirecute/match";
 
-/** The translucent green circle. Fixed size so the number cannot wrap. */
-export function MatchRing({ percent }: { percent: number }) {
+/** The reference's inline icon: `svg.hc-sr-icon`, 24×24, stroked. */
+function Icon({ d, extra }: { d: string[]; extra?: React.ReactNode }) {
   return (
-    <div
-      className="flex size-[46px] shrink-0 items-center justify-center rounded-full border text-[13px] font-semibold whitespace-nowrap tabular-nums"
-      style={{
-        background: "var(--hc-match-badge-bg)",
-        borderColor: "var(--hc-match-badge-line)",
-        color: "var(--hc-match-ring)",
-      }}
-      title={`${percent}% ${MATCH_LABEL}`}
+    <svg
+      className="hc-sr-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
     >
-      {percent}%
+      {d.map((p) => (
+        <path key={p} d={p} />
+      ))}
+      {extra}
+    </svg>
+  );
+}
+
+const PIN = ["M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z"];
+const CLOCK = ["M12 7v5l3 2"];
+const HOUSE = ["m3 10 9-7 9 7v10H3Z", "M9 20v-7h6v7"];
+const BADGE = ["M12 3l2 4 4 .6-3 3 .7 4.4-3.7-2-3.7 2 .7-4.4-3-3 4-.6Z"];
+const CASE = ["M3 7h18v14H3z", "M8 7V3h8v4M3 12c6 3 12 3 18 0M12 12v3"];
+const SPARK = ["m12 3 2.3 6.7L21 12l-6.7 2.3L12 21l-2.3-6.7L3 12l6.7-2.3Z"];
+const HEART = ["M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"];
+const ARROW = ["M4 12h16m-6-6 6 6-6 6"];
+
+const WORK_STYLE: Record<NonNullable<Job["workStyle"]>, string> = {
+  remote: "Remote",
+  hybrid: "Hybrid",
+  onsite: "On-site",
+};
+
+const EMPLOYMENT: Record<NonNullable<Job["employmentType"]>, string> = {
+  full_time: "Full-time",
+  part_time: "Part-time",
+  contract: "Contract",
+  internship: "Internship",
+  other: "Other",
+};
+
+/**
+ * The reference's ring: an SVG arc whose length IS the percentage
+ * (`stroke-dasharray="{n} 100"` over `pathLength="100"`), under a
+ * blue→green gradient. The gradient id must be unique per card, or every ring
+ * on the page resolves to the first one.
+ */
+export function MatchRing({ percent, id }: { percent: number; id: string }) {
+  const gradientId = `match-gradient-${id}`;
+  return (
+    <div className="hc-match-ring" role="img" aria-label={`${percent} percent match`}>
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
+            <stop className="hc-match-blue" offset="0%" />
+            <stop className="hc-match-green" offset="100%" />
+          </linearGradient>
+        </defs>
+        <circle className="hc-match-track" cx="60" cy="60" r="51" />
+        <circle
+          className="hc-match-arc"
+          cx="60"
+          cy="60"
+          r="51"
+          pathLength={100}
+          stroke={`url(#${gradientId})`}
+          strokeDasharray={`${percent} 100`}
+          transform="rotate(-90 60 60)"
+        />
+      </svg>
+      <div className="hc-match-percent" aria-hidden="true">
+        <strong>{percent}</strong>
+        <span>%</span>
+      </div>
     </div>
   );
 }
 
-function CompanyMark({ company }: { company: string }) {
-  // Neutral initial fallback. §5: a logo comes from a known asset/domain
-  // mapping or this — never a guessed remote URL.
-  return (
-    <div
-      aria-hidden
-      className="flex size-9 shrink-0 items-center justify-center rounded-md border border-border bg-secondary text-[13px] font-semibold text-muted-foreground"
-    >
-      {company.slice(0, 1).toUpperCase()}
-    </div>
-  );
-}
-
-function Fact({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="rounded-md border border-border bg-secondary px-1.5 py-0.5 text-[11px] text-muted-foreground">
-      {children}
-    </span>
-  );
-}
-
-export function JobCard({
+function CardBody({
   job,
   assessment,
   saved,
   expanded,
   onToggleSave,
   onToggleExpand,
-  showMatchPanel = false,
 }: {
   job: Job;
   assessment?: MatchAssessment | null;
@@ -74,147 +125,243 @@ export function JobCard({
   expanded?: boolean;
   onToggleSave?: () => void;
   onToggleExpand?: () => void;
-  /** Top Matches adds the score panel; Explore renders the same card without it. */
-  showMatchPanel?: boolean;
 }) {
-  const presentation = matchPresentation(assessment);
+  const detailId = `job-detail-${job.id}`;
+  const age = postingAgeLabel(job.postedAt);
+  const fresh = /hour|hours|today|1 day/i.test(age);
 
   return (
-    <article className="rounded-xl border border-border bg-card p-3 transition-colors hover:border-[var(--hc-border-strong)]">
-      <div className="flex items-start gap-3">
-        <CompanyMark company={job.company} />
-
-        <div className="min-w-0 flex-1">
-          <h3 className="truncate text-[15px] font-semibold">{job.title}</h3>
-          <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-muted-foreground">
-            <span>{job.company}</span>
-            {/* Location is a provider/JD fact; omitted entirely if absent. */}
-            {job.location && <span>· {job.location}</span>}
-            {/* A missing date reads "Date not listed", never "Just posted". */}
-            <span>· {postingAgeLabel(job.postedAt)}</span>
-          </div>
-
-          <div className="mt-2 flex flex-wrap items-center gap-1.5">
-            {job.workStyle && <Fact>{job.workStyle}</Fact>}
-            {job.employmentType && <Fact>{job.employmentType.replace("_", " ")}</Fact>}
-            {job.seniority && <Fact>{job.seniority}</Fact>}
-            {/* Salary only from a sourced amount; no sample-range fallback. */}
-            {job.salary ? (
-              <Fact>{job.salary.advertisedText}</Fact>
-            ) : (
-              <Fact>Salary not listed</Fact>
-            )}
-            <Fact>via {job.source.provider}</Fact>
-          </div>
+    <>
+      <header className="hc-sr-card-head">
+        {/* Neutral initial fallback — never a guessed remote logo URL. */}
+        <div className="hc-sr-logo" aria-hidden>
+          {job.company.slice(0, 1).toUpperCase()}
         </div>
+        <div className="hc-sr-card-title">
+          <div className="hc-sr-badges">
+            <span className={`hc-sr-badge${fresh ? " hc-sr-badge--fresh" : ""}`}>{age}</span>
+            <span className="hc-sr-badge">via {job.source.provider}</span>
+          </div>
+          <h2>{job.title}</h2>
+          <p>
+            {/* No company tagline exists in our data, so no " / " either. */}
+            <strong>{job.company}</strong>
+          </p>
+        </div>
+      </header>
 
-        {showMatchPanel && (
-          <div className="flex flex-col items-center gap-1">
-            {presentation ? (
-              <>
-                <MatchRing percent={presentation.matchPercent} />
-                <span className="text-[10px] whitespace-nowrap text-muted-foreground">
-                  {MATCH_LABEL}
-                </span>
-              </>
-            ) : (
-              /* No ring at all for an unscored job. */
-              <span className="rounded-md border border-border px-2 py-1 text-[11px] whitespace-nowrap text-muted-foreground">
-                {NOT_SCORED_LABEL}
-              </span>
-            )}
+      <div className="hc-sr-facts">
+        {job.location && (
+          <div>
+            <Icon d={PIN} extra={<circle cx="12" cy="10" r="2.5" />} />
+            <span>{job.location}</span>
+          </div>
+        )}
+        {job.employmentType && (
+          <div>
+            <Icon d={CLOCK} extra={<circle cx="12" cy="12" r="9" />} />
+            <span>{EMPLOYMENT[job.employmentType]}</span>
+          </div>
+        )}
+        {job.salary ? (
+          <div className="hc-sr-salary">
+            <Icon
+              d={["M6 12h.01M18 12h.01"]}
+              extra={
+                <>
+                  <rect x="2" y="5" width="20" height="14" rx="3" />
+                  <circle cx="12" cy="12" r="3" />
+                </>
+              }
+            />
+            <span>{job.salary.advertisedText}</span>
+          </div>
+        ) : (
+          <div>
+            <span className="hc-muted">Salary not listed</span>
+          </div>
+        )}
+        {job.workStyle && (
+          <div>
+            <Icon d={HOUSE} />
+            <span>{WORK_STYLE[job.workStyle]}</span>
+          </div>
+        )}
+        {job.seniority && (
+          <div>
+            <Icon d={BADGE} />
+            <span>{job.seniority}</span>
+          </div>
+        )}
+        {job.experienceYearsMin !== null && (
+          <div>
+            <Icon d={CASE} />
+            <span>{job.experienceYearsMin}+ years experience</span>
           </div>
         )}
       </div>
 
-      {showMatchPanel && presentation && assessment && (
-        <div
-          className="mt-3 rounded-lg border p-2.5"
-          style={{ borderColor: "var(--hc-match-panel-border)", background: "rgba(139,232,182,.05)" }}
-        >
-          <div className="text-[11px] font-semibold uppercase tracking-wide text-primary">
-            {assessment.recommendation === "apply" ? "Strong fit" : "Worth a look"}
-          </div>
-          <ul className="mt-1.5 flex flex-col gap-1">
-            {assessment.strengths.slice(0, 2).map((s) => (
-              <li key={s} className="text-[12px] leading-snug text-muted-foreground">
-                · {s}
-              </li>
-            ))}
-          </ul>
-          {/* Gaps and blockers are shown separately from the number. */}
-          {assessment.gaps.length > 0 && (
-            <div className="mt-1.5 text-[12px] leading-snug text-muted-foreground">
-              <span className="text-[var(--hc-warning)]">Worth checking:</span>{" "}
-              {assessment.gaps[0]}
-            </div>
-          )}
+      {/* Only ever the model's own evidence sentence. */}
+      {assessment && assessment.strengths.length > 0 && (
+        <div className="hc-sr-fit">
+          <Icon d={SPARK} />
+          <span>{assessment.strengths[0]}</span>
         </div>
       )}
 
-      <div className="mt-3 flex items-center gap-2">
-        <button
-          type="button"
-          onClick={onToggleSave}
-          className={cn(
-            "inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[12px] transition-colors",
-            saved
-              ? "border-primary/40 bg-primary/10 text-primary"
-              : "border-border text-muted-foreground hover:bg-secondary",
-          )}
-        >
-          <Bookmark className="size-3" /> {saved ? "Saved" : "Save"}
-        </button>
-
-        <button
-          type="button"
-          onClick={onToggleExpand}
-          aria-expanded={expanded ?? false}
-          className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-[12px] text-muted-foreground transition-colors hover:bg-secondary"
-        >
-          View role
-          <ChevronDown className={cn("size-3 transition-transform", expanded && "rotate-180")} />
-        </button>
-
+      <footer className="hc-sr-card-foot">
         {/*
-          The real posting URL. stopPropagation keeps the native link action
-          from being swallowed by card selection (§7 acceptance check).
+          The reference's "Fewer than 25 applicants" is replaced by something we
+          can actually source: how complete the description we retrieved is.
         */}
-        <a
-          href={job.source.canonicalPostingUrl}
-          target="_blank"
-          rel="noreferrer noopener"
-          onClick={(e) => e.stopPropagation()}
-          className="ml-auto inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-[12px] text-muted-foreground transition-colors hover:bg-secondary"
-        >
-          Open posting <ExternalLink className="size-3" />
-        </a>
-      </div>
+        <span className="hc-sr-early">
+          {job.descriptionStatus === "missing"
+            ? "Description unavailable"
+            : job.descriptionStatus === "partial"
+              ? "Partial description"
+              : "Full description retrieved"}
+        </span>
+        <div className="hc-sr-actions">
+          <button
+            type="button"
+            className="hc-sr-save"
+            aria-pressed={saved ?? false}
+            aria-label={`Save ${job.title} at ${job.company}`}
+            onClick={onToggleSave}
+          >
+            <Icon d={HEART} />
+            <span>{saved ? "Saved" : "Save"}</span>
+          </button>
+          <button
+            type="button"
+            className="hc-sr-view"
+            aria-expanded={expanded ?? false}
+            aria-controls={detailId}
+            onClick={onToggleExpand}
+          >
+            <span>{expanded ? "Hide role" : "View role"}</span>
+            <Icon d={ARROW} />
+          </button>
+        </div>
+      </footer>
 
-      {expanded && (
-        <div className="mt-3 border-t border-border pt-3 text-[13px] leading-relaxed text-muted-foreground">
-          {job.descriptionStatus === "missing" ? (
-            /* An unreadable JD says so. It is not summarised from nothing. */
-            <p>The job description could not be retrieved from this board.</p>
-          ) : (
-            <p>
-              {job.descriptionStatus === "partial"
-                ? "Partial description retrieved from the provider."
-                : "Full description retrieved from the provider."}{" "}
-              Open the posting for the employer&rsquo;s own copy.
-            </p>
-          )}
-          {assessment && assessment.blockers.length > 0 && (
-            <ul className="mt-2 flex flex-col gap-1">
-              {assessment.blockers.map((b) => (
-                <li key={b.code} className="text-[12px] text-[var(--hc-warning)]">
-                  {b.description}
+      <section className="hc-sr-detail" id={detailId} hidden={!expanded}>
+        <h3>A closer look</h3>
+        {/*
+          The reference prints three invented responsibility bullets. We hold
+          the employer's description as an artifact, not as sentences we may
+          paraphrase into bullets, so this states what we retrieved and sends
+          the visitor to the employer's own copy.
+        */}
+        <p>
+          {job.descriptionStatus === "missing"
+            ? "The job description could not be retrieved from this board."
+            : job.descriptionStatus === "partial"
+              ? "Only part of the description was published through this board’s API."
+              : "The full description was retrieved from this board’s API."}
+        </p>
+        {assessment && assessment.gaps.length > 0 && (
+          <div className="hc-match-evidence">
+            <strong>Worth checking</strong>
+            <p>{assessment.gaps[0]}</p>
+          </div>
+        )}
+        {assessment && assessment.blockers.length > 0 && (
+          <ul>
+            {assessment.blockers.map((b) => (
+              <li key={b.code}>{b.description}</li>
+            ))}
+          </ul>
+        )}
+        <p className="hc-sr-skills">
+          {/*
+            The real posting URL. stopPropagation keeps the native link action
+            from being swallowed by card selection (§7 acceptance check).
+          */}
+          <a
+            href={job.source.canonicalPostingUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            onClick={(e) => e.stopPropagation()}
+            data-hc-origin="link"
+          >
+            Open the employer’s posting ↗
+          </a>
+        </p>
+      </section>
+    </>
+  );
+}
+
+export function JobCard(props: {
+  job: Job;
+  assessment?: MatchAssessment | null;
+  saved?: boolean;
+  expanded?: boolean;
+  onToggleSave?: () => void;
+  onToggleExpand?: () => void;
+  /** Top matches adds the score panel; Explore renders the same card without it. */
+  showMatchPanel?: boolean;
+}) {
+  const { showMatchPanel, ...body } = props;
+  const presentation = matchPresentation(props.assessment);
+
+  if (!showMatchPanel) {
+    return (
+      <article className="hc-sr-card">
+        <CardBody {...body} />
+      </article>
+    );
+  }
+
+  return (
+    <article className="hc-sr-card hc-topmatch-card">
+      <div className="hc-topmatch-body">
+        <CardBody {...body} />
+      </div>
+      <aside
+        className="hc-match-panel"
+        aria-label={
+          presentation ? `${presentation.matchPercent} percent match` : NOT_SCORED_LABEL
+        }
+      >
+        {presentation ? (
+          <>
+            <MatchRing percent={presentation.matchPercent} id={props.job.id} />
+            <h3>{presentation.band.toUpperCase()} MATCH</h3>
+            {/*
+              The reference's panel lists two SHORT reasons ("B2B SaaS
+              experience"). `requirements[].requirement` is that shape already
+              — the strengths array holds full sentences, which overflow the
+              panel and repeat the `hc-sr-fit` line directly to its left. Only
+              requirements the model marked "strong" are listed, and nothing is
+              invented to reach two.
+            */}
+            <ul>
+              {(props.assessment?.requirements ?? [])
+                .filter((r) => r.match === "strong")
+                .slice(0, 2)
+                .map(({ requirement: reason }) => (
+                <li key={reason}>
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    aria-hidden="true"
+                  >
+                    <path d="m4 10 4 4 8-9" />
+                  </svg>
+                  <span>{reason}</span>
                 </li>
               ))}
             </ul>
-          )}
-        </div>
-      )}
+          </>
+        ) : (
+          /* No ring at all for an unscored job. */
+          <span className="hc-tag">{NOT_SCORED_LABEL}</span>
+        )}
+      </aside>
     </article>
   );
 }

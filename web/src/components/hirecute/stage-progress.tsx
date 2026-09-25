@@ -1,64 +1,62 @@
 "use client";
 
 /**
- * The four-step progress line (02-screen-guide.md §2 "Persistent shell").
+ * The four-step progress line — `nav.hc-stepper`.
  *
- * It reflects real stage status from the run store. There are deliberately no
- * advance controls here: §1 forbids reintroducing "Preview what's next",
- * "Explore jobs now", "See my best matches" or "Preview applications now".
- * Successful work continues without asking the visitor to press Next.
+ * Ported from the reference shell: `div.hc-step` (with `is-active`) holding a
+ * number and `span.hc-step-name`, separated by `span.hc-step-line`.
+ *
+ * There are deliberately no advance controls here. §1 forbids reintroducing
+ * "Preview what's next", "Explore jobs now", "See my best matches" or "Preview
+ * applications now" — successful work continues without asking the visitor to
+ * press Next.
  */
 
+import { Fragment } from "react";
 import type { StageId, StageState } from "@/lib/hirecute/contracts";
 import { STAGE_ORDER } from "@/lib/hirecute/screens";
-import { cn } from "@/lib/cn";
 
 const STAGE_TITLES: Record<StageId, string> = {
   refine: "Finetune Resume",
   explore: "Explore Jobs",
-  match: "Top matches",
+  match: "Top matching jobs",
   prepare: "Bulk Apply",
 };
 
 export function StageProgress({
   stages,
   visible,
-  className,
 }: {
   stages: Record<StageId, StageState | null>;
   /** The stage the visitor is looking at — may lag the worker during a dwell. */
   visible: StageId | null;
-  className?: string;
 }) {
   return (
-    <nav className={cn("flex items-center gap-1", className)} aria-label="Progress">
+    <nav className="hc-stepper" aria-label="Progress">
       {STAGE_ORDER.map((stage, i) => {
         const status = stages[stage]?.status ?? "pending";
         const done = status === "completed";
-        const active = visible === stage;
         const failed = status === "failed" || status === "interrupted";
+        const active = visible === stage;
+        const state = [
+          active ? "is-active" : "",
+          done ? "is-done" : "",
+          failed ? "is-failed" : "",
+        ]
+          .filter(Boolean)
+          .join(" ");
         return (
-          <div key={stage} className="flex min-w-0 flex-1 items-center gap-1">
-            <div className="min-w-0 flex-1">
-              <div
-                className={cn(
-                  "h-[3px] w-full rounded-full transition-colors",
-                  done && "bg-primary",
-                  active && !done && "bg-primary/50",
-                  failed && "bg-destructive/60",
-                  !done && !active && !failed && "bg-border",
-                )}
-              />
-              <div
-                className={cn(
-                  "mt-1.5 truncate font-mono text-[10px] uppercase tracking-[0.1em]",
-                  active ? "text-foreground" : "text-muted-foreground",
-                )}
-              >
-                <span className="tabular-nums">{i + 1}</span> {STAGE_TITLES[stage]}
-              </div>
+          // A Fragment, not a wrapper div: `.hc-stepper` is a flex row whose
+          // direct children are the steps and the connecting lines, so an
+          // extra element would break the layout.
+          <Fragment key={stage}>
+            <div className={`hc-step ${state}`.trim()} aria-current={active ? "step" : undefined}>
+              {/* `.hc-step b` is the numbered circle. */}
+              <b>{done ? "✓" : i + 1}</b>
+              <span className="hc-step-name">{STAGE_TITLES[stage]}</span>
             </div>
-          </div>
+            {i < STAGE_ORDER.length - 1 && <span className="hc-step-line" aria-hidden />}
+          </Fragment>
         );
       })}
     </nav>

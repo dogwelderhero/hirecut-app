@@ -1,11 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 /*
- * The finished design system from the MVP screens pack, ported verbatim: ~180
- * tokens (type scale, tracking, spacing, layout widths, per-screen component
- * dimensions) and 223 classes, all namespaced `hc-*` so nothing collides with
- * Tailwind or shadcn/ui. Its @font-face blocks were stripped — the font is
- * vendored once via next/font in src/lib/fonts.ts.
+ * The finished design system from the MVP screens pack, ported verbatim.
+ *
+ * Merged from ALL SIX screen exports, not just the landing: each file inlines
+ * only the rules it needs, so screen 01 alone was missing the entire workspace
+ * shell (hc-shell, hc-conversation, hc-chat-*), the job cards, the match rings
+ * and the checkout. 821 unique rules once deduped.
+ *
+ * Everything is namespaced `hc-*`, so it coexists with Tailwind and shadcn/ui.
+ * @font-face blocks are stripped — the font is vendored once via next/font in
+ * src/lib/fonts.ts.
  */
 @import "./hirecute-screens.css";
 

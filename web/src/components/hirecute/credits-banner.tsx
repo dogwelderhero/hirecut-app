@@ -1,12 +1,16 @@
 "use client";
 
 /**
- * The $30 promotional-credit banner.
+ * The $30 promotional-credit banner — `section.hc-credit-banner`.
+ *
+ * Ported to the reference markup: the first child of `main.hc-main`, ABOVE the
+ * stepper, holding `hc-credit-banner-message` (`hc-credit-banner-icon` +
+ * `hc-credit-banner-copy`) and `button.hc-button.hc-credit-banner-claim`.
  *
  * 02-screen-guide.md §6: it begins at Top Matches (visible screen 4), NOT at
  * Explore, and persists into Bulk Apply. Its CTA is manual checkout entry — it
  * is explicitly not a Next button, and it is excluded from the fourth-click
- * counter.
+ * counter (checkout-counter.ts sub-rule 3), hence the `data-hc-zone`.
  *
  * Copy depends on the launch profile. With submission disabled the entitlement
  * is prepared packages, not sent applications: the brief is explicit that
@@ -18,7 +22,25 @@
  */
 
 import type { LaunchProfile } from "@/lib/hirecute/contracts";
-import { Button } from "@/components/ui/button";
+
+function CardIcon() {
+  return (
+    <span className="hc-credit-banner-icon">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <rect x="3" y="5" width="18" height="14" rx="3" />
+        <path d="M3 10h18M7 15h4" />
+      </svg>
+    </span>
+  );
+}
 
 export function CreditsBanner({
   launchProfile,
@@ -41,35 +63,53 @@ export function CreditsBanner({
 
   if (activated) {
     return (
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl border border-primary/30 bg-primary/10 px-4 py-2.5">
-        <span className="text-[13px] font-semibold text-primary">
-          $30 credits unlocked · $0 charged
-        </span>
-        <span className="text-[12px] text-muted-foreground">{entitlement}</span>
-      </div>
+      <section className="hc-credit-banner" aria-labelledby="hc-credit-banner-title">
+        <div className="hc-credit-banner-message">
+          <CardIcon />
+          <div className="hc-credit-banner-copy">
+            <strong id="hc-credit-banner-title">$30 credits unlocked · $0 charged</strong>
+            <p>{entitlement}</p>
+          </div>
+        </div>
+      </section>
     );
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-border bg-card px-4 py-2.5">
-      <div className="min-w-0 flex-1">
-        <div className="text-[13px] font-semibold">
-          $30 free credits — put your job search on autopilot
-        </div>
-        <div className="mt-0.5 text-[12px] text-muted-foreground">
-          No upfront charge · {entitlement}
+    <section className="hc-credit-banner" aria-labelledby="hc-credit-banner-title">
+      <div className="hc-credit-banner-message">
+        <CardIcon />
+        <div className="hc-credit-banner-copy">
+          <strong id="hc-credit-banner-title">
+            $30 free credits — put your job search on autopilot
+          </strong>
+          <p>No upfront charge · {entitlement}</p>
         </div>
       </div>
-      <Button
+      <button
         type="button"
-        size="sm"
+        className="hc-button hc-credit-banner-claim"
         disabled={!hasRankedJob}
         onClick={onClaim}
         /* Excluded from the click counter — see checkout-counter.ts sub-rule 3. */
         data-hc-zone="credit_banner_cta"
       >
-        {hasRankedJob ? "Claim $30 free credits" : "Preparing your matches"}
-      </Button>
-    </div>
+        <span>{hasRankedJob ? "Claim $30 free credits" : "Preparing your matches"}</span>
+        {hasRankedJob && (
+          <svg
+            className="hc-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14m-6-6 6 6-6 6" />
+          </svg>
+        )}
+      </button>
+    </section>
   );
 }
