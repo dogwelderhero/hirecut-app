@@ -1,0 +1,50 @@
+{
+  "candidate": {
+    "name": "Marek Novak",
+    "location": "Berlin, Germany",
+    "email": "marek.novak@example.com"
+  },
+  "summary": "Senior Product Designer with experience at Zalando and SoundCloud, focused on design systems and typography. Built and maintained a design system used by 40 product teams, reducing component duplication by 62%. Led accessibility audits raising WCAG compliance to AA across checkout, and redesigned a mobile upload flow that lifted completion by 24%.",
+  "experience": [
+    {
+      "company": "Zalando",
+      "role": "Senior Product Designer",
+      "location": "Berlin",
+      "dates": "2020-Present",
+      "bullets": [
+        "Built and maintained the design system used by 40 product teams",
+        "Reduced component duplication 62% by consolidating the Figma library",
+        "Ran accessibility audits raising WCAG compliance to AA across checkout"
+      ]
+    },
+    {
+      "company": "SoundCloud",
+      "role": "Product Designer",
+      "location": "Berlin",
+      "dates": "2017-2020",
+      "bullets": [
+        "Redesigned the mobile upload flow, lifting completion 24%",
+        "Led brand refresh across web and mobile"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "BA Graphic Design",
+      "org": "Universität der Künste Berlin",
+      "year": "2016"
+    }
+  ],
+  "skills": [
+    {
+      "items": [
+        "Figma",
+        "Design Systems",
+        "Typography",
+        "Accessibility",
+        "Prototyping",
+        "Motion Design"
+      ]
+    }
+  ]
+}

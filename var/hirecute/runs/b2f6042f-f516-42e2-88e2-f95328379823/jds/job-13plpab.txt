@@ -1,0 +1,73 @@
+ROLE SUMMARY
+
+Developers experience Temporal through its core programming model, SDKs, APIs, and tools. Those surfaces determine how quickly someone understands the product, whether they can build with it confidently, and whether they can move an application into production. They also shape how customers understand newer capabilities such as Nexus and Standalone Activities.
+
+We are looking for a Senior Staff Product Marketing Engineer who can work in the product, find where developers struggle, and explain Temporal without hiding the technical details. You will work directly with Core and SDK engineers, developers, customers, Developer Relations, Documentation, Sales, and Solutions Architecture. You will turn what you learn into positioning, launch plans, sample applications, demos, technical guidance, and product recommendations.
+
+Your primary charter is Core and SDKs. You may also investigate an AI pattern, integration, or other developer question when it depends on Temporal's programming model or developer experience.
+
+
+WHAT YOU WILL DO
+
+ - Develop a detailed understanding of Temporal's core primitives, SDKs, APIs, Nexus, and developer tools. Know how the experience differs across languages and where those differences matter.
+
+ - Follow the developer journey from the first code sample through testing, debugging, deployment, versioning, and production use. Identify the points that slow adoption or create confusion.
+
+ - Build demos, sample applications, reference implementations, tutorials, technical briefs, launch content, and field presentations. Use working code to support product claims.
+
+ - Own positioning and messaging for assigned Core, SDK, API, Nexus, and developer experience initiatives with the Core Products Director. Define the audience, problem, value, evidence, and adoption path.
+
+ - Work directly with Core, SDK, and developer tooling engineers to understand the roadmap and prepare for launches before the work is ready to announce.
+
+ - Own the technical story for priority developer-tool integrations. Test how Temporal works with the frameworks, libraries, and tools developers already use, then create the examples and guidance needed to support adoption.
+
+ - Test documentation, onboarding, local development, testing, debugging, replay, and upgrade workflows. Give Product, Engineering, Developer Relations, and Documentation specific recommendations based on what you find.
+
+ - Support selected priority deals and partner conversations when hands-on work can answer a developer question, prove a claim, or remove an adoption blocker. Turn repeated questions into guidance the field can reuse.
+
+ - Own customer interviews for Core and SDK case studies when it is your turn in Product Marketing's rotation. Capture what the customer built, why they chose Temporal, how they implemented it, and what changed as a result.
+
+ - Take on another important developer question when priorities change, including an AI application pattern, a new integration, a competitive claim, or an emerging use case.
+
+
+WHAT YOU WILL BRING
+
+ - Extensive experience in software engineering, solutions architecture, customer engineering, developer relations, technical product marketing, or another hands-on technical role.
+
+ - A record of building or supporting developer-facing platforms, SDKs, APIs, frameworks, or infrastructure products.
+
+ - Strong proficiency in Python, TypeScript, Go, Java, or another language used to build backend applications, plus the ability to learn unfamiliar SDKs quickly.
+
+ - Practical knowledge of APIs, SDKs, distributed systems, failure handling, state management, testing, deployment, and observability.
+
+ - The ability to compare approaches, recommend a pattern, build a useful reference implementation, and explain the tradeoffs.
+
+ - Excellent technical writing. You can turn working code and developer evidence into a clear position and guidance that experienced engineers will trust.
+
+ - The credibility to lead a technical discussion with developers, a large Sales and Solutions Architecture audience, customers, and senior Product and Engineering leaders.
+
+ - Independent judgment. You can find an important problem, define the work, and carry it through without waiting for a fixed backlog.
+
+
+NICE TO HAVE
+
+ - Experience with event-driven systems, workflow engines, data infrastructure, or distributed applications.
+
+ - Experience building SDKs, CLIs, testing tools, integrations, or open-source developer tools.
+
+ - Experience supporting developer communities across more than one programming language.
+
+
+WHAT SUCCESS LOOKS LIKE AFTER ONE YEAR
+
+ - Core and SDK launches you support meet agreed targets for qualified signups, first-value activation, and adoption among eligible developers, backed by working examples and technical proof.
+
+ - The priority deals you support show measurable impact through technical blockers resolved, stage progression, influenced ARR, and supported-deal win rate against a defined baseline.
+
+ - Repeated developer and field questions become tested guidance, reusable examples, and specific product recommendations.
+
+ - Product and Engineering act on documented findings about onboarding, SDK behavior, documentation, integrations, and the developer experience.
+
+Temporal Technologies is an Equal Opportunity Employer. Temporal Technologies does not discriminate on the basis of race, religion, color, sex, gender identity, sexual orientation, age, non-disqualifying physical or mental disability, national origin, veteran status, or any other basis covered by appropriate law. All employment is decided on the basis of qualifications, merit, and business need. We embrace and celebrate differences and diversity.
+
+Temporal is committed to providing access, equal opportunity, and reasonable accommodation for individuals with disabilities in employment, its services, programs, and activities. If you need to request a reasonable accommodation, please let your Recruiter know so we can assist.

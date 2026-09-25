@@ -18,6 +18,11 @@ type Applied = { [K in keyof EventPayloadMap]: { type: K; payload: EventPayloadM
 export function projectEvent(snapshot: RunSnapshot, event: Applied): RunSnapshot {
   const s = snapshot;
 
+  // A cancelled run is terminal. A child that is still dying can emit one more
+  // stage.started, and `run.started`/`stage.started` would otherwise flip the
+  // status back to "running" — resurrecting a journey the visitor abandoned.
+  if (s.status === "cancelled" && event.type !== "run.cancelled") return s;
+
   switch (event.type) {
     case "run.started":
       return { ...s, status: "running", currentStage: event.payload.stage };

@@ -1,0 +1,228 @@
+{
+  "snapshot": {
+    "schemaVersion": 1,
+    "id": "f31b8302-b7d4-474e-a49c-0a16222f5554",
+    "origin": "uploaded_resume",
+    "launchProfile": "activation_pilot",
+    "status": "running",
+    "currentStage": "explore",
+    "createdAt": "2026-09-25T18:54:50.960Z",
+    "updatedAt": "2026-09-25T18:57:09.251Z",
+    "lastSequence": 16,
+    "journeyVersion": 1,
+    "profile": null,
+    "preferences": {
+      "version": 1,
+      "targetRoles": [],
+      "locations": [],
+      "workStyles": [],
+      "origin": "confirmed_by_candidate"
+    },
+    "stages": {
+      "refine": {
+        "stage": "refine",
+        "status": "completed",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "refine-0",
+            "stage": "refine",
+            "label": "Reading your resume",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:56:55.070Z",
+            "completedAt": "2026-09-25T18:56:55.341Z",
+            "error": null
+          },
+          {
+            "id": "refine-1",
+            "stage": "refine",
+            "label": "Extracting your experience and skills",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:56:55.338Z",
+            "completedAt": "2026-09-25T18:57:08.209Z",
+            "error": null
+          },
+          {
+            "id": "refine-2",
+            "stage": "refine",
+            "label": "Refining your summary and bullet points",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:08.196Z",
+            "completedAt": "2026-09-25T18:57:08.211Z",
+            "error": null
+          },
+          {
+            "id": "refine-3",
+            "stage": "refine",
+            "label": "Checking formatting and readability",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:08.198Z",
+            "completedAt": "2026-09-25T18:57:09.244Z",
+            "error": null
+          }
+        ],
+        "result": {
+          "kind": "refine",
+          "originalArtifactId": "6dad53d9-a704-4174-ac74-0e63ecb4a613",
+          "refinedResumeArtifactId": "b7f7b3f3-70ad-46e8-96ad-c0c4764c2dc6",
+          "changes": [
+            {
+              "id": "9cfc5373-c0ed-4f1f-8579-63a85a7e74d7",
+              "kind": "clarity",
+              "before": "Experienced product person who has worked on lots of payments things over the years.",
+              "after": "Removed from summary; replaced with a concrete, fact-based summary line.",
+              "explanation": "Original phrasing was vague filler with no traceable facts and did not meet the formal register required.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "7fc7c831-c045-4a87-83f4-6ef00b57d4cf",
+              "kind": "relevance",
+              "before": "built payments stuff and also did some hiring",
+              "after": "Split into two separate bullets: 'Managed hiring for the payments product team' (the hiring claim is retained; the vague 'built payments stuff' is covered by the specific Faster Payments bullet already listed).",
+              "explanation": "Original bullet was too vague and duplicated the more specific Faster Payments bullet; separated the distinct hiring claim into its own clear bullet.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "a1205246-803a-4df7-b206-b8972c6bf128",
+              "kind": "formatting",
+              "before": "2021–Present",
+              "after": "2021-Present",
+              "explanation": "Standardized en-dash to hyphen per date-range formatting convention.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "2734f096-a21a-4c65-a00a-ec20df5950a7",
+              "kind": "formatting",
+              "before": "2018–2021",
+              "after": "2018-2021",
+              "explanation": "Standardized en-dash to hyphen per date-range formatting convention.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "607b2b83-e92a-4073-84c8-4abca8cb9443",
+              "kind": "formatting",
+              "before": "Reduced chargeback disputes 18% by redesigning the claims fl ow",
+              "after": "Reduced chargeback disputes by 18% by redesigning the claims flow",
+              "explanation": "Fixed OCR artifact ('fl ow' to 'flow') and added missing preposition for grammatical clarity.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "892292f6-aa3d-4e3d-9af4-3cef5cc7d2e5",
+              "kind": "structure",
+              "before": "Starling Bank — London Senior Product Manager, Payments 2021–Present built payments stuff and also did some hiring Owned the Faster Payments integration...",
+              "after": "Separated into structured fields: company, role, location, dates, and distinct bullets.",
+              "explanation": "Original text ran company, role, dates, and bullets together with no delimiters, requiring structural parsing into standard resume fields.",
+              "sourceFactIds": []
+            }
+          ],
+          "originalPreserved": true
+        },
+        "error": null
+      },
+      "explore": {
+        "stage": "explore",
+        "status": "running",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "explore-0",
+            "stage": "explore",
+            "label": "Building a search from your experience",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:09.244Z",
+            "completedAt": "2026-09-25T18:57:09.249Z",
+            "error": null
+          },
+          {
+            "id": "explore-1",
+            "stage": "explore",
+            "label": "Checking company career pages",
+            "status": "in_progress",
+            "startedAt": "2026-09-25T18:57:09.245Z",
+            "completedAt": null,
+            "error": null
+          }
+        ],
+        "result": null,
+        "error": null
+      },
+      "match": {
+        "stage": "match",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      },
+      "prepare": {
+        "stage": "prepare",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      }
+    },
+    "evidence": [],
+    "jobs": [],
+    "assessments": [],
+    "applications": [],
+    "selection": {
+      "jobIds": [],
+      "version": 1,
+      "updatedAt": "2026-09-25T18:54:50.960Z"
+    },
+    "artifacts": [
+      {
+        "kind": "original_resume",
+        "createdAt": "2026-09-25T18:57:09.243Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "6dad53d9-a704-4174-ac74-0e63ecb4a613"
+      },
+      {
+        "kind": "refined_resume_pdf",
+        "createdAt": "2026-09-25T18:57:09.246Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "b7f7b3f3-70ad-46e8-96ad-c0c4764c2dc6"
+      }
+    ],
+    "billing": {
+      "status": "not_started",
+      "mode": "test",
+      "promotionalCredit": null,
+      "entitlement": null,
+      "amountChargedMinor": 0,
+      "error": null
+    }
+  },
+  "ownerSessionId": "05b48f680328229dfd3b1b8ebb2672feaf1616d18e02df9a7082608280647f15",
+  "billingRecordId": null,
+  "artifacts": {
+    "6dad53d9-a704-4174-ac74-0e63ecb4a613": {
+      "kind": "original_resume",
+      "createdAt": "2026-09-25T18:57:09.243Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "6dad53d9-a704-4174-ac74-0e63ecb4a613",
+      "relativePath": "originals/resume.pdf"
+    },
+    "b7f7b3f3-70ad-46e8-96ad-c0c4764c2dc6": {
+      "kind": "refined_resume_pdf",
+      "createdAt": "2026-09-25T18:57:09.246Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "b7f7b3f3-70ad-46e8-96ad-c0c4764c2dc6",
+      "relativePath": "output/base-resume.pdf"
+    }
+  }
+}

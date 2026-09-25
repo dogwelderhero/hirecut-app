@@ -1,0 +1,104 @@
+{
+  "snapshot": {
+    "schemaVersion": 1,
+    "id": "c195fa1e-0695-4733-9c65-cf329693f9c7",
+    "origin": "uploaded_resume",
+    "launchProfile": "activation_pilot",
+    "status": "cancelled",
+    "currentStage": "refine",
+    "createdAt": "2026-09-25T18:58:59.656Z",
+    "updatedAt": "2026-09-25T18:59:11.745Z",
+    "lastSequence": 7,
+    "journeyVersion": 1,
+    "profile": null,
+    "preferences": {
+      "version": 1,
+      "targetRoles": [],
+      "locations": [],
+      "workStyles": [],
+      "origin": "confirmed_by_candidate"
+    },
+    "stages": {
+      "refine": {
+        "stage": "refine",
+        "status": "running",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "refine-0",
+            "stage": "refine",
+            "label": "Reading your resume",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:58:59.793Z",
+            "completedAt": "2026-09-25T18:59:00.082Z",
+            "error": null
+          },
+          {
+            "id": "refine-1",
+            "stage": "refine",
+            "label": "Extracting your experience and skills",
+            "status": "in_progress",
+            "startedAt": "2026-09-25T18:59:00.080Z",
+            "completedAt": null,
+            "error": null
+          }
+        ],
+        "result": null,
+        "error": null
+      },
+      "explore": {
+        "stage": "explore",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      },
+      "match": {
+        "stage": "match",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      },
+      "prepare": {
+        "stage": "prepare",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      }
+    },
+    "evidence": [],
+    "jobs": [],
+    "assessments": [],
+    "applications": [],
+    "selection": {
+      "jobIds": [],
+      "version": 1,
+      "updatedAt": "2026-09-25T18:58:59.656Z"
+    },
+    "artifacts": [],
+    "billing": {
+      "status": "not_started",
+      "mode": "test",
+      "promotionalCredit": null,
+      "entitlement": null,
+      "amountChargedMinor": 0,
+      "error": null
+    }
+  },
+  "ownerSessionId": "fe0afaf77a9c4884a1f24fe3327729a96e40ab04296dc1c8df028ad5fe729fa5",
+  "billingRecordId": null,
+  "artifacts": {}
+}

@@ -1,0 +1,85 @@
+{
+  "snapshot": {
+    "schemaVersion": 1,
+    "id": "e376abd1-056a-4c70-89fe-27305fc5ca54",
+    "origin": "uploaded_resume",
+    "launchProfile": "activation_pilot",
+    "status": "queued",
+    "currentStage": null,
+    "createdAt": "2026-09-25T18:54:59.051Z",
+    "updatedAt": "2026-09-25T18:54:59.054Z",
+    "lastSequence": 1,
+    "journeyVersion": 1,
+    "profile": null,
+    "preferences": {
+      "version": 1,
+      "targetRoles": [],
+      "locations": [],
+      "workStyles": [],
+      "origin": "confirmed_by_candidate"
+    },
+    "stages": {
+      "refine": {
+        "stage": "refine",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      },
+      "explore": {
+        "stage": "explore",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      },
+      "match": {
+        "stage": "match",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      },
+      "prepare": {
+        "stage": "prepare",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      }
+    },
+    "evidence": [],
+    "jobs": [],
+    "assessments": [],
+    "applications": [],
+    "selection": {
+      "jobIds": [],
+      "version": 1,
+      "updatedAt": "2026-09-25T18:54:59.052Z"
+    },
+    "artifacts": [],
+    "billing": {
+      "status": "not_started",
+      "mode": "test",
+      "promotionalCredit": null,
+      "entitlement": null,
+      "amountChargedMinor": 0,
+      "error": null
+    }
+  },
+  "ownerSessionId": "05b48f680328229dfd3b1b8ebb2672feaf1616d18e02df9a7082608280647f15",
+  "billingRecordId": null,
+  "artifacts": {}
+}

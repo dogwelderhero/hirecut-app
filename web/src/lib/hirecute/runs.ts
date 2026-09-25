@@ -79,6 +79,25 @@ export interface CreateRunOutcome {
 }
 
 export async function createRun(opts: CreateRunOptions): Promise<CreateRunOutcome> {
+  // A new upload IS a restart (01-architecture.md §4). Cancel whatever this
+  // session had in flight first, or the new journey queues behind an abandoned
+  // one and the visitor waits minutes watching "Your agent is queued" — which
+  // looks exactly like the new resume being ignored.
+  const previous = opts.session.currentRunId;
+  if (previous) {
+    cancelQueued(previous);
+    handles.get(previous)?.cancel();
+    handles.delete(previous);
+    const prior = await readRunFile(previous);
+    if (prior && (prior.snapshot.status === "running" || prior.snapshot.status === "queued")) {
+      await updateRun(previous, (f) => ({
+        ...f,
+        snapshot: { ...f.snapshot, status: "cancelled" },
+      }));
+      await appendEvent(previous, "run.cancelled", { reason: "candidate_deleted_run" });
+    }
+  }
+
   const runId = newRunId();
   await bootstrapRunDir(runId);
 

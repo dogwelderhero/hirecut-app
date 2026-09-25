@@ -1,0 +1,3 @@
+# Source resume (verbatim extraction)
+
+Marek Novak Berlin, Germany · marek.novak@example.com Brand and product designer focused on design systems and typography. Work Experience Zalando — Berlin Senior Product Designer 2020–Present Built and maintained the design system used by 40 product teams Reduced component duplication 62% by consolidating the Figma library Ran accessibility audits raising WCAG compliance to AA across checkout SoundCloud — Berlin Product Designer 2017–2020 Redesigned the mobile upload fl ow, lifting completion 24% Led brand refresh across web and mobile Education BA Graphic Design, Universität der Künste Berlin (2016) Skills Figma, Design Systems, Typography, Accessibility, Prototyping, Motion Design

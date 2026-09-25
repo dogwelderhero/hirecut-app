@@ -29,21 +29,35 @@
  */
 export const CURATED_BOARDS = [
   // ── Greenhouse ────────────────────────────────────────────────────────
+  // Fintech / payments
   { name: "Monzo", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/monzo" },
   { name: "Wise", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/wise" },
   { name: "GoCardless", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/gocardless" },
   { name: "Stripe", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/stripe" },
-  { name: "Cloudflare", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/cloudflare" },
-  { name: "Figma", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/figma" },
-  { name: "Anthropic", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/anthropic" },
-  { name: "Databricks", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/databricks" },
   { name: "Coinbase", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/coinbase" },
   { name: "Robinhood", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/robinhood" },
+  // Consumer / marketplace
+  { name: "Airbnb", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/airbnb" },
+  { name: "Pinterest", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/pinterest" },
   { name: "Reddit", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/reddit" },
   { name: "Discord", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/discord" },
   { name: "Duolingo", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/duolingo" },
+  { name: "Instacart", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/instacart" },
+  // Productivity / SaaS
+  { name: "Dropbox", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/dropbox" },
+  { name: "Asana", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/asana" },
+  { name: "Figma", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/figma" },
+  // Infrastructure / AI / data
+  { name: "Cloudflare", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/cloudflare" },
+  { name: "Anthropic", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/anthropic" },
+  { name: "Databricks", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/databricks" },
+  // Logistics / industrial / health
+  { name: "Flexport", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/flexport" },
+  { name: "Samsara", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/samsara" },
+  { name: "Zocdoc", provider: "greenhouse", careers_url: "https://job-boards.greenhouse.io/zocdoc" },
 
   // ── Lever ─────────────────────────────────────────────────────────────
+  { name: "Spotify", provider: "lever", careers_url: "https://jobs.lever.co/spotify" },
   { name: "Palantir", provider: "lever", careers_url: "https://jobs.lever.co/palantir" },
   { name: "Mistral AI", provider: "lever", careers_url: "https://jobs.lever.co/mistral" },
 
@@ -63,6 +77,13 @@ export const CURATED_BOARDS = [
   { name: "Cursor", provider: "ashby", careers_url: "https://jobs.ashbyhq.com/cursor" },
   { name: "Clerk", provider: "ashby", careers_url: "https://jobs.ashbyhq.com/clerk" },
   { name: "Ashby", provider: "ashby", careers_url: "https://jobs.ashbyhq.com/ashby" },
+  { name: "Supabase", provider: "ashby", careers_url: "https://jobs.ashbyhq.com/supabase" },
+  { name: "Railway", provider: "ashby", careers_url: "https://jobs.ashbyhq.com/railway" },
+  { name: "Render", provider: "ashby", careers_url: "https://jobs.ashbyhq.com/render" },
+  { name: "Browserbase", provider: "ashby", careers_url: "https://jobs.ashbyhq.com/browserbase" },
+  { name: "ElevenLabs", provider: "ashby", careers_url: "https://jobs.ashbyhq.com/elevenlabs" },
+  { name: "Perplexity", provider: "ashby", careers_url: "https://jobs.ashbyhq.com/perplexity" },
+  { name: "Temporal", provider: "ashby", careers_url: "https://jobs.ashbyhq.com/temporal" },
 ];
 
 // Every slug above was verified against its vendor API. Five earlier entries

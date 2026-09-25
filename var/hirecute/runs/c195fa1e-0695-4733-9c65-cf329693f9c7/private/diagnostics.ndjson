@@ -1,0 +1,5 @@
+{"time":"2026-09-25T18:58:59.708Z","entry":{"started":{"runId":"c195fa1e-0695-4733-9c65-cf329693f9c7","dataRoot":"/Users/germankukhtenkov/hirecut-app/var/hirecute/runs/c195fa1e-0695-4733-9c65-cf329693f9c7"}}}
+{"time":"2026-09-25T18:59:00.081Z","entry":{"extraction":{"chars":716,"pages":1,"truncated":false}}}
+{"time":"2026-09-25T18:59:11.744Z","entry":{"cancelled":"SIGTERM received; stopping this run"}}
+{"time":"2026-09-25T18:59:11.744Z","entry":{"cancelled":"SIGTERM received; stopping this run"}}
+{"time":"2026-09-25T18:59:12.001Z","entry":{"exit":{"code":0,"signal":null}}}

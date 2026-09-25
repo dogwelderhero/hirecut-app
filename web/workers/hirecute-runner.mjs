@@ -43,9 +43,24 @@ function send(message) {
 const emit = (type, payload, stage = null) => send({ kind: "event", type, payload, stage });
 const diag = (entry) => send({ kind: "diagnostic", entry });
 
+/**
+ * Cancellation.
+ *
+ * Registering a SIGTERM handler REPLACES Node's default terminate, so a
+ * handler that only sets a flag makes the process unkillable unless every
+ * long-running step polls that flag. The stage bodies are model calls and
+ * child renders that do not poll, so this handler exits for real.
+ *
+ * The flag still exists for the small window between the signal and exit, and
+ * `exit(0)` rather than a non-zero code because an intentional cancel is not
+ * a crash — the parent has already marked the run cancelled.
+ */
 let cancelled = false;
 process.on("SIGTERM", () => {
   cancelled = true;
+  diag({ cancelled: "SIGTERM received; stopping this run" });
+  // A brief grace period lets a queued IPC write flush, then we go.
+  setTimeout(() => process.exit(0), 250).unref?.();
 });
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

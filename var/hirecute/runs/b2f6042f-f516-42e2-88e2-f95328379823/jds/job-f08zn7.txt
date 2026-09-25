@@ -1,0 +1,117 @@
+At Render, we’re building the modern cloud platform for developers creating AI-native, full-stack, multi-service applications. Our mission is to eliminate the tradeoff between the power of hyperscalers and the simplicity of developer-friendly platforms—so teams can ship fast, scale reliably, and focus on their product, not infrastructure.
+
+Unlike complex hyperscalers or ephemeral edge/serverless solutions, Render offers a developer-first experience with persistent compute, dynamic autoscaling, built-in orchestration, and observability, allowing teams to launch, scale, and manage real-world applications without writing infrastructure code or managing servers. Whether you're building LLM-powered applications, scalable SaaS products, or async processing pipelines, Render empowers teams to move fast and scale confidently from MVP to millions of users.
+
+Our platform is trusted by over 7 million developers worldwide and continues to grow rapidly. In February 2026, we raised an additional $100M in Series C financing, bringing our total funding to $260M, to accelerate our vision of making cloud infrastructure both powerful and intuitive—designed for the speed of modern AI development.
+
+We’re a diverse and talented team that values craft, velocity, and user experience. If you’re excited to help shape the future of the intelligent cloud and empower developers everywhere, we’d love to hear from you.
+
+
+
+
+APPLYING TO RENDER
+
+We're seeking candidates who possess high integrity, humility, and an insatiable drive to learn. Through reasoned discussions and continuous feedback, we strive to improve both individually and collectively. We foster an environment of mutual trust and respect, empowering effective debate to achieve the best outcomes for our customers and team.
+
+We especially encourage members of underrepresented groups in the tech community to apply and understand that not all successful candidates will meet each requirement listed.
+
+Our interview process is unique to each role, and we value the candidate experience just as much as our customer experience. We hope your conversations with us reflect a thoughtful process that is illuminative, enjoyable, and respectful of your time.
+
+
+
+
+ABOUT THE ROLE
+
+Render’s mission is simple: eliminate the tedious work of building software by providing a cloud platform that just works.
+
+We’re evolving from the go-to platform for solo developers into the backbone for fast-scaling teams. As our users’ apps grow from a single service into complex, multi-service architectures, our biggest challenge is keeping it all feeling simple. We need a Product Designer to take that "pile of parts" and turn it into a cohesive system that actually makes sense.
+
+This is a craft-focused IC role, and it's web UI at its most demanding. You'll own the surfaces developers depend on when the clock is ticking and things are breaking. Designing for infrastructure is unique: your screens see the most traffic when the user is most stressed, and "failure" is a first-class state, not an edge case. We’re looking for someone who finds that responsibility energizing.
+
+You’ll join a design team that takes its craft seriously, with weekly critiques and deep cross-functional collaboration. You’ll thrive here if you love untangling complex, messy problems and turning them into accessible, beautiful experiences.
+
+
+
+
+YOU WILL:
+
+ - Make a multi-service system legible at a glance. Design the views that let a developer see how their services connect and depend on each other, instead of stitching the picture together one service at a time. This comprehension gap is where design can make a complicated system feel cohesive and friendly.
+
+ - Design system-level observability. Aggregated logs, metrics, deploys, and events across a whole project, filterable by environment and resource — so a developer can answer "what's going on with my system" in one place. This is high-density information design where hierarchy, scanning speed, and progressive disclosure are the whole game.
+
+ - Design deployment as a coordinated act. When an application has many services, coordination gets hard. You'll design cross-service deployment and rollback, and a preview model so shipping feels safe at any scale.
+
+ - Design and consider all product states. You'll own the "unglamorous" moments. Like build errors, failed deploys, and empty states, and turn them into helpful experiences. Since developer tools earn their reputation by how they handle problems, your focus is on guiding the user to success even when things go wrong.
+
+ - Own a first-run experience worth recommending. The path from signup to first successful deploy is where trust starts. You'll design it so that a developer's first ten minutes make them want to tell someone.
+
+ - Contribute to where the platform goes next. Alongside the shipping work, you'll bring concept explorations and a strong point of view to a design-led discovery track, shaping the platform's future through a weekly critique cadence with the rest of the team.
+
+
+WE'RE LOOKING FOR:
+
+ - 5+ years of relevant experience. Whether you’ve worked on developer tools, cloud infrastructure, or another complex, high-stakes product, we care more about your impact than your title.
+
+ - Exceptional taste and craft. You have an eye for detail that borders on obsessive — typography, spacing, motion, density, interaction feedback. You notice when something is 2px off and it bothers you, and you've shipped work other practitioners admire.
+
+ - Strong information architecture. You can take a tangle of objects and relationships and make it feel like one obvious thing.
+
+ - You design the whole journey, not a screen at a time. Your portfolio shows a user carried coherently across every surface a feature touches — entry point to empty state to failure to recovery — not a set of polished screens that don't add up to a system.
+
+ - Fluent in developer language. You know your way around services, CI/CD, and deployments. You don’t need to have built a cloud platform before, but you’re curious enough to get deep into the weeds of how it works.
+
+ - Respect for failure states. You believe an error message is an interface, and you design for the user having a bad day, not just the happy path.
+
+ - Systems fluency. You're comfortable working in and contributing to a design system as the product's surface area grows, extending it rather than fighting it.
+
+ - Strong product judgment under fast launch velocity. You frame problems well, prioritize ruthlessly, and know which details matter and which can wait.
+
+ - Clear, direct communication and a genuinely collaborative way of working with product and engineering partners — including sharing a problem space with another designer without needing hard fences between you.
+
+
+NICE-TO-HAVES:
+
+ - Experience designing complex dashboards, monitoring tools, or console interfaces where data density and high-stakes clarity matter.
+
+ - You've been on-call, run side projects, or debugged systems in production. You don’t just design for developers; you understand their mental models and the specific frustrations they face.
+
+ - You’re as excited to design a CLI tool or shape an SDK as you are to build a web dashboard. You’re ready to explore new frontiers like agentic workflows and AI-assisted design, not just standard web UI.
+
+ - Design-engineering literacy: comfort near code, motion, or prototyping.
+
+ - Writing, talks, or side projects that demonstrate your craft and point of view.
+
+If this role excites you but you don’t meet every single requirement, we’d still love to hear from you—your unique experience might be just what we need.
+
+
+
+
+BENEFITS
+
+ - 4 weeks of paid vacation.
+
+ - 14 weeks of fully paid parental leave for all parents to bond with a newly born, adopted, or fostered child. We will also work with you to create a supportive plan of return.
+
+ - Long-term disability, life insurance, and 401K plans.
+
+ - 100% employer-paid medical coverage and 99% employer-paid dental and vision coverage for you and a dependent. FSAs and HSAs are available as well.
+
+ - Monthly lifestyle stipend for wellness, mental health and therapy, hobbies, etc.
+
+ - Monthly cell phone and internet subsidy.
+
+ - Commuter benefits for Renders in the Bay Area, and home office stipends for remote Renders.
+
+ - Continuous learning benefits & related support.
+
+This position is generally not eligible for new visa sponsorship. At Render's discretion, the business may sponsor existing visa transfers. Applicants who require sponsorship must receive business authorization.
+
+Render is an equal-opportunity employer. We know that employing a team rich in diverse thoughts, experiences, and opinions allows our employees, product, and community to flourish. We make all employment decisions including hiring, evaluation, termination, promotional, and training opportunities, without regard to race, religion, color, sex, age, national origin, ancestry, sexual orientation, physical handicap, mental disability, medical condition, disability, gender or identity or expression, pregnancy or pregnancy-related condition, marital status, height and/or weight.
+
+We will ensure that individuals with disabilities are provided reasonable accommodation to participate in the job application or interview process, to perform essential job functions, and to receive other benefits and privileges of employment. Please contact us to request accommodation.
+
+We encourage all who are interested to apply. We can't wait to hear from you!
+
+Render — CCPA Applicant Privacy Notice https://drive.google.com/file/d/1wKr9IejoT5McFrs9I2mahQnf6AFwb3z2/view
+
+Render — GDPR Applicant Privacy Notice https://drive.google.com/file/d/1_8jtyXQ1HdRdTdQn9sZ7n-R-zAGBmsFa/view

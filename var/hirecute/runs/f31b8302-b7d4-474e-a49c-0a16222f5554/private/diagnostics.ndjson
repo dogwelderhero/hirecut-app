@@ -1,0 +1,21 @@
+{"time":"2026-09-25T18:56:54.976Z","entry":{"started":{"runId":"f31b8302-b7d4-474e-a49c-0a16222f5554","dataRoot":"/Users/germankukhtenkov/hirecut-app/var/hirecute/runs/f31b8302-b7d4-474e-a49c-0a16222f5554"}}}
+{"time":"2026-09-25T18:56:55.339Z","entry":{"extraction":{"chars":716,"pages":1,"truncated":false}}}
+{"time":"2026-09-25T18:57:08.205Z","entry":{"model":{"usage":{"inputTokens":3556,"outputTokens":1586},"model":"claude-sonnet-5"}}}
+{"time":"2026-09-25T18:57:08.206Z","entry":{"payloadValidation":{"errors":[],"warnings":[]}}}
+{"time":"2026-09-25T18:57:09.243Z","entry":{"factCheck":{"ran":true,"findings":0,"detail":""}}}
+{"time":"2026-09-25T18:57:09.245Z","entry":{"search":{"targetRoles":["Senior Product Manager, Payments","Senior Product Manager","Group Product Manager, Payments","Head of Product, Payments","Principal Product Manager"],"locations":["London"],"seededFrom":"resume"}}}
+{"time":"2026-09-25T18:57:09.474Z","entry":{"board":{"board":"Wise","ok":true,"count":16}}}
+{"time":"2026-09-25T18:57:09.496Z","entry":{"board":{"board":"GoCardless","ok":true,"count":28}}}
+{"time":"2026-09-25T18:57:09.538Z","entry":{"board":{"board":"Monzo","ok":true,"count":71}}}
+{"time":"2026-09-25T18:57:09.815Z","entry":{"board":{"board":"Coinbase","ok":true,"count":208}}}
+{"time":"2026-09-25T18:57:09.856Z","entry":{"board":{"board":"Robinhood","ok":true,"count":162}}}
+{"time":"2026-09-25T18:57:10.014Z","entry":{"board":{"board":"Airbnb","ok":true,"count":158}}}
+{"time":"2026-09-25T18:57:10.063Z","entry":{"board":{"board":"Pinterest","ok":true,"count":154}}}
+{"time":"2026-09-25T18:57:10.291Z","entry":{"board":{"board":"Duolingo","ok":true,"count":82}}}
+{"time":"2026-09-25T18:57:10.299Z","entry":{"board":{"board":"Discord","ok":true,"count":48}}}
+{"time":"2026-09-25T18:57:10.363Z","entry":{"board":{"board":"Reddit","ok":true,"count":151}}}
+{"time":"2026-09-25T18:57:10.445Z","entry":{"board":{"board":"Dropbox","ok":true,"count":47}}}
+{"time":"2026-09-25T18:57:10.644Z","entry":{"board":{"board":"Asana","ok":true,"count":98}}}
+{"time":"2026-09-25T18:57:10.718Z","entry":{"board":{"board":"Instacart","ok":true,"count":110}}}
+{"time":"2026-09-25T18:57:10.760Z","entry":{"board":{"board":"Figma","ok":true,"count":163}}}
+{"time":"2026-09-25T18:57:11.646Z","entry":{"board":{"board":"Anthropic","ok":true,"count":625}}}

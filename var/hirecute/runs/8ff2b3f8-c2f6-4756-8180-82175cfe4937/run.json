@@ -4,11 +4,11 @@
     "id": "8ff2b3f8-c2f6-4756-8180-82175cfe4937",
     "origin": "uploaded_resume",
     "launchProfile": "activation_pilot",
-    "status": "running",
+    "status": "preparation_complete",
     "currentStage": "prepare",
     "createdAt": "2026-09-25T18:48:36.347Z",
-    "updatedAt": "2026-09-25T18:51:14.180Z",
-    "lastSequence": 202,
+    "updatedAt": "2026-09-25T18:51:43.197Z",
+    "lastSequence": 248,
     "journeyVersion": 1,
     "profile": null,
     "preferences": {
@@ -1034,7 +1034,7 @@
       },
       "prepare": {
         "stage": "prepare",
-        "status": "running",
+        "status": "completed",
         "inputVersion": 1,
         "inputHash": "",
         "attempt": 1,
@@ -1070,13 +1070,29 @@
             "id": "prepare-3",
             "stage": "prepare",
             "label": "Checking packages",
-            "status": "in_progress",
+            "status": "completed",
             "startedAt": "2026-09-25T18:50:56.173Z",
-            "completedAt": null,
+            "completedAt": "2026-09-25T18:51:43.175Z",
             "error": null
           }
         ],
-        "result": null,
+        "result": {
+          "kind": "prepare",
+          "preparedJobIds": [
+            "job-10l2y3s",
+            "job-crbu63",
+            "job-10jcevb",
+            "job-1sprd0f",
+            "job-cccvpd",
+            "job-nyv7rq",
+            "job-vgmpb0",
+            "job-vyu5ee",
+            "job-1sbjtqu",
+            "job-9g5k0t"
+          ],
+          "blockedJobIds": [],
+          "failedJobIds": []
+        },
         "error": null
       }
     },
@@ -3347,17 +3363,27 @@
       },
       {
         "jobId": "job-vyu5ee",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "4cbb633b-af2b-4700-ab4e-9e19f0bc3865",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I'm a London-based product manager who has spent the last several years owning complex technical integrations end to end, from strategy through delivery to measurable customer outcomes. That end-to-end ownership model, and the cross-functional leadership it requires, is what your Application Protection & Governance role is built around, which is why I wanted to reach out.\n\nAt Starling Bank, I owned the Faster Payments integration end to end, from initial scoping through rollout, and the work cut settlement failures by 34%. That involved translating a technical, high-stakes requirement into something operational teams and customers could actually rely on, which sounds close to the challenge you describe in turning complex security requirements into practical capabilities. I led a team of 6 engineers and 2 designers on that work, coordinating across functions to keep the roadmap moving and the delivery coherent, the same kind of cross-functional anchor role this posting calls for.\n\nI don't have direct application security or API protection experience, but I do have a track record of owning full product journeys for technical, high-consequence systems and turning them into something customers and internal teams can trust. I'm based in London, one of your listed locations, and would welcome the chance to talk through how that experience might translate to your team.\n\nWould you be open to a short call to discuss the role further?",
+            "subject": "Application: Senior Product Manager - Application Protection & Governance",
+            "updatedAt": "2026-09-25T18:51:23.068Z",
+            "contentHash": "sha256:db622179a79927903945af6a4b92c4999b3cbae7a9242477211dd481bded2267",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:3984a3c39ba76b76da9e3fc7b68a225fdbf671eef81eecd072fe294df4ff1071"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:51:23.824Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3366,21 +3392,31 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:8a1ca79b15582a7c432f6543b64b7c3e07b41cf98f2a206e9487b73f3d5127b8"
       },
       {
         "jobId": "job-1sbjtqu",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "55f98476-9f1e-4c33-87c6-411195f797d1",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "I've spent my product career in the space where financial transactions, engineering constraints, and measurable outcomes all collide, and that's the seam this role sits on too.\n\nAt Starling Bank, I owned the Faster Payments integration and cut settlement failures by 34%, while leading a team of 6 engineers and 2 designers. That combination, owning a critical financial system end to end while managing the people who build it, is close to the player-coach setup you're describing for the Finance SaaS portfolio. Before that, at Revolut, I redesigned the claims flow for card controls used by 2.1 million customers and reduced chargeback disputes by 18%, which meant translating a messy operational process into something cleaner and better instrumented, a problem I recognize in the transformation work you're outlining for Finance.\n\nI don't have direct experience with treasury, R2R, or QTC systems specifically, but the underlying job, turning financial process pain into a defensible roadmap and shipping systems that hold up under scrutiny, is the work I've been doing for years in payments.\n\nI'd welcome a short call to talk through where my background overlaps with what you need and where I'd need to ramp up.",
+            "subject": "Application: Group Product Manager, Finance Technology",
+            "updatedAt": "2026-09-25T18:51:32.902Z",
+            "contentHash": "sha256:e2fef69be8aaf2fc96db46a8e39a43d6659cb481e593e80392f9994d123d1b78",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:a6a4522f6f36db424ee5fc5ef3befa5ee5acf6971c3538dba71a20046b8f2366"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:51:34.087Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3389,21 +3425,31 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:9b4b8aa101769b579919439c76013d8c35d6dc51969856dd65b0ec942c5f9dfd"
       },
       {
         "jobId": "job-9g5k0t",
-        "version": 1,
+        "version": 2,
         "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
-        "tailoredResumeArtifactId": null,
+        "tailoredResumeArtifactId": "c1d1c475-e4a9-4c5c-a3d5-74c518e87347",
         "letterArtifactId": null,
         "letter": {
-          "status": "not_started",
-          "current": null
+          "status": "ready",
+          "current": {
+            "version": 1,
+            "author": "model",
+            "text": "Hello,\n\nI'm writing to apply for the Tech Lead and Manager, Production Engineering role. Reviewing the description, I want to be upfront that my background is in product management, not hands-on software engineering, so this letter is really an introduction rather than a claim of fit against the full role.\n\nWhere I do have relevant depth is payments infrastructure. At Starling Bank, I owned the Faster Payments integration and cut settlement failures by 34%, working closely with engineering to get there. At Revolut, I launched card controls used by 2.1 million customers and redesigned the claims flow to reduce chargeback disputes by 18%. Both were high-stakes, real-money systems where reliability mattered as much as functionality, which is why Ramp's focus on transaction infrastructure caught my attention.\n\nI've also led cross-functional teams, most recently 6 engineers and 2 designers at Starling, coordinating priorities and hiring. That's coordination experience rather than engineering management of critical systems, and I want to be clear about that distinction rather than overstate it.\n\nIf there's a conversation worth having given that gap, I'd welcome a short call to talk it through.\n\nBest,\nPriya Raman",
+            "subject": "Application: Tech Lead and Manager (TLM), Production Engineering",
+            "updatedAt": "2026-09-25T18:51:42.292Z",
+            "contentHash": "sha256:928426b4568bddc3a1b11bfdd1f63bd7918c904c5fe2dbbc3553779b2d637f0f",
+            "sourceFactIds": [],
+            "jobContentHash": "sha256:0f47dc04947deca52165713ee88c0d50ed1f2ee65c07fa43944873da3e53f5f9"
+          }
         },
         "answers": [],
         "readiness": {
-          "status": "preparing"
+          "status": "ready",
+          "verifiedAt": "2026-09-25T18:51:43.167Z"
         },
         "capability": {
           "kind": "manual_only",
@@ -3412,7 +3458,7 @@
         "submission": {
           "status": "not_approved"
         },
-        "packageHash": null
+        "packageHash": "sha256:dede62d683863c2fa0818da2379a9a7c37da5a915a002b10517cdf5b582d4cdd"
       }
     ],
     "selection": {
@@ -3494,6 +3540,27 @@
         "bytes": 0,
         "contentHash": "",
         "id": "252b28d0-c59c-47b5-8cf4-23cdd28a613d"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:51:23.825Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "4cbb633b-af2b-4700-ab4e-9e19f0bc3865"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:51:34.089Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "55f98476-9f1e-4c33-87c6-411195f797d1"
+      },
+      {
+        "kind": "tailored_resume_pdf",
+        "createdAt": "2026-09-25T18:51:43.169Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "c1d1c475-e4a9-4c5c-a3d5-74c518e87347"
       }
     ],
     "billing": {
@@ -3579,6 +3646,30 @@
       "contentHash": "",
       "id": "252b28d0-c59c-47b5-8cf4-23cdd28a613d",
       "relativePath": "output/jobs/job-vgmpb0/cv.pdf"
+    },
+    "4cbb633b-af2b-4700-ab4e-9e19f0bc3865": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:51:23.825Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "4cbb633b-af2b-4700-ab4e-9e19f0bc3865",
+      "relativePath": "output/jobs/job-vyu5ee/cv.pdf"
+    },
+    "55f98476-9f1e-4c33-87c6-411195f797d1": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:51:34.089Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "55f98476-9f1e-4c33-87c6-411195f797d1",
+      "relativePath": "output/jobs/job-1sbjtqu/cv.pdf"
+    },
+    "c1d1c475-e4a9-4c5c-a3d5-74c518e87347": {
+      "kind": "tailored_resume_pdf",
+      "createdAt": "2026-09-25T18:51:43.169Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "c1d1c475-e4a9-4c5c-a3d5-74c518e87347",
+      "relativePath": "output/jobs/job-9g5k0t/cv.pdf"
     }
   }
 }

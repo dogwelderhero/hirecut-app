@@ -1,0 +1,2033 @@
+{
+  "snapshot": {
+    "schemaVersion": 1,
+    "id": "83cf848e-fbbd-4087-8f53-8bb4529f4d51",
+    "origin": "uploaded_resume",
+    "launchProfile": "activation_pilot",
+    "status": "running",
+    "currentStage": "match",
+    "createdAt": "2026-09-25T18:57:34.228Z",
+    "updatedAt": "2026-09-25T18:58:36.389Z",
+    "lastSequence": 75,
+    "journeyVersion": 1,
+    "profile": null,
+    "preferences": {
+      "version": 1,
+      "targetRoles": [],
+      "locations": [],
+      "workStyles": [],
+      "origin": "confirmed_by_candidate"
+    },
+    "stages": {
+      "refine": {
+        "stage": "refine",
+        "status": "completed",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "refine-0",
+            "stage": "refine",
+            "label": "Reading your resume",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:34.374Z",
+            "completedAt": "2026-09-25T18:57:34.730Z",
+            "error": null
+          },
+          {
+            "id": "refine-1",
+            "stage": "refine",
+            "label": "Extracting your experience and skills",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:34.728Z",
+            "completedAt": "2026-09-25T18:57:44.958Z",
+            "error": null
+          },
+          {
+            "id": "refine-2",
+            "stage": "refine",
+            "label": "Refining your summary and bullet points",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:44.949Z",
+            "completedAt": "2026-09-25T18:57:44.960Z",
+            "error": null
+          },
+          {
+            "id": "refine-3",
+            "stage": "refine",
+            "label": "Checking formatting and readability",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:44.950Z",
+            "completedAt": "2026-09-25T18:57:45.889Z",
+            "error": null
+          }
+        ],
+        "result": {
+          "kind": "refine",
+          "originalArtifactId": "a2a207d0-f3cb-457c-814d-96c94a33a11f",
+          "refinedResumeArtifactId": "d9065b38-44ee-4950-b20c-ce6aa738bd02",
+          "changes": [
+            {
+              "id": "af3759d6-d951-464a-83d6-b7bb500081b4",
+              "kind": "clarity",
+              "before": "Experienced product person who has worked on lots of payments things over the years.",
+              "after": "(removed; replaced with structured Professional Summary)",
+              "explanation": "Vague, informal filler that does not add verifiable information; replaced with a factual summary.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "7b7b9c5e-2dc2-408b-89fe-1dff8bd125c7",
+              "kind": "relevance",
+              "before": "built payments stuff and also did some hiring",
+              "after": "Managed hiring for the payments team",
+              "explanation": "Informal, unclear phrasing split into a verifiable bullet; the payments-building portion is already covered by the Faster Payments bullet.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "5c2f9da8-d7dd-48db-b02a-529dc9cba8aa",
+              "kind": "formatting",
+              "before": "2021–Present",
+              "after": "2021-Present",
+              "explanation": "Standardized en dash to hyphen for ATS-safe date formatting per style rules.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "91146dcd-7615-468a-82a7-cd08f8626134",
+              "kind": "formatting",
+              "before": "claims fl ow",
+              "after": "claims flow",
+              "explanation": "Fixed a spacing/typo error in the source text.",
+              "sourceFactIds": []
+            },
+            {
+              "id": "d855678d-4707-4509-aa7c-31f0408a425e",
+              "kind": "structure",
+              "before": "Reduced chargeback disputes 18% by redesigning the claims flow",
+              "after": "Reduced chargeback disputes by 18% by redesigning the claims flow",
+              "explanation": "Added missing preposition for grammatical clarity without altering the metric.",
+              "sourceFactIds": []
+            }
+          ],
+          "originalPreserved": true
+        },
+        "error": null
+      },
+      "explore": {
+        "stage": "explore",
+        "status": "completed",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "explore-0",
+            "stage": "explore",
+            "label": "Building a search from your experience",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:45.890Z",
+            "completedAt": "2026-09-25T18:57:45.894Z",
+            "error": null
+          },
+          {
+            "id": "explore-1",
+            "stage": "explore",
+            "label": "Checking company career pages",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:45.890Z",
+            "completedAt": "2026-09-25T18:57:58.629Z",
+            "error": null
+          },
+          {
+            "id": "explore-2",
+            "stage": "explore",
+            "label": "Removing duplicates and expired listings",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:58.624Z",
+            "completedAt": "2026-09-25T18:57:58.736Z",
+            "error": null
+          },
+          {
+            "id": "explore-3",
+            "stage": "explore",
+            "label": "Saving relevant openings",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:58.733Z",
+            "completedAt": "2026-09-25T18:57:58.833Z",
+            "error": null
+          }
+        ],
+        "result": {
+          "kind": "explore",
+          "jobIds": [
+            "job-10l2y3s",
+            "job-1ma9l9",
+            "job-crbu63",
+            "job-1r37npj",
+            "job-1r37nmw",
+            "job-vyu5ee",
+            "job-1r2n2th",
+            "job-1r2n2tf",
+            "job-1qqmsu4",
+            "job-1qqmsth",
+            "job-nyv7rq",
+            "job-i3yeny",
+            "job-1kiafue",
+            "job-kko6pp",
+            "job-dk9518",
+            "job-1lagz8z",
+            "job-1v4g6rx",
+            "job-9g5k0t",
+            "job-1qnsnp9",
+            "job-1qnsnp7",
+            "job-cccvpd",
+            "job-1qmn70o",
+            "job-1qmn71b",
+            "job-10jcevb",
+            "job-1sprd0f",
+            "job-vgmpb0",
+            "job-1yzzlvx",
+            "job-1sbjtqu",
+            "job-1l1o124",
+            "job-ks0rj0",
+            "job-1q8h146",
+            "job-1q8h144",
+            "job-oh4k0h",
+            "job-mm5bs8",
+            "job-o1156k",
+            "job-1hdh1x8",
+            "job-5y7nhp",
+            "job-1vmae1o",
+            "job-1q54907",
+            "job-1q54909"
+          ],
+          "coverage": {
+            "status": "partial",
+            "boardsAttempted": 43,
+            "boardsSucceeded": 41,
+            "boardsFailed": 2,
+            "availableCompanies": null,
+            "capHit": false,
+            "staleDataset": false,
+            "stoppedByOutage": false,
+            "undatedPostingsDropped": 0,
+            "jobsFound": 6071,
+            "jobsRetained": 40,
+            "scopeDescription": "43 curated Ashby, Greenhouse, Lever boards",
+            "warnings": [
+              "Wise: This operation was aborted",
+              "Databricks: This operation was aborted"
+            ]
+          }
+        },
+        "error": null
+      },
+      "match": {
+        "stage": "match",
+        "status": "running",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 1,
+        "actions": [
+          {
+            "id": "match-0",
+            "stage": "match",
+            "label": "Comparing skills and seniority",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:58.752Z",
+            "completedAt": "2026-09-25T18:57:58.838Z",
+            "error": null
+          },
+          {
+            "id": "match-1",
+            "stage": "match",
+            "label": "Checking location and salary fit where evidence exists",
+            "status": "completed",
+            "startedAt": "2026-09-25T18:57:58.757Z",
+            "completedAt": "2026-09-25T18:57:58.842Z",
+            "error": null
+          },
+          {
+            "id": "match-2",
+            "stage": "match",
+            "label": "Finding evidence for each match",
+            "status": "in_progress",
+            "startedAt": "2026-09-25T18:57:58.757Z",
+            "completedAt": null,
+            "error": null
+          }
+        ],
+        "result": null,
+        "error": null
+      },
+      "prepare": {
+        "stage": "prepare",
+        "status": "pending",
+        "inputVersion": 1,
+        "inputHash": "",
+        "attempt": 0,
+        "actions": [],
+        "result": null,
+        "error": null
+      }
+    },
+    "evidence": [],
+    "jobs": [
+      {
+        "id": "job-10l2y3s",
+        "company": "Monzo",
+        "title": "Lead Product Manager, Payments",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/monzo/jobs/8156058",
+          "applicationUrl": "https://job-boards.greenhouse.io/monzo/jobs/8156058",
+          "fetchedAt": "2026-09-25T18:57:58.630Z",
+          "postingContentHash": "sha256:8c7ebf848c14709a4cb1542a4105cea4fa872d7665d8e7e3bab39240f3630e42",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "London",
+        "workStyle": null,
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-25T11:25:10.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Monzo",
+          "displayName": "Hiring team · Monzo",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1ma9l9",
+        "company": "Spotify",
+        "title": "Senior Product Manager - User Platform",
+        "source": {
+          "provider": "lever",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.lever.co/spotify/ee45924c-894c-4ea0-9c93-c5221894063f",
+          "applicationUrl": "https://jobs.lever.co/spotify/ee45924c-894c-4ea0-9c93-c5221894063f",
+          "fetchedAt": "2026-09-25T18:57:58.704Z",
+          "postingContentHash": "sha256:ca2ad9a90af7099db3f81d571e9e246a7173ce9e2d55702ae63b376763b14eba",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "London; Stockholm",
+        "workStyle": null,
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-23T08:16:55.928Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Spotify",
+          "displayName": "Hiring team · Spotify",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-crbu63",
+        "company": "Stripe",
+        "title": "Staff Product Manager, Payments Intelligence",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=8209996",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=8209996",
+          "fetchedAt": "2026-09-25T18:57:58.674Z",
+          "postingContentHash": "sha256:54f624e09bb4400d67799747cd04bab0aa29c3fe65fbf78514aaecdf35073c9f",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "NYC, SF, Seattle, US - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-21T12:39:58.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1r37npj",
+        "company": "Instacart",
+        "title": "Senior Product Marketing Manager, Instacart+",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8214859",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8214859",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:3e15a92ca08c40ba28f083e19d333174e7ca3edc73cd63358f367975c95823a9",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-18T22:35:38.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1r37nmw",
+        "company": "Instacart",
+        "title": "Senior Product Marketing Manager, Instacart+",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8214827",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8214827",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:38044b42ba26cdf2d8ff93b3e8022e4cc7a8e49f7df934e62d4b93ac398d3085",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-18T22:35:36.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-vyu5ee",
+        "company": "Cloudflare",
+        "title": "Senior Product Manager - Application Protection & Governance",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://boards.greenhouse.io/cloudflare/jobs/8200670?gh_jid=8200670",
+          "applicationUrl": "https://boards.greenhouse.io/cloudflare/jobs/8200670?gh_jid=8200670",
+          "fetchedAt": "2026-09-25T18:57:58.695Z",
+          "postingContentHash": "sha256:3984a3c39ba76b76da9e3fc7b68a225fdbf671eef81eecd072fe294df4ff1071",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Hybrid · London, United Kingdom · New York, NY",
+        "workStyle": "hybrid",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-17T08:38:57.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Cloudflare",
+          "displayName": "Hiring team · Cloudflare",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1r2n2th",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Order Quality",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8203109",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8203109",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:31fc194cb2d04e37ba95376f359ea014cfa07a93d43a149782ee4722d4956c79",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-16T16:36:03.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1r2n2tf",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Order Quality",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8203107",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8203107",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:2c4bce3267e44ba1945f91fff323c319a7870b41b95d6c89be6da2b04e7c5914",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-16T16:36:01.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qqmsu4",
+        "company": "Instacart",
+        "title": "Senior Product Manager, AI Control Studio",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8198161",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8198161",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:6c78cec22726d9398dccc7234b6e1231408f4da3f8b4757e63f4a7be1001a848",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-16T16:35:44.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qqmsth",
+        "company": "Instacart",
+        "title": "Senior Product Manager, AI Control Studio",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8198159",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8198159",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:83e258439fbbdb40355a4f9191466b1740d1d5e20445ae6699c4781d52d98699",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-16T16:35:42.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-nyv7rq",
+        "company": "Cloudflare",
+        "title": "Senior Product Manager, Email Security",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://boards.greenhouse.io/cloudflare/jobs/8173954?gh_jid=8173954",
+          "applicationUrl": "https://boards.greenhouse.io/cloudflare/jobs/8173954?gh_jid=8173954",
+          "fetchedAt": "2026-09-25T18:57:58.695Z",
+          "postingContentHash": "sha256:1a3c080d6847001dd0b6a5c0e49733eb0831cb5f5cb49e0e3bc066dc69a9c161",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Hybrid · Austin, TX · Lisbon, Portugal · London, United Kingdom",
+        "workStyle": "hybrid",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-11T19:30:11.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Cloudflare",
+          "displayName": "Hiring team · Cloudflare",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-i3yeny",
+        "company": "Pinterest",
+        "title": "Lead Ads Product Marketing Manager",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.pinterestcareers.com/jobs?gh_jid=8130606",
+          "applicationUrl": "https://www.pinterestcareers.com/jobs/?gh_jid=8130606",
+          "fetchedAt": "2026-09-25T18:57:58.646Z",
+          "postingContentHash": "sha256:f7817e0ebdc591c57d578919cb1be76e64b2eeaf054d9ff25d8e9729e7bae84f",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "San Francisco, CA, US; Remote, US",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-10T22:34:51.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Pinterest",
+          "displayName": "Hiring team · Pinterest",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1kiafue",
+        "company": "Airbnb",
+        "title": "Senior Product Manager, Community Support Experience",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://careers.airbnb.com/positions/8186787?gh_jid=8186787",
+          "applicationUrl": "https://careers.airbnb.com/positions/8186787?gh_jid=8186787",
+          "fetchedAt": "2026-09-25T18:57:58.651Z",
+          "postingContentHash": "sha256:93772afec07e04abeea9c31737ec7c3e2813a7bc84927795250dcd7d35e300cd",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-10T16:47:56.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Airbnb",
+          "displayName": "Hiring team · Airbnb",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-kko6pp",
+        "company": "Spotify",
+        "title": "Senior Product Manager - Subscriptions",
+        "source": {
+          "provider": "lever",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.lever.co/spotify/a57db22d-dc0d-4f36-9a2e-34acdf1ec046",
+          "applicationUrl": "https://jobs.lever.co/spotify/a57db22d-dc0d-4f36-9a2e-34acdf1ec046",
+          "fetchedAt": "2026-09-25T18:57:58.704Z",
+          "postingContentHash": "sha256:5e3835d2dd80318317226eced21803b42c0658be668e4a7ad9757f551f2f6581",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "London; Stockholm",
+        "workStyle": null,
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-08T13:34:30.891Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "missing",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Spotify",
+          "displayName": "Hiring team · Spotify",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-dk9518",
+        "company": "Spotify",
+        "title": "Senior Product Manager - Audiobooks Format Foundations",
+        "source": {
+          "provider": "lever",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.lever.co/spotify/e7b01c1e-4246-4f31-83ea-9219c8b22c83",
+          "applicationUrl": "https://jobs.lever.co/spotify/e7b01c1e-4246-4f31-83ea-9219c8b22c83",
+          "fetchedAt": "2026-09-25T18:57:58.704Z",
+          "postingContentHash": "sha256:699323d23ff85725e5bcb94af661d49ec718ae2d5ff469258075abc9ad21a138",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "London; Stockholm",
+        "workStyle": null,
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-04T15:25:52.293Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "missing",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Spotify",
+          "displayName": "Hiring team · Spotify",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1lagz8z",
+        "company": "Temporal",
+        "title": "Senior Product Manager, Self-Hosting and Hybrid",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/temporal/01e59346-2cf2-4123-8df1-c8a486eced72",
+          "applicationUrl": "https://jobs.ashbyhq.com/temporal/01e59346-2cf2-4123-8df1-c8a486eced72",
+          "fetchedAt": "2026-09-25T18:57:58.729Z",
+          "postingContentHash": "sha256:530886b24b3670a404ddeb6e26c99d4a46a3b1e4ac0c9d78594776684fb8c895",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States (Remote) · Canada (Remote) · Canada",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-09-02T16:27:31.335Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Temporal",
+          "displayName": "Hiring team · Temporal",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1v4g6rx",
+        "company": "Samsara",
+        "title": "Group Manager, Product Marketing Manager - Public Sector",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.samsara.com/company/careers/roles/8148044?gh_jid=8148044",
+          "applicationUrl": "https://www.samsara.com/company/careers/roles/8148044?gh_jid=8148044",
+          "fetchedAt": "2026-09-25T18:57:58.700Z",
+          "postingContentHash": "sha256:66ed8fb7de26e43d40861d7d79c1178972270cfed6743b901620f2a37a1cfb4e",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - DC",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-31T21:59:50.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Samsara",
+          "displayName": "Hiring team · Samsara",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-9g5k0t",
+        "company": "Ramp",
+        "title": "Tech Lead and Manager (TLM), Production Engineering",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/ramp/c01a2ed9-fcb4-48c0-ad7a-c59476d9c986",
+          "applicationUrl": "https://jobs.ashbyhq.com/ramp/c01a2ed9-fcb4-48c0-ad7a-c59476d9c986",
+          "fetchedAt": "2026-09-25T18:57:58.720Z",
+          "postingContentHash": "sha256:0f47dc04947deca52165713ee88c0d50ed1f2ee65c07fa43944873da3e53f5f9",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "New York, NY (HQ) · Remote (Canada) · Canada · San Francisco, CA · San Fransisco · USA · Remote (US) · United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-28T16:01:13.008Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Ramp",
+          "displayName": "Hiring team · Ramp",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qnsnp9",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Catalog",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8143272",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8143272",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:807e18f89034aeedc7a8e7e07adf91d78b47448eb861926a340d5709a882b02f",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-20T18:41:31.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qnsnp7",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Catalog",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8143270",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8143270",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:96cb4a166ddd751a145c42624da00b41dce8df6f28815fbaa0b809e90cad508a",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-20T18:41:30.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-cccvpd",
+        "company": "Stripe",
+        "title": "Product Marketing Manager, Payments",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://stripe.com/jobs/search?gh_jid=8142770",
+          "applicationUrl": "https://stripe.com/jobs/search?gh_jid=8142770",
+          "fetchedAt": "2026-09-25T18:57:58.671Z",
+          "postingContentHash": "sha256:ad6673cb7d4624f7ea740cf92b0b89cdbdc5bced4f3c5de63a187e0c8795234d",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote in the US, Chicago, Toronto",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-19T20:38:49.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Stripe",
+          "displayName": "Hiring team · Stripe",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qmn70o",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Advertiser Experience",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8120469",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8120469",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:021181dc1453025dde440e303794c20cc73bfab1afc93596c5065e999f28271c",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-14T20:27:16.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1qmn71b",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Advertiser Experience",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8120471",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8120471",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:e7591d2565228264c2e2b8aa8d9f1194779b68b7b0b531a09a7385ea435c16c7",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-14T20:27:16.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-10jcevb",
+        "company": "Monzo",
+        "title": "Senior Product Marketing Manager, Business Banking",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/monzo/jobs/8121253",
+          "applicationUrl": "https://job-boards.greenhouse.io/monzo/jobs/8121253",
+          "fetchedAt": "2026-09-25T18:57:58.630Z",
+          "postingContentHash": "sha256:0d516d3fbbd70f31c057b22867daac71601ba0161a34ccc75c3fbe11418af105",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Cardiff, London or Remote (UK)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-12T07:54:42.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Monzo",
+          "displayName": "Hiring team · Monzo",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1sprd0f",
+        "company": "Reddit",
+        "title": "Senior Product Manager, Ads -  Shopping Catalogs",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/reddit/jobs/8120503",
+          "applicationUrl": "https://job-boards.greenhouse.io/reddit/jobs/8120503",
+          "fetchedAt": "2026-09-25T18:57:58.654Z",
+          "postingContentHash": "sha256:d5b5e078b15e83df5a91e283ecc334e4e219fac849fb7d307543b8ca11abd4d9",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-11T19:00:25.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Reddit",
+          "displayName": "Hiring team · Reddit",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-vgmpb0",
+        "company": "Coinbase",
+        "title": "Senior Product Marketing Manager, Trading",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8077090?gh_jid=8077090",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8077090?gh_jid=8077090",
+          "fetchedAt": "2026-09-25T18:57:58.637Z",
+          "postingContentHash": "sha256:5c9ead34cffff346dc0a2c82aafde59f6aef57cb5fe18f0739d9e87187b10590",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-10T19:18:26.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1yzzlvx",
+        "company": "Samsara",
+        "title": "Senior Product Manager, Device Experience",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.samsara.com/company/careers/roles/8112836?gh_jid=8112836",
+          "applicationUrl": "https://www.samsara.com/company/careers/roles/8112836?gh_jid=8112836",
+          "fetchedAt": "2026-09-25T18:57:58.702Z",
+          "postingContentHash": "sha256:12a649daf0ff8532c71d734d262e2fda66420d79edb86b4db97250d7e7c9ddfa",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - US",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-07T17:36:26.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Samsara",
+          "displayName": "Hiring team · Samsara",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1sbjtqu",
+        "company": "Reddit",
+        "title": "Group Product Manager, Finance Technology",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/reddit/jobs/8075185",
+          "applicationUrl": "https://job-boards.greenhouse.io/reddit/jobs/8075185",
+          "fetchedAt": "2026-09-25T18:57:58.653Z",
+          "postingContentHash": "sha256:a6a4522f6f36db424ee5fc5ef3befa5ee5acf6971c3538dba71a20046b8f2366",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-06T15:00:50.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Reddit",
+          "displayName": "Hiring team · Reddit",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1l1o124",
+        "company": "Coinbase",
+        "title": "Senior Manager Product Operations, FCM Ops",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8110496?gh_jid=8110496",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8110496?gh_jid=8110496",
+          "fetchedAt": "2026-09-25T18:57:58.637Z",
+          "postingContentHash": "sha256:f0429ef013e41c79423a72a3cd72827b4b9ae79f4de7cec0f9bb858be407063d",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-08-06T04:37:18.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-ks0rj0",
+        "company": "Coinbase",
+        "title": "Senior Enterprise Product  Marketing Manager, Base",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8084049?gh_jid=8084049",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8084049?gh_jid=8084049",
+          "fetchedAt": "2026-09-25T18:57:58.636Z",
+          "postingContentHash": "sha256:2b1e08368199a3f3507a347f9f9cc8c4d2ecd00f11bf402b83bf3f487096f3f4",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-24T19:58:07.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1q8h146",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Ads Quality",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8077512",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8077512",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:fe7a01b65ba109c62cdd307da1cced8de659bd2a6d10faa87bc8012c30e3f6f7",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-23T04:29:48.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1q8h144",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Ads Quality",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8077510",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8077510",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:056868ed983cb58908673414f11529a5a7afe38774307b79467bfdb4bde37fcd",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-23T04:29:47.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-oh4k0h",
+        "company": "GoCardless",
+        "title": "Senior Product Manager",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://job-boards.greenhouse.io/gocardless/jobs/8064518",
+          "applicationUrl": "https://job-boards.greenhouse.io/gocardless/jobs/8064518",
+          "fetchedAt": "2026-09-25T18:57:58.632Z",
+          "postingContentHash": "sha256:4ed4de27e2ec3b1e02d1a0fff69880239ce2483c1bae8ba015378fac6cb2205d",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "London, UK",
+        "workStyle": null,
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-20T08:01:05.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "GoCardless",
+          "displayName": "Hiring team · GoCardless",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-mm5bs8",
+        "company": "Render",
+        "title": "Senior Engineering Manager, Product",
+        "source": {
+          "provider": "ashby",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://jobs.ashbyhq.com/render/eec2ab67-ea1c-4f1c-9119-51e1235f2593",
+          "applicationUrl": "https://jobs.ashbyhq.com/render/eec2ab67-ea1c-4f1c-9119-51e1235f2593",
+          "fetchedAt": "2026-09-25T18:57:58.726Z",
+          "postingContentHash": "sha256:47195b0f623e107634139625ac76377bdcc9dd3236f2241705ad0d159875a156",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote: United States",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-14T18:35:00.213Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Render",
+          "displayName": "Hiring team · Render",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-o1156k",
+        "company": "Coinbase",
+        "title": "Group Product Manager, Compliance Agent Experience",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8060662?gh_jid=8060662",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8060662?gh_jid=8060662",
+          "fetchedAt": "2026-09-25T18:57:58.634Z",
+          "postingContentHash": "sha256:8c7b6ae318b0040275002c9426b8b5fe117c07ee9845ba49cae3fda5fb888c5f",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-14T05:16:28.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1hdh1x8",
+        "company": "Coinbase",
+        "title": "Senior Product Manager, Help Center (CX Automation)",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8031208?gh_jid=8031208",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8031208?gh_jid=8031208",
+          "fetchedAt": "2026-09-25T18:57:58.637Z",
+          "postingContentHash": "sha256:0d4fde3bb544e2bbc79d160446c56c2da1a4aca115c205a7a6414cf6158ccd19",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - India",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-07-06T21:04:46.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-5y7nhp",
+        "company": "Samsara",
+        "title": "Senior Business Technology Product Manager- Supply Chain Planning",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.samsara.com/company/careers/roles/8017174?gh_jid=8017174",
+          "applicationUrl": "https://www.samsara.com/company/careers/roles/8017174?gh_jid=8017174",
+          "fetchedAt": "2026-09-25T18:57:58.701Z",
+          "postingContentHash": "sha256:3c794f56829257fb4d427da24b3d8de27a035243a7785ebbc8ee9cadd15241b9",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - US",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-06-25T20:46:04.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Samsara",
+          "displayName": "Hiring team · Samsara",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1vmae1o",
+        "company": "Coinbase",
+        "title": "Group Product Manager, Developer Infrastructure",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://www.coinbase.com/careers/positions/8017607?gh_jid=8017607",
+          "applicationUrl": "https://www.coinbase.com/careers/positions/8017607?gh_jid=8017607",
+          "fetchedAt": "2026-09-25T18:57:58.634Z",
+          "postingContentHash": "sha256:d2c682d463eb0b02b8ce8a1446fc3a26018b912131d5fdf2bb8834a57d930527",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Remote - USA",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-06-19T19:25:19.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Coinbase",
+          "displayName": "Hiring team · Coinbase",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1q54907",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Retailer Platform",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8014060",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8014060",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:30ec6413839a6d8a77830adb6f9b7e038c843573b3775404be08ba5580688bfd",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "United States - Remote",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-06-17T21:21:53.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      },
+      {
+        "id": "job-1q54909",
+        "company": "Instacart",
+        "title": "Senior Product Manager, Retailer Platform",
+        "source": {
+          "provider": "greenhouse",
+          "providerJobId": null,
+          "canonicalPostingUrl": "https://instacart.careers/job?gh_jid=8014062",
+          "applicationUrl": "https://instacart.careers/job/?gh_jid=8014062",
+          "fetchedAt": "2026-09-25T18:57:58.659Z",
+          "postingContentHash": "sha256:301c27532d644d2dc1b4032c60066cf6aa6484a2d9ed5bde89250b00b956f0f8",
+          "liveStatus": "unverified",
+          "verifiedAt": null
+        },
+        "location": "Canada - Remote (ON, AB, BC, or NS Only)",
+        "workStyle": "remote",
+        "employmentType": null,
+        "seniority": null,
+        "experienceYearsMin": null,
+        "postedAt": "2026-06-17T21:21:53.000Z",
+        "salary": null,
+        "descriptionArtifactId": null,
+        "descriptionStatus": "full",
+        "recruiter": {
+          "status": "unknown",
+          "company": "Instacart",
+          "displayName": "Hiring team · Instacart",
+          "email": null,
+          "reason": "contact_not_listed"
+        },
+        "evidenceIds": []
+      }
+    ],
+    "assessments": [
+      {
+        "jobId": "job-1ma9l9",
+        "score5": 2.3,
+        "confidence": "medium",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Both resume and posting involve senior product management for consumer-facing digital experiences at scale (2.1M customers at Revolut vs. Spotify's global user base)",
+          "Both involve cross-functional leadership with engineering and design teams (resume: led 6 engineers and 2 designers; posting: works closely with engineering, design, research)"
+        ],
+        "gaps": [
+          "No evidence of identity/access/session management or authentication systems experience",
+          "No evidence of platform/infrastructure product work (vs. consumer payments features)",
+          "No evidence of working with security teams or device/partner integration ecosystems",
+          "No evidence of consumer-scale identity or access-control product ownership"
+        ],
+        "requirements": [
+          {
+            "requirement": "Senior Product Manager experience",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows Senior Product Manager role at Starling Bank (2021-present) and Product Manager at Revolut, both senior consumer product roles."
+          },
+          {
+            "requirement": "Experience shaping session management / identity and access capabilities",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows no identity, authentication, session, or access-control product work; all experience is in payments (Faster Payments, card controls, chargebacks)."
+          },
+          {
+            "requirement": "Working across apps, devices, and strategic partner integrations",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No mention of multi-device platform work or partner integration experience in resume."
+          },
+          {
+            "requirement": "Cross-functional collaboration with engineering, design, research, security",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows leading engineers and designers (team of 6 engineers, 2 designers) but no mention of research, insights, or security collaboration specifically."
+          },
+          {
+            "requirement": "Consumer product experience at scale",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Revolut card controls reached 2.1 million customers, showing consumer-scale product ownership."
+          },
+          {
+            "requirement": "Technical product strategy capability",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows technical grounding via BSc Computer Science and SQL/analytics skills, but no direct evidence of platform/infrastructure technical strategy work."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
+        "jobContentHash": "sha256:ca2ad9a90af7099db3f81d571e9e246a7173ce9e2d55702ae63b376763b14eba",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:58:08.699Z"
+      },
+      {
+        "jobId": "job-10l2y3s",
+        "score5": 3.2,
+        "confidence": "medium",
+        "recommendation": "consider",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Deep payments domain experience: Senior PM, Payments at Starling Bank owning Faster Payments integration, matching the posting's 'Payments is at the heart of Monzo' framing.",
+          "Track record of measurable technical payments impact (34% reduction in settlement failures) aligning with the posting's emphasis on business-critical technical systems.",
+          "Experience leading cross-functional teams (6 engineers, 2 designers) supporting the posting's need to partner credibly with Engineering."
+        ],
+        "gaps": [
+          "No evidence of ledger, reconciliation, or financial-infrastructure product ownership, which is the core focus of this specific role.",
+          "No evidence of working with Finance teams or translating regulatory/accounting requirements into platform capabilities.",
+          "No evidence of shifting a team from reactive to strategic/product-led operating model, a stated key responsibility."
+        ],
+        "requirements": [
+          {
+            "requirement": "Strong senior PM owning complex technical/platform/infrastructure or financial systems",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Candidate is a Senior PM in Payments (Starling) owning Faster Payments integration and reducing settlement failures 34% — technical payments ownership, but posting wants finance/ledger/platform infrastructure specifically, which isn't evidenced."
+          },
+          {
+            "requirement": "Technical depth to partner with engineers on architecture/trade-offs",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Led a team of 6 engineers and 2 designers shows cross-functional technical leadership, but no specific evidence of systems architecture or infrastructure trade-off reasoning."
+          },
+          {
+            "requirement": "Excited by 'boring but critical' infrastructure: ledgers, reconciliation, financial data, controls, reporting",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows customer-facing payments features (card controls, claims flow, settlement failures) not ledger/reconciliation/finance-systems work."
+          },
+          {
+            "requirement": "Moving teams from reactive/request-led delivery to strategic product-led approach",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No resume evidence of this specific organizational/strategic shift experience."
+          },
+          {
+            "requirement": "Working with senior cross-functional stakeholders (Finance, Engineering, Product, Ops)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Skills list 'Stakeholder Management' and team leadership, but no explicit Finance-team collaboration evidenced."
+          },
+          {
+            "requirement": "Experience translating regulatory/operational/finance needs into platform capabilities",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No mention of regulatory, accounting, or finance-systems translation work in resume."
+          },
+          {
+            "requirement": "Payments domain experience",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows multiple years as Senior PM Payments at Starling and PM at Revolut, both payments-focused roles with quantified impact."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
+        "jobContentHash": "sha256:8c7ebf848c14709a4cb1542a4105cea4fa872d7665d8e7e3bab39240f3630e42",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:58:10.573Z"
+      },
+      {
+        "jobId": "job-crbu63",
+        "score5": 3,
+        "confidence": "medium",
+        "recommendation": "research_first",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Deep payments domain experience: 'Owned the Faster Payments integration, cutting settlement failures by 34%' aligns with the posting's payments-cost and success-rate optimization focus.",
+          "Direct fraud/dispute-adjacent work: 'Reduced chargeback disputes 18% by redesigning the claims flow' matches the posting's ownership of 'Disputes' as a product area.",
+          "Cross-functional team leadership: 'Led a team of 6 engineers and 2 designers' matches the posting's need to 'partner with many functions' and work closely with engineers.",
+          "Product analytics skill set listed ('Product Analytics') aligns with the posting's emphasis on 'Analytical horsepower' and digging into data."
+        ],
+        "gaps": [
+          "Posting requires 10+ years of PM experience; resume evidences roughly 6-7 years across two PM roles.",
+          "No evidence of direct customer- or partner-facing experience as required by the posting.",
+          "No evidence of data science collaboration or AI/ML-driven prediction system work central to the Payments Intelligence org's mission.",
+          "Staff-level scope (org-wide vision/strategy across Engineering, Design, Data Science, Marketing, Sales, Account Management) is not evidenced; resume shows management of a single small team."
+        ],
+        "requirements": [
+          {
+            "requirement": "10+ years of relevant Product Management experience",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows PM roles from 2018–present (Revolut 2018-2021, Starling 2021-present), roughly 6-7 years of PM experience evidenced, not the 10+ years stated as a minimum requirement."
+          },
+          {
+            "requirement": "Payments domain expertise",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows deep payments focus: 'Owned the Faster Payments integration, cutting settlement failures by 34%' and 'Reduced chargeback disputes 18%' — directly relevant to the posting's Radar/Disputes/fraud-cost focus."
+          },
+          {
+            "requirement": "Fraud/risk or 'intelligence platform' style analytics work",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Chargeback dispute reduction touches fraud-adjacent work, but no evidence of AI/ML-driven risk scoring, Radar-style prediction systems, or authorization optimization mentioned in resume."
+          },
+          {
+            "requirement": "Staff-level scope: setting vision/strategy, leading cross-functional org influence at scale",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Resume shows leading a team of 6 engineers and 2 designers, which is a manager-of-team scope rather than the broader staff-level cross-org strategy (Engineering, Design, Data Science, Marketing, Sales, Account Management) the posting describes."
+          },
+          {
+            "requirement": "Customer and partner-facing experience",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume does not evidence direct customer- or third-party-facing conversations; it focuses on internal delivery metrics."
+          },
+          {
+            "requirement": "Data science collaboration for intelligence/prediction products",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence in resume of working with data scientists or building real-time prediction/ML-based systems as described for Radar/Authorization Boost."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
+        "jobContentHash": "sha256:54f624e09bb4400d67799747cd04bab0aa29c3fe65fbf78514aaecdf35073c9f",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:58:22.489Z"
+      },
+      {
+        "jobId": "job-1r37npj",
+        "score5": 1.2,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Cross-functional leadership experience: candidate 'Led a team of 6 engineers and 2 designers' at Starling, aligning with the posting's need to work with XFN partners and senior stakeholders.",
+          "Demonstrated ability to use data to drive measurable outcomes (34% reduction in settlement failures, 18% reduction in chargeback disputes), matching the posting's call for 'analytical rigor to understand what's working.'"
+        ],
+        "gaps": [
+          "No product marketing, brand, or campaign experience — entire career is in product management, not marketing.",
+          "No subscription, membership, or loyalty program experience of any kind.",
+          "No evidence of GTM ownership, positioning/messaging work, or lifecycle marketing (email, push, in-app, paid channels).",
+          "Skills section lacks any marketing-specific competencies (copywriting, campaign strategy, brand positioning)."
+        ],
+        "requirements": [
+          {
+            "requirement": "8+ years marketing experience, 4+ years in product marketing, consumer tech preferred",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Candidate's background is entirely in product management (Starling Bank, Revolut), not marketing or product marketing. No marketing titles, campaigns, or GTM work evidenced."
+          },
+          {
+            "requirement": "Track record owning GTM strategy for subscription/membership/loyalty program",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows payments product work (Faster Payments integration, card controls) with no mention of subscription, membership, or loyalty program ownership."
+          },
+          {
+            "requirement": "Deep fluency in subscription/loyalty marketing mechanics",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence of marketing mechanics, lifecycle messaging, or loyalty program experience in resume."
+          },
+          {
+            "requirement": "Storytelling instinct / messaging and positioning skills",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume skills list (Payments, SQL, Product Analytics, Figma, Stakeholder Management) does not include copywriting, brand messaging, or campaign storytelling."
+          },
+          {
+            "requirement": "Analytical rigor to understand what's working (metrics-driven)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Candidate demonstrates analytical rigor via product metrics (34% reduction in settlement failures, 18% reduction in chargebacks), but this is product performance analysis, not marketing campaign analytics."
+          },
+          {
+            "requirement": "Cross-functional partnership with growth, performance marketing, product roadmap influence",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Candidate has led cross-functional teams (6 engineers, 2 designers) and influenced product decisions, showing some XFN and stakeholder skill, though not with marketing/growth teams specifically."
+          }
+        ],
+        "blockers": [
+          {
+            "code": "required_qualification",
+            "description": "Role requires 8+ years marketing experience with 4+ years specifically in product marketing and subscription/loyalty GTM ownership; candidate's resume shows exclusively product management experience with no marketing background.",
+            "evidenceIds": [],
+            "certainty": "confirmed_blocker"
+          }
+        ],
+        "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
+        "jobContentHash": "sha256:3e15a92ca08c40ba28f083e19d333174e7ca3edc73cd63358f367975c95823a9",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:58:23.722Z"
+      },
+      {
+        "jobId": "job-vyu5ee",
+        "score5": 1.5,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Both resume and posting require senior product ownership of complex technical/customer-facing products at scale, and the candidate has demonstrated end-to-end ownership (Faster Payments integration) with measurable outcomes.",
+          "Both call for cross-functional leadership with engineering and design teams, which the candidate has done (led 6 engineers, 2 designers)."
+        ],
+        "gaps": [
+          "No application security, API/LLM protection, or threat/abuse pattern experience evidenced anywhere in resume.",
+          "No experience with security governance, schema enforcement, or third/fourth-party risk management.",
+          "No documentation or sales/GTM enablement experience for technical security products.",
+          "Entire career track is payments-domain, not security-domain, representing a significant domain pivot rather than adjacent expertise."
+        ],
+        "requirements": [
+          {
+            "requirement": "Experience in application security / web, API, LLM protection",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows payments product management (Faster Payments, card controls, chargebacks) with no evidence of security, threat protection, or API/LLM security work."
+          },
+          {
+            "requirement": "Own end-to-end product journey across APIs and dashboards for security products",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Candidate's ownership experience is in payments settlement and card controls, not security/API governance products."
+          },
+          {
+            "requirement": "Deep understanding of application security landscape (schema-aware enforcement, third/fourth-party risk)",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No mention of security domain knowledge, threat modeling, or governance frameworks in resume."
+          },
+          {
+            "requirement": "Partner with engineering, security specialists, and GTM to define product direction",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Candidate has cross-functional leadership experience (led engineers/designers, stakeholder management) but not with security specialists or GTM in a security context."
+          },
+          {
+            "requirement": "Customer-facing technical documentation and enablement for complex security features",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence of documentation or sales enablement work in resume."
+          },
+          {
+            "requirement": "Senior PM experience with measurable product outcomes",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "strong",
+            "explanation": "Resume shows strong track record: 34% reduction in settlement failures, 2.1M customers on card controls, 18% reduction in chargeback disputes — demonstrates senior PM caliber and outcome-driven ownership, though in a different domain."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
+        "jobContentHash": "sha256:3984a3c39ba76b76da9e3fc7b68a225fdbf671eef81eecd072fe294df4ff1071",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:58:34.858Z"
+      },
+      {
+        "jobId": "job-1r37nmw",
+        "score5": 1.2,
+        "confidence": "high",
+        "recommendation": "skip",
+        "workAuthorization": "unstated",
+        "legitimacy": "high_confidence",
+        "strengths": [
+          "Both resume and posting involve consumer-facing tech companies (fintech vs. Instacart's consumer grocery platform), suggesting some familiarity with consumer product environments.",
+          "Resume demonstrates data-driven work (cutting settlement failures 34%, reducing chargeback disputes 18%) showing analytical rigor, which the posting also values ('analytical rigor to understand what's working')."
+        ],
+        "gaps": [
+          "No product marketing experience — role requires 4+ years specifically in product marketing; resume shows only product management.",
+          "No subscription, membership, or loyalty program GTM experience.",
+          "No messaging, positioning, or lifecycle marketing campaign experience (email, push, in-app, paid).",
+          "No evidence of cross-functional GTM ownership, brief-writing, or launch marketing plans."
+        ],
+        "requirements": [
+          {
+            "requirement": "8+ years marketing experience, 4+ in product marketing",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "Resume shows product management (payments/engineering-facing) experience at Starling and Revolut, not marketing or product marketing experience."
+          },
+          {
+            "requirement": "Track record owning GTM strategy for a subscription, membership, or loyalty program",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No GTM, subscription, or loyalty program work evidenced; resume focuses on payments infrastructure (Faster Payments integration, card controls, chargeback disputes)."
+          },
+          {
+            "requirement": "Fluency in subscription/lifecycle marketing, positioning, messaging",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No marketing, messaging, or lifecycle campaign experience listed; skills are Payments, SQL, Product Analytics, Figma, Stakeholder Management."
+          },
+          {
+            "requirement": "Partnering with growth/performance marketing teams on acquisition campaigns",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "missing",
+            "explanation": "No evidence of growth marketing, acquisition campaigns, or paid/email/push channel work in resume."
+          },
+          {
+            "requirement": "Consumer tech company experience",
+            "jobEvidenceIds": [],
+            "candidateFactIds": [],
+            "match": "partial",
+            "explanation": "Starling and Revolut are consumer fintech, which is consumer-facing tech, but the role experience is product management, not product marketing."
+          }
+        ],
+        "blockers": [],
+        "sourceResumeHash": "sha256:67d46ff9d8aa8b7aa6cfe7c02b4eff1670c466b1c6ec22dba427e860ea64e310",
+        "jobContentHash": "sha256:38044b42ba26cdf2d8ff93b3e8022e4cc7a8e49f7df934e62d4b93ac398d3085",
+        "preferencesVersion": 1,
+        "modelVersion": "claude-sonnet-5",
+        "schemaVersion": 1,
+        "completedAt": "2026-09-25T18:58:36.384Z"
+      }
+    ],
+    "applications": [],
+    "selection": {
+      "jobIds": [],
+      "version": 1,
+      "updatedAt": "2026-09-25T18:57:34.228Z"
+    },
+    "artifacts": [
+      {
+        "kind": "original_resume",
+        "createdAt": "2026-09-25T18:57:45.889Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "a2a207d0-f3cb-457c-814d-96c94a33a11f"
+      },
+      {
+        "kind": "refined_resume_pdf",
+        "createdAt": "2026-09-25T18:57:45.892Z",
+        "bytes": 0,
+        "contentHash": "",
+        "id": "d9065b38-44ee-4950-b20c-ce6aa738bd02"
+      }
+    ],
+    "billing": {
+      "status": "not_started",
+      "mode": "test",
+      "promotionalCredit": null,
+      "entitlement": null,
+      "amountChargedMinor": 0,
+      "error": null
+    }
+  },
+  "ownerSessionId": "deca821b81b06797e56faa39dac7c91452e8fac20619e9a7e2d5774322489e1a",
+  "billingRecordId": null,
+  "artifacts": {
+    "a2a207d0-f3cb-457c-814d-96c94a33a11f": {
+      "kind": "original_resume",
+      "createdAt": "2026-09-25T18:57:45.889Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "a2a207d0-f3cb-457c-814d-96c94a33a11f",
+      "relativePath": "originals/resume.pdf"
+    },
+    "d9065b38-44ee-4950-b20c-ce6aa738bd02": {
+      "kind": "refined_resume_pdf",
+      "createdAt": "2026-09-25T18:57:45.892Z",
+      "bytes": 0,
+      "contentHash": "",
+      "id": "d9065b38-44ee-4950-b20c-ce6aa738bd02",
+      "relativePath": "output/base-resume.pdf"
+    }
+  }
+}
