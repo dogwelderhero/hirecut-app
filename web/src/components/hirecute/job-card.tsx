@@ -28,6 +28,7 @@ import {
   NOT_SCORED_LABEL,
   matchPresentation,
   postingAgeLabel,
+  providerLabel,
 } from "@/lib/hirecute/match";
 
 /** The reference's inline icon: `svg.hc-sr-icon`, 24×24, stroked. */
@@ -140,7 +141,7 @@ function CardBody({
         <div className="hc-sr-card-title">
           <div className="hc-sr-badges">
             <span className={`hc-sr-badge${fresh ? " hc-sr-badge--fresh" : ""}`}>{age}</span>
-            <span className="hc-sr-badge">via {job.source.provider}</span>
+            <span className="hc-sr-badge">via {providerLabel(job.source.provider)}</span>
           </div>
           <h2>{job.title}</h2>
           <p>

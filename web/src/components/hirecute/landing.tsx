@@ -166,6 +166,18 @@ export function Landing({
     <main className="hc-landing">
       <header className="hc-nav">
         <a className="hc-brand" href="#top">
+          <svg
+            className="hc-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m12 3 2.3 6.7L21 12l-6.7 2.3L12 21l-2.3-6.7L3 12l6.7-2.3Z" />
+          </svg>
           <span>hirecute</span>
         </a>
         <nav className="hc-navlinks">
@@ -426,7 +438,7 @@ export function Landing({
             </ul>
             <button type="button" className="hc-button" onClick={choose}>
               <span>Upload resume</span>
-              <span className="hc-land-arrow">→</span>
+              <span className="hc-land-arrow">↗</span>
             </button>
             <p className="hc-land-price-foot">No account or card to start.</p>
           </article>
@@ -458,7 +470,7 @@ export function Landing({
             </ul>
             <button type="button" className="hc-button" onClick={onSample}>
               <span>Try a sample first</span>
-              <span className="hc-land-arrow">→</span>
+              <span className="hc-land-arrow">↗</span>
             </button>
             <p className="hc-land-price-foot">
               $0 due today. No subscription or automatic charges.
@@ -478,8 +490,8 @@ export function Landing({
           </p>
         </div>
         <div className="hc-land-questions">
-          {FAQS.map(([q, a]) => (
-            <details key={q}>
+          {FAQS.map(([q, a], i) => (
+            <details key={q} open={i === 0}>
               <summary>{q}</summary>
               <p>{a}</p>
             </details>
@@ -499,11 +511,11 @@ export function Landing({
           <div className="hc-land-final-actions">
             <button type="button" className="hc-button" onClick={choose}>
               <span>Upload resume</span>
-              <span className="hc-land-arrow">→</span>
+              <span className="hc-land-arrow">↗</span>
             </button>
             <button type="button" className="hc-button hc-button--quiet" onClick={onSample}>
               <span>Try a sample resume</span>
-              <span className="hc-land-arrow">→</span>
+              <span className="hc-land-arrow">↗</span>
             </button>
           </div>
           <p className="hc-land-final-note">Start free · No card required</p>
@@ -512,6 +524,18 @@ export function Landing({
 
       <footer className="hc-land-footer">
         <a className="hc-brand" href="#top">
+          <svg
+            className="hc-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m12 3 2.3 6.7L21 12l-6.7 2.3L12 21l-2.3-6.7L3 12l6.7-2.3Z" />
+          </svg>
           <span>hirecute</span>
         </a>
         <p>A little help for your next big thing.</p>

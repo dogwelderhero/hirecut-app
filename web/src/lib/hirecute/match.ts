@@ -15,7 +15,7 @@
  * The label is "profile match", never a likelihood of an interview.
  */
 
-import type { MatchAssessment, MatchPresentation } from "./contracts";
+import type { Job, MatchAssessment, MatchPresentation } from "./contracts";
 
 export const MATCH_LABEL = "profile match";
 export const MATCH_EXPLANATION = "AI profile match, not an interview probability";
@@ -87,4 +87,22 @@ export function postingAgeLabel(
   if (days < 30) return `Posted ${days} days ago`;
   const months = Math.floor(days / 30);
   return months === 1 ? "Posted 1 month ago" : `Posted ${months} months ago`;
+}
+
+const PROVIDER_LABEL: Record<Job["source"]["provider"], string> = {
+  greenhouse: "Greenhouse",
+  lever: "Lever",
+  ashby: "Ashby",
+  workday: "Workday",
+  other_public_ats: "Careers page",
+};
+
+/**
+ * The reference's badges are all Title Case ("Series B", "Design-led"). Our
+ * "via {provider}" substitute (job-card.tsx's honest replacement for the
+ * fabricated funding/company chips §5 forbids) must not read as a raw enum
+ * value dropped into the same badge row.
+ */
+export function providerLabel(provider: Job["source"]["provider"]): string {
+  return PROVIDER_LABEL[provider] ?? provider;
 }

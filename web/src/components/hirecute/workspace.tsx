@@ -42,6 +42,7 @@ import { displayText, editLetter, type LetterMap } from "@/lib/hirecute/letters"
 import { matchPresentation, rankByScore } from "@/lib/hirecute/match";
 import {
   initialPresentationState,
+  isPacking,
   isShowingResult,
   presentationReducer,
   visibleStage,
@@ -56,6 +57,20 @@ import { ExploreResults, MatchResults } from "./search-results";
 import { BulkApply } from "./bulk-apply";
 import { CreditsBanner } from "./credits-banner";
 import { CheckoutOverlay } from "./checkout-overlay";
+
+/**
+ * The reference's `div.hc-stage-save[role=status]` — the ~780ms packing
+ * announcement between a result's 2s hold and its receipt landing in the
+ * chat. `aria-live` so it also reaches screen readers, not just sighted users.
+ */
+function PackingStatus() {
+  return (
+    <div className="hc-stage-save" role="status" aria-live="polite">
+      <i className="hc-dot" />
+      <span>Result ready · Saving to your chat…</span>
+    </div>
+  );
+}
 
 /** Classify a click for the counter, from the `data-hc-*` markers screens set. */
 function classifyClick(target: EventTarget | null): { zone: ClickZone; origin: ClickOrigin } {
@@ -121,6 +136,7 @@ function WorkingPanel({
   footer,
   aside,
   tag,
+  meta,
 }: {
   visual: React.ReactNode;
   title: string;
@@ -131,6 +147,8 @@ function WorkingPanel({
   aside?: React.ReactNode;
   /** The reference's file-name chip above the copy heading (screen 03). */
   tag?: string;
+  /** The reference's `Step N of 4 / …starts automatically` row (screen 03 only). */
+  meta?: [string, string];
 }) {
   return (
     <>
@@ -165,6 +183,12 @@ function WorkingPanel({
               starts is not one.
             */}
             <div className="hc-progress hc-space-top" />
+            {meta && (
+              <div className="hc-row hc-between hc-space-top">
+                <span className="hc-tiny hc-muted">{meta[0]}</span>
+                <span className="hc-tiny hc-muted">{meta[1]}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -425,6 +449,31 @@ export function Workspace({
   const match = runState.stages.match?.result;
   const prepare = runState.stages.prepare?.result;
 
+  /*
+    The reference's Bulk Apply screen opens with the first row of the batch
+    already selected and its letter showing on the right — never the empty
+    "Select a role" placeholder. `activeJobId` is set once, above, from
+    `ranked[0]` (the single best-scored job across every explored role), but
+    the batch below is the *selected* subset, which is not always ordered the
+    same way and does not always contain that job. When it doesn't, fall back
+    to the batch's own first row so the panel is never empty on arrival.
+  */
+  const batchJobIds =
+    prepare?.kind === "prepare"
+      ? [...prepare.preparedJobIds, ...prepare.blockedJobIds, ...prepare.failedJobIds]
+      : selected;
+  const batchKey = batchJobIds.join(",");
+  useEffect(() => {
+    if (screenRef.current !== "bulk_apply") return;
+    const ids = batchKey ? batchKey.split(",") : [];
+    if (ids.length === 0) return;
+    if (activeJobId && ids.includes(activeJobId)) return;
+    setActiveJobId(ids[0] as JobId);
+    // `batchKey` is the id list serialized; `screen` (not just its ref) must
+    // also gate this so arriving at the screen re-checks even if the key
+    // hasn't changed since the last visit.
+  }, [batchKey, screen, activeJobId]);
+
   const receipts: StageReceipt[] = [];
   if (refine?.kind === "refine" && !isShowingResult(presentation, "refine")) {
     receipts.push({
@@ -547,10 +596,11 @@ export function Workspace({
                     lead="We keep the facts. We improve the structure, language and focus."
                     actions={stageActions("refine")}
                     footer="Your original resume is always kept."
+                    meta={["Step 1 of 4", "Finetuning starts automatically"]}
                   />
                 </div>
               ) : (
-                <div className="hc-stage-result">
+                <div className={`hc-stage-result${isPacking(presentation, "refine") ? " is-packing" : ""}`}>
                   <StageHeading
                     step="01"
                     name="Finetune Resume"
@@ -615,6 +665,7 @@ export function Workspace({
                   </div>
                 </div>
               )}
+              {isPacking(presentation, "refine") && <PackingStatus />}
             </section>
           )}
 
@@ -641,7 +692,7 @@ export function Workspace({
                   />
                 </div>
               ) : (
-                <div className="hc-stage-result">
+                <div className={`hc-stage-result${isPacking(presentation, "explore") ? " is-packing" : ""}`}>
                   <ExploreResults
                     jobs={runState.jobs}
                     order={runState.jobOrder}
@@ -655,6 +706,7 @@ export function Workspace({
                   />
                 </div>
               )}
+              {isPacking(presentation, "explore") && <PackingStatus />}
             </section>
           )}
 
@@ -687,7 +739,7 @@ export function Workspace({
                   />
                 </div>
               ) : (
-                <div className="hc-stage-result">
+                <div className={`hc-stage-result${isPacking(presentation, "match") ? " is-packing" : ""}`}>
                   <MatchResults
                     jobs={runState.jobs}
                     order={runState.jobOrder}
@@ -704,6 +756,7 @@ export function Workspace({
                   </p>
                 </div>
               )}
+              {isPacking(presentation, "match") && <PackingStatus />}
             </section>
           )}
 
@@ -738,16 +791,7 @@ export function Workspace({
                     — listing all of them left thirty rows reading "Preparing
                     application…" for work that was never queued.
                   */
-                  jobs={(prepare?.kind === "prepare"
-                    ? [
-                        ...prepare.preparedJobIds,
-                        ...prepare.blockedJobIds,
-                        ...prepare.failedJobIds,
-                      ]
-                    : selected
-                  )
-                    .map((id) => runState.jobs[id])
-                    .filter(Boolean)}
+                  jobs={batchJobIds.map((id) => runState.jobs[id]).filter(Boolean)}
                   applications={runState.applications}
                   assessments={runState.assessments}
                   selectedIds={selected}

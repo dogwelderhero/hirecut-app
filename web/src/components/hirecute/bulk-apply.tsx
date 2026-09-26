@@ -38,30 +38,41 @@ import type {
   LaunchProfile,
   MatchAssessment,
 } from "@/lib/hirecute/contracts";
-import { matchPresentation } from "@/lib/hirecute/match";
+import { matchPresentation, providerLabel } from "@/lib/hirecute/match";
 import { displayText, type LetterView } from "@/lib/hirecute/letters";
 
-/** One readiness label, derived from the package — never from a timer. */
+/**
+ * One readiness label, derived from the package — never from a timer.
+ *
+ * The reference's row badge is `span.hc-ap-method.hc-ap-prep` with a
+ * `data-app-prep-state` attribute (`ready` / `input` / `working` / `queued`);
+ * the pill colour and the ✓/○/spinner glyph both come from that attribute in
+ * CSS (hirecute-screens.css), not from a bespoke class per state. `failed` is
+ * new here — the reference never modelled a prepare failure — so it reuses
+ * the same `--danger` tokens the design system already uses for `.hc-tag--red`.
+ */
 function readiness(
   pkg: ApplicationPackage | undefined,
   launchProfile: LaunchProfile,
-): { text: string; cls: string; bucket: Bucket } {
-  if (!pkg) return { text: "In your agent’s queue", cls: "hc-ap-prep", bucket: "preparing" };
+): { text: string; state: PrepState; bucket: Bucket } {
+  if (!pkg) return { text: "In your agent’s queue", state: "queued", bucket: "preparing" };
   const r = pkg.readiness;
   if (r.status === "preparing")
-    return { text: "Preparing application…", cls: "hc-ap-prep", bucket: "preparing" };
+    return { text: "Preparing application…", state: "working", bucket: "preparing" };
   if (r.status === "failed")
-    return { text: "Couldn’t prepare", cls: "hc-ap-blocked", bucket: "failed" };
+    return { text: "Couldn’t prepare", state: "failed", bucket: "failed" };
   if (r.status === "needs_input")
-    return { text: "Needs your input", cls: "hc-ap-manual", bucket: "needs_input" };
+    return { text: "Needs your input", state: "input", bucket: "needs_input" };
   if (pkg.submission.status === "confirmed")
-    return { text: "Submitted", cls: "hc-ap-ready", bucket: "ready" };
+    return { text: "Submitted", state: "ready", bucket: "ready" };
   // Material readiness alone never earns the auto-apply label.
   if (launchProfile === "auto_apply_pilot" && pkg.capability.kind !== "manual_only") {
-    return { text: "Ready to auto-apply", cls: "hc-ap-ready", bucket: "ready" };
+    return { text: "Ready to auto-apply", state: "ready", bucket: "ready" };
   }
-  return { text: "Ready to apply", cls: "hc-ap-ready", bucket: "ready" };
+  return { text: "Ready to apply", state: "ready", bucket: "ready" };
 }
+
+type PrepState = "ready" | "input" | "working" | "queued" | "failed";
 
 type Bucket = "ready" | "needs_input" | "preparing" | "failed";
 
@@ -263,11 +274,11 @@ export function BulkApply({
                   </button>
                   <div className="hc-ap-row-meta">
                     {/* Exactly one readiness badge. */}
-                    <span className={`hc-ap-method ${badge.cls}`}>
+                    <span className="hc-ap-method hc-ap-prep" data-app-prep-state={badge.state}>
                       <i aria-hidden="true" />
-                      <span>{badge.text}</span>
+                      <span data-app-prep-label>{badge.text}</span>
                     </span>
-                    <span className="hc-ap-provider">{job.source.provider}</span>
+                    <span className="hc-ap-provider">{providerLabel(job.source.provider)}</span>
                   </div>
                   <a
                     href={job.source.applicationUrl ?? job.source.canonicalPostingUrl}

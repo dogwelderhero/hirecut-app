@@ -188,6 +188,17 @@ export function visibleStage(
   return liveStage;
 }
 
+/**
+ * True during the ~780ms packing animation only — the reference's
+ * `div.hc-stage-save[role=status]` ("Result ready · Saving to your chat…")
+ * and `.hc-stage-result.is-packing` fade both key off exactly this window,
+ * not the whole dwell.
+ */
+export function isPacking(state: PresentationState, stage: StageId): boolean {
+  const phase = state.phase;
+  return phase.kind === "packing" && phase.stage === stage;
+}
+
 /** True while a result card is on screen (dwelling or travelling). */
 export function isShowingResult(state: PresentationState, stage: StageId): boolean {
   const phase = state.phase;

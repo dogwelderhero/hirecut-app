@@ -246,6 +246,13 @@ svg{display:block}
 .hc-upload{max-width:var(--form-width);margin:auto;text-align:left;box-shadow:var(--paper-shadow);background:var(--paper-card);border:var(--border-width) solid var(--paper-line);border-radius:var(--radius-lg);overflow:hidden}
 .hc-upload-top{padding:var(--space-3) var(--space-5);border-bottom:var(--border-width) solid var(--paper-line);font-size:var(--text-xs)}
 .hc-drop{margin:var(--space-4);padding:var(--space-5);border:var(--border-thick) dashed var(--paper-line);border-radius:var(--radius-md);display:flex;align-items:center;gap:var(--space-4)}
+/*
+  The reference export has no real <input type="file"> — its drop zone is
+  decorative. Ours needs a real, accessible file input wired to the button
+  click, so it must be visually hidden without being display:none (which
+  would drop it from the tab order and break screen readers).
+*/
+.hc-visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .hc-upload-bottom{display:flex;justify-content:space-between;gap:var(--space-4);padding:0 var(--space-5) var(--space-4);font-size:var(--text-xs);color:var(--ink-muted)}
 .hc-upload .hc-letter{background:var(--paper-muted);color:var(--green)}
 .hc-landing-note{margin-top:var(--space-4);font-size:var(--text-xs);color:var(--ink-muted)}
@@ -874,6 +881,9 @@ svg{display:block}
 .hc-ap-prep[data-app-prep-state=working] i{border:var(--border-thick) solid var(--border);border-top-color:var(--accent);border-radius:var(--radius-pill);animation:hc-mail-spin var(--ap-cursor-duration) linear infinite}
 .hc-ap-prep[data-app-prep-state=queued]{color:var(--text-muted);background:var(--surface-2);opacity:.6}
 .hc-ap-prep[data-app-prep-state=queued] i::before{content:'·'}
+/* Not in the reference — it never modelled a prepare failure. Same tokens as .hc-tag--red. */
+.hc-ap-prep[data-app-prep-state=failed]{color:var(--danger);background:var(--danger-soft)}
+.hc-ap-prep[data-app-prep-state=failed] i::before{content:'!'}
 .hc-ap-prep[data-app-prep-state=ready],.hc-ap-prep[data-app-prep-state=input]{animation:hc-mail-ready var(--ap-status-duration) ease-out both}
 .hc-ap-mail-detail{overflow:hidden}
 .hc-ap-recruiter{padding:var(--space-4) var(--space-5);border-bottom:var(--border-width) solid var(--border)}
