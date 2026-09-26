@@ -183,7 +183,12 @@ export function Landing({
         </a>
         <nav className="hc-navlinks">
           <a href="#how-it-works">How it works</a>
-          <a href="#privacy">Your privacy</a>
+          {/*
+            Hrefless, exactly as the reference has it: the processing
+            disclosure this used to target was removed, and a live link to a
+            missing anchor is worse than the prototype's placeholder.
+          */}
+          <a>Your privacy</a>
           {/*
             The reference has a "Sign in" placeholder. §3: "Remove any
             functional dependency on the reference 'Sign in' placeholder; it
@@ -357,18 +362,12 @@ export function Landing({
           </p>
         )}
 
-        <div className="hc-center hc-landing-note">
-          <span>Just looking around? </span>
-          <button type="button" className="hc-button hc-button--quiet" onClick={onSample}>
-            <span>Try a sample resume →</span>
-          </button>
-        </div>
-
-        {/* The honest processing note §3 requires. */}
-        <p className="hc-small hc-muted hc-center" id="privacy">
-          Your resume is processed on our server, and the relevant text is sent to the AI provider
-          we have configured to prepare your results. You can delete your run at any time.
-        </p>
+        {/*
+          The reference's "Just looking around? Try a sample resume" note and
+          the processing disclosure that sat here were both removed on request.
+          The sample run is still reachable from the pricing card and the
+          closing CTA, which is why `onSample` is still wired.
+        */}
       </div>
 
       <section className="hc-startups">
