@@ -1009,3 +1009,15 @@ svg{display:block}
 @media(min-width:1600px){.hc-credit-layer{padding-top:var(--space-8)}}
 @media(max-width:900px){.hc-credit-layer{padding:var(--space-8) var(--space-5) var(--space-5)}.hc-credit-grid{max-width:var(--form-width);grid-template-columns:1fr}.hc-credit-left{display:contents}.hc-credit-offer{order:0}.hc-credit-form,.hc-credit-verifying{order:1}.hc-credit-stories{order:2;min-height:var(--doc-h)}.hc-credit-verifying{min-height:var(--doc-h)}}
 @media(max-width:480px){.hc-credit-layer{padding-right:var(--space-3);padding-left:var(--space-3)}.hc-credit-card{padding:var(--space-4)}.hc-credit-offer h1{font-size:var(--text-xl)}.hc-credit-metrics>div{padding:var(--space-2)}.hc-credit-metrics span{font-size:var(--text-tiny)}.hc-credit-metrics strong{font-size:var(--text-md)}.hc-credit-card-input .hc-input{padding-right:var(--space-3)}.hc-card-brands{display:none}.hc-capacity-copy{font-size:var(--text-xs)}}
+
+/*
+  Rules the screens pack never needed, added here because the app has states
+  the static prototype does not: an upload that fails, a stage that errors, and
+  a file dragged over the drop zone. All three were already referenced by the
+  components but defined nowhere, so every error message in the product
+  rendered as ordinary body text. Built only from existing tokens.
+*/
+.hc-danger{color:var(--danger)}
+.hc-danger-panel{border-color:var(--danger);background:var(--danger-soft);padding:var(--space-4) var(--space-5);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4)}
+.hc-danger-panel p{margin:0;font-size:var(--text-sm);line-height:var(--leading-body);color:var(--text)}
+.hc-drop.is-dragging{border-color:var(--accent);background:var(--accent-soft)}

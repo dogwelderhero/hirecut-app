@@ -31,6 +31,7 @@
 import { useRef, useState } from "react";
 import type { LaunchProfile } from "@/lib/hirecute/contracts";
 import { CURATED_BOARDS } from "@/lib/hirecute/boards.mjs";
+import { FEATURE_ART } from "./feature-art";
 
 const ACCEPT_MIME =
   "application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
@@ -301,7 +302,21 @@ export function Landing({
             accept(e.dataTransfer.files?.[0]);
           }}
         >
-          <div className="hc-letter" aria-hidden />
+          {/* The reference's upload-tray glyph; an empty box without it. */}
+          <div className="hc-letter" aria-hidden>
+            <svg
+              className="hc-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 16V4m-4 4 4-4 4 4M4 16v4h16v-4" />
+            </svg>
+          </div>
           <div className="hc-grow">
             <h3>Drop your resume here</h3>
             <p className="hc-small hc-muted">or choose a file to get started</p>
@@ -315,6 +330,18 @@ export function Landing({
           />
           <button type="button" className="hc-button" onClick={choose}>
             <span>Upload resume</span>
+            <svg
+              className="hc-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14m-6-6 6 6-6 6" />
+            </svg>
           </button>
         </div>
 
@@ -365,7 +392,9 @@ export function Landing({
         <header className="hc-land-section-head">
           <div className="hc-land-kicker">A little less admin. A lot more possibility.</div>
           <h2>
-            <span>Job hunting is a lot.</span> <em>You don’t have to do it all.</em>
+            <span>Job hunting is a lot.</span>
+            <br />
+            <em>You don’t have to do it all.</em>
           </h2>
           <p className="hc-land-lead">
             From the first resume edit to your next application, meet the tools that help you move
@@ -375,12 +404,14 @@ export function Landing({
         <div className="hc-feature-grid">
           {FEATURES.map(([title, original, assisted]) => (
             <article className="hc-feature-card" key={title}>
-              <div className="hc-feature-illustration" aria-hidden />
+              {FEATURE_ART[title]}
               <h3>
                 <span>{title}</span>
               </h3>
               {/* Assisted wording wins whenever submission is disabled. */}
-              <span>{!autoApply && assisted ? assisted : original}</span>
+              <p>
+                <span>{!autoApply && assisted ? assisted : original}</span>
+              </p>
             </article>
           ))}
         </div>
@@ -409,7 +440,9 @@ export function Landing({
         <header className="hc-land-section-head">
           <div className="hc-land-kicker">See the value first</div>
           <h2>
-            <span>Start with a little help.</span> <em>Make your first move on us.</em>
+            <span>Start with a little help.</span>
+            <br />
+            <em>Make your first move on us.</em>
           </h2>
           <p className="hc-land-lead">
             Get to know your resume and your matches before you decide what comes next.
@@ -431,7 +464,9 @@ export function Landing({
                 "An application preview before checkout",
               ].map((t) => (
                 <li key={t}>
-                  <span className="hc-land-tick" aria-hidden />
+                  <span className="hc-land-tick" aria-hidden>
+                    ✓
+                  </span>
                   <span>{t}</span>
                 </li>
               ))}
@@ -463,7 +498,9 @@ export function Landing({
                   : "Every package ready to download and send",
               ].map((t) => (
                 <li key={t}>
-                  <span className="hc-land-tick" aria-hidden />
+                  <span className="hc-land-tick" aria-hidden>
+                    ✓
+                  </span>
                   <span>{t}</span>
                 </li>
               ))}
@@ -483,7 +520,9 @@ export function Landing({
         <div className="hc-land-faq-heading">
           <div className="hc-land-kicker">A few good questions</div>
           <h2>
-            <span>Before your</span> <em>next chapter.</em>
+            <span>Before your</span>
+            <br />
+            <em>next chapter.</em>
           </h2>
           <p className="hc-land-lead">
             The small details that make it easier to take the first step.
@@ -503,7 +542,9 @@ export function Landing({
         <div className="hc-land-final-card">
           <div className="hc-land-kicker">Your next chapter starts with you</div>
           <h2>
-            <span>Bring your experience.</span> <em>We’ll help with what’s next.</em>
+            <span>Bring your experience.</span>
+            <br />
+            <em>We’ll help with what’s next.</em>
           </h2>
           <p className="hc-land-lead">
             One resume. A clearer direction. A little less doing it all yourself.
