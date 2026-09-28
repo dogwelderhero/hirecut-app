@@ -30,15 +30,16 @@ services:
       repository: hirecute
       # Deploy a specific version by setting its git-SHA tag here, then
       # `doctl apps update`. See DEPLOY.md "Update" and "Roll back".
-      tag: latest
+      tag: a0327458
       deploy_on_push:
         enabled: false
 
     http_port: 8080
     instance_count: 1
-    # 1 vCPU / 1 GB. The 512 MB size is too small once Chromium renders a PDF.
+    # 1 vCPU / 1 GB, Basic tier (no autoscaling, which one instance does not
+    # need). The 512 MB size is too small once Chromium renders a PDF.
     # Available sizes: doctl apps tier instance-size list
-    instance_size_slug: apps-s-1vcpu-1gb
+    instance_size_slug: apps-s-1vcpu-1gb-fixed
 
     health_check:
       http_path: /health
