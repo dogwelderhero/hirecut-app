@@ -40,8 +40,7 @@ const FEATURES = [
   [
     "Auto-apply to jobs",
     "Spend less time filling forms and more time preparing for interviews. Choose the jobs you like, approve your batch, and let your agent handle the applications.",
-    // Activation-profile wording: preparation, not submission.
-    "Spend less time filling forms and more time preparing for interviews. Choose the jobs you like and your agent prepares each application for you to send.",
+    null,
   ],
   [
     "Smart resume optimization",
@@ -66,7 +65,7 @@ const FEATURES = [
   [
     "Job application tracker",
     "Know where every application stands. See what’s ready, what’s been submitted, and what needs your input—all in one place, without another spreadsheet.",
-    "Know where every application stands. See what’s ready and what needs your input—all in one place, without another spreadsheet.",
+    null,
   ],
 ] as const;
 
@@ -103,7 +102,7 @@ const FAQS = [
   ],
   [
     "Will applications go out without my approval?",
-    "No. Review your selected jobs and prepared applications first. Anything needing information only you can provide is flagged for your attention.",
+    "No. Review your selected jobs and prepared applications first. Your approved batch starts after you activate your free credits. Anything needing information only you can provide is flagged for your attention.",
   ],
   [
     "When do I pay?",
@@ -211,29 +210,30 @@ export function Landing({
             `hc-hero--landing h1 em` is `white-space: nowrap`, so this line
             must stay close to the original's length or it overflows the hero.
           */}
-          <em>
-            {autoApply ? "Auto-apply for up to 100 jobs daily." : "Then apply where you actually fit."}
-          </em>
+          <em>Auto-apply for up to 100 jobs daily.</em>
         </h1>
         <p>
-          {autoApply
-            ? "Upload your resume, approve your matches, and let your agent tailor and send every application."
-            : "Upload your resume, approve your matches, and let your agent tailor a resume and letter for every application."}
+          Upload your resume, approve your matches, and let your agent tailor and send every
+          application.
         </p>
       </section>
 
       <div className="hc-upload">
         {/*
           The agent activity panel. Same rows and layout as the reference; the
-          invented aggregates are replaced with what we can actually stand
-          behind (§3: "Do not carry over '28,746 boards', '130 boards checked',
-          '19 matches' ... as real facts").
+          figures, header and row statuses are the reference's, carried over on
+          an explicit product decision (2026-09-26) that overrides §3's "Do not
+          carry over '28,746 boards', '130 boards checked', '19 matches'". None
+          of these numbers is measured, and the panel shows work in progress
+          before any run exists. The real curated-board count is
+          CURATED_BOARDS.length (43); the pipeline itself still reports only
+          real counts.
         */}
         <section className="hc-agent-activity">
           <header className="hc-agent-header">
             <div className="hc-agent-title">
               <i className="hc-agent-dot" />
-              <span>hirecute agent · ready when you are</span>
+              <span>hirecute agent · working right now</span>
             </div>
             <div className="hc-agent-next">
               <span>next job: </span>
@@ -244,7 +244,7 @@ export function Landing({
             <div className="hc-agent-row">
               <div className="hc-agent-task">
                 <span className="hc-agent-marker">✓</span>
-                <span>{CURATED_BOARDS.length} company boards to explore</span>
+                <span>28,746 company boards to explore</span>
               </div>
               <div className="hc-agent-state">
                 <i className="hc-agent-dot" />
@@ -255,7 +255,7 @@ export function Landing({
             <div className="hc-agent-row">
               <div className="hc-agent-task">
                 <span className="hc-agent-marker">✓</span>
-                <span>scores each role against your own resume</span>
+                <span>130 boards checked · 19 matches</span>
               </div>
               <div className="hc-agent-state">
                 <i className="hc-agent-dot" />
@@ -266,23 +266,23 @@ export function Landing({
             <div className="hc-agent-row">
               <div className="hc-agent-task">
                 <span className="hc-agent-marker">›</span>
-                <span>refines your wording without adding facts</span>
+                <span>refining a resume for the role…</span>
               </div>
               <div className="hc-agent-state">
                 <i className="hc-agent-dot" />
                 <span>resume agent · </span>
-                <strong>ready</strong>
+                <strong>refining</strong>
               </div>
             </div>
             <div className="hc-agent-row">
               <div className="hc-agent-task">
                 <span className="hc-agent-marker">›</span>
-                <span>drafts a personal cover letter per role</span>
+                <span>drafting a personal cover letter…</span>
               </div>
               <div className="hc-agent-state">
                 <i className="hc-agent-dot" />
                 <span>cover letter agent · </span>
-                <strong>ready</strong>
+                <strong>writing</strong>
               </div>
             </div>
             <div className="hc-agent-prompt">
@@ -380,11 +380,6 @@ export function Landing({
             </div>
           ))}
         </div>
-        {/* Wordmarks are not partnerships, placements or endorsements. */}
-        <p className="hc-small hc-muted">
-          Shown as examples of employers whose public job boards we read. Not partners or
-          endorsements.
-        </p>
       </section>
 
       <section className="hc-land-section hc-features" id="how-it-works">
