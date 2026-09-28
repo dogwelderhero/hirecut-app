@@ -50,7 +50,6 @@ FROM ${NODE_IMAGE} AS runtime
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
     PORT=8080 \
-    PLAYWRIGHT_BROWSERS_PATH=/ms-playwright \
     HIRECUTE_CODE_ROOT=/app \
     HIRECUTE_DATA_DIR=/app/var/hirecute \
     HIRECUTE_PUBLIC_BUILD=true \
@@ -66,7 +65,14 @@ RUN apt-get update \
 COPY --from=root-deps /app/node_modules ./node_modules
 # Headless shell only (generate-pdf.mjs launches with headless: true), plus the
 # system libraries it needs. Version follows the root lockfile's playwright.
-RUN node_modules/.bin/playwright install --with-deps --only-shell chromium \
+#
+# Installed at Playwright's DEFAULT path for the runtime user, deliberately not
+# via a PLAYWRIGHT_BROWSERS_PATH env var: the worker spawns render children with
+# an allowlisted env (paths.ts childEnv keeps PATH/HOME/... only), so any such
+# var is stripped and Playwright falls back to $HOME/.cache/ms-playwright.
+RUN PLAYWRIGHT_BROWSERS_PATH=/home/node/.cache/ms-playwright \
+    node_modules/.bin/playwright install --with-deps --only-shell chromium \
+ && chown -R node:node /home/node/.cache \
  && rm -rf /var/lib/apt/lists/* /root/.cache /root/.npm
 
 # career-ops code root (already filtered to the allowlist by the dockerignore).

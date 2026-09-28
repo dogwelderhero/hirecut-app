@@ -41,7 +41,7 @@ doctl auth init                 # paste an API token (Control Panel → API → 
 doctl account get               # confirm
 
 # Registry (skip if you have one). Starter tier is free but capped at 500 MiB;
-# the image is ~590 MB uncompressed (smaller compressed), and every extra tag
+# the image is ~590 MB compressed (~1.6 GB uncompressed), and every extra tag
 # with changed layers adds to it — Basic tier leaves room for rollbacks.
 doctl registry create $REGISTRY --subscription-tier basic --region nyc3
 ```
