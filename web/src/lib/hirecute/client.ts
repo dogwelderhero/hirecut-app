@@ -20,7 +20,10 @@ const BASE = "/api/hirecute";
 
 /** Each mutating request carries a nonce so a double click creates one run. */
 function nonce(): string {
-  return crypto.randomUUID();
+  // randomUUID exists only in secure contexts (HTTPS / localhost); opening the
+  // app over a LAN IP leaves it undefined. getRandomValues works everywhere.
+  if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
+  return Array.from(crypto.getRandomValues(new Uint8Array(16)), (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 async function jsonOrThrow<T>(res: Response): Promise<T> {
