@@ -1,0 +1,104 @@
+# DigitalOcean App Platform spec for hirecute (image source: DOCR).
+# Full process: DEPLOY.md.
+#
+#   doctl apps create --spec .do/app.yaml                # first time
+#   doctl apps update <app-id> --spec .do/app.yaml       # later changes
+#
+# SECRETS: values below are placeholders. Set real values in the dashboard
+# (App → Settings → web → Environment Variables). After that, DO NOT re-run
+# `doctl apps update` with this file as-is — it would overwrite the dashboard
+# values with the placeholders. Export the live spec first (secrets come back
+# encrypted as EV[...], safe to commit):
+#
+#   doctl apps spec get <app-id> > .do/app.yaml
+#
+# STORAGE IS EPHEMERAL: sessions, runs, PDFs and billing grants under
+# HIRECUTE_DATA_DIR are lost on every deploy and restart. Acceptable for a
+# pilot/demo only (see DEPLOY.md). Keep instance_count at 1 — the app assumes a
+# single instance with one local disk.
+
+name: hirecute
+# Put the app in the same region as the registry. List: doctl apps list-regions
+region: nyc
+
+services:
+  - name: web
+    image:
+      registry_type: DOCR
+      # registry.digitalocean.com/<your-registry>/hirecute — DOCR repositories
+      # resolve against the account's own registry, so only the repo is named.
+      repository: hirecute
+      # Deploy a specific version by setting its git-SHA tag here, then
+      # `doctl apps update`. See DEPLOY.md "Update" and "Roll back".
+      tag: latest
+      deploy_on_push:
+        enabled: false
+
+    http_port: 8080
+    instance_count: 1
+    # 1 vCPU / 1 GB. The 512 MB size is too small once Chromium renders a PDF.
+    # Available sizes: doctl apps tier instance-size list
+    instance_size_slug: apps-s-1vcpu-1gb
+
+    health_check:
+      http_path: /health
+      initial_delay_seconds: 15
+      period_seconds: 10
+      timeout_seconds: 5
+      success_threshold: 1
+      failure_threshold: 3
+
+    envs:
+      # ── Model ────────────────────────────────────────────────────────────
+      - key: HIRECUTE_MODEL_API_BASE_URL
+        scope: RUN_TIME
+        value: https://api.anthropic.com/v1
+      - key: HIRECUTE_MODEL
+        scope: RUN_TIME
+        value: claude-sonnet-5
+      - key: HIRECUTE_MODEL_API_KEY
+        scope: RUN_TIME
+        type: SECRET
+        value: REPLACE_IN_DASHBOARD
+      # Optional tiers; both fall back to HIRECUTE_MODEL when unset.
+      # - key: HIRECUTE_MODEL_FAST
+      #   scope: RUN_TIME
+      #   value: claude-haiku-4-5-20251001
+      # - key: HIRECUTE_MODEL_JUDGMENT
+      #   scope: RUN_TIME
+      #   value: claude-sonnet-5
+
+      # ── Public URL / host guard ──────────────────────────────────────────
+      # ${APP_URL} / ${APP_DOMAIN} are App Platform bindable variables: the
+      # app's own https URL and host. Without the allowed-host entry the API's
+      # origin guard answers only loopback, so every /api call would fail.
+      # Add your custom domain here too if you attach one.
+      - key: HIRECUTE_BASE_URL
+        scope: RUN_TIME
+        value: ${APP_URL}
+      - key: CAREER_OPS_WEB_ALLOWED_HOSTS
+        scope: RUN_TIME
+        value: ${APP_DOMAIN}
+
+      # ── Fixed by the image; restated so the dashboard shows them ─────────
+      - key: HIRECUTE_PUBLIC_BUILD
+        scope: RUN_TIME
+        value: "true"
+      - key: HIRECUTE_SUBMISSION_ENABLED
+        scope: RUN_TIME
+        value: "false"
+
+      # ── Stripe (only when billing is enabled) ────────────────────────────
+      # The publishable key is read server-side at runtime and its mode
+      # (pk_test_/pk_live_) must match the secret key's.
+      # - key: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+      #   scope: RUN_TIME
+      #   value: pk_test_REPLACE_ME
+      # - key: STRIPE_SECRET_KEY
+      #   scope: RUN_TIME
+      #   type: SECRET
+      #   value: REPLACE_IN_DASHBOARD
+      # - key: STRIPE_WEBHOOK_SECRET
+      #   scope: RUN_TIME
+      #   type: SECRET
+      #   value: REPLACE_IN_DASHBOARD

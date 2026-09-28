@@ -1,0 +1,41 @@
+# Context filter for web/Dockerfile (BuildKit reads <Dockerfile>.dockerignore).
+#
+# ALLOWLIST: deny everything, then re-include only what the image needs. The
+# repo root is the operator's career-ops data root — cv.md, data/, reports/,
+# config/profile.yml, portals.yml, documents/, .env — and a denylist that
+# forgets one new file leaks it into a registry. Add paths here deliberately.
+
+*
+
+# career-ops code root used by the hirecute worker
+!package.json
+!package-lock.json
+!tracker-aliases.json
+!*.mjs
+!lib
+!providers
+!templates
+!modes
+
+# User-layer files that live inside modes/ (DATA_CONTRACT.md)
+modes/_profile.md
+modes/_custom.md
+modes/_brief.md
+
+# The web app
+!web
+web/node_modules
+web/.next
+web/.next-*
+web/.env
+web/.env.*
+web/tests
+web/tsconfig.tsbuildinfo
+web/Dockerfile
+web/Dockerfile.dockerignore
+
+# Anywhere
+**/.DS_Store
+**/*.log
+**/.env
+**/.env.*
