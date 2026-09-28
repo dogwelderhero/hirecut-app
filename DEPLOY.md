@@ -113,7 +113,12 @@ docker buildx build --platform linux/amd64 -f web/Dockerfile \
 
    Secrets come back encrypted as `EV[...]` and are safe to commit. Skipping
    this step means the next `doctl apps update` resets your secrets to the
-   placeholders.
+   placeholders. The export drops the file's comments, so copying just the
+   `EV[...]` values into the existing file works as well.
+
+   From here on `doctl apps spec validate .do/app.yaml` fails with "secret env
+   value must not be encrypted before app is created" — it validates as a new
+   app. That is expected; `doctl apps update` accepts the file.
 
 Find the URL with `doctl apps get $APP_ID --format DefaultIngress`.
 

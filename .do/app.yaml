@@ -1,16 +1,19 @@
 # DigitalOcean App Platform spec for hirecute (image source: DOCR).
 # Full process: DEPLOY.md.
 #
-#   doctl apps create --spec .do/app.yaml                # first time
-#   doctl apps update <app-id> --spec .do/app.yaml       # later changes
+#   App: hirecute, ID 9b685860-be72-482d-8c37-35212b0a2224
+#   doctl apps update 9b685860-be72-482d-8c37-35212b0a2224 --spec .do/app.yaml
 #
-# SECRETS: values below are placeholders. Set real values in the dashboard
-# (App → Settings → web → Environment Variables). After that, DO NOT re-run
-# `doctl apps update` with this file as-is — it would overwrite the dashboard
-# values with the placeholders. Export the live spec first (secrets come back
-# encrypted as EV[...], safe to commit):
+# SECRETS: HIRECUTE_MODEL_API_KEY is the live value, encrypted by App Platform
+# (EV[...]); only this app can decrypt it, so it is safe to commit. To change a
+# secret, edit it in the dashboard (Settings → web → Environment Variables),
+# then copy the new EV[...] value in from `doctl apps spec get <app-id>` —
+# otherwise the next `update` puts the old one back. Commented-out entries still
+# hold REPLACE_IN_DASHBOARD placeholders.
 #
-#   doctl apps spec get <app-id> > .do/app.yaml
+# `doctl apps spec validate` rejects this file ("secret env value must not be
+# encrypted before app is created"): it validates as a new app. `update` on the
+# existing app accepts it.
 #
 # STORAGE IS EPHEMERAL: sessions, runs, PDFs and billing grants under
 # HIRECUTE_DATA_DIR are lost on every deploy and restart. Acceptable for a
@@ -25,8 +28,7 @@ services:
   - name: web
     image:
       registry_type: DOCR
-      # registry.digitalocean.com/<your-registry>/hirecute — DOCR repositories
-      # resolve against the account's own registry, so only the repo is named.
+      registry: hirecute
       repository: hirecute
       # Deploy a specific version by setting its git-SHA tag here, then
       # `doctl apps update`. See DEPLOY.md "Update" and "Roll back".
@@ -60,7 +62,7 @@ services:
       - key: HIRECUTE_MODEL_API_KEY
         scope: RUN_TIME
         type: SECRET
-        value: REPLACE_IN_DASHBOARD
+        value: EV[1:6ymL19BFfpSaDOyMz9SGW9hf9BCc90Hv:Ai+u2aLy+mORvRaakVE/MYnOCw0QifQfSWwk99JD07w2lmW3PxH5aStRKbymKmfTlZ/Vp6uTi0x3SQ64j1+HSNrYx2LlDypslg8EEBUZZ8pjW/bRp1BllGGK9Pv+70gWy8io7LET4KH3CyWAGykH8DjtlJZ7jE8YiE4IWQ==]
       # Optional tiers; both fall back to HIRECUTE_MODEL when unset.
       # - key: HIRECUTE_MODEL_FAST
       #   scope: RUN_TIME
@@ -103,3 +105,11 @@ services:
       #   scope: RUN_TIME
       #   type: SECRET
       #   value: REPLACE_IN_DASHBOARD
+
+ingress:
+  rules:
+    - component:
+        name: web
+      match:
+        path:
+          prefix: /
