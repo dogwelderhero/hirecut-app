@@ -32,7 +32,7 @@ services:
       repository: hirecute
       # Deploy a specific version by setting its git-SHA tag here, then
       # `doctl apps update`. See DEPLOY.md "Update" and "Roll back".
-      tag: a0327458
+      tag: "01083211"
       deploy_on_push:
         enabled: false
 

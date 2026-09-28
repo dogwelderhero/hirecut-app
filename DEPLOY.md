@@ -130,8 +130,9 @@ docker buildx build --platform linux/amd64 -f web/Dockerfile \
   -t $IMAGE:$TAG -t $IMAGE:latest --push .
 ```
 
-Then point the app at it: set `tag: <TAG>` under `services[0].image` in
-`.do/app.yaml` and
+Then point the app at it: set `tag: "<TAG>"` under `services[0].image` in
+`.do/app.yaml` — **quoted**: a SHA that happens to be all digits (`01083211`)
+is otherwise read as a YAML number and `doctl` refuses the spec — and
 
 ```bash
 doctl apps update $APP_ID --spec .do/app.yaml
