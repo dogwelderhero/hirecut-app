@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * The four-step progress line — `nav.hc-stepper`.
+ * The progress line — `nav.hc-stepper`.
  *
  * Ported from the reference shell: `div.hc-step` (with `is-active`) holding a
  * number and `span.hc-step-name`, separated by `span.hc-step-line`.
@@ -14,14 +14,15 @@
 
 import { Fragment } from "react";
 import type { StageId, StageState } from "@/lib/hirecute/contracts";
-import { STAGE_ORDER } from "@/lib/hirecute/screens";
-
-const STAGE_TITLES: Record<StageId, string> = {
-  refine: "Finetune Resume",
-  explore: "Explore Jobs",
-  match: "Top matching jobs",
-  prepare: "Bulk Apply",
-};
+/**
+ * Visible steps. Finetune and Explore run in parallel on one screen, so they
+ * are one step: done when both are, failed if either is.
+ */
+const STEPS: ReadonlyArray<{ stages: StageId[]; title: string }> = [
+  { stages: ["refine", "explore"], title: "Resume & jobs" },
+  { stages: ["match"], title: "Top matching jobs" },
+  { stages: ["prepare"], title: "Bulk Apply" },
+];
 
 export function StageProgress({
   stages,
@@ -33,11 +34,11 @@ export function StageProgress({
 }) {
   return (
     <nav className="hc-stepper" aria-label="Progress">
-      {STAGE_ORDER.map((stage, i) => {
-        const status = stages[stage]?.status ?? "pending";
-        const done = status === "completed";
-        const failed = status === "failed" || status === "interrupted";
-        const active = visible === stage;
+      {STEPS.map((step, i) => {
+        const statuses = step.stages.map((s) => stages[s]?.status ?? "pending");
+        const done = statuses.every((s) => s === "completed");
+        const failed = statuses.some((s) => s === "failed" || s === "interrupted");
+        const active = visible !== null && step.stages.includes(visible);
         const state = [
           active ? "is-active" : "",
           done ? "is-done" : "",
@@ -49,13 +50,13 @@ export function StageProgress({
           // A Fragment, not a wrapper div: `.hc-stepper` is a flex row whose
           // direct children are the steps and the connecting lines, so an
           // extra element would break the layout.
-          <Fragment key={stage}>
+          <Fragment key={step.title}>
             <div className={`hc-step ${state}`.trim()} aria-current={active ? "step" : undefined}>
               {/* `.hc-step b` is the numbered circle. */}
               <b>{done ? "✓" : i + 1}</b>
-              <span className="hc-step-name">{STAGE_TITLES[stage]}</span>
+              <span className="hc-step-name">{step.title}</span>
             </div>
-            {i < STAGE_ORDER.length - 1 && <span className="hc-step-line" aria-hidden />}
+            {i < STEPS.length - 1 && <span className="hc-step-line" aria-hidden />}
           </Fragment>
         );
       })}

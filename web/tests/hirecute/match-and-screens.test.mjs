@@ -91,7 +91,9 @@ test("posting age is derived from postedAt, not from fetch time", () => {
 
 test("result-phase hashes canonicalize onto their screen: 4→3, 6→5, 8→7, 10→9", () => {
   assert.equal(resolveHash("#state-4", true), "refine");
-  assert.equal(resolveHash("#state-6", true), "explore");
+  // Explore now shares the resume review screen.
+  assert.equal(resolveHash("#state-5", true), "refine");
+  assert.equal(resolveHash("#state-6", true), "refine");
   assert.equal(resolveHash("#state-8", true), "matches");
   assert.equal(resolveHash("#state-10", true), "bulk_apply");
 });
@@ -100,11 +102,11 @@ test("removed screens fall back without resurrecting their content", () => {
   // 12/17 were the removed activation/outcome screens → checkout overlay.
   assert.equal(resolveHash("#state-12", true), "checkout");
   assert.equal(resolveHash("#state-17", true), "checkout");
-  // 13/14 were application-progress screens → Bulk Apply. 15 → upload. 16 → Explore.
+  // 13/14 were application-progress screens → Bulk Apply. 15 → upload. 16 → Explore, now the review screen.
   assert.equal(resolveHash("#state-13", true), "bulk_apply");
   assert.equal(resolveHash("#state-14", true), "bulk_apply");
   assert.equal(resolveHash("#state-15", true), "upload");
-  assert.equal(resolveHash("#state-16", true), "explore");
+  assert.equal(resolveHash("#state-16", true), "refine");
 });
 
 test("a hash requiring a run falls back to upload when there is none", () => {

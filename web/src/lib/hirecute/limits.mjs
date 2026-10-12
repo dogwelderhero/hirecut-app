@@ -39,3 +39,15 @@ export const PRESENTATION = {
   testimonialRotateMs: 7_000,
   checkoutClickThreshold: 4,
 };
+
+/**
+ * Feature switches for the MVP user flow.
+ *
+ * `pdfGeneration` is OFF: every stage builds HTML only and never launches
+ * Chromium. The PDF path (`buildCvPdf` in documents.mjs, upstream
+ * `generate-pdf.mjs`) is kept intact for when the product needs it — flip
+ * this to true and `buildCvDocument` renders the PDF again.
+ */
+export const FEATURES = {
+  pdfGeneration: false,
+};

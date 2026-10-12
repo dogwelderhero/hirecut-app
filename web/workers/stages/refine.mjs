@@ -6,16 +6,18 @@
  * marked complete only when its condition actually holds.
  *
  *   Reading your resume                      → extraction produced usable text
- *   Extracting your experience and skills    → validated facts + search seed saved
- *   Refining your summary and bullet points  → revision produced, no new facts
- *   Checking formatting and readability      → payload validates, HTML/PDF built
+ *   Extracting your experience and skills    → resume read into sections, verbatim,
+ *                                              fact-checked, published (resume.parsed)
+ *   Refining your summary and bullet points  → per-section recommendations, each
+ *                                              shown to apply and fact-checked
+ *   Checking formatting and readability      → base payload validates, CV built
+ *                                              (HTML only while PDF is disabled)
  *
  * Ordering rule from §2: "A validated result is written to the server store
  * before its result event." So artifacts land on disk, then `stage.result` is
  * emitted. Never the other way round.
  */
 
-import { randomUUID } from "node:crypto";
 import { createHash } from "node:crypto";
 import { readFile, writeFile, readdir } from "node:fs/promises";
 import path from "node:path";
@@ -23,11 +25,22 @@ import path from "node:path";
 import { extractResumeText, extractionMessage } from "../../src/lib/hirecute/extract.mjs";
 import { ModelError, requestStructured, untrusted } from "../../src/lib/hirecute/model.mjs";
 import {
-  RESUME_REFINEMENT_SCHEMA,
-  resumeRefinementSystem,
-  resumeRefinementUser,
+  RESUME_PARSE_SCHEMA,
+  RESUME_RECOMMENDATIONS_SCHEMA,
+  resumeParseSystem,
+  resumeParseUser,
+  resumeRecommendationSystem,
+  resumeRecommendationUser,
 } from "../../src/lib/hirecute/prompts.mjs";
-import { buildCvPdf, checkFacts, sourceFactsMarkdown } from "../../src/lib/hirecute/documents.mjs";
+import { buildCvDocument, checkFacts, sourceFactsMarkdown } from "../../src/lib/hirecute/documents.mjs";
+import {
+  SECTION_KEYS,
+  applyRecommendation,
+  isSectionEmpty,
+  normalizeResume,
+  resumeText,
+  toCvPayload,
+} from "../../src/lib/hirecute/resume.mjs";
 import { ACTION_LABELS } from "../../src/lib/hirecute/action-labels.mjs";
 
 const sha256 = (s) => `sha256:${createHash("sha256").update(s).digest("hex")}`;
@@ -66,7 +79,7 @@ async function findOriginal(runDir) {
  * @returns {Promise<{ok: true, searchSeed: object, sourceFactsPath: string} | {ok: false}>}
  */
 export async function runRefineStage(ctx) {
-  const { emit, diag, runDir, codeRoot, env } = ctx;
+  const { emit, diag, runDir, codeRoot, env, onParsed } = ctx;
   const labels = ACTION_LABELS.refine;
 
   emit("stage.started", { stage: "refine", inputVersion: 1, attempt: 1 }, "refine");
@@ -111,38 +124,53 @@ export async function runRefineStage(ctx) {
   diag({ extraction: { chars: extracted.text.length, pages: extracted.pages, truncated: extracted.truncated } });
   emit("action.completed", { stage: "refine", actionId: "refine-0" }, "refine");
 
-  // ── Actions 2+3: extract facts and refine (one model call) ────────────
+  // ── Action 2: read the resume into sections (no rewriting) ─────────────
   emit("action.started", { action: actionRecord(1, labels[1]) }, "refine");
 
-  let result;
-  try {
-    const system = await resumeRefinementSystem(codeRoot);
-    const response = await requestStructured({
-      system,
-      user: resumeRefinementUser(untrusted("RESUME", extracted.text)),
-      schema: RESUME_REFINEMENT_SCHEMA,
-      schemaName: "emit_resume_refinement",
-      maxTokens: 8192,
-    });
-    diag({ model: { usage: response.usage, model: response.model } });
-    result = response.data;
-  } catch (err) {
-    const error = publicError(
-      err instanceof ModelError ? err.code : "internal_error",
-      err instanceof ModelError ? err.message : "We could not refine your resume just now.",
-      err instanceof ModelError ? err.retryable : true,
-    );
-    diag({ modelError: { code: error.code, detail: err?.detail ?? String(err?.message ?? err) } });
-    emit("action.error", { stage: "refine", actionId: "refine-1", error }, "refine");
-    // §4: "Model/validation failure: show original and retry, with no
-    // fabricated refined column." The original is untouched.
-    emit("stage.error", { stage: "refine", inputVersion: 1, error }, "refine");
+  /** One structured call. Returns `{data}` or `{error}` (public) — never throws. */
+  async function call(opts) {
+    try {
+      const response = await requestStructured(opts);
+      diag({ model: { call: opts.schemaName, usage: response.usage, model: response.model } });
+      return { data: response.data };
+    } catch (err) {
+      diag({ modelError: { call: opts.schemaName, detail: err?.detail ?? String(err?.message ?? err) } });
+      return {
+        error: publicError(
+          err instanceof ModelError ? err.code : "internal_error",
+          err instanceof ModelError ? err.message : "We could not read your resume just now.",
+          err instanceof ModelError ? err.retryable : true,
+        ),
+      };
+    }
+  }
+
+  const parsed = await call({
+    tier: "fast",
+    system: await resumeParseSystem(),
+    user: resumeParseUser(untrusted("RESUME", extracted.text)),
+    schema: RESUME_PARSE_SCHEMA,
+    schemaName: "emit_resume_sections",
+    maxTokens: 8192,
+  });
+  if (parsed.error) {
+    emit("action.error", { stage: "refine", actionId: "refine-1", error: parsed.error }, "refine");
+    // §4: "Model/validation failure: show original and retry." The original is untouched.
+    emit("stage.error", { stage: "refine", inputVersion: 1, error: parsed.error }, "refine");
     return { ok: false };
   }
 
-  // Validation, not trust. The schema shaped the response; these checks decide
-  // whether it is usable.
-  if (result.usable === false || !result.payload?.experience?.length) {
+  // Validation, not trust: coerce to the section shape, and require that the
+  // document actually had resume content in it. A reply wrapped one level too
+  // deep ({x: {usable, sections}}) is unwrapped rather than read as empty.
+  let parseData = parsed.data ?? {};
+  if (parseData.usable === undefined && !parseData.sections) {
+    const inner = Object.values(parseData).find((v) => v && typeof v === "object" && ("usable" in v || "sections" in v));
+    if (inner) parseData = inner;
+  }
+  const resume = normalizeResume(parseData.sections ?? parseData.resume);
+  diag({ parse: { keys: Object.keys(parseData), usable: parseData.usable ?? null } });
+  if (parseData.usable === false || SECTION_KEYS.every((k) => isSectionEmpty(resume, k))) {
     const error = publicError(
       "unreadable_resume",
       "That document does not look like a resume we can work from. Upload a different file, or paste your resume text.",
@@ -153,40 +181,68 @@ export async function runRefineStage(ctx) {
     return { ok: false };
   }
 
+  // The sectioned resume should restate the source. The checker flags any
+  // metric or fact it cannot trace — shown to the visitor, not a gate.
+  const facts = await checkFacts({ codeRoot, runDir, text: resumeText(resume), sourcePath: sourceFactsPath });
+  diag({ factCheck: { target: "parsed_resume", ran: facts.ran, verdict: facts.verdict, flags: facts.flags, detail: facts.detail } });
+
+  // Show the resume now; recommendations follow when they are ready. The
+  // runner starts the job search from this seed in parallel.
+  emit("resume.parsed", { resume }, "refine");
+  onParsed?.(parseData.searchSeed ?? {});
   emit("action.completed", { stage: "refine", actionId: "refine-1" }, "refine");
 
+  // ── Action 3: recommendations, one section at a time ───────────────────
   emit("action.started", { action: actionRecord(2, labels[2]) }, "refine");
-  // The real, unpadded change list. An empty array is a valid outcome and the
-  // receipt says "Resume reviewed · Original kept" rather than inventing a count.
-  const changes = Array.isArray(result.changes)
-    ? result.changes
-        // A "change" whose before and after are identical is noise, not work.
-        .filter((c) => c && c.before !== c.after && typeof c.after === "string")
-        .map((c) => ({
-          id: randomUUID(),
-          kind: ["clarity", "structure", "formatting", "relevance"].includes(c.kind)
-            ? c.kind
-            : "clarity",
-          before: String(c.before ?? ""),
-          after: String(c.after ?? ""),
-          explanation: String(c.explanation ?? ""),
-          sourceFactIds: [],
-        }))
-    : [];
+
+  const suggested = await call({
+    system: await resumeRecommendationSystem(codeRoot),
+    user: resumeRecommendationUser(untrusted("STRUCTURED RESUME", JSON.stringify(resume, null, 2))),
+    schema: RESUME_RECOMMENDATIONS_SCHEMA,
+    schemaName: "emit_resume_recommendations",
+    maxTokens: 4096,
+  });
+  // A failed suggestion pass is not a failed resume: the visitor still has
+  // their content to review and accept, and the UI says suggestions are missing.
+  const recommendationsAvailable = !suggested.error;
+
+  const recommendations = [];
+  const seen = new Set();
+  for (const raw of suggested.data?.recommendations ?? []) {
+    if (recommendations.length >= 12) break;
+    const rec = {
+      id: `rec-${recommendations.length + 1}`,
+      section: String(raw?.section ?? ""),
+      kind: ["clarity", "structure", "formatting", "relevance"].includes(raw?.kind) ? raw.kind : "clarity",
+      label: String(raw?.label ?? "").trim().slice(0, 60) || "Suggested edit",
+      explanation: String(raw?.explanation ?? "").trim(),
+      before: String(raw?.before ?? ""),
+      after: String(raw?.after ?? "").trim(),
+    };
+    const key = `${rec.section}\u0000${rec.before}`;
+    // Must apply to ITS section as-is, or the button would do nothing.
+    if (seen.has(key) || !applyRecommendation(resume, rec)) {
+      diag({ droppedRecommendation: { reason: "does_not_apply", section: rec.section } });
+      continue;
+    }
+    // The replacement text must not carry a claim the source does not.
+    const recFacts = await checkFacts({ codeRoot, runDir, text: rec.after, sourcePath: sourceFactsPath });
+    if (!recFacts.ran || recFacts.flags.length > 0) {
+      diag({ droppedRecommendation: { reason: "fact_check", section: rec.section, flags: recFacts.flags } });
+      continue;
+    }
+    seen.add(key);
+    recommendations.push(rec);
+  }
+  diag({ recommendations: { available: recommendationsAvailable, kept: recommendations.length } });
   emit("action.completed", { stage: "refine", actionId: "refine-2" }, "refine");
 
-  // ── Action 4: build the documents ─────────────────────────────────────
+  // ── Action 4: formatting — validate and build the base CV ─────────────
   emit("action.started", { action: actionRecord(3, labels[3]) }, "refine");
 
-  // The HTML builder reads `payload.candidate` for identity/contact and
-  // `payload.summary` at the root. Naming those differently renders an EMPTY
-  // header while validation still passes — upstream #3523, which
-  // lib/cv-payload-schema.mjs exists to warn about.
-  const payload = {
-    candidate: result.candidate ?? {},
-    summary: result.summary ?? "",
-    ...result.payload,
-  };
+  // The base CV is the resume AS READ. Recommendations reach a CV only once
+  // the visitor applies and accepts them (prepare reads that acceptance).
+  const payload = toCvPayload(resume);
 
   // Validate against career-ops's OWN payload contract before rendering, so a
   // section that would silently vanish fails loudly here instead.
@@ -198,7 +254,7 @@ export async function runRefineStage(ctx) {
   if (validation && validation.valid === false) {
     const error = publicError(
       "invalid_model_output",
-      "We could not lay out your refined resume. You can retry this step.",
+      "We could not lay out your resume. You can retry this step.",
       true,
     );
     emit("action.error", { stage: "refine", actionId: "refine-3", error }, "refine");
@@ -206,7 +262,7 @@ export async function runRefineStage(ctx) {
     return { ok: false };
   }
 
-  const built = await buildCvPdf({
+  const built = await buildCvDocument({
     codeRoot,
     runDir,
     env,
@@ -218,25 +274,13 @@ export async function runRefineStage(ctx) {
     diag({ documentError: built });
     const error = publicError(
       "document_render_failed",
-      built.stage === "pdf"
-        ? "Your refined resume is ready but the PDF could not be produced. You can retry that step."
-        : "We could not lay out your refined resume. You can retry this step.",
+      "We could not lay out your resume. You can retry this step.",
       true,
     );
     emit("action.error", { stage: "refine", actionId: "refine-3", error }, "refine");
     emit("stage.error", { stage: "refine", inputVersion: 1, error }, "refine");
     return { ok: false };
   }
-
-  // Heuristic check, recorded as findings. NOT a guarantee, and not a gate:
-  // blocking a factual CV on a heuristic would be worse than surfacing it.
-  const facts = await checkFacts({
-    codeRoot,
-    env,
-    documentPath: built.html,
-    sourcePath: sourceFactsPath,
-  });
-  diag({ factCheck: { ran: facts.ran, findings: facts.findings?.length ?? 0, detail: facts.detail } });
 
   emit("action.completed", { stage: "refine", actionId: "refine-3" }, "refine");
 
@@ -250,8 +294,12 @@ export async function runRefineStage(ctx) {
         kind: "refine",
         // Registered by the parent, which owns the artifact registry.
         originalArtifactId: path.relative(runDir, originalPath),
-        refinedResumeArtifactId: path.relative(runDir, built.pdf),
-        changes,
+        refinedResumeArtifactId: path.relative(runDir, built.document),
+        resume,
+        recommendations,
+        recommendationsAvailable,
+        // Flags, not a verdict: the checker is a heuristic and the UI says so.
+        factCheck: { ran: facts.ran, flags: facts.flags },
         originalPreserved: true,
       },
     },
@@ -260,9 +308,10 @@ export async function runRefineStage(ctx) {
 
   return {
     ok: true,
-    searchSeed: result.searchSeed ?? {},
+    searchSeed: parseData.searchSeed ?? {},
     sourceFactsPath,
     sourceResumeHash,
-    payload,
+    resume,
+    recommendations,
   };
 }

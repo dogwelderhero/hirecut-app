@@ -92,6 +92,29 @@ export async function runExploreStage(ctx) {
   emit("action.started", { action: actionRecord(1, labels[1]) }, "explore");
 
   const boards = enabledBoards();
+
+  // ── Streaming: show roles as each board finishes ──────────────────────
+  // Every finished board's postings are folded into the running set and
+  // ranked with the SAME filter as the final result. New roles in the current
+  // top `maxDiscoveredJobs` are emitted, then `explore.progress` carries that
+  // top list in order — so the visitor sees at most the retained number,
+  // ranked, and a weaker early role is replaced rather than piling up.
+  const seenRaw = [];
+  const emitted = new Set();
+  let boardsDone = 0;
+  let streaming = Promise.resolve();
+  const streamBoard = async (postings) => {
+    seenRaw.push(...postings);
+    const { jobs: soFar } = await normalizeHarvest({ codeRoot, raw: seenRaw, sha256 });
+    const top = filterRelevant(soFar, { targetRoles, locations, limit: LIMITS.maxDiscoveredJobs });
+    for (const job of top) {
+      if (emitted.has(job.id)) continue;
+      emitted.add(job.id);
+      emit("job.discovered", { job }, "explore");
+    }
+    emit("explore.progress", { jobIds: top.map((j) => j.id), boardsDone, boardsTotal: boards.length }, "explore");
+  };
+
   let harvest;
   try {
     harvest = await fetchBoards({
@@ -101,8 +124,18 @@ export async function runExploreStage(ctx) {
       deadlineMs: LIMITS.discoveryTargetMs,
       // Progress reflects real completions, one entry per board that actually
       // finished — never a synthetic ticker.
-      onBoard: (event) => diag({ board: event }),
+      onBoard: ({ postings, ...event }) => {
+        diag({ board: event });
+        boardsDone += 1;
+        if (postings?.length) {
+          // Serialized: boards finish concurrently, the running set must not.
+          streaming = streaming.then(() => streamBoard(postings)).catch((err) =>
+            diag({ streamError: String(err?.message ?? err) }),
+          );
+        }
+      },
     });
+    await streaming;
   } catch (err) {
     const error = publicError(
       "scan_failed",
@@ -161,7 +194,10 @@ export async function runExploreStage(ctx) {
     scopeDescription: scopeDescription(boards),
   };
 
-  // Emit each retained job so cards can appear as real results.
+  // Emit every retained job: new ones become cards, ones the stream already
+  // showed are upserted with their final `descriptionStatus` (both reducers
+  // update a known job in place rather than adding a card).
+  diag({ streamed: { shownEarly: emitted.size, final: relevant.length } });
   for (const job of relevant) emit("job.discovered", { job }, "explore");
 
   emit("action.completed", { stage: "explore", actionId: "explore-3" }, "explore");

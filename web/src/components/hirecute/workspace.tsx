@@ -22,7 +22,6 @@ import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "r
 import type {
   JobId,
   ScreenId,
-  SearchPreferences,
   StageId,
 } from "@/lib/hirecute/contracts";
 import type { PublicConfig } from "@/lib/hirecute/config";
@@ -41,22 +40,26 @@ import {
 import { displayText, editLetter, type LetterMap } from "@/lib/hirecute/letters";
 import { matchPresentation, rankByScore } from "@/lib/hirecute/match";
 import {
+  awaitingAcceptance,
   initialPresentationState,
   isPacking,
   isShowingResult,
   presentationReducer,
   visibleStage,
 } from "@/lib/hirecute/presentation";
-import { STAGE_ORDER, screenForStage, showsCreditsBanner } from "@/lib/hirecute/screens";
+import { screenForStage, showsCreditsBanner } from "@/lib/hirecute/screens";
 import { CURATED_BOARDS } from "@/lib/hirecute/boards.mjs";
 import type { RunState } from "@/lib/hirecute/run-store";
 import { completedStages, selectedJobIds } from "@/lib/hirecute/run-store";
 import { AgentTranscript, type StageReceipt } from "./agent-transcript";
 import { StageProgress } from "./stage-progress";
-import { ExploreResults, MatchResults } from "./search-results";
+import { MatchResults } from "./search-results";
 import { BulkApply } from "./bulk-apply";
 import { CreditsBanner } from "./credits-banner";
 import { CheckoutOverlay } from "./checkout-overlay";
+import { ResumeReview } from "./resume-review";
+import { FoundJobs } from "./found-jobs";
+import { toggleExclusion } from "@/lib/hirecute/resume.mjs";
 
 /**
  * The reference's `div.hc-stage-save[role=status]` — the ~780ms packing
@@ -199,102 +202,6 @@ function WorkingPanel({
   );
 }
 
-/** Screen 03's visual: a skeleton document under a moving scan line. */
-function DocScanVisual({ caption }: { caption: string }) {
-  return (
-    <article className="hc-doc hc-doc--skeleton">
-      <div className="hc-skel hc-skel--title" />
-      <div className="hc-skel hc-skel--short" />
-      <hr className="hc-divider" />
-      <div className="hc-skel" />
-      <div className="hc-skel hc-skel--mid" />
-      <div className="hc-skel hc-skel--short" />
-      <div className="hc-scan" />
-      <div className="hc-skel" />
-      <div className="hc-skel hc-skel--mid" />
-      <div className="hc-skel" />
-      <p>{caption}</p>
-    </article>
-  );
-}
-
-/** Screen 05's visual: the real search query, never an invented one. */
-function QueryVisual({ preferences }: { preferences: SearchPreferences | null }) {
-  const roles = (preferences?.targetRoles ?? []).join(" · ");
-  const places = (preferences?.locations ?? []).join(" / ");
-  const query = [roles, places].filter(Boolean).join(" · ");
-  return (
-    <>
-      <div className="hc-ring">
-        <svg
-          className="hc-icon"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <circle cx="10" cy="10" r="6" />
-          <path d="m15 15 5 5" />
-        </svg>
-      </div>
-      <h2>Searching with your priorities</h2>
-      <div className="hc-query hc-space-top">
-        {/*
-          Derived from the resume, so it can be thin. The reference's
-          "£65k–£85k · Mid / senior · B2B SaaS" chips are omitted: we hold no
-          salary, seniority or industry preference, and §5 forbids inventing
-          one to fill the row.
-        */}
-        <span>{query || "Roles your experience supports"}</span>
-      </div>
-      {(preferences?.workStyles.length ?? 0) > 0 && (
-        <div className="hc-row hc-space-top">
-          {preferences?.workStyles.map((w) => (
-            <span key={w} className="hc-tag">
-              {w === "remote" ? "Remote" : w === "hybrid" ? "Hybrid" : "On-site"}
-            </span>
-          ))}
-        </div>
-      )}
-    </>
-  );
-}
-
-/** Screen 05's copy side: one row per provider, with real board counts. */
-function SourceRows() {
-  const byProvider = CURATED_BOARDS.reduce<Record<string, number>>((acc, b) => {
-    acc[b.provider] = (acc[b.provider] ?? 0) + 1;
-    return acc;
-  }, {});
-  const label: Record<string, string> = {
-    greenhouse: "Greenhouse",
-    lever: "Lever",
-    ashby: "Ashby",
-    workday: "Workday",
-  };
-  return (
-    <div className="hc-stack hc-space-top">
-      {Object.entries(byProvider).map(([provider, count]) => (
-        <div key={provider} className="hc-source">
-          <span>{label[provider] ?? provider}</span>
-          {/*
-            The reference shows a per-source found count ("38 found") while the
-            search is still running. We only learn per-board results when the
-            stage reports coverage, so the row states what it is doing instead
-            of a number we do not have yet.
-          */}
-          <span className="hc-tag">
-            {count} {count === 1 ? "board" : "boards"} · searching…
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 /** Screen 07's visual: the ring, carrying a real count. */
 function CountRingVisual({
   count,
@@ -334,6 +241,7 @@ export function Workspace({
   onLettersChange,
   onSelectionChange,
   onSaveLetter,
+  onAcceptResume,
   onRestart,
 }: {
   runState: RunState;
@@ -343,6 +251,7 @@ export function Workspace({
   onLettersChange: (next: LetterMap) => void;
   onSelectionChange: (ids: JobId[]) => void;
   onSaveLetter: (id: JobId) => void;
+  onAcceptResume: (appliedRecommendationIds: string[], excludedItems: string[]) => Promise<boolean>;
   onRestart: () => void;
 }) {
   const reducedMotion = useReducedMotion();
@@ -370,6 +279,34 @@ export function Workspace({
   useEffect(() => {
     dispatchPresentation({ type: "reduced_motion", reducedMotion });
   }, [reducedMotion]);
+
+  // ── Review step: applied recommendations and "Accept changes" ────────
+  // Applied IDs are local until accepted; the server's acceptance then wins,
+  // so a refresh shows exactly what was accepted.
+  const [localApplied, setLocalApplied] = useState<string[]>([]);
+  const [localExcluded, setLocalExcluded] = useState<string[]>([]);
+  const [acceptPending, setAcceptPending] = useState(false);
+  const [acceptError, setAcceptError] = useState(false);
+  const acceptance = runState.resumeAcceptance;
+  const appliedIds = acceptance ? acceptance.appliedRecommendationIds : localApplied;
+  const excludedItems = acceptance ? (acceptance.excludedItems ?? []) : localExcluded;
+  const toggleItem = (path: string) => setLocalExcluded((prev) => toggleExclusion(prev, path));
+  const toggleRecommendation = (id: string) =>
+    setLocalApplied((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+
+  // The gate opens only on a SERVER-confirmed acceptance — on click, or on
+  // restore after a refresh.
+  useEffect(() => {
+    if (acceptance) dispatchPresentation({ type: "accept", stage: "refine" });
+  }, [acceptance]);
+
+  const acceptRefine = async () => {
+    setAcceptPending(true);
+    setAcceptError(false);
+    const ok = await onAcceptResume(localApplied, localExcluded);
+    setAcceptPending(false);
+    if (!ok) setAcceptError(true);
+  };
 
   const done = completedStages(runState);
   const doneKey = done.join(",");
@@ -474,12 +411,17 @@ export function Workspace({
     // hasn't changed since the last visit.
   }, [batchKey, screen, activeJobId]);
 
+  // The review shows as soon as the resume is read; the stage result (with
+  // recommendations) completes it.
+  const refineDone = refine?.kind === "refine";
+  const reviewResume = refine?.kind === "refine" ? refine.resume : runState.parsedResume;
+
   const receipts: StageReceipt[] = [];
   if (refine?.kind === "refine" && !isShowingResult(presentation, "refine")) {
     receipts.push({
       stage: "refine",
       label: "Resume refined",
-      detail: refineReceipt(refine.changes.length).replace(/^Resume (refined|reviewed) · /, ""),
+      detail: refineReceipt(appliedIds.length).replace(/^Resume (refined|reviewed) · /, ""),
     });
   }
   if (explore?.kind === "explore" && !isShowingResult(presentation, "explore")) {
@@ -507,10 +449,12 @@ export function Workspace({
     });
   }
 
+  // "Up next" names the next SCREEN: Explore shares the review screen, so
+  // after the resume step comes Top matches.
   const nextStage: StageId | null = useMemo(() => {
-    const i = shownStage ? STAGE_ORDER.indexOf(shownStage) : -1;
-    if (i < 0 || i >= STAGE_ORDER.length - 1) return null;
-    return runState.stages[shownStage!]?.status === "completed" ? STAGE_ORDER[i + 1] : null;
+    if (!shownStage || runState.stages[shownStage]?.status !== "completed") return null;
+    const next: Partial<Record<StageId, StageId>> = { refine: "match", explore: "match", match: "prepare" };
+    return next[shownStage] ?? null;
   }, [shownStage, runState.stages]);
 
   const stageError = runState.stages[shownStage ?? "refine"]?.error ?? runState.terminalError ?? null;
@@ -562,7 +506,8 @@ export function Workspace({
           />
         )}
 
-        <StageProgress stages={runState.stages} visible={shownStage} />
+        {/* Before any stage is shown the visitor is on step 1, so mark it now: the pill switching on later would shift the page. */}
+        <StageProgress stages={runState.stages} visible={shownStage ?? "refine"} />
 
         <section className="hc-work">
           {stageError && (
@@ -577,136 +522,102 @@ export function Workspace({
             </div>
           )}
 
-          {/* ── Screen 03 — Finetune Resume ────────────────────────────── */}
+          {/* ── Screen 03 — Resume & jobs (Finetune + Explore, in parallel) ── */}
           {screen === "refine" && (
             <section className="hc-agent-stage">
-              {refine?.kind !== "refine" ? (
-                <div className="hc-stage-working">
-                  <StageHeading
-                    step="01"
-                    name="Finetune Resume"
-                    title="You have a good story. Let’s sharpen it."
-                    lead="Your agent is turning your experience into a resume that reads clearly."
-                    pill="Agent is working"
-                  />
-                  <WorkingPanel
-                    visual={<DocScanVisual caption="Finding the story in your experience" />}
-                    tag={fileName ?? undefined}
-                    title="Making your experience stand out"
-                    lead="We keep the facts. We improve the structure, language and focus."
-                    actions={stageActions("refine")}
-                    footer="Your original resume is always kept."
-                    meta={["Step 1 of 4", "Finetuning starts automatically"]}
-                  />
-                </div>
-              ) : (
-                <div className={`hc-stage-result${isPacking(presentation, "refine") ? " is-packing" : ""}`}>
-                  <StageHeading
-                    step="01"
-                    name="Finetune Resume"
-                    title="Same experience. A stronger first impression."
-                    lead="Review the changes. Your facts, voice and original file stay intact."
-                    pill="Resume ready"
-                  />
-                  {/*
-                    Real counts. §4: "do not hardcode '8 improvements,'
-                    '3 bullet points clarified' or '0 facts invented'." The
-                    third metric in the reference claims zero invented facts as
-                    a guarantee; the fact checker is a heuristic, so it is
-                    replaced with what we can actually stand behind.
-                  */}
-                  <div className="hc-grid3 hc-space-bottom">
-                    <div className="hc-metric">
-                      <strong>{refine.changes.length}</strong>
-                      <span>Improvements made</span>
-                    </div>
-                    <div className="hc-metric">
-                      <strong>
-                        {refine.changes.filter((c) => c.kind === "clarity").length}
-                      </strong>
-                      <span>Bullet points clarified</span>
-                    </div>
-                    <div className="hc-metric">
-                      <strong>✓</strong>
-                      <span>Original kept</span>
-                    </div>
-                  </div>
+              <StageHeading
+                step="01"
+                name="Resume & jobs"
+                title={
+                  reviewResume
+                    ? "Same experience. A stronger first impression."
+                    : "You have a good story. Let’s sharpen it."
+                }
+                lead={
+                  !reviewResume
+                    ? "Your agent is reading your resume. The job search starts as soon as it has."
+                    : refineDone
+                      ? "Apply the suggestions you like and untick anything to leave out. Matching roles fill in on the right as they are found."
+                      : "Here is your resume as we read it. Suggestions appear beside each section when they are ready."
+                }
+                pill={refineDone ? "Resume ready" : "Agent is working"}
+              />
 
-                  <div className="hc-grid2">
-                    <div className="hc-panel">
-                      <div className="hc-panel-head">
-                        <span className="hc-label">YOUR ORIGINAL</span>
-                        <span className="hc-tag">Saved</span>
-                      </div>
-                      <article className="hc-doc">
-                        {refine.changes.map((c) => (
-                          <p key={`${c.id}-before`} className="hc-muted">
-                            {c.before}
+              <div className="hc-split">
+                <div className="hc-split-main">
+                    <div className={`hc-stage-result${isPacking(presentation, "refine") ? " is-packing" : ""}`}>
+                      {/*
+                        The fact checker is a heuristic: flags are shown as "please
+                        check", a clean run claims nothing, and a check that could
+                        not run says so instead of looking like a pass.
+                      */}
+                      {refine?.kind === "refine" && refine.factCheck.flags.length > 0 && (
+                        <div className="hc-notice hc-space-bottom" role="status">
+                          <strong>Please check these before you use your resume.</strong>
+                          <p className="hc-space-top">
+                            Our automatic check could not find these in your original file:
                           </p>
-                        ))}
-                      </article>
-                    </div>
-                    <div className="hc-panel">
-                      <div className="hc-panel-head">
-                        <span className="hc-label">REFINED BY HIRECUTE</span>
-                        <span className="hc-tag hc-tag--green">✓ Ready to review</span>
-                      </div>
-                      <article className="hc-doc">
-                        {refine.changes.map((c) => (
-                          <p key={`${c.id}-after`}>{c.after}</p>
-                        ))}
-                      </article>
-                    </div>
-                  </div>
-                  <div className="hc-stage-footer">
-                    <span className="hc-small hc-muted">
-                      Saved in your agent conversation. Your original resume is always kept.
-                    </span>
-                  </div>
-                </div>
-              )}
-              {isPacking(presentation, "refine") && <PackingStatus />}
-            </section>
-          )}
+                          <ul className="hc-space-top">
+                            {refine.factCheck.flags.map((f) => (
+                              <li key={`${f.kind}-${f.claim}`}>{f.claim}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {refine?.kind === "refine" && !refine.factCheck.ran && (
+                        <div className="hc-notice hc-space-bottom" role="status">
+                          Our automatic fact check could not run this time. Please read your
+                          resume against your original file before using it.
+                        </div>
+                      )}
 
-          {/* ── Screen 05 — Explore Jobs ───────────────────────────────── */}
-          {screen === "explore" && (
-            <section className="hc-agent-stage">
-              {explore?.kind !== "explore" ? (
-                <div className="hc-stage-working">
-                  <StageHeading
-                    step="02"
-                    name="Explore Jobs"
-                    title="Let’s see what’s out there."
-                    lead="Searching for roles that fit your experience and the way you want to work."
-                    /* The real number of boards, not the reference's "4 sources". */
-                    pill={`Searching ${CURATED_BOARDS.length} boards`}
-                  />
-                  <WorkingPanel
-                    visual={<QueryVisual preferences={runState.snapshot?.preferences ?? null} />}
-                    title="A wider search. A tighter fit."
-                    lead="Your agent reads each board's own postings, removes duplicates and drops listings it cannot date."
-                    actions={stageActions("explore")}
-                    aside={<SourceRows />}
-                    footer="Your search preferences are applied to every source."
-                  />
+                      <ResumeReview
+                        resume={reviewResume}
+                        recommendations={refine?.kind === "refine" ? refine.recommendations : null}
+                        recommendationsAvailable={refine?.kind === "refine" ? refine.recommendationsAvailable : true}
+                        appliedIds={appliedIds}
+                        excludedItems={excludedItems}
+                        locked={Boolean(acceptance) || acceptPending}
+                        onToggleRecommendation={toggleRecommendation}
+                        onToggleItem={toggleItem}
+                      />
+
+                      <div className="hc-stage-footer">
+                        <span className="hc-small hc-muted">
+                          {acceptError
+                            ? "We could not save your changes. Please try again."
+                            : acceptance
+                              ? "Changes accepted. Your top matches open as soon as the job search finishes."
+                              : "Your original resume is always kept."}
+                        </span>
+                        {/* The journey waits here: Top matches open only after this click. */}
+                        {awaitingAcceptance(presentation, "refine") && (
+                          <button
+                            type="button"
+                            className="hc-button"
+                            disabled={acceptPending}
+                            onClick={() => void acceptRefine()}
+                          >
+                            <span>{acceptPending ? "Saving…" : "Accept changes"}</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  {isPacking(presentation, "refine") && <PackingStatus />}
                 </div>
-              ) : (
-                <div className={`hc-stage-result${isPacking(presentation, "explore") ? " is-packing" : ""}`}>
-                  <ExploreResults
-                    jobs={runState.jobs}
-                    order={runState.jobOrder}
-                    assessments={runState.assessments}
-                    savedIds={savedIds}
-                    expandedId={expandedId}
-                    onToggleSave={toggleSave}
-                    onToggleExpand={(id) => setExpandedId((e) => (e === id ? null : id))}
-                    coverage={explore.coverage}
-                    preferences={runState.snapshot?.preferences ?? null}
-                  />
-                </div>
-              )}
-              {isPacking(presentation, "explore") && <PackingStatus />}
+
+                <FoundJobs
+                  jobs={runState.jobs}
+                  order={runState.jobOrder}
+                  finalIds={explore?.kind === "explore" ? explore.jobIds : null}
+                  progress={runState.exploreProgress}
+                  assessments={runState.assessments}
+                  coverage={explore?.kind === "explore" ? explore.coverage : null}
+                  searching={runState.stages.explore?.status === "running"}
+                  boardCount={CURATED_BOARDS.length}
+                  error={runState.stages.explore?.error ?? null}
+                />
+              </div>
             </section>
           )}
 

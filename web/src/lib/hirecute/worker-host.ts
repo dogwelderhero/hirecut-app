@@ -36,6 +36,8 @@ const CHILD_EMITTABLE = new Set<keyof EventPayloadMap>([
   "stage.started",
   "stage.result",
   "stage.error",
+  "resume.parsed",
+  "explore.progress",
   "action.started",
   "action.completed",
   "action.error",
@@ -51,6 +53,8 @@ const CHILD_EMITTABLE = new Set<keyof EventPayloadMap>([
 
 // Billing events are deliberately NOT in that set. A worker cannot grant
 // credits or declare a card saved; only the billing module can.
+// Nor is `resume.accepted`: only the visitor's own click (the accept route)
+// can approve which recommendations reach a tailored CV.
 
 export interface WorkerHandle {
   child: ChildProcess;
@@ -241,7 +245,7 @@ async function registerResultArtifacts(runId: string, payload: unknown): Promise
   };
 
   const originalId = await register(result.originalArtifactId, "original_resume");
-  const refinedId = await register(result.refinedResumeArtifactId, "refined_resume_pdf");
+  const refinedId = await register(result.refinedResumeArtifactId, "base_resume");
 
   return {
     ...p,
@@ -273,7 +277,7 @@ async function registerPackageArtifacts(runId: string, payload: unknown): Promis
   const artifact = await registerArtifact(
     runId,
     {
-      kind: "tailored_resume_pdf",
+      kind: "tailored_resume",
       createdAt: new Date().toISOString(),
       bytes: 0,
       contentHash: "",

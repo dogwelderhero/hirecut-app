@@ -12,8 +12,9 @@
  * Two places where the reference copy is made CONDITIONAL rather than
  * reproduced verbatim, both flagged inline:
  *
- *  1. Auto-apply claims. The design promises "Auto-apply for up to 100 jobs
- *     daily" and "let your agent handle the applications". Submission is
+ *  1. Auto-apply claims. The hero no longer makes one: it now leads with AI
+ *     resume tailoring plus recruiter feedback (product decision, 2026-10-12).
+ *     The design also promises "let your agent handle the applications". Submission is
  *     disabled (`HIRECUTE_SUBMISSION_ENABLED=false`), so today that would be a
  *     false statement to a visitor. 04-coding-agent-brief.md is explicit: "For
  *     the activation pilot, 'Auto-apply to up to 100 jobs daily' must become
@@ -31,61 +32,12 @@
 import { useRef, useState } from "react";
 import type { LaunchProfile } from "@/lib/hirecute/contracts";
 import { CURATED_BOARDS } from "@/lib/hirecute/boards.mjs";
-import { FEATURE_ART } from "./feature-art";
+import { RECRUITERS } from "./recruiters";
+import { RecruiterShowcase } from "./recruiter-showcase";
 
 const ACCEPT_MIME =
   "application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
-const FEATURES = [
-  [
-    "Auto-apply to jobs",
-    "Spend less time filling forms and more time preparing for interviews. Choose the jobs you like, approve your batch, and let your agent handle the applications.",
-    null,
-  ],
-  [
-    "Smart resume optimization",
-    "Give your experience the clarity it deserves. Sharpen your bullet points, surface your strongest skills, and build a resume that’s easier for people and hiring systems to read.",
-    null,
-  ],
-  [
-    "AI cover letters",
-    "Start with something more personal than a blank page. Get a thoughtful introduction that connects your experience to each role, ready for your final touches.",
-    null,
-  ],
-  [
-    "AI resume tailor",
-    "One career. Different opportunities. Adapt your resume to each job’s priorities and keywords, while keeping your experience and achievements true to you.",
-    null,
-  ],
-  [
-    "Set your match threshold",
-    "You decide what a good fit looks like. Set a minimum match score so your agent focuses on the roles that line up with your skills and goals.",
-    null,
-  ],
-  [
-    "Job application tracker",
-    "Know where every application stands. See what’s ready, what’s been submitted, and what needs your input—all in one place, without another spreadsheet.",
-    null,
-  ],
-] as const;
-
-const CONTROL = [
-  [
-    "01",
-    "You choose the direction.",
-    "Change your preferences, skip a job, or refine your shortlist. Your next move should feel like yours.",
-  ],
-  [
-    "02",
-    "You see the work.",
-    "Read the resume changes, match explanations and cover letters before making a decision.",
-  ],
-  [
-    "03",
-    "You keep the final say.",
-    "Applications that need a personal answer come back to you. Your agent handles the admin; you make the calls.",
-  ],
-] as const;
 
 const FAQS = [
   [
@@ -200,21 +152,21 @@ export function Landing({
       <section className="hc-hero hc-hero--landing" id="top">
         <div className="hc-eyebrow">
           <i className="hc-dot" />
-          <span>A little help. A big next step.</span>
+          <span>AI speed. Human judgment.</span>
         </div>
         <h1>
-          <span>Build a better resume.</span>
+          <span>AI agent tailors your resume for top jobs.</span>
           {/* The reference breaks the headline explicitly here. */}
           <br />
           {/*
             `hc-hero--landing h1 em` is `white-space: nowrap`, so this line
             must stay close to the original's length or it overflows the hero.
           */}
-          <em>Auto-apply for up to 100 jobs daily.</em>
+          <em>Then a real recruiter checks it.</em>
         </h1>
         <p>
-          Upload your resume, approve your matches, and let your agent tailor and send every
-          application.
+          Upload your resume. AI finds your best-fit roles and tailors your resume to each one,
+          then real recruiters from your industry support you along the way.
         </p>
       </section>
 
@@ -283,6 +235,30 @@ export function Landing({
                 <i className="hc-agent-dot" />
                 <span>cover letter agent · </span>
                 <strong>writing</strong>
+              </div>
+            </div>
+            {/* A recruiter checking the agent's work: the human half of the offer. */}
+            <div className="hc-agent-message">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={RECRUITERS[0].photo ?? undefined} alt="" />
+              <div className="hc-agent-message-body">
+                <div className="hc-agent-message-meta">
+                  <strong>{RECRUITERS[0].name}</strong>
+                  <span className="hc-agent-message-role">recruiter · {RECRUITERS[0].industry}</span>
+                  <span>2:14 PM</span>
+                </div>
+                <p>
+                  Read your tailored resume. Strong start! Move the M&amp;A deal to the top line and
+                  it’s ready to send.
+                </p>
+                <div className="hc-agent-typing" aria-label={`${RECRUITERS[0].name} is typing`}>
+                  <span className="hc-agent-typing-dots" aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                  <span>{RECRUITERS[0].name.split(" ")[0]} is typing…</span>
+                </div>
               </div>
             </div>
             <div className="hc-agent-prompt">
@@ -370,6 +346,8 @@ export function Landing({
         */}
       </div>
 
+      <RecruiterShowcase />
+
       <section className="hc-startups">
         <p>Our agent helps you go after jobs at companies like</p>
         <div className="hc-startup-row">
@@ -377,54 +355,6 @@ export function Landing({
             <div className="hc-startup-brand" key={name}>
               <i className={`hc-startup-mark hc-logo-${name.toLowerCase()}`} aria-hidden />
               <span>{name}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="hc-land-section hc-features" id="how-it-works">
-        <header className="hc-land-section-head">
-          <div className="hc-land-kicker">A little less admin. A lot more possibility.</div>
-          <h2>
-            <span>Job hunting is a lot.</span>
-            <br />
-            <em>You don’t have to do it all.</em>
-          </h2>
-          <p className="hc-land-lead">
-            From the first resume edit to your next application, meet the tools that help you move
-            forward.
-          </p>
-        </header>
-        <div className="hc-feature-grid">
-          {FEATURES.map(([title, original, assisted]) => (
-            <article className="hc-feature-card" key={title}>
-              {FEATURE_ART[title]}
-              <h3>
-                <span>{title}</span>
-              </h3>
-              {/* Assisted wording wins whenever submission is disabled. */}
-              <p>
-                <span>{!autoApply && assisted ? assisted : original}</span>
-              </p>
-            </article>
-          ))}
-        </div>
-        <div className="hc-feature-outro">
-          <p>Your experience. Your ambitions. A little help with everything in between.</p>
-          <button type="button" className="hc-button" onClick={onSample}>
-            <span>See your agent at work →</span>
-          </button>
-        </div>
-      </section>
-
-      <section className="hc-land-section hc-land-control">
-        <div className="hc-land-kicker">A helping hand. You’re still in charge.</div>
-        <div className="hc-land-control-grid">
-          {CONTROL.map(([num, title, body]) => (
-            <div key={num}>
-              <span className="hc-land-control-num">{num}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
             </div>
           ))}
         </div>

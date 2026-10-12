@@ -7,8 +7,13 @@
  * the visitor never saw or a slow animation looks like unfinished work.
  *
  * The rules encoded here:
- *  - refine / explore / match results dwell 2000ms of FOREGROUND time, then
- *    pack into their conversation receipt over 780ms.
+ *  - refine / match results dwell 2000ms of FOREGROUND time, then pack into
+ *    their conversation receipt over 780ms. explore has no screen of its own
+ *    (its roles stream in beside the resume review), so its result is
+ *    presented on arrival.
+ *  - refine is GATED: its result stays on screen until the visitor presses
+ *    "Accept changes". The dwell clock does not move it on by itself. Later
+ *    results wait in the queue meanwhile; backend work is unaffected.
  *  - `prepare` never dwells, never packs, never navigates away. Bulk Apply
  *    stays mounted (brief: "Bulk Apply does not pack away or advance").
  *  - Hidden tab pauses the dwell; backend work continues. Elapsed foreground
@@ -21,10 +26,24 @@ import { PRESENTATION } from "@/lib/hirecute/config";
 import type { StageId } from "./contracts";
 
 /** Stages whose results get the dwell-and-pack choreography. */
-export const PACKING_STAGES: readonly StageId[] = ["refine", "explore", "match"] as const;
+export const PACKING_STAGES: readonly StageId[] = ["refine", "match"] as const;
+
+/**
+ * Stages with no result screen of their own. Explore's roles are shown live
+ * beside the resume review, so its result is marked presented on arrival and
+ * never queued — it cannot hold the view or delay the next screen.
+ */
+export const ABSORBED_STAGES: readonly StageId[] = ["explore"] as const;
 
 export function stagePacks(stage: StageId): boolean {
   return PACKING_STAGES.includes(stage);
+}
+
+/** Stages whose result waits for an explicit accept instead of the dwell timer. */
+export const GATED_STAGES: readonly StageId[] = ["refine"] as const;
+
+export function stageIsGated(stage: StageId): boolean {
+  return GATED_STAGES.includes(stage);
 }
 
 export type PresentationPhase =
@@ -49,10 +68,12 @@ export interface PresentationState {
   presented: StageId[];
   foreground: boolean;
   reducedMotion: boolean;
+  /** Gated stages the visitor has accepted. */
+  accepted: StageId[];
 }
 
 export function initialPresentationState(
-  opts: { foreground?: boolean; reducedMotion?: boolean } = {},
+  opts: { foreground?: boolean; reducedMotion?: boolean; accepted?: StageId[] } = {},
 ): PresentationState {
   return {
     phase: { kind: "idle" },
@@ -60,6 +81,7 @@ export function initialPresentationState(
     presented: [],
     foreground: opts.foreground ?? true,
     reducedMotion: opts.reducedMotion ?? false,
+    accepted: opts.accepted ?? [],
   };
 }
 
@@ -69,6 +91,8 @@ export type PresentationAction =
   /** Monotonic clock tick. `deltaMs` accrues only while foregrounded. */
   | { type: "tick"; deltaMs: number }
   | { type: "visibility"; foreground: boolean }
+  /** The visitor accepted a gated stage's result; it may now pack away. */
+  | { type: "accept"; stage: StageId }
   | { type: "reduced_motion"; reducedMotion: boolean }
   /** Refresh/reconnect: mark these stages presented without animating them. */
   | { type: "restore"; presentedStages: StageId[]; settledStage?: StageId }
@@ -96,6 +120,14 @@ function startNext(state: PresentationState): PresentationState {
   return { ...state, queue: rest, phase: { kind: "dwelling", stage: next, elapsedMs: 0 } };
 }
 
+/** End a dwell: pack, or — under reduced motion — present and move on. */
+function leave(state: PresentationState, stage: StageId): PresentationState {
+  if (packDurationMs(state.reducedMotion) === 0) {
+    return startNext({ ...state, presented: [...state.presented, stage] });
+  }
+  return { ...state, phase: { kind: "packing", stage, elapsedMs: 0 } };
+}
+
 export function presentationReducer(
   state: PresentationState,
   action: PresentationAction,
@@ -106,6 +138,9 @@ export function presentationReducer(
       // re-present a result or duplicate its receipt.
       if (state.presented.includes(action.stage)) return state;
       if (state.queue.includes(action.stage)) return state;
+      if (ABSORBED_STAGES.includes(action.stage)) {
+        return { ...state, presented: [...state.presented, action.stage] };
+      }
       const phase = state.phase;
       if ((phase.kind === "dwelling" || phase.kind === "packing") && phase.stage === action.stage) {
         return state;
@@ -122,17 +157,12 @@ export function presentationReducer(
 
       if (phase.kind === "dwelling") {
         const elapsedMs = phase.elapsedMs + action.deltaMs;
-        if (elapsedMs < PRESENTATION.resultDwellMs) {
+        // A gated result never times out: only "accept" moves it on.
+        const holding = stageIsGated(phase.stage) && !state.accepted.includes(phase.stage);
+        if (holding || elapsedMs < PRESENTATION.resultDwellMs) {
           return { ...state, phase: { ...phase, elapsedMs } };
         }
-        const packMs = packDurationMs(state.reducedMotion);
-        if (packMs === 0) {
-          return startNext({
-            ...state,
-            presented: [...state.presented, phase.stage],
-          });
-        }
-        return { ...state, phase: { kind: "packing", stage: phase.stage, elapsedMs: 0 } };
+        return leave(state, phase.stage);
       }
 
       if (phase.kind === "packing") {
@@ -148,6 +178,17 @@ export function presentationReducer(
 
     case "visibility":
       return { ...state, foreground: action.foreground };
+
+    case "accept": {
+      if (state.accepted.includes(action.stage)) return state;
+      const accepted = { ...state, accepted: [...state.accepted, action.stage] };
+      const phase = state.phase;
+      // The click is the visitor's "I've read it" — no remaining dwell to wait out.
+      if (phase.kind === "dwelling" && phase.stage === action.stage) {
+        return leave(accepted, action.stage);
+      }
+      return accepted;
+    }
 
     case "reduced_motion":
       return { ...state, reducedMotion: action.reducedMotion };
@@ -165,6 +206,7 @@ export function presentationReducer(
     }
 
     case "reset":
+      // A new journey asks again: acceptance belongs to the run, not the tab.
       return initialPresentationState({
         foreground: state.foreground,
         reducedMotion: state.reducedMotion,
@@ -205,5 +247,16 @@ export function isShowingResult(state: PresentationState, stage: StageId): boole
   return (
     (phase.kind === "dwelling" || phase.kind === "packing" || phase.kind === "settled") &&
     phase.stage === stage
+  );
+}
+
+/** True while a gated result is on screen waiting for the visitor to accept it. */
+export function awaitingAcceptance(state: PresentationState, stage: StageId): boolean {
+  const phase = state.phase;
+  return (
+    stageIsGated(stage) &&
+    phase.kind === "dwelling" &&
+    phase.stage === stage &&
+    !state.accepted.includes(stage)
   );
 }

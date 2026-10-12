@@ -68,9 +68,9 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 /**
  * The env this worker hands to a deterministic utility child.
  *
- * Same run-owned paths, but the model credential is stripped: build-cv-html,
- * generate-pdf and verify-cv-facts have no use for it, and a renderer that
- * never holds a credential cannot leak one.
+ * Same run-owned paths, but the model credential is stripped: build-cv-html
+ * has no use for it, and a renderer that never holds a credential cannot leak
+ * one.
  */
 function utilityEnv() {
   const out = {};
@@ -86,37 +86,49 @@ async function main() {
 
   diag({ started: { runId: RUN_ID, dataRoot: DATA_ROOT } });
 
-  // ── Stage 1: refine. REAL (milestone 3). ────────────────────────────────
+  // ── Stages 1 + 2: refine and explore, IN PARALLEL ───────────────────────
+  // The search needs only the seed read from the resume, so it starts the
+  // moment the resume is parsed — while recommendations are still being
+  // written and while the visitor reviews them. Both share one screen.
   const { runRefineStage } = await import("./stages/refine.mjs");
+  const { runExploreStage } = await import("./stages/explore.mjs");
+
+  let exploring = null;
+  const startExplore = (searchSeed) => {
+    exploring ??= runExploreStage({
+      emit,
+      diag,
+      runDir: DATA_ROOT,
+      codeRoot: CODE_ROOT,
+      searchSeed,
+      preferences: {},
+    });
+    return exploring;
+  };
+
   const refined = await runRefineStage({
     emit,
     diag,
     runDir: DATA_ROOT,
     codeRoot: CODE_ROOT,
     env: utilityEnv(),
+    onParsed: startExplore,
   });
 
   // An inline stage failure is terminal for this attempt; the visitor retries
-  // that stage in place rather than the whole journey.
+  // that stage in place rather than the whole journey. A search already under
+  // way is allowed to finish, so its results are not cut off mid-write.
   if (!refined.ok) {
+    if (exploring) await exploring;
     diag({ stopped: "refine stage failed" });
     return;
   }
 
-  // ── Stage 2: explore. REAL (milestone 4). ───────────────────────────────
-  const { runExploreStage } = await import("./stages/explore.mjs");
-  const explored = await runExploreStage({
-    emit,
-    diag,
-    runDir: DATA_ROOT,
-    codeRoot: CODE_ROOT,
-    searchSeed: refined.searchSeed,
-    preferences: {},
-  });
+  const explored = await startExplore(refined.searchSeed);
 
   if (!explored.ok) {
-    // An empty or failed search stays in Explore Jobs with a scoped retry; it
-    // does not advance to a pretend shortlist.
+    // An empty or failed search stays on the review screen with a scoped
+    // retry; it does not advance to a pretend shortlist.
     diag({ stopped: "explore stage produced no usable result" });
     return;
   }
@@ -151,7 +163,8 @@ async function main() {
     jobs: explored.jobs,
     assessments: matched.assessments,
     ranked: matched.ranked,
-    payload: refined.payload,
+    resume: refined.resume,
+    recommendations: refined.recommendations,
     sourceFactsPath: refined.sourceFactsPath,
     sourceResumeHash: refined.sourceResumeHash,
   });

@@ -11,7 +11,8 @@ import type {
   ApplicationPackage,
   Job,
   MatchAssessment,
-  RefinementChange,
+  ResumeDocument,
+  ResumeRecommendation,
   RunOrigin,
   SearchCoverage,
 } from "./contracts";
@@ -21,6 +22,7 @@ export const FIXTURE_ORIGIN: RunOrigin;
 export const FIXTURE_JOBS: Job[];
 export const FIXTURE_COVERAGE: SearchCoverage;
 export const FIXTURE_ASSESSMENTS: MatchAssessment[];
-export const FIXTURE_REFINEMENT_CHANGES: RefinementChange[];
+export const FIXTURE_RESUME: ResumeDocument;
+export const FIXTURE_RECOMMENDATIONS: ResumeRecommendation[];
 export function fixtureApplications(): ApplicationPackage[];
 export function fixtureLetterText(company: string, title: string): string;

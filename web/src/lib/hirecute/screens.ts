@@ -10,10 +10,14 @@
 
 import type { ScreenId, StageId } from "./contracts";
 
+/**
+ * Explore Jobs no longer has a screen of its own: it runs in parallel with
+ * the resume review and its roles fill the right half of that screen. The
+ * `explore` ScreenId stays in the contract so old links still resolve.
+ */
 export const SCREEN_ORDER: readonly ScreenId[] = [
   "upload",
   "refine",
-  "explore",
   "matches",
   "bulk_apply",
   "checkout",
@@ -24,7 +28,7 @@ export const STAGE_ORDER: readonly StageId[] = ["refine", "explore", "match", "p
 
 const STAGE_TO_SCREEN: Record<StageId, ScreenId> = {
   refine: "refine",
-  explore: "explore",
+  explore: "refine",
   match: "matches",
   prepare: "bulk_apply",
 };
@@ -67,8 +71,8 @@ const HASH_TABLE: Record<string, HashResolution> = {
   "state-2": { screen: "refine", requiresRun: true },
   "state-3": { screen: "refine", requiresRun: true },
   "state-4": { screen: "refine", requiresRun: true },
-  "state-5": { screen: "explore", requiresRun: true },
-  "state-6": { screen: "explore", requiresRun: true },
+  "state-5": { screen: "refine", requiresRun: true },
+  "state-6": { screen: "refine", requiresRun: true },
   "state-7": { screen: "matches", requiresRun: true },
   "state-8": { screen: "matches", requiresRun: true },
   "state-9": { screen: "bulk_apply", requiresRun: true },
@@ -78,7 +82,7 @@ const HASH_TABLE: Record<string, HashResolution> = {
   "state-13": { screen: "bulk_apply", requiresRun: true },
   "state-14": { screen: "bulk_apply", requiresRun: true },
   "state-15": { screen: "upload", requiresRun: false },
-  "state-16": { screen: "explore", requiresRun: true },
+  "state-16": { screen: "refine", requiresRun: true },
   "state-17": { screen: "checkout", requiresRun: true },
 };
 

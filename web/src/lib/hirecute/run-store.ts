@@ -20,6 +20,8 @@ import type {
   ApplicationPackage,
   ApplicationSelection,
   BillingPublicState,
+  ResumeAcceptance,
+  ResumeDocument,
   Job,
   JobId,
   MatchAssessment,
@@ -69,6 +71,12 @@ export interface RunState {
   letters: LetterMap;
   billing: BillingPublicState | null;
   terminalError: PublicError | null;
+  /** The resume as read — shown on the review step before recommendations arrive. */
+  parsedResume: ResumeDocument | null;
+  /** Provisional search ranking while explore runs (≤ the retained limit). */
+  exploreProgress: { jobIds: JobId[]; boardsDone: number; boardsTotal: number } | null;
+  /** Server-confirmed "Accept changes"; the review step holds until it exists. */
+  resumeAcceptance: ResumeAcceptance | null;
 }
 
 export function initialRunState(): RunState {
@@ -89,6 +97,9 @@ export function initialRunState(): RunState {
     letters: {},
     billing: null,
     terminalError: null,
+    parsedResume: null,
+    exploreProgress: null,
+    resumeAcceptance: null,
   };
 }
 
@@ -221,6 +232,16 @@ export function applyEvent(state: RunState, event: PublicRunEvent): RunState {
           error: event.payload.error,
         }),
       };
+
+    case "resume.parsed":
+      return { ...base, parsedResume: event.payload.resume };
+
+    case "explore.progress":
+      return { ...base, exploreProgress: event.payload };
+
+    case "resume.accepted":
+      if (base.resumeAcceptance) return base;
+      return { ...base, resumeAcceptance: event.payload.acceptance };
 
     case "application.updated": {
       const app = event.payload.application;
@@ -373,6 +394,9 @@ export function restoreSnapshot(snapshot: RunSnapshot): RunState {
       return acc;
     }, {}),
     billing: snapshot.billing,
+    parsedResume: snapshot.parsedResume ?? null,
+    exploreProgress: snapshot.exploreProgress ?? null,
+    resumeAcceptance: snapshot.resumeAcceptance ?? null,
   };
 }
 

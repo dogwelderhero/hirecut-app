@@ -7,7 +7,9 @@
  *     separate drafts.
  *  2. Readiness changes on ACTUAL artifact/capability validation — never after
  *     an elapsed timer.
- *  3. The tailored CV is built from the payload stage 1 already validated,
+ *  3. The tailored CV is built from the resume stage 1 read, plus ONLY the
+ *     recommendations the visitor applied, minus the items they unchecked,
+ *     as accepted on the review step,
  *     REORDERED. The builder never receives a sentence the model invented, so
  *     "keywords get reformulated, never fabricated" holds by construction.
  *  4. Only final letter text is emitted. No chain-of-thought, no prompts, no
@@ -23,7 +25,8 @@ import { createHash } from "node:crypto";
 
 import { ModelError, requestStructured, untrusted } from "../../src/lib/hirecute/model.mjs";
 import { PACKAGE_SCHEMA, letterSystem, packageUser } from "../../src/lib/hirecute/prompts.mjs";
-import { buildCvPdf } from "../../src/lib/hirecute/documents.mjs";
+import { buildCvDocument, checkFacts } from "../../src/lib/hirecute/documents.mjs";
+import { acceptedResume, toCvPayload } from "../../src/lib/hirecute/resume.mjs";
 import { ACTION_LABELS } from "../../src/lib/hirecute/action-labels.mjs";
 import { LIMITS } from "../../src/lib/hirecute/limits.mjs";
 
@@ -102,7 +105,8 @@ function basePackage(jobId, sourceResumeHash) {
  * @param {object[]} ctx.jobs
  * @param {object[]} ctx.assessments
  * @param {string[]} ctx.ranked
- * @param {object} ctx.payload            Validated CV payload from stage 1.
+ * @param {object} ctx.resume             The resume as read in stage 1, by section.
+ * @param {object[]} ctx.recommendations  Stage 1's validated recommendations.
  * @param {string} ctx.sourceFactsPath
  * @param {string} ctx.sourceResumeHash
  */
@@ -116,11 +120,28 @@ export async function runPrepareStage(ctx) {
     jobs,
     assessments,
     ranked,
-    payload,
+    resume,
+    recommendations,
     sourceFactsPath,
     sourceResumeHash,
   } = ctx;
   const labels = ACTION_LABELS.prepare;
+
+  /**
+   * The resume the visitor accepted, as a CV payload. The acceptance lives in
+   * the run snapshot (written by the accept route, read-only here); until it
+   * exists the resume is used exactly as read.
+   */
+  async function acceptedPayload() {
+    let acceptance = null;
+    try {
+      const file = JSON.parse(await readFile(path.join(runDir, "run.json"), "utf8"));
+      acceptance = file?.snapshot?.resumeAcceptance ?? null;
+    } catch {
+      // No snapshot readable: fall back to the resume as read.
+    }
+    return toCvPayload(acceptedResume(resume, recommendations, acceptance));
+  }
 
   emit("stage.started", { stage: "prepare", inputVersion: 1, attempt: 1 }, "prepare");
 
@@ -258,16 +279,31 @@ export async function runPrepareStage(ctx) {
     };
     emit("letter.completed", { jobId, generationId, revision }, "prepare");
 
-    // ── The tailored CV: the SAME validated payload, reordered ──────────
+    // ── The tailored CV: the accepted resume, reordered ─────────────────
+    // Read per job, so an accept that lands mid-batch reaches the CVs built
+    // after it. Without an accept, nothing the visitor did not approve is used.
+    const payload = await acceptedPayload();
+
+    // The rewritten summary is the one generated sentence. It is fact-checked
+    // against the source; if the checker flags it, the base summary (already
+    // through refine's check) is used instead. A plainer CV beats an invented one.
+    const draftSummary = typeof data.summary === "string" ? data.summary.trim() : "";
+    let summary = payload.summary;
+    if (draftSummary) {
+      const facts = await checkFacts({ codeRoot, runDir, text: draftSummary, sourcePath: sourceFactsPath });
+      if (facts.ran && facts.flags.length === 0) {
+        summary = draftSummary;
+      } else {
+        diag({ summaryFallback: { jobId, ran: facts.ran, flags: facts.flags, detail: facts.detail } });
+      }
+    }
     const tailored = {
       ...payload,
-      // A rewritten summary is the one generated sentence, and it is
-      // fact-checked below like any other generated text.
-      summary: typeof data.summary === "string" && data.summary.trim() ? data.summary.trim() : payload.summary,
+      summary,
       experience: reorderBullets(payload.experience ?? [], data.emphasisOrder),
     };
 
-    const built = await buildCvPdf({
+    const built = await buildCvDocument({
       codeRoot,
       runDir,
       env: utilityEnv,
@@ -278,7 +314,7 @@ export async function runPrepareStage(ctx) {
 
     if (!built.ok) {
       diag({ cvError: { jobId, ...built } });
-      // The letter is real and usable even if the PDF failed, so the package
+      // The letter is real and usable even if the CV build failed, so the package
       // is NOT marked ready — readiness follows actual artifacts.
       const error = publicError(
         "document_render_failed",
@@ -309,7 +345,7 @@ export async function runPrepareStage(ctx) {
         application: {
           ...pkg,
           version: 2,
-          tailoredResumeArtifactId: path.relative(runDir, built.pdf),
+          tailoredResumeArtifactId: path.relative(runDir, built.document),
           letter: { status: "ready", current: revision },
           readiness: { status: "ready", verifiedAt: new Date().toISOString() },
           packageHash: sha256(`${revision.contentHash}\n${job.source.postingContentHash}`),

@@ -22,3 +22,6 @@ export const PRESENTATION: {
   testimonialRotateMs: number;
   checkoutClickThreshold: number;
 };
+export const FEATURES: {
+  pdfGeneration: boolean;
+};

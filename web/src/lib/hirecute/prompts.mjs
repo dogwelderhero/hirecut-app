@@ -63,165 +63,85 @@ const CV_REGISTER = `REGISTER (CV text only — not a cover letter):
 - Strong verb first in each bullet. Keep the metric in the bullet it belongs to.
 - No filler adjectives ("passionate", "dynamic", "results-driven").`;
 
-/** Compose the system prompt for resume normalization + general refinement. */
-export async function resumeRefinementSystem(codeRoot) {
-  const ingest = await readMode(codeRoot, "modes/cv-ingest.md");
+/** The anti-slop lines from career-ops `modes/_writing.md`, bounded. */
+async function antiSlop(codeRoot) {
   const writing = await readMode(codeRoot, "modes/_writing.md");
+  if (!writing) return null;
+  // Only the guardrail lines are relevant; the rest of the file tells an agent
+  // to read writing-samples/ and cache results in a profile.
+  const lines = writing
+    .split("\n")
+    .filter((l) => /banned|avoid|never|em-dash|slop/i.test(l))
+    .slice(0, 18)
+    .join("\n");
+  return lines.trim() ? `ANTI-SLOP GUARDRAIL (from career-ops modes/_writing.md):\n${lines}` : null;
+}
 
-  const parts = [
-    "You normalize and refine a person's resume. You are given the raw text of their own document.",
+const entryList = (properties, required = []) => ({
+  type: "array",
+  items: { type: "object", properties, ...(required.length ? { required } : {}) },
+});
+const S = { type: "string" };
+const SA = { type: "array", items: { type: "string" } };
+
+/** The eleven review sections, as the parse call must emit them. */
+const RESUME_PROPERTIES = {
+  contact: {
+    type: "object",
+    properties: {
+      name: S,
+      email: S,
+      phone: S,
+      location: S,
+      links: entryList({ label: S, url: S }, ["url"]),
+    },
+  },
+  targetTitle: {
+    type: "string",
+    description: "Only if the resume states a headline or desired title. Otherwise omit.",
+  },
+  summary: { type: "string", description: "The resume's own summary/profile text, verbatim. Omit if none." },
+  experience: entryList({ role: S, company: S, location: S, dates: S, bullets: SA }),
+  education: entryList({ title: S, org: S, location: S, year: S, description: S }),
+  skills: entryList({ category: S, items: SA }, ["items"]),
+  interests: SA,
+  certifications: entryList({ title: S, org: S, year: S }),
+  awards: { ...entryList({ title: S, org: S, year: S, description: S }), description: "Awards, honours and scholarships." },
+  projects: entryList({ name: S, description: S, tech: S, bullets: SA }),
+  volunteering: { ...entryList({ role: S, org: S, dates: S, bullets: SA }), description: "Volunteering and leadership roles outside paid employment." },
+  publications: entryList({ title: S, venue: S, year: S, description: S }),
+};
+
+/** System prompt for reading a resume into sections — no rewriting. */
+export async function resumeParseSystem() {
+  return [
+    "You read a person's resume and sort its content into sections. You are given the raw text of their own document.",
     FACTUAL_STANDARD,
-    CV_REGISTER,
-  ];
-
-  if (ingest) {
-    // If the mode lands upstream, prefer its instructions over our fallback.
-    parts.push(`CAREER-OPS INGEST MODE (authoritative format):\n${ingest.slice(0, 8000)}`);
-  }
-
-  if (writing) {
-    // Only the anti-slop guardrail section is relevant; the rest of the file
-    // tells an agent to read writing-samples/ and cache results in a profile.
-    const antiSlop = writing
-      .split("\n")
-      .filter((l) => /banned|avoid|never|em-dash|slop/i.test(l))
-      .slice(0, 18)
-      .join("\n");
-    if (antiSlop.trim()) {
-      parts.push(`ANTI-SLOP GUARDRAIL (from career-ops modes/_writing.md):\n${antiSlop}`);
-    }
-  }
-
-  parts.push(
-    `THIS PASS IS A GENERAL REFINEMENT, NOT JOB-SPECIFIC TAILORING. No job
-description exists yet. Improve clarity, structure and formatting only.`,
-  );
-
-  return parts.join("\n\n");
+    `THIS IS EXTRACTION, NOT EDITING:
+- Copy text exactly as written. Do not rephrase, shorten, correct or improve it.
+  Only fix broken spacing that text extraction introduced inside a word.
+- Put each piece of content in the one section it belongs to.
+- A section the resume does not have is OMITTED. Never write a placeholder,
+  never guess, never infer a target title from job history.`,
+  ].join("\n\n");
 }
 
 /**
- * Schema for the refinement result.
- *
- * `payload` matches `lib/cv-payload-schema.mjs`'s HTML vocabulary
- * (experience: company/role/location/dates/bullets; education:
- * title/org/location/year/description; skills: category/items), because
- * `build-cv-html.mjs` renders nothing for a payload that names them
- * differently — upstream #3523.
+ * Schema for the parse call: the sections, plus the search seed Explore needs.
  */
-export const RESUME_REFINEMENT_SCHEMA = {
+export const RESUME_PARSE_SCHEMA = {
   type: "object",
   properties: {
     usable: {
       type: "boolean",
       description: "False if the text is not a resume or is unreadable. Emit nothing else then.",
     },
-    candidate: {
+    // Named `sections`, not `resume`: with a field named like the document,
+    // the model wrapped its whole answer a second time.
+    sections: {
       type: "object",
-      description:
-        "Identity and contact, exactly as build-cv-html.mjs reads it. Omit any field the source does not state — do not guess one.",
-      properties: {
-        name: { type: "string" },
-        location: { type: "string" },
-        email: { type: "string" },
-        phone: { type: "string" },
-        linkedin: {
-          type: "object",
-          properties: { url: { type: "string" }, display: { type: "string" } },
-        },
-        github: {
-          type: "object",
-          properties: { url: { type: "string" }, display: { type: "string" } },
-        },
-        portfolio: {
-          type: "object",
-          properties: { url: { type: "string" }, display: { type: "string" } },
-        },
-      },
-      required: ["name"],
-    },
-    summary: { type: "string", description: "2-4 lines, built only from stated facts." },
-    payload: {
-      type: "object",
-      description: "The CV content, in career-ops build-cv-html payload shape.",
-      properties: {
-        experience: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              company: { type: "string" },
-              role: { type: "string" },
-              location: { type: "string" },
-              dates: { type: "string" },
-              bullets: { type: "array", items: { type: "string" } },
-            },
-            required: ["company", "role"],
-          },
-        },
-        projects: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              name: { type: "string" },
-              description: { type: "string" },
-              bullets: { type: "array", items: { type: "string" } },
-              tech: { type: "string" },
-            },
-            required: ["name"],
-          },
-        },
-        education: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              title: { type: "string" },
-              org: { type: "string" },
-              location: { type: "string" },
-              year: { type: "string" },
-              description: { type: "string" },
-            },
-            required: ["title"],
-          },
-        },
-        certifications: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: { title: { type: "string" }, org: { type: "string" }, year: { type: "string" } },
-            required: ["title"],
-          },
-        },
-        skills: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              category: { type: "string" },
-              items: { type: "array", items: { type: "string" } },
-            },
-            required: ["items"],
-          },
-        },
-      },
-      required: ["experience"],
-    },
-    changes: {
-      type: "array",
-      description:
-        "One entry per real change you made. If you changed nothing, return an empty array — never pad this to look productive.",
-      items: {
-        type: "object",
-        properties: {
-          kind: { type: "string", enum: ["clarity", "structure", "formatting", "relevance"] },
-          before: { type: "string", description: "The original text, verbatim." },
-          after: { type: "string", description: "Your replacement." },
-          explanation: { type: "string", description: "Why, in one sentence." },
-        },
-        required: ["kind", "before", "after", "explanation"],
-      },
+      description: "The resume's own content, verbatim, by section. Omit absent sections.",
+      properties: RESUME_PROPERTIES,
     },
     searchSeed: {
       type: "object",
@@ -246,17 +166,86 @@ export const RESUME_REFINEMENT_SCHEMA = {
   required: ["usable"],
 };
 
-export function resumeRefinementUser(untrustedResumeText) {
+export function resumeParseUser(untrustedResumeText) {
   return [
-    "Normalize and refine the resume below.",
-    "",
-    "Return the structured result. Specifically:",
-    "- `payload` is the cleaned CV content.",
-    "- `changes` lists ONLY the changes you actually made, with the original text verbatim in `before`. An honest empty array is correct if the resume already reads well.",
-    "- `searchSeed` is what a job search should look for. Leave fields out when the resume does not support them.",
-    "- If this is not a readable resume, set `usable: false` and return nothing else.",
+    "Sort the resume below into sections, copying its text exactly.",
+    "If this is not a readable resume, set `usable: false` and return nothing else.",
     "",
     untrustedResumeText,
+  ].join("\n");
+}
+
+/** System prompt for per-section improvement recommendations. */
+export async function resumeRecommendationSystem(codeRoot) {
+  const ingest = await readMode(codeRoot, "modes/cv-ingest.md");
+  const slop = await antiSlop(codeRoot);
+  return [
+    "You suggest improvements to a person's resume, one small change at a time. The person reviews each suggestion and applies it or not.",
+    FACTUAL_STANDARD,
+    CV_REGISTER,
+    // If the mode lands upstream, prefer its instructions over our fallback.
+    ingest ? `CAREER-OPS INGEST MODE (authoritative format):\n${ingest.slice(0, 8000)}` : null,
+    slop,
+    `HOW A RECOMMENDATION WORKS:
+- Each one rewrites ONE piece of text in ONE section. \`before\` must be copied
+  EXACTLY from that section of the structured resume (a bullet, a sentence, a
+  skills line). \`after\` replaces it.
+- \`before\` may be "" only for a summary or target title that is currently
+  empty, and only when it can be written entirely from facts already in the
+  resume.
+- Never add a new job, degree, award, project, publication or skill. Never
+  change a name, employer, title, date or number.
+- Keep each suggestion independent: it must make sense applied alone.
+- This is general refinement, not tailoring to a job — no job description exists yet.
+- Fewer, better suggestions. An empty list is correct for a resume that already reads well.`,
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+}
+
+export const RESUME_RECOMMENDATIONS_SCHEMA = {
+  type: "object",
+  properties: {
+    recommendations: {
+      type: "array",
+      description: "At most 12. Never pad this to look productive.",
+      items: {
+        type: "object",
+        properties: {
+          section: {
+            type: "string",
+            enum: [
+              "contact",
+              "targetTitle",
+              "summary",
+              "experience",
+              "education",
+              "skills",
+              "certifications",
+              "awards",
+              "projects",
+              "volunteering",
+              "publications",
+            ],
+          },
+          kind: { type: "string", enum: ["clarity", "structure", "formatting", "relevance"] },
+          label: { type: "string", description: "Button text, 2-6 words, e.g. 'Lead with the outcome'." },
+          explanation: { type: "string", description: "Why, in one sentence." },
+          before: { type: "string", description: "Exact text currently in that section, or \"\" (see rules)." },
+          after: { type: "string", description: "The replacement text." },
+        },
+        required: ["section", "kind", "label", "explanation", "before", "after"],
+      },
+    },
+  },
+  required: ["recommendations"],
+};
+
+export function resumeRecommendationUser(resumeJson) {
+  return [
+    "Suggest improvements to the structured resume below. Quote `before` exactly from it.",
+    "",
+    resumeJson,
   ].join("\n");
 }
 

@@ -20,6 +20,8 @@
  *   valid tracker header. Never mutate shared parent process.env per visitor.
  */
 
+import type { ResumeDocument, ResumeRecommendation } from "./resume.mjs";
+
 export type RunId = string;
 export type SessionId = string;
 export type JobId = string;
@@ -103,14 +105,29 @@ export interface SearchPreferences {
   // Empty arrays mean unspecified; do not infer "authorized anywhere".
 }
 
-export interface RefinementChange {
-  id: string;
-  kind: "clarity" | "structure" | "formatting" | "relevance";
-  before: string;
-  after: string;
-  explanation: string;
-  sourceFactIds: FactId[];
-  // Runtime rejects new employers, dates, degrees, metrics, or skills without support.
+/**
+ * The review step's resume: the visitor's own content in eleven sections, and
+ * single-section recommendations they apply one click at a time. Shapes live
+ * in `resume.d.mts` because the worker and the browser share the code.
+ */
+export type { ResumeDocument, ResumeRecommendation, ResumeSectionKey } from "./resume.mjs";
+
+/** What the visitor accepted on the review step. Tailored CVs are built from this. */
+export interface ResumeAcceptance {
+  appliedRecommendationIds: string[];
+  /** Item paths the visitor unchecked (see `sectionNodes`). Absent = none. */
+  excludedItems?: string[];
+  acceptedAt: ISODateTime;
+}
+
+/**
+ * One claim the heuristic fact checker (`verify-cv-facts.mjs`) could not trace
+ * to the source. A flag, not a verdict — the checker can miss things and can
+ * be wrong, so the UI asks the visitor to check rather than asserting either way.
+ */
+export interface FactFlag {
+  kind: string; // "metric" | "phrase" | the checker's fact kind
+  claim: string;
 }
 
 export interface ArtifactMetadata {
@@ -423,7 +440,14 @@ export interface StageResultMap {
     kind: "refine";
     originalArtifactId: ArtifactId;
     refinedResumeArtifactId: ArtifactId;
-    changes: RefinementChange[];
+    /** The visitor's resume as read, by section — nothing applied. */
+    resume: ResumeDocument;
+    /** Validated: each applies to its section and passed the fact check. */
+    recommendations: ResumeRecommendation[];
+    /** False when the recommendation pass failed; the resume still shows. */
+    recommendationsAvailable: boolean;
+    /** Flags on the resume AS READ (extraction), not a verdict. `ran: false` if it errored. */
+    factCheck: { ran: boolean; flags: FactFlag[] };
     originalPreserved: true;
   };
   explore: { kind: "explore"; jobIds: JobId[]; coverage: SearchCoverage };
@@ -474,6 +498,12 @@ export interface RunSnapshot {
   selection: ApplicationSelection;
   artifacts: ArtifactMetadata[];
   billing: BillingPublicState;
+  /** Shown on the review step as soon as it is read, before recommendations. */
+  parsedResume?: ResumeDocument | null;
+  /** Latest provisional search ranking; superseded by the explore result. */
+  exploreProgress?: { jobIds: JobId[]; boardsDone: number; boardsTotal: number } | null;
+  /** Set by "Accept changes". Until then the review step holds. */
+  resumeAcceptance?: ResumeAcceptance | null;
   // Preparation completion says nothing about payment, approval, or delivery.
 }
 
@@ -579,6 +609,10 @@ export interface EventPayloadMap {
   "stage.started": { stage: StageId; inputVersion: Version; attempt: number };
   "stage.result": { stage: StageId; result: StageResult; inputVersion: Version };
   "stage.error": { stage: StageId; error: PublicError; inputVersion: Version };
+  "resume.parsed": { resume: ResumeDocument };
+  /** Provisional ranking while the search runs: the current top roles, in order. */
+  "explore.progress": { jobIds: JobId[]; boardsDone: number; boardsTotal: number };
+  "resume.accepted": { acceptance: ResumeAcceptance };
   "job.discovered": { job: Job };
   "job.evaluated": { assessment: MatchAssessment };
   "application.updated": { application: ApplicationPackage };

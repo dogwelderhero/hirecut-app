@@ -249,30 +249,50 @@ export const FIXTURE_ASSESSMENTS = [
   },
 ];
 
-export const FIXTURE_REFINEMENT_CHANGES = [
+/**
+ * The fixture resume, by section. Volunteering and Publications are empty on
+ * purpose, so the review step's "!" marks are exercised by the fixture too.
+ */
+export const FIXTURE_RESUME = {
+  contact: { name: "Priya Raman", email: "priya@example.com", location: "London, UK" },
+  targetTitle: "",
+  summary: "Experienced product person who has worked on lots of fintech things.",
+  experience: [
+    {
+      role: "Senior Product Manager",
+      company: "Northwind Payments",
+      dates: "2019 - Present",
+      bullets: ["built payments stuff, also did some hiring"],
+    },
+  ],
+  education: [{ title: "BSc Economics", org: "University of Leeds", year: "2014" }],
+  skills: [{ category: "Domain", items: ["Payments"] }],
+  interests: [],
+  certifications: [],
+  awards: [],
+  projects: [],
+  volunteering: [],
+  publications: [],
+};
+
+export const FIXTURE_RECOMMENDATIONS = [
   {
-    id: "chg-1",
+    id: "rec-1",
+    section: "summary",
     kind: "clarity",
+    label: "Make the summary specific",
     before: "Experienced product person who has worked on lots of fintech things.",
-    after: "Product leader with 8 years in regulated fintech, focused on payments platforms.",
-    explanation: "Replaced a vague claim with the specifics already present in the experience section.",
-    sourceFactIds: ["fact-1"],
+    after: "Senior product manager in fintech, focused on payments.",
+    explanation: "Replaces a vague line with what the experience section already shows.",
   },
   {
-    id: "chg-2",
+    id: "rec-2",
+    section: "experience",
     kind: "formatting",
-    before: "• built payments stuff • also did some hiring",
-    after: "• Built the payments platform serving card and bank transfers\n• Hired and led a team of six",
-    explanation: "Split a compound bullet; no new claims introduced.",
-    sourceFactIds: ["fact-1"],
-  },
-  {
-    id: "chg-3",
-    kind: "relevance",
-    before: "Payments",
-    after: "Payments · Card schemes · Bank transfers · Reconciliation",
-    explanation: "Surfaced terms already evidenced in the experience bullets.",
-    sourceFactIds: ["fact-1"],
+    label: "Lead with a strong verb",
+    before: "built payments stuff, also did some hiring",
+    after: "Built the payments product and hired for the team",
+    explanation: "Starts the bullet with the action; no new claims.",
   },
 ];
 

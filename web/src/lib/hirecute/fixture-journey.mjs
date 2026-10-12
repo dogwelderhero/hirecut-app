@@ -16,7 +16,8 @@ import {
   FIXTURE_ASSESSMENTS,
   FIXTURE_COVERAGE,
   FIXTURE_JOBS,
-  FIXTURE_REFINEMENT_CHANGES,
+  FIXTURE_RECOMMENDATIONS,
+  FIXTURE_RESUME,
   fixtureApplications,
   fixtureLetterText,
 } from "./fixture-data.mjs";
@@ -81,6 +82,7 @@ export function fixtureTimeline() {
   // ── Stage 1: refine ──────────────────────────────────────────────────
   push((t += 100), "stage.started", { stage: "refine", inputVersion: 1, attempt: 1 });
   runActions("refine", ACTION_LABELS.refine);
+  push((t += 100), "resume.parsed", { resume: FIXTURE_RESUME });
   push((t += 200), "stage.result", {
     stage: "refine",
     inputVersion: 1,
@@ -88,7 +90,10 @@ export function fixtureTimeline() {
       kind: "refine",
       originalArtifactId: "art-original",
       refinedResumeArtifactId: "art-refined",
-      changes: FIXTURE_REFINEMENT_CHANGES,
+      resume: FIXTURE_RESUME,
+      recommendations: FIXTURE_RECOMMENDATIONS,
+      recommendationsAvailable: true,
+      factCheck: { ran: true, flags: [] },
       originalPreserved: true,
     },
   });

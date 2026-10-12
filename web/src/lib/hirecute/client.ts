@@ -87,6 +87,20 @@ export async function patchSelection(
   );
 }
 
+/** "Accept changes": applied recommendations, minus unchecked items, become the resume Bulk Apply uses. */
+export async function acceptResume(
+  appliedRecommendationIds: string[],
+  excludedItems: string[],
+): Promise<{ acceptance: { appliedRecommendationIds: string[]; excludedItems?: string[]; acceptedAt: string } }> {
+  return jsonOrThrow(
+    await fetch(`${BASE}/runs/current/resume/accept`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ appliedRecommendationIds, excludedItems }),
+    }),
+  );
+}
+
 export async function saveLetter(
   jobId: string,
   text: string,

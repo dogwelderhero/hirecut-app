@@ -89,7 +89,7 @@ test("stage.result is the only terminal success; a mismatched result kind is ref
     ev("stage.result", {
       stage: "explore",
       inputVersion: 1,
-      result: { kind: "refine", originalArtifactId: "a", refinedResumeArtifactId: "b", changes: [], originalPreserved: true },
+      result: { kind: "refine", originalArtifactId: "a", refinedResumeArtifactId: "b", resume: {}, recommendations: [], recommendationsAvailable: true, factCheck: { ran: true, flags: [] }, originalPreserved: true },
     }),
   );
   assert.equal(s.stages.explore.status, "running", "mismatched result.kind does not complete");

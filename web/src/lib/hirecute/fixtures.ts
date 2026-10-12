@@ -19,10 +19,11 @@
  */
 
 import type {
+  ResumeDocument,
+  ResumeRecommendation,
   ApplicationPackage,
   Job,
   MatchAssessment,
-  RefinementChange,
   RunOrigin,
   SearchCoverage,
 } from "./contracts";
@@ -33,7 +34,8 @@ export const FIXTURE_ORIGIN: RunOrigin = data.FIXTURE_ORIGIN;
 export const FIXTURE_JOBS: Job[] = data.FIXTURE_JOBS;
 export const FIXTURE_COVERAGE: SearchCoverage = data.FIXTURE_COVERAGE;
 export const FIXTURE_ASSESSMENTS: MatchAssessment[] = data.FIXTURE_ASSESSMENTS;
-export const FIXTURE_REFINEMENT_CHANGES: RefinementChange[] = data.FIXTURE_REFINEMENT_CHANGES;
+export const FIXTURE_RESUME: ResumeDocument = data.FIXTURE_RESUME;
+export const FIXTURE_RECOMMENDATIONS: ResumeRecommendation[] = data.FIXTURE_RECOMMENDATIONS;
 
 export const fixtureApplications: () => ApplicationPackage[] = data.fixtureApplications;
 export const fixtureLetterText: (company: string, title: string) => string =

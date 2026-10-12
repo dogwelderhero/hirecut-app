@@ -35,7 +35,9 @@ const STAGE_TITLES: Record<StageId, string> = {
   prepare: "Bulk Apply",
 };
 
-const STAGE_NUMBER: Record<StageId, number> = { refine: 1, explore: 2, match: 3, prepare: 4 };
+/** Visible step per stage: Finetune and Explore share step 1 (one screen). */
+const STAGE_NUMBER: Record<StageId, number> = { refine: 1, explore: 1, match: 2, prepare: 3 };
+const STEP_COUNT = 3;
 
 /** The reference uses ›/·/✓ rather than icons. */
 function mark(status: ActionProgress["status"]): string {
@@ -148,7 +150,7 @@ export function AgentTranscript({
               {/* A genuinely queued worker says queued — it does not invent an action. */}
               {queued
                 ? "your agent is queued"
-                : `hirecute agent is working on step ${STAGE_NUMBER[liveStage]} of 4`}
+                : `hirecute agent is working on step ${STAGE_NUMBER[liveStage]} of ${STEP_COUNT}`}
             </div>
             {!queued && (
               <ol className="hc-chat-actions">

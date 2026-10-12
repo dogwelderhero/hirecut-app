@@ -122,7 +122,9 @@ export async function fetchBoards(opts) {
       // One board failing must not erase another's results, so each board's
       // postings are accumulated as they arrive.
       for (const job of jobs) raw.push({ board, provider: resolved.provider.id, job });
-      onBoard?.({ board: board.name, ok: true, count: jobs.length });
+      // The postings ride along so a caller can surface results per board
+      // instead of waiting for the whole sweep.
+      onBoard?.({ board: board.name, ok: true, count: jobs.length, postings: jobs.map((job) => ({ board, provider: resolved.provider.id, job })) });
       return { item: board, jobs };
     } catch (err) {
       failed += 1;

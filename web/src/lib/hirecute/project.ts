@@ -135,6 +135,17 @@ export function projectEvent(snapshot: RunSnapshot, event: Applied): RunSnapshot
         },
       };
 
+    case "resume.parsed":
+      return { ...s, parsedResume: event.payload.resume };
+
+    case "explore.progress":
+      return { ...s, exploreProgress: event.payload };
+
+    case "resume.accepted":
+      // First accept wins: the tailored CVs may already be built from it.
+      if (s.resumeAcceptance) return s;
+      return { ...s, resumeAcceptance: event.payload.acceptance };
+
     case "application.updated": {
       const app = event.payload.application;
       const prev = s.applications.find((a) => a.jobId === app.jobId);

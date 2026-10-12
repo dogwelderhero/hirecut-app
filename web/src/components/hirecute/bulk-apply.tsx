@@ -76,13 +76,13 @@ type PrepState = "ready" | "input" | "working" | "queued" | "failed";
 
 type Bucket = "ready" | "needs_input" | "preparing" | "failed";
 
-const WORK_STYLE: Record<NonNullable<Job["workStyle"]>, string> = {
+export const WORK_STYLE: Record<NonNullable<Job["workStyle"]>, string> = {
   remote: "Remote",
   hybrid: "Hybrid",
   onsite: "On-site",
 };
 
-function ExternalIcon() {
+export function ExternalIcon() {
   return (
     <svg
       className="hc-ap-icon"

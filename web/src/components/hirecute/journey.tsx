@@ -22,6 +22,7 @@ import {
   type RunState,
 } from "@/lib/hirecute/run-store";
 import {
+  acceptResume,
   createRunFromFile,
   createSampleRun,
   deleteCurrentRun,
@@ -37,11 +38,15 @@ import { resolveHash, SCREEN_HASH } from "@/lib/hirecute/screens";
 import { Landing } from "./landing";
 import { Workspace } from "./workspace";
 
+const PENDING_RUN: RunState = { ...initialRunState(), lifecycle: "queued" };
+
 export function HirecuteJourney({ publicConfig }: { publicConfig: PublicConfig }) {
   const [runState, setRunState] = useState<RunState>(initialRunState);
   const [fileName, setFileName] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [restored, setRestored] = useState(false);
+  /** True from the moment a file is chosen until the run exists (or fails). */
+  const [uploading, setUploading] = useState(false);
   /**
    * LOCAL letter edits only. Streamed/committed text is a projection of server
    * events; a visitor's edit must survive the next event touching that job, so
@@ -106,6 +111,7 @@ export function HirecuteJourney({ publicConfig }: { publicConfig: PublicConfig }
     async (kind: { sample: true } | { sample: false; file: File }) => {
       setError(null);
       setEdits({});
+      setUploading(true);
       try {
         if (kind.sample) {
           setFileName("sample-resume.pdf");
@@ -117,15 +123,17 @@ export function HirecuteJourney({ publicConfig }: { publicConfig: PublicConfig }
       } catch (err) {
         // A failure before the run is accepted stays beside the drop zone.
         setFileName(null);
+        setUploading(false);
         setError(err instanceof Error ? err.message : "That upload could not be accepted.");
         return;
       }
       const { run } = await fetchCurrentRun();
       if (run) {
+        if (typeof window !== "undefined") window.location.hash = SCREEN_HASH.refine;
         setRunState(restoreSnapshot(run));
         attachStream(run.lastSequence);
-        if (typeof window !== "undefined") window.location.hash = SCREEN_HASH.refine;
       }
+      setUploading(false);
     },
     [attachStream],
   );
@@ -148,6 +156,17 @@ export function HirecuteJourney({ publicConfig }: { publicConfig: PublicConfig }
     },
     [runState.selection?.version],
   );
+
+  /** "Accept changes". Resolves false on failure so the button can say so. */
+  const onAcceptResume = useCallback(async (appliedIds: string[], excludedItems: string[]): Promise<boolean> => {
+    try {
+      const { acceptance } = await acceptResume(appliedIds, excludedItems);
+      setRunState((prev) => ({ ...prev, resumeAcceptance: prev.resumeAcceptance ?? acceptance }));
+      return true;
+    } catch {
+      return false;
+    }
+  }, []);
 
   const onSaveLetter = useCallback(
     async (jobId: JobId) => {
@@ -176,7 +195,10 @@ export function HirecuteJourney({ publicConfig }: { publicConfig: PublicConfig }
   // Avoid flashing the landing page before the snapshot answers.
   if (!restored) return <div className="min-h-dvh" aria-busy="true" />;
 
-  if (!hasRun || screen === "upload") {
+  // Mid-upload there is no run yet, but the visitor is already in the workspace.
+  const pending = uploading && !hasRun;
+
+  if (!pending && (!hasRun || screen === "upload")) {
     return (
       <Landing
         launchProfile={publicConfig.launchProfile}
@@ -195,14 +217,23 @@ export function HirecuteJourney({ publicConfig }: { publicConfig: PublicConfig }
           Sample journey — illustrative data, excluded from our conversion metrics.
         </div>
       )}
+      {/*
+        ONE Workspace element for the whole journey: the upload phase and the
+        live run render the same instance, so the run arriving updates content
+        in place instead of remounting the page. Mid-upload it gets an empty,
+        queued run: the agent panel, a loading YOUR RESUME block and an empty
+        jobs block.
+      */}
       <Workspace
-        runState={runState}
+        key="workspace"
+        runState={pending ? PENDING_RUN : runState}
         publicConfig={publicConfig}
         fileName={fileName}
         letters={letters}
         onLettersChange={setEdits}
         onSelectionChange={(ids) => void onSelectionChange(ids)}
         onSaveLetter={(id) => void onSaveLetter(id)}
+        onAcceptResume={onAcceptResume}
         onRestart={() => {
           stream.current?.close();
           void deleteCurrentRun();

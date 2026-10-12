@@ -9,7 +9,9 @@ const { extractResumeText, extractionMessage, sniffKind, EXTRACT_LIMITS } = awai
   "../../src/lib/hirecute/extract.mjs"
 );
 const { untrusted } = await import("../../src/lib/hirecute/model.mjs");
-const { RESUME_REFINEMENT_SCHEMA } = await import("../../src/lib/hirecute/prompts.mjs");
+const { RESUME_PARSE_SCHEMA, RESUME_RECOMMENDATIONS_SCHEMA } = await import(
+  "../../src/lib/hirecute/prompts.mjs"
+);
 
 /**
  * Milestone 3 evidence.
@@ -123,39 +125,36 @@ test("resume text is framed as untrusted data, not instructions", () => {
 
 // ── The schema encodes the factual rules ─────────────────────────────────
 
-test("the refinement schema lets `changes` be genuinely empty", () => {
-  const changes = RESUME_REFINEMENT_SCHEMA.properties.changes;
-  assert.equal(changes.type, "array");
-  assert.match(
-    changes.description,
-    /never pad/i,
-    "an honest empty change list must be explicitly allowed",
+test("the recommendation schema lets the list be genuinely empty", () => {
+  const recs = RESUME_RECOMMENDATIONS_SCHEMA.properties.recommendations;
+  assert.equal(recs.type, "array");
+  assert.match(recs.description, /never pad/i, "an honest empty list must be explicitly allowed");
+  // Each recommendation names ONE section and quotes the text it replaces.
+  assert.deepEqual(
+    [...recs.items.required].sort(),
+    ["after", "before", "explanation", "kind", "label", "section"],
   );
-  // `changes` is not in `required`, so a no-change result is representable.
-  assert.equal(RESUME_REFINEMENT_SCHEMA.required.includes("changes"), false);
 });
 
-test("the schema demands the payload shape build-cv-html actually reads", () => {
-  // Upstream #3523: a payload naming these differently renders an empty block
-  // while validation still passes.
-  const props = RESUME_REFINEMENT_SCHEMA.properties;
-  assert.ok(props.candidate, "identity lives in payload.candidate, not root keys");
-  assert.deepEqual(props.candidate.required, ["name"]);
-
-  const exp = props.payload.properties.experience.items;
-  assert.deepEqual(exp.required, ["company", "role"]);
-  for (const key of ["company", "role", "location", "dates", "bullets"]) {
-    assert.ok(exp.properties[key], `experience.${key} is part of the HTML vocabulary`);
+test("the parse schema has all eleven review sections and no rewrite fields", () => {
+  const props = RESUME_PARSE_SCHEMA.properties.sections.properties;
+  for (const key of [
+    "contact", "targetTitle", "summary", "experience", "education", "skills", "interests",
+    "certifications", "awards", "projects", "volunteering", "publications",
+  ]) {
+    assert.ok(props[key], `${key} is a parsed section`);
   }
-  // Education uses the HTML vocabulary (title/org/year), NOT the LaTeX one
-  // (institution/degree/dates).
-  const edu = props.payload.properties.education.items;
+  // Reading is extraction: there is nothing in the parse result to rewrite into.
+  assert.equal(RESUME_PARSE_SCHEMA.properties.changes, undefined);
+  assert.equal(RESUME_PARSE_SCHEMA.properties.recommendations, undefined);
+  // Education uses the HTML builder vocabulary (title/org/year), not LaTeX's.
+  const edu = props.education.items;
   assert.ok(edu.properties.title && edu.properties.org && edu.properties.year);
   assert.equal(edu.properties.institution, undefined);
 });
 
 test("the search seed does not turn a CV location into work authorization", () => {
-  const seed = RESUME_REFINEMENT_SCHEMA.properties.searchSeed;
+  const seed = RESUME_PARSE_SCHEMA.properties.searchSeed;
   assert.match(
     seed.properties.location.description,
     /NOT evidence of work authorization/i,
