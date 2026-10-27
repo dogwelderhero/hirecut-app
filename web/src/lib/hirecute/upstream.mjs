@@ -18,13 +18,15 @@
  */
 
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 /** Load the provider registry and HTTP context from the pinned code root. */
 async function loadLayer(codeRoot) {
+  // By file URL: a bare absolute path is not an import specifier on Windows.
   const registry = await import(
-    path.join(codeRoot, "providers", "_registry.mjs")
+    pathToFileURL(path.join(codeRoot, "providers", "_registry.mjs")).href
   );
-  const http = await import(path.join(codeRoot, "providers", "_http.mjs"));
+  const http = await import(pathToFileURL(path.join(codeRoot, "providers", "_http.mjs")).href);
   const providers = await registry.loadProviders(path.join(codeRoot, "providers"));
   return { registry, http, providers };
 }

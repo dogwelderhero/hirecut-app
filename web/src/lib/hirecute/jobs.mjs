@@ -19,10 +19,12 @@
  */
 
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 /** Load upstream's canonical URL key so our dedup matches the tracker's. */
 async function loadUrlKey(codeRoot) {
-  const mod = await import(path.join(codeRoot, "url-key.mjs"));
+  // By file URL: a bare absolute path is not an import specifier on Windows.
+  const mod = await import(pathToFileURL(path.join(codeRoot, "url-key.mjs")).href);
   return mod.urlKey ?? mod.normalizeUrl ?? mod.default;
 }
 
