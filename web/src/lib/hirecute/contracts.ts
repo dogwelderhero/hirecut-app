@@ -509,6 +509,11 @@ export interface RunSnapshot {
   schemaVersion: 1;
   id: RunId;
   origin: RunOrigin;
+  /**
+   * The scenario this run executes, fixed at creation (web/scenarios/<id>.json
+   * at that version). Optional only so pre-scenario run files still parse.
+   */
+  scenario?: { id: string; version: number; reason: string };
   launchProfile: LaunchProfile;
   status: "queued" | "running" | "preparation_complete" | "failed" | "interrupted" | "cancelled";
   currentStage: StageId | null;

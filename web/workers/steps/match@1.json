@@ -1,0 +1,17 @@
+{
+  "id": "match",
+  "version": 1,
+  "stage": "match",
+  "module": "../stages/match.mjs",
+  "export": "runMatchStage",
+  "description": "V2: per-job scoring with verbatim-quote evidence checks.",
+  "reads": {
+    "jobs": "jobs.shortlist",
+    "sourceFactsPath": "resume.factsPath",
+    "sourceResumeHash": "resume.hash"
+  },
+  "writes": {
+    "assessments": "match.assessments",
+    "ranked": "match.ranked"
+  }
+}

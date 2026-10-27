@@ -1,0 +1,30 @@
+{
+  "id": "vacancy",
+  "version": 1,
+  "title": "Auto-apply (classic)",
+  "description": "Production behaviour as of 01083211: refined resume, job search, matches, per-job packages.",
+  "resultStage": "prepare",
+  "pipeline": [
+    {
+      "step": "refine-classic@1"
+    },
+    {
+      "step": "explore-classic@1",
+      "after": [
+        "refine-classic@1"
+      ]
+    },
+    {
+      "step": "match-classic@1",
+      "after": [
+        "explore-classic@1"
+      ]
+    },
+    {
+      "step": "prepare-classic@1",
+      "after": [
+        "match-classic@1"
+      ]
+    }
+  ]
+}

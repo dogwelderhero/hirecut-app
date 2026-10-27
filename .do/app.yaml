@@ -85,6 +85,17 @@ services:
         scope: RUN_TIME
         value: ${APP_DOMAIN}
 
+      # ── Scenarios (see docs/scenarios: web/scenarios/*.json) ─────────────
+      # Which query parameter picks a scenario, and which scenarios exist for
+      # visitors with their share of new traffic (weights sum to 100; 0 = only
+      # reachable by an explicit ?t= link). Unlisted scenarios are switched off.
+      - key: HIRECUTE_SCENARIO_PARAM
+        scope: RUN_TIME
+        value: t
+      - key: HIRECUTE_SCENARIOS
+        scope: RUN_TIME
+        value: vacancy=50;recruiter=50
+
       # ── Fixed by the image; restated so the dashboard shows them ─────────
       - key: HIRECUTE_PUBLIC_BUILD
         scope: RUN_TIME

@@ -1,0 +1,30 @@
+{
+  "id": "recruiter",
+  "version": 1,
+  "title": "Recruiter-led",
+  "description": "product-v2 hypothesis: resume review, matches, gap-driven improvements, then the recruiter step.",
+  "resultStage": "improve",
+  "pipeline": [
+    {
+      "step": "refine-sections@2"
+    },
+    {
+      "step": "explore@1",
+      "after": [
+        "refine-sections@2"
+      ]
+    },
+    {
+      "step": "match@1",
+      "after": [
+        "explore@1"
+      ]
+    },
+    {
+      "step": "improve@1",
+      "after": [
+        "match@1"
+      ]
+    }
+  ]
+}

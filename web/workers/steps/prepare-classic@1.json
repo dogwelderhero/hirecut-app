@@ -1,0 +1,27 @@
+{
+  "id": "prepare-classic",
+  "version": 1,
+  "stage": "prepare",
+  "module": "../legacy/v1/stages/prepare.mjs",
+  "export": "runPrepareStage",
+  "requires": [
+    "chromium"
+  ],
+  "description": "V1 (01083211): per-job tailored CV PDF and cover letter.",
+  "services": {
+    "utilityEnv": "utilityEnv"
+  },
+  "reads": {
+    "jobs": "jobs.shortlist",
+    "assessments": "match.assessments",
+    "ranked": "match.ranked",
+    "payload": "resume.payload",
+    "sourceFactsPath": "resume.factsPath",
+    "sourceResumeHash": "resume.hash"
+  },
+  "writes": {
+    "prepared": "packages.prepared",
+    "blocked": "packages.blocked",
+    "failed": "packages.failed"
+  }
+}

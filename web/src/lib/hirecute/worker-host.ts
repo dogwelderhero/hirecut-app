@@ -28,7 +28,7 @@ import { superviseChild } from "@/lib/hirecute/worker-lifecycle.mjs";
 export type WorkerMessage =
   | { kind: "event"; type: keyof EventPayloadMap; payload: unknown; stage?: StageId | null }
   | { kind: "diagnostic"; entry: unknown }
-  | { kind: "done" }
+  | { kind: "done"; resultStage?: StageId }
   | { kind: "failed"; message: string };
 
 /** Public event types a CHILD is allowed to request. */
@@ -62,7 +62,7 @@ export interface WorkerHandle {
   cancel: () => void;
 }
 
-export function startWorker(runId: string): WorkerHandle {
+export function startWorker(runId: string, scenarioId: string): WorkerHandle {
   const entry = path.join(codeRoot(), "web", "workers", "hirecute-runner.mjs");
 
   // `spawn(process.execPath, [entry])` rather than `fork(entry)`: Turbopack
@@ -76,7 +76,8 @@ export function startWorker(runId: string): WorkerHandle {
     // Cast: childEnv returns a plain allowlisted record, which is exactly
     // what fork() needs; NodeJS.ProcessEnv additionally demands NODE_ENV.
     // The journey worker is the one child granted the model credential.
-    env: childEnv(runId, { HIRECUTE_RUN_ID: runId }, { model: true }) as NodeJS.ProcessEnv,
+    // The scenario was fixed when the run was created; the worker only executes it.
+    env: childEnv(runId, { HIRECUTE_RUN_ID: runId, HIRECUTE_SCENARIO: scenarioId }, { model: true }) as NodeJS.ProcessEnv,
     // Argument array + IPC. No shell, so no user text can become a command.
     stdio: ["ignore", "pipe", "pipe", "ipc"],
   });
@@ -199,7 +200,9 @@ async function handleMessage(runId: string, message: WorkerMessage): Promise<voi
       }));
       await appendEvent(runId, "run.done", {
         outcome: "preparation_complete",
-        resultStage: "improve",
+        // The scenario's last stage. Anything else is not a stage a journey
+        // can end on, and the recruiter flow's "improve" is the safe reading.
+        resultStage: message.resultStage === "prepare" ? "prepare" : "improve",
       });
       return;
 

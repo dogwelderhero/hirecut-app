@@ -22,6 +22,7 @@ import path from "node:path";
 
 import { isLoopbackHost, parseAllowedHosts } from "../origin-guard.mjs";
 import { modelEndpoints, pingModel } from "./model.mjs";
+import { checkDeploymentScenarios } from "./scenarios.mjs";
 
 export const OK = "OK";
 export const WARN = "WARN";
@@ -208,6 +209,31 @@ export async function checkChromiumInstalled(cacheDir = playwrightCacheDir()) {
     "PDF rendering will fail; the image installs it with `playwright install --only-shell chromium`");
 }
 
+// ── Scenarios ────────────────────────────────────────────────────────────────
+
+/**
+ * The deployment's scenario config: env parses, every enabled scenario and
+ * step manifest loads and validates. Also returns which runtime components the
+ * enabled scenarios need, so a missing one can fail instead of warn.
+ */
+export async function checkScenarios({ codeRoot, env }) {
+  const d = await checkDeploymentScenarios(codeRoot, env);
+  if (!d.ok) {
+    return {
+      requires: [],
+      results: d.errors.map((e) => r("scenarios", "config", FAIL, e,
+        "Fix HIRECUTE_SCENARIO_PARAM / HIRECUTE_SCENARIOS (e.g. t and vacancy=50;recruiter=50) or the scenario files")),
+    };
+  }
+  const results = [r("scenarios", "query parameter", OK, `?${d.param}=<scenario>`)];
+  for (const { id, weight } of d.entries) {
+    const s = d.scenarios[id];
+    results.push(r("scenarios", id, OK,
+      `v${s.version}, ${weight === 0 ? "link only" : `${weight}% of new visitors`}: ${s.steps.join(" → ")}`));
+  }
+  return { requires: [...new Set(Object.values(d.scenarios).flatMap((s) => s.requires))], results };
+}
+
 // ── Live: model ───────────────────────────────────────────────────────────────
 
 const MODEL_FIX = {
@@ -310,6 +336,17 @@ export async function checkDeployment(url, { fetchImpl = fetch } = {}) {
  */
 export async function runPreflight({ mode, env, codeRoot, dataDir, url, pingOpts }) {
   const results = [...checkEnv(env), ...(await checkFiles({ codeRoot, dataDir }))];
+  const scen = await checkScenarios({ codeRoot, env });
+  results.push(...scen.results);
+  // Chromium is only a warning until an enabled scenario actually renders PDFs.
+  if (scen.requires.includes("chromium")) {
+    for (const x of results) {
+      if (x.group === "runtime" && x.name === "chromium" && x.status === WARN) {
+        x.status = FAIL;
+        x.detail += " — an enabled scenario renders PDFs";
+      }
+    }
+  }
   const configOk = !results.some((x) => x.group === "config" && x.name.startsWith("model") && x.status === FAIL);
   results.push(...(configOk
     ? await checkModel(env, pingOpts)

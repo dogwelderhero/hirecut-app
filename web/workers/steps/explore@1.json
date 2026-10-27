@@ -1,0 +1,18 @@
+{
+  "id": "explore",
+  "version": 1,
+  "stage": "explore",
+  "module": "../stages/explore.mjs",
+  "export": "runExploreStage",
+  "description": "V2: curated public boards with live progress, zero tokens.",
+  "reads": {
+    "searchSeed": "search.seed",
+    "preferences": "user.preferences?"
+  },
+  "defaults": {
+    "preferences": {}
+  },
+  "writes": {
+    "jobs": "jobs.shortlist"
+  }
+}

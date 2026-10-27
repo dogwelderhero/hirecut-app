@@ -1,0 +1,18 @@
+{
+  "id": "improve",
+  "version": 1,
+  "stage": "improve",
+  "module": "../stages/improve.mjs",
+  "export": "runImproveStage",
+  "description": "V2: gaps across the top jobs, fact-checked resume changes.",
+  "reads": {
+    "resume": "resume.document",
+    "jobs": "jobs.shortlist",
+    "assessments": "match.assessments",
+    "sourceFactsPath": "resume.factsPath"
+  },
+  "writes": {
+    "recommendations": "improve.recommendations",
+    "gaps": "improve.gaps"
+  }
+}

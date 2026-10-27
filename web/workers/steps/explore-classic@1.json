@@ -1,0 +1,18 @@
+{
+  "id": "explore-classic",
+  "version": 1,
+  "stage": "explore",
+  "module": "../legacy/v1/stages/explore.mjs",
+  "export": "runExploreStage",
+  "description": "V1 (01083211): curated public boards, zero tokens.",
+  "reads": {
+    "searchSeed": "search.seed",
+    "preferences": "user.preferences?"
+  },
+  "defaults": {
+    "preferences": {}
+  },
+  "writes": {
+    "jobs": "jobs.shortlist"
+  }
+}

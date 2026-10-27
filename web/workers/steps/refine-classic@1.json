@@ -1,0 +1,21 @@
+{
+  "id": "refine-classic",
+  "version": 1,
+  "stage": "refine",
+  "module": "../legacy/v1/stages/refine.mjs",
+  "export": "runRefineStage",
+  "requires": [
+    "chromium"
+  ],
+  "description": "V1 (01083211): extract, refine into the career-ops CV payload, build the base PDF.",
+  "services": {
+    "env": "utilityEnv"
+  },
+  "reads": {},
+  "writes": {
+    "searchSeed": "search.seed",
+    "sourceFactsPath": "resume.factsPath",
+    "sourceResumeHash": "resume.hash",
+    "payload": "resume.payload"
+  }
+}

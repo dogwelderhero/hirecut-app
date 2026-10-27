@@ -26,6 +26,7 @@ import {
 } from "@/lib/hirecute/store";
 import { cancel as cancelQueued, enqueue, queuePosition } from "@/lib/hirecute/queue";
 import { startWorker, type WorkerHandle } from "@/lib/hirecute/worker-host";
+import { chooseScenario } from "@/lib/hirecute/scenario-choice";
 import { setCurrentRun } from "@/lib/hirecute/session";
 import { ownsRun, type SessionRecord } from "@/lib/hirecute/ownership";
 import { STAGE_ORDER } from "@/lib/hirecute/screens";
@@ -79,6 +80,10 @@ export interface CreateRunOutcome {
 }
 
 export async function createRun(opts: CreateRunOptions): Promise<CreateRunOutcome> {
+  // First, before anything is cancelled or written: a deployment whose scenario
+  // config is broken must not eat the visitor's current run on its way to failing.
+  const scenario = await chooseScenario();
+
   // A new upload IS a restart (01-architecture.md §4). Cancel whatever this
   // session had in flight first, or the new journey queues behind an abandoned
   // one and the visitor waits minutes watching "Your agent is queued" — which
@@ -113,6 +118,7 @@ export async function createRun(opts: CreateRunOptions): Promise<CreateRunOutcom
     schemaVersion: 1,
     id: runId,
     origin: opts.origin,
+    scenario,
     launchProfile: launchProfile(),
     status: "queued",
     currentStage: null,
@@ -176,7 +182,7 @@ export async function createRun(opts: CreateRunOptions): Promise<CreateRunOutcom
         snapshot: { ...f.snapshot, status: "running", currentStage: "refine" },
       }));
       await appendEvent(runId, "run.started", { stage: "refine" });
-      const handle = startWorker(runId);
+      const handle = startWorker(runId, scenario.id);
       handles.set(runId, handle);
       await new Promise<void>((resolve) => handle.child.on("exit", () => resolve()));
       handles.delete(runId);

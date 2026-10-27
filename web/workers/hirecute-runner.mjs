@@ -2,11 +2,10 @@
 /**
  * The journey worker (child process entry).
  *
- * Milestone 2 establishes the PLUMBING: a child that receives an immutable
- * codeRoot and a per-run dataRoot, reports progress through the fixed IPC
- * vocabulary, and lets the parent own every write. The stage bodies still
- * replay the fixture timeline — real extraction, discovery, scoring and
- * document generation are milestones 3-6.
+ * A child that receives an immutable codeRoot, a per-run dataRoot and the
+ * run's scenario id, reports progress through the fixed IPC vocabulary, and
+ * lets the parent own every write. WHICH steps run, and in what order, is the
+ * scenario's (web/scenarios/<id>.json), executed by scenario-runner.mjs.
  *
  * Deliberate properties:
  *  - It never writes run.json or events.ndjson. It cannot allocate a sequence
@@ -20,6 +19,9 @@
  */
 
 import process from "node:process";
+
+import { loadScenarioBundle, stepsDir, validateScenario } from "../src/lib/hirecute/scenarios.mjs";
+import { executeScenario } from "./scenario-runner.mjs";
 
 const RUN_ID = process.env.HIRECUTE_RUN_ID;
 const DATA_ROOT = process.env.CAREER_OPS_ROOT;
@@ -83,77 +85,31 @@ function utilityEnv() {
 
 async function main() {
   const CODE_ROOT = process.cwd();
+  // The parent fixed the scenario when it created the run; the worker never
+  // chooses one, it only executes what run.json already records.
+  const SCENARIO = process.env.HIRECUTE_SCENARIO;
+  if (!SCENARIO) throw new Error("missing HIRECUTE_SCENARIO");
 
-  diag({ started: { runId: RUN_ID, dataRoot: DATA_ROOT } });
+  diag({ started: { runId: RUN_ID, dataRoot: DATA_ROOT, scenario: SCENARIO } });
 
-  // The journey is four visible steps, run in order so each step's actions
-  // and results belong to it:
-  //   1. refine  — read the resume into sections (no suggestions yet)
-  //   2. explore + match — find jobs, score them, quote proof and gaps
-  //   3. improve — resume changes built from those gaps
-  //   4. recruiters — front-end only; no backend work
-  const { runRefineStage } = await import("./stages/refine.mjs");
-  const refined = await runRefineStage({
-    emit,
-    diag,
-    runDir: DATA_ROOT,
-    codeRoot: CODE_ROOT,
-    env: utilityEnv(),
+  const { scenario, manifests } = await loadScenarioBundle(CODE_ROOT, SCENARIO);
+  const invalid = validateScenario(SCENARIO, scenario, manifests);
+  if (invalid.length) throw new Error(`invalid scenario: ${invalid.join("; ")}`);
+
+  const outcome = await executeScenario({
+    scenario,
+    manifests,
+    stepsRoot: stepsDir(CODE_ROOT),
+    builtins: { emit, diag, runDir: DATA_ROOT, codeRoot: CODE_ROOT },
+    services: { utilityEnv },
   });
-  if (!refined.ok) {
-    diag({ stopped: "refine stage failed" });
-    return;
-  }
+  // A step that stopped has already reported its error; without `done` the
+  // parent marks the run interrupted, and the visitor retries in place.
+  if (!outcome.ok) return;
 
-  const { runExploreStage } = await import("./stages/explore.mjs");
-  const explored = await runExploreStage({
-    emit,
-    diag,
-    runDir: DATA_ROOT,
-    codeRoot: CODE_ROOT,
-    searchSeed: refined.searchSeed,
-    preferences: {},
-  });
-  if (!explored.ok) {
-    // An empty or failed search stays on the jobs screen with a scoped retry.
-    diag({ stopped: "explore stage produced no usable result" });
-    return;
-  }
-
-  const { runMatchStage } = await import("./stages/match.mjs");
-  const matched = await runMatchStage({
-    emit,
-    diag,
-    runDir: DATA_ROOT,
-    codeRoot: CODE_ROOT,
-    jobs: explored.jobs,
-    sourceFactsPath: refined.sourceFactsPath,
-    sourceResumeHash: refined.sourceResumeHash,
-  });
-  if (!matched.ok) {
-    diag({ stopped: "match stage produced no usable assessment" });
-    return;
-  }
-
-  const { runImproveStage } = await import("./stages/improve.mjs");
-  const improved = await runImproveStage({
-    emit,
-    diag,
-    runDir: DATA_ROOT,
-    codeRoot: CODE_ROOT,
-    resume: refined.resume,
-    jobs: explored.jobs,
-    assessments: matched.assessments,
-    sourceFactsPath: refined.sourceFactsPath,
-  });
-  if (!improved.ok) {
-    diag({ stopped: "improve stage failed" });
-    return;
-  }
-
-  // Every agent step genuinely finished, so `run.done` is now the truth rather
-  // than a claim. Nothing has been sent or charged.
-  send({ kind: "done" });
+  // Every step genuinely finished, so `run.done` is now the truth rather than
+  // a claim. Nothing has been sent or charged.
+  send({ kind: "done", resultStage: outcome.resultStage });
 }
 
 main().catch((err) => {
