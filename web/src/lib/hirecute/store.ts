@@ -53,6 +53,8 @@ export interface PersistedRunFile {
    * reason, ?param value, utm_*, referrer host. Never sent to a browser.
    */
   attribution?: Attribution;
+  /** sha256 of what the visitor sent; a resend of the same content reuses this run. */
+  sourceHash?: string;
 }
 
 export async function writeSnapshot(runId: string, file: PersistedRunFile): Promise<void> {

@@ -27,6 +27,7 @@ import {
 import { cancel as cancelQueued, enqueue, queuePosition } from "@/lib/hirecute/queue";
 import { startWorker, type WorkerHandle } from "@/lib/hirecute/worker-host";
 import { chooseScenario } from "@/lib/hirecute/scenario-choice";
+import { canReuseRun, sourceHash } from "@/lib/hirecute/run-dedupe.mjs";
 import { setCurrentRun } from "@/lib/hirecute/session";
 import { ownsRun, type SessionRecord } from "@/lib/hirecute/ownership";
 import { STAGE_ORDER } from "@/lib/hirecute/screens";
@@ -77,6 +78,8 @@ export interface CreateRunOutcome {
   runId: string;
   queuePosition: number | null;
   rejected?: "queue_full" | "session_limit";
+  /** The same resume was already running (or done) here: that run was returned. */
+  reused?: boolean;
 }
 
 export async function createRun(opts: CreateRunOptions): Promise<CreateRunOutcome> {
@@ -84,11 +87,21 @@ export async function createRun(opts: CreateRunOptions): Promise<CreateRunOutcom
   // config is broken must not eat the visitor's current run on its way to failing.
   const scenario = await chooseScenario();
 
+  // The same resume again (double click, resend, second tab) reuses the run
+  // that is already working on it rather than paying for every step twice.
+  const hash = opts.original ? sourceHash(opts.original.bytes) : null;
+  const previous = opts.session.currentRunId;
+  if (hash && previous) {
+    const prior = await readRunFile(previous);
+    if (canReuseRun(prior, { hash, scenarioId: scenario.id })) {
+      return { runId: previous, queuePosition: livePosition(previous), reused: true };
+    }
+  }
+
   // A new upload IS a restart (01-architecture.md §4). Cancel whatever this
   // session had in flight first, or the new journey queues behind an abandoned
   // one and the visitor waits minutes watching "Your agent is queued" — which
   // looks exactly like the new resume being ignored.
-  const previous = opts.session.currentRunId;
   if (previous) {
     cancelQueued(previous);
     handles.get(previous)?.cancel();
@@ -170,6 +183,7 @@ export async function createRun(opts: CreateRunOptions): Promise<CreateRunOutcom
     billingRecordId: null,
     artifacts: {},
     attribution: scenario.attribution,
+    ...(hash ? { sourceHash: hash } : {}),
   };
   await writeSnapshot(runId, file);
   await setCurrentRun(opts.session, runId);
