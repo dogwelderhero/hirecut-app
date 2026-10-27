@@ -538,6 +538,11 @@ export interface RunSnapshot {
    * at that version). Optional only so pre-scenario run files still parse.
    */
   scenario?: { id: string; version: number; reason: string };
+  /**
+   * The visitor's choices on this run (PATCH /runs/current/decisions), so a
+   * refresh restores them. Presentation only: never input to the worker.
+   */
+  decisions?: Record<string, unknown>;
   launchProfile: LaunchProfile;
   status: "queued" | "running" | "preparation_complete" | "failed" | "interrupted" | "cancelled";
   currentStage: StageId | null;

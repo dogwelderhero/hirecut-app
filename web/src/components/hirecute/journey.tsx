@@ -42,6 +42,24 @@ import { Workspace } from "./workspace";
 
 const PENDING_RUN: RunState = { ...initialRunState(), lifecycle: "queued" };
 
+/** Unsaved letter edits survive a refresh: sessionStorage, per run, this tab. */
+const draftsKey = (runId: string) => `hc:${runId}:letters`;
+function readDrafts(runId: string): LetterMap {
+  try {
+    const raw = window.sessionStorage.getItem(draftsKey(runId));
+    return raw ? (JSON.parse(raw) as LetterMap) : {};
+  } catch {
+    return {};
+  }
+}
+function writeDrafts(runId: string, edits: LetterMap) {
+  try {
+    window.sessionStorage.setItem(draftsKey(runId), JSON.stringify(edits));
+  } catch {
+    /* storage unavailable: drafts just do not survive a refresh */
+  }
+}
+
 export function HirecuteJourney({
   publicConfig,
   landing,
@@ -74,6 +92,10 @@ export function HirecuteJourney({
   const starting = useRef(false);
 
   const hasRun = runState.lifecycle !== "absent";
+  const runId = runState.snapshot?.id ?? null;
+  useEffect(() => {
+    if (runId) writeDrafts(runId, edits);
+  }, [runId, edits]);
   const isSample = runState.snapshot?.origin === "sample";
 
   const letters: LetterMap = useMemo(() => {
@@ -115,6 +137,7 @@ export function HirecuteJourney({
       if (cancelled) return;
       if (run) {
         setRunState(restoreSnapshot(run));
+        setEdits(readDrafts(run.id));
         attachStream(run.lastSequence);
       }
       setRestored(true);

@@ -115,6 +115,19 @@ export async function saveLetter(
   );
 }
 
+/**
+ * Store the visitor's decisions on the run (null deletes a key). `keepalive`
+ * lets the last write of a page being closed or refreshed still land.
+ */
+export async function saveDecisions(patch: Record<string, unknown>): Promise<void> {
+  await fetch(`${BASE}/runs/current/decisions`, {
+    method: "PATCH",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ decisions: patch }),
+    keepalive: true,
+  });
+}
+
 export async function retryStage(stage: string, inputVersion: number): Promise<void> {
   await fetch(`${BASE}/runs/current/retry`, {
     method: "POST",

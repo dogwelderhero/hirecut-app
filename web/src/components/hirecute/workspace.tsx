@@ -28,7 +28,8 @@ import { StageProgress } from "./stage-progress";
 import { useReducedMotion } from "./workspace/common";
 import { useCreditsCheckout } from "./workspace/credits-checkout";
 import { SCREENS } from "./workspace/screens";
-import type { JourneyActions, ShellApi, ViewStore } from "./workspace/types";
+import type { JourneyActions, ShellApi } from "./workspace/types";
+import { useViewStore } from "./workspace/view-store";
 import { usePresentation } from "./workspace/use-presentation";
 
 export function Workspace({
@@ -63,18 +64,8 @@ export function Workspace({
   const [overlayRoot, setOverlayRoot] = useState<HTMLDivElement | null>(null);
   const setLocalStep = useCallback((step: LocalStep | null) => setLocalStepState(step), []);
   const setInert = useCallback((on: boolean) => setInertState(on), []);
-  const [viewState, setViewState] = useState<Record<string, unknown>>({});
-  const view: ViewStore = useMemo(
-    () => ({
-      get: <T,>(key: string, fallback: T) => (key in viewState ? (viewState[key] as T) : fallback),
-      set: <T,>(key: string, next: T | ((prev: T | undefined) => T)) =>
-        setViewState((prev) => ({
-          ...prev,
-          [key]: typeof next === "function" ? (next as (p: T | undefined) => T)(prev[key] as T | undefined) : next,
-        })),
-    }),
-    [viewState],
-  );
+  // Per-run state that survives a refresh: decisions on the server, view in sessionStorage.
+  const view = useViewStore(runState.snapshot?.id ?? null, runState.snapshot?.decisions);
 
   const actions: JourneyActions = { letters, onLettersChange, onSelectionChange, onSaveLetter, onAcceptResume, onRestart };
 
@@ -84,6 +75,7 @@ export function Workspace({
   // Shell features the flow switches on (the vacancy journey's credits checkout).
   const credits = useCreditsCheckout({
     config: flow.shell?.credits,
+    view,
     runState,
     screenId,
     publicConfig,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useReducer, useRef, useState } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import type { PublicConfig } from "@/lib/hirecute/config";
 import {
   checkoutCounterReducer,
@@ -13,6 +13,10 @@ import { rankByScore } from "@/lib/hirecute/match";
 import { selectedJobIds, type RunState } from "@/lib/hirecute/run-store";
 import { CheckoutOverlay } from "../checkout-overlay";
 import { CreditsBanner } from "../credits-banner";
+import type { ViewStore } from "./types";
+
+type CounterState = typeof initialCheckoutCounterState;
+type CounterAction = Parameters<typeof checkoutCounterReducer>[1];
 
 /** Classify a click for the counter, from the `data-hc-*` markers screens set. */
 function classifyClick(target: EventTarget | null): { zone: ClickZone; origin: ClickOrigin } {
@@ -38,27 +42,32 @@ function classifyClick(target: EventTarget | null): { zone: ClickZone; origin: C
  * across them — so it belongs to the shell, switched on by the flow.
  *
  * The counter is fed by one delegated handler reading the LATEST selection and
- * screen through refs (sub-rule 5's stale-closure trap).
+ * screen through refs (sub-rule 5's stale-closure trap). The counter and the
+ * open overlay live in the shell's view store, so a refresh keeps both.
  */
 export function useCreditsCheckout({
   config,
+  view,
   runState,
   screenId,
   publicConfig,
   reducedMotion,
 }: {
   config: FlowCredits | undefined;
+  view: ViewStore;
   runState: RunState;
   screenId: string;
   publicConfig: PublicConfig;
   reducedMotion: boolean;
 }) {
-  const [counter, dispatchCounter] = useReducer(
-    (s: typeof initialCheckoutCounterState, a: Parameters<typeof checkoutCounterReducer>[1]) =>
-      checkoutCounterReducer(s, a).state,
-    initialCheckoutCounterState,
-  );
-  const [open, setOpen] = useState(false);
+  const counter = view.get<CounterState>("credits.counter", initialCheckoutCounterState);
+  const open = view.get<boolean>("credits.open", false);
+  const viewRef = useRef(view);
+  viewRef.current = view;
+  const dispatchCounter = useCallback((a: CounterAction) => {
+    viewRef.current.set<CounterState>("credits.counter", (s) => checkoutCounterReducer(s ?? initialCheckoutCounterState, a).state);
+  }, []);
+  const setOpen = useCallback((on: boolean) => viewRef.current.set("credits.open", on), []);
 
   const selected = selectedJobIds(runState);
   const selectionRef = useRef(selected);
@@ -102,13 +111,13 @@ export function useCreditsCheckout({
         }
       });
     },
-    [counterScreen],
+    [counterScreen, dispatchCounter, setOpen],
   );
 
   const claim = useCallback(() => {
     dispatchCounter({ type: "manual_cta" });
     setOpen(true);
-  }, []);
+  }, [dispatchCounter, setOpen]);
 
   if (!config) return null;
 

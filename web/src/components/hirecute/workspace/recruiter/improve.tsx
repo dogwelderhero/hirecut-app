@@ -23,14 +23,24 @@ import { gapsOf, improveResultOf, openGapsOf, recruitersFor, resumeOf, topJobIds
  * Step 4 has no backend stage: it reports itself to the shell as the flow's
  * local step, and its paywall portals next to the shell so the shell can go
  * inert behind it.
+ *
+ * The visitor's choices are decisions (kept on the server with the run); which
+ * step they were looking at, and an open paywall, are view state. A refresh
+ * restores both.
  */
 function Improve({ runState, publicConfig, reducedMotion, shell }: ScreenProps) {
-  const [applied, setApplied] = useState<string[]>([]);
-  const [excluded, setExcluded] = useState<string[]>([]);
-  const [skipped, setSkipped] = useState<string[]>([]);
+  const { view } = shell;
+  const applied = view.get<string[]>("decision:recruiter.applied", []);
+  const excluded = view.get<string[]>("decision:recruiter.excluded", []);
+  const skipped = view.get<string[]>("decision:recruiter.skipped", []);
+  const setApplied = (next: (p: string[]) => string[]) => view.set<string[]>("decision:recruiter.applied", (p) => next(p ?? []));
+  const setExcluded = (next: (p: string[]) => string[]) => view.set<string[]>("decision:recruiter.excluded", (p) => next(p ?? []));
+  const setSkipped = (next: (p: string[]) => string[]) => view.set<string[]>("decision:recruiter.skipped", (p) => next(p ?? []));
   /** The visitor went back from the preview to change their choices. */
-  const [editing, setEditing] = useState(false);
-  const [paywallOpen, setPaywallOpen] = useState(false);
+  const editing = view.get<boolean>("recruiter.editing", false);
+  const setEditing = (on: boolean) => view.set("recruiter.editing", on);
+  const paywallOpen = view.get<boolean>("recruiter.paywall", false);
+  const setPaywallOpen = (on: boolean) => view.set("recruiter.paywall", on);
 
   const resume = resumeOf(runState);
   const improve = improveResultOf(runState);
@@ -47,14 +57,18 @@ function Improve({ runState, publicConfig, reducedMotion, shell }: ScreenProps) 
   // Step 3 → 4: once every change is applied (or skipped), the updated resume
   // and the recruiters open. A short beat lets the last "applied" register.
   const allDecided = improveDone && recs.every((r) => applied.includes(r.id) || skipped.includes(r.id));
-  const [cvReady, setCvReady] = useState(false);
+  // Already decided when this screen mounts (a refresh): open step 4 at once.
+  // The short beat below is for the visitor's own last click only.
+  const [cvReady, setCvReady] = useState(() => allDecided && !editing);
   useEffect(() => {
     if (!allDecided || editing) {
       setCvReady(false);
       return;
     }
+    if (cvReady) return;
     const t = setTimeout(() => setCvReady(true), recs.length === 0 ? 0 : 1200);
     return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- cvReady only short-circuits the beat
   }, [allDecided, editing, recs.length]);
   const recruiterActive = cvReady;
 

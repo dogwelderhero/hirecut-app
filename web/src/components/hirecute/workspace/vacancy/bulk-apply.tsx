@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { prepareReceipt } from "@/lib/hirecute/actions";
 import type { JobId } from "@/lib/hirecute/contracts";
 import { editLetter } from "@/lib/hirecute/letters";
@@ -33,9 +33,11 @@ function BulkApplyScreen({ runState, publicConfig, actions, shell }: ScreenProps
     "Select a role" placeholder: the single best-scored job when the batch
     holds it, otherwise the batch's own first row.
   */
-  const [activeJobId, setActiveJobId] = useState<JobId | null>(() =>
-    ranked[0] && batchJobIds.includes(ranked[0]) ? ranked[0] : (batchJobIds[0] ?? ranked[0] ?? null),
-  );
+  // View state, so a refresh reopens the same letter.
+  const stored = shell.view.get<JobId | null>("vacancy.activeJob", null);
+  const activeJobId =
+    stored ?? (ranked[0] && batchJobIds.includes(ranked[0]) ? ranked[0] : (batchJobIds[0] ?? ranked[0] ?? null));
+  const setActiveJobId = (id: JobId) => shell.view.set<JobId | null>("vacancy.activeJob", id);
   useEffect(() => {
     if (!activeJobId && ranked.length > 0) setActiveJobId(ranked[0]);
   }, [activeJobId, ranked]);
