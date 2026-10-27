@@ -10,10 +10,8 @@
  * `eventId` makes the append idempotent, so a retry or double-fire counts once.
  */
 
-import { appendFile, mkdir } from "node:fs/promises";
-import path from "node:path";
 import { badRequest, json, readJson, requireSameOrigin, str } from "@/lib/hirecute/http";
-import { dataDir } from "@/lib/hirecute/paths";
+import { appendFunnel } from "@/lib/hirecute/funnel";
 import { currentRunFor } from "@/lib/hirecute/runs";
 import { currentSession } from "@/lib/hirecute/session";
 
@@ -52,12 +50,11 @@ export async function POST(request: Request) {
     // `origin` is what lets analytics exclude sample journeys from the live
     // conversion numerator.
     origin: file?.snapshot.origin ?? null,
+    scenario: file?.snapshot.scenario?.id ?? null,
     jobId: str(body?.jobId, 80),
     source: body?.source ?? null,
   };
 
-  const target = path.join(dataDir(), "analytics", "funnel.ndjson");
-  await mkdir(path.dirname(target), { recursive: true });
-  await appendFile(target, `${JSON.stringify(record)}\n`, "utf8");
+  await appendFunnel(record);
   return json({ recorded: true }, 202);
 }

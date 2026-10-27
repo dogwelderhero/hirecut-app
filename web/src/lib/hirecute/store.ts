@@ -20,6 +20,7 @@ import type {
   Sequence,
   StageId,
 } from "./contracts";
+import type { Attribution } from "@/lib/hirecute/landing-router.mjs";
 import { newArtifactId, paths, runDir } from "@/lib/hirecute/paths";
 import { projectEvent } from "@/lib/hirecute/project";
 
@@ -47,6 +48,11 @@ export interface PersistedRunFile {
   /** Present once billing has created a record. Never sent to a browser. */
   billingRecordId: string | null;
   artifacts: Record<string, ArtifactMetadata & { relativePath: string }>;
+  /**
+   * How this run's scenario was chosen, from the landing (landing-router.mjs):
+   * reason, ?param value, utm_*, referrer host. Never sent to a browser.
+   */
+  attribution?: Attribution;
 }
 
 export async function writeSnapshot(runId: string, file: PersistedRunFile): Promise<void> {

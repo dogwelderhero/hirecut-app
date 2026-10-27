@@ -6,6 +6,13 @@ import {
   parseAllowedOrigins,
 } from "@/lib/origin-guard.mjs";
 import { deniedInPublicBuild } from "@/lib/hirecute/public-boundary";
+import { appendFunnel } from "@/lib/hirecute/funnel";
+import {
+  ATTR_COOKIE,
+  SCENARIO_COOKIE,
+  SCENARIO_HEADER,
+  routeLanding,
+} from "@/lib/hirecute/landing-router.mjs";
 
 // Single choke point over the API surface. Every /api request is gated on the
 // same-origin + loopback guard before it can reach a route handler (which may
@@ -20,7 +27,9 @@ import { deniedInPublicBuild } from "@/lib/hirecute/public-boundary";
 // was. It is what a local companion client needs: a browser extension calls
 // from a chrome-extension:// origin, which Fetch Metadata always reports as
 // "cross-site", so every one of its requests is refused otherwise.
-export function proxy(req: NextRequest) {
+export async function proxy(req: NextRequest) {
+  if (req.nextUrl.pathname === "/") return routeLandingRequest(req);
+
   // hirecute: in a public build only /api/hirecute/* is reachable. The legacy
   // alpha API can spawn CLIs, read operator files and drive a local browser, so
   // it is denied by ALLOWLIST here rather than by enumerating today's routes —
@@ -43,4 +52,47 @@ export function proxy(req: NextRequest) {
   return NextResponse.next();
 }
 
-export const config = { matcher: "/api/:path*" };
+/**
+ * `/`: pick the visitor's scenario (landing-router.mjs), pin it in cookies,
+ * hand it to the page as a REQUEST header (never sent to the browser), and log
+ * a fresh assignment to the funnel so the two sides of a split can be compared.
+ */
+async function routeLandingRequest(req: NextRequest) {
+  const proto = req.headers.get("x-forwarded-proto") ?? req.nextUrl.protocol.replace(":", "");
+  const decision = routeLanding(
+    {
+      query: req.nextUrl.searchParams,
+      scenarioCookie: req.cookies.get(SCENARIO_COOKIE)?.value ?? null,
+      attrCookie: req.cookies.get(ATTR_COOKIE)?.value ?? null,
+      referer: req.headers.get("referer"),
+      secure: proto === "https",
+    },
+    process.env,
+  );
+  // Broken scenario config: preflight refuses to boot with it, so this is a
+  // config changed under a running server. Serve the page; run creation
+  // reports the error.
+  if (!decision.ok) return NextResponse.next();
+
+  const headers = new Headers(req.headers);
+  headers.set(SCENARIO_HEADER, JSON.stringify({ scenario: decision.scenario, reason: decision.reason }));
+  const res = NextResponse.next({ request: { headers } });
+  for (const { name, value, ...options } of decision.cookies) res.cookies.set(name, value, options);
+
+  if (decision.assigned && decision.attribution) {
+    await appendFunnel({
+      eventId: crypto.randomUUID(),
+      name: "scenario_assigned",
+      time: new Date().toISOString(),
+      runId: null,
+      origin: null,
+      ...decision.attribution,
+    }).catch(() => {
+      // Analytics must never take the landing page down.
+    });
+  }
+  return res;
+}
+
+// Constants only: Next analyses the matcher at build time.
+export const config = { matcher: ["/api/:path*", "/"] };

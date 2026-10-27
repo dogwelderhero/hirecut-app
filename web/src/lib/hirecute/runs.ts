@@ -118,7 +118,7 @@ export async function createRun(opts: CreateRunOptions): Promise<CreateRunOutcom
     schemaVersion: 1,
     id: runId,
     origin: opts.origin,
-    scenario,
+    scenario: { id: scenario.id, version: scenario.version, reason: scenario.reason },
     launchProfile: launchProfile(),
     status: "queued",
     currentStage: null,
@@ -169,6 +169,7 @@ export async function createRun(opts: CreateRunOptions): Promise<CreateRunOutcom
     ownerSessionId: opts.session.id,
     billingRecordId: null,
     artifacts: {},
+    attribution: scenario.attribution,
   };
   await writeSnapshot(runId, file);
   await setCurrentRun(opts.session, runId);

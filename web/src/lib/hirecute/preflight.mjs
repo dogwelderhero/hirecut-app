@@ -22,7 +22,7 @@ import path from "node:path";
 
 import { isLoopbackHost, parseAllowedHosts } from "../origin-guard.mjs";
 import { modelEndpoints, pingModel } from "./model.mjs";
-import { checkDeploymentScenarios } from "./scenarios.mjs";
+import { COOKIE, checkDeploymentScenarios, parseScenariosEnv, scenarioParam } from "./scenarios.mjs";
 
 export const OK = "OK";
 export const WARN = "WARN";
@@ -311,6 +311,56 @@ export async function checkChromiumRender({ codeRoot, dataDir }) {
   }
 }
 
+/** The value a response pins in the scenario cookie, if any. */
+function pinnedScenario(res) {
+  for (const c of res.headers.getSetCookie?.() ?? []) {
+    const [pair] = c.split(";");
+    if (pair.startsWith(`${COOKIE}=`)) return pair.slice(COOKIE.length + 1);
+  }
+  return null;
+}
+
+/**
+ * The deployed router, from the outside: every enabled scenario is reachable
+ * by its link and pinned, a pinned visitor stays put, and an unknown value
+ * lands in a split scenario. Uses the LOCAL env's view of what should be on.
+ */
+export async function checkRouting(url, env, { fetchImpl = fetch } = {}) {
+  const param = scenarioParam(env);
+  const parsed = parseScenariosEnv(env.HIRECUTE_SCENARIOS);
+  if (!param || !parsed.ok) return [r("deploy", "routing", WARN, "local scenario env not set; routing not checked")];
+  const base = new URL(url);
+  const get = (q, cookie) => fetchImpl(new URL(`/${q}`, base), {
+    signal: AbortSignal.timeout(15_000), redirect: "manual", ...(cookie ? { headers: { cookie } } : {}),
+  });
+  const out = [];
+  for (const { id } of parsed.entries) {
+    try {
+      const res = await get(`?${param}=${encodeURIComponent(id)}`);
+      const pinned = pinnedScenario(res);
+      out.push(res.status === 200 && pinned === id
+        ? r("deploy", `route ?${param}=${id}`, OK, `200, pinned ${COOKIE}=${pinned}`)
+        : r("deploy", `route ?${param}=${id}`, FAIL, `status ${res.status}, pinned ${pinned ?? "nothing"}`,
+          "The deployed router does not serve this scenario: check its HIRECUTE_SCENARIOS and that the image has web/scenarios"));
+    } catch (err) {
+      out.push(r("deploy", `route ?${param}=${id}`, FAIL, err instanceof Error ? err.message : String(err)));
+    }
+  }
+  try {
+    const first = parsed.entries[0].id;
+    const sticky = pinnedScenario(await get("", `${COOKIE}=${first}`));
+    const split = new Set(parsed.entries.filter((e) => e.weight > 0).map((e) => e.id));
+    const unknown = pinnedScenario(await get(`?${param}=__preflight_unknown__`));
+    out.push(sticky === first && split.has(unknown)
+      ? r("deploy", "route sticky + unknown", OK, `cookie kept ${first}; unknown value split into ${unknown}`)
+      : r("deploy", "route sticky + unknown", FAIL, `sticky → ${sticky ?? "nothing"}, unknown → ${unknown ?? "nothing"}`,
+        "A pinned visitor must keep their scenario and an unknown value must be split"));
+  } catch (err) {
+    out.push(r("deploy", "route sticky + unknown", FAIL, err instanceof Error ? err.message : String(err)));
+  }
+  return out;
+}
+
 export async function checkDeployment(url, { fetchImpl = fetch } = {}) {
   const out = [];
   const base = parseUrl(url);
@@ -354,7 +404,7 @@ export async function runPreflight({ mode, env, codeRoot, dataDir, url, pingOpts
   if (mode === "full") {
     results.push(await checkBoards({ codeRoot }));
     results.push(await checkChromiumRender({ codeRoot, dataDir }));
-    if (url) results.push(...(await checkDeployment(url)));
+    if (url) results.push(...(await checkDeployment(url)), ...(await checkRouting(url, env)));
   }
   return { ok: !results.some((x) => x.status === FAIL), results };
 }

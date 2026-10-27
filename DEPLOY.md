@@ -200,6 +200,8 @@ doctl registry garbage-collection start --include-untagged-manifests
 | `HIRECUTE_MODEL_FAST`, `HIRECUTE_MODEL_JUDGMENT` | Optional; fall back to `HIRECUTE_MODEL` |
 | `HIRECUTE_BASE_URL` | Public URL; the spec binds `${APP_URL}` |
 | `CAREER_OPS_WEB_ALLOWED_HOSTS` | The app's host (`${APP_DOMAIN}`) plus any custom domain — without it every `/api` call is refused |
+| `HIRECUTE_SCENARIO_PARAM` | Query parameter that picks a scenario on `/` (`t` → `?t=vacancy`) |
+| `HIRECUTE_SCENARIOS` | Enabled scenarios and their share of NEW visitors, `vacancy=50;recruiter=50`. Weights sum to 100; weight 0 = reachable only by `?t=` link; unlisted = off. A visitor keeps their scenario (cookie `hc_scn`); changing weights only affects new visitors |
 | `HIRECUTE_PUBLIC_BUILD` / `HIRECUTE_SUBMISSION_ENABLED` | `true` / `false`, set in the image |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | **SECRET**, only with billing |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Runtime, only with billing; mode must match the secret key |

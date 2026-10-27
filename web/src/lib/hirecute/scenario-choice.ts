@@ -12,6 +12,12 @@
 import { cookies } from "next/headers";
 import { serverConfig } from "@/lib/hirecute/config";
 import {
+  ATTR_COOKIE,
+  STICKY_MAX_AGE_S,
+  runAttribution,
+  type Attribution,
+} from "@/lib/hirecute/landing-router.mjs";
+import {
   COOKIE,
   checkDeploymentScenarios,
   resolveScenario,
@@ -22,7 +28,8 @@ import {
 export interface ScenarioChoice {
   id: string;
   version: number;
-  reason: ScenarioReason;
+  reason: ScenarioReason | string;
+  attribution: Attribution;
 }
 
 export class ScenarioConfigError extends Error {
@@ -47,5 +54,23 @@ export async function chooseScenario(): Promise<ScenarioChoice> {
   if (!d.ok) throw new ScenarioConfigError(d.errors);
   const jar = await cookies();
   const pick = resolveScenario({ value: null, cookie: jar.get(COOKIE)?.value ?? null, entries: d.entries });
-  return { id: pick.id, version: d.scenarios[pick.id].version, reason: pick.reason };
+  // The landing already assigned (and logged) the scenario; when the run gets
+  // that same one, its attribution says how. A run created without a landing
+  // (direct API call, expired cookie) is attributed to what happened here.
+  const attribution: Attribution =
+    pick.reason === "sticky"
+      ? runAttribution(jar.get(ATTR_COOKIE)?.value, pick.id)
+      : { scenario: pick.id, reason: pick.reason };
+  if (pick.reason !== "sticky") {
+    // No landing assigned this browser (or its scenario was switched off):
+    // pin what it got here, the way the landing would have.
+    jar.set(COOKIE, pick.id, {
+      maxAge: STICKY_MAX_AGE_S,
+      httpOnly: true,
+      sameSite: "lax",
+      secure: serverConfig().baseUrl.startsWith("https:"),
+      path: "/",
+    });
+  }
+  return { id: pick.id, version: d.scenarios[pick.id].version, reason: attribution.reason, attribution };
 }
