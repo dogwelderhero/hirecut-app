@@ -20,6 +20,7 @@
 import { createHash } from "node:crypto";
 import { readFile, writeFile, readdir } from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { extractResumeText, extractionMessage } from "../../src/lib/hirecute/extract.mjs";
 import { ModelError, requestStructured, untrusted } from "../../src/lib/hirecute/model.mjs";
@@ -217,7 +218,7 @@ export async function runRefineStage(ctx) {
   // Validate against career-ops's OWN payload contract before rendering, so a
   // section that would silently vanish fails loudly here instead.
   const { validatePayload } = await import(
-    path.join(codeRoot, "lib", "cv-payload-schema.mjs")
+    pathToFileURL(path.join(codeRoot, "lib", "cv-payload-schema.mjs")).href
   );
   const validation = validatePayload(payload, "html");
   diag({ payloadValidation: validation });
