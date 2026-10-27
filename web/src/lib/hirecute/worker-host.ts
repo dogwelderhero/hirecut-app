@@ -22,6 +22,7 @@ import {
   updateRun,
 } from "@/lib/hirecute/store";
 import { childEnv, codeRoot } from "@/lib/hirecute/paths";
+import { superviseChild } from "@/lib/hirecute/worker-lifecycle.mjs";
 
 /** Messages a child may send. Closed set. */
 export type WorkerMessage =
@@ -80,8 +81,16 @@ export function startWorker(runId: string): WorkerHandle {
     stdio: ["ignore", "pipe", "pipe", "ipc"],
   });
 
-  child.on("message", (raw) => {
-    void handleMessage(runId, raw as WorkerMessage);
+  // Messages and the exit verdict run through one serial queue, and the verdict
+  // waits for the IPC channel to close — see worker-lifecycle.mjs for the race
+  // this closes (a finished run marked interrupted).
+  superviseChild(child, {
+    onMessage: (raw) => handleMessage(runId, raw as WorkerMessage),
+    onExit: (code, signal) => handleExit(runId, code, signal),
+    onError: (err) =>
+      void appendDiagnostic(runId, {
+        hostError: err instanceof Error ? err.message : String(err),
+      }),
   });
 
   // Child stderr/stdout are operator diagnostics, never public events. A model
@@ -93,27 +102,6 @@ export function startWorker(runId: string): WorkerHandle {
     void appendDiagnostic(runId, { stream: "stdout", text: buf.toString() }),
   );
 
-  child.on("exit", (code, signal) => {
-    void (async () => {
-      await appendDiagnostic(runId, { exit: { code, signal } });
-      const file = await readRunFile(runId);
-      if (!file) return;
-      const status = file.snapshot.status;
-      // A non-zero exit with no terminal record is interrupted, not success.
-      // §6: "A stream ending is not success."
-      if (status === "running" || status === "queued") {
-        await updateRun(runId, (f) => ({
-          ...f,
-          snapshot: { ...f.snapshot, status: "interrupted" },
-        }));
-        await appendEvent(runId, "run.interrupted", {
-          stage: file.snapshot.currentStage ?? "refine",
-          canRetry: true,
-        });
-      }
-    })();
-  });
-
   return {
     child,
     cancel: () => {
@@ -124,6 +112,29 @@ export function startWorker(runId: string): WorkerHandle {
       }
     },
   };
+}
+
+async function handleExit(
+  runId: string,
+  code: number | null,
+  signal: NodeJS.Signals | null,
+): Promise<void> {
+  await appendDiagnostic(runId, { exit: { code, signal } });
+  const file = await readRunFile(runId);
+  if (!file) return;
+  const status = file.snapshot.status;
+  // An exit with no terminal record is interrupted, not success.
+  // §6: "A stream ending is not success."
+  if (status === "running" || status === "queued") {
+    await updateRun(runId, (f) => ({
+      ...f,
+      snapshot: { ...f.snapshot, status: "interrupted" },
+    }));
+    await appendEvent(runId, "run.interrupted", {
+      stage: file.snapshot.currentStage ?? "refine",
+      canRetry: true,
+    });
+  }
 }
 
 async function handleMessage(runId: string, message: WorkerMessage): Promise<void> {
