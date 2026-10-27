@@ -91,6 +91,7 @@ COPY --chown=node:node web/public ./web/public
 COPY --chown=node:node web/fixtures ./web/fixtures
 COPY --chown=node:node web/workers ./web/workers
 COPY --chown=node:node web/scenarios ./web/scenarios
+COPY --chown=node:node web/content ./web/content
 COPY --chown=node:node web/src ./web/src
 COPY --chown=node:node web/scripts ./web/scripts
 

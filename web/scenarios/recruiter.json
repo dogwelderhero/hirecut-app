@@ -4,6 +4,32 @@
   "title": "Recruiter-led",
   "description": "product-v2 hypothesis: resume review, matches, gap-driven improvements, then the recruiter step.",
   "resultStage": "improve",
+  "landing": {
+    "blocks": [
+      {
+        "block": "hero"
+      },
+      {
+        "block": "upload",
+        "recruiterMessage": true
+      },
+      {
+        "block": "recruiters"
+      },
+      {
+        "block": "startups"
+      },
+      {
+        "block": "pricing"
+      },
+      {
+        "block": "faq"
+      },
+      {
+        "block": "finale"
+      }
+    ]
+  },
   "pipeline": [
     {
       "step": "refine-sections@2"

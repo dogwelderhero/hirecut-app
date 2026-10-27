@@ -5,19 +5,23 @@
  *
  * A bold, dark panel that sits right after the agent box: the human half of
  * the offer. Industry chips filter a horizontally scrolling row of tall
- * portrait cards. Data (and its placeholder status) lives in ./recruiters.
+ * portrait cards. Data (and its placeholder status) lives in
+ * content/recruiters.json; copy in the scenario's content/strings.
  */
 
 import { useRef, useState } from "react";
+import type { BlockProps } from "./landing/types";
+import { t } from "./landing/strings";
 import { RECRUITERS, initials } from "./recruiters";
 
-const INDUSTRIES = ["All", ...RECRUITERS.map((person) => person.industry)];
+/** null = every industry (the "All" chip). */
+const INDUSTRIES = [null, ...RECRUITERS.map((person) => person.industry)];
 
-export function RecruiterShowcase() {
-  const [industry, setIndustry] = useState("All");
+export function RecruiterShowcase({ s, config }: Pick<BlockProps, "s" | "config">) {
+  const [industry, setIndustry] = useState<string | null>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const shown =
-    industry === "All" ? RECRUITERS : RECRUITERS.filter((person) => person.industry === industry);
+    industry === null ? RECRUITERS : RECRUITERS.filter((person) => person.industry === industry);
 
   function scroll(direction: 1 | -1) {
     const track = trackRef.current;
@@ -27,23 +31,20 @@ export function RecruiterShowcase() {
   }
 
   return (
-    <section className="hc-showcase" id="how-it-works" aria-labelledby="hc-showcase-title">
-      <div className="hc-showcase-kicker">The people behind your feedback</div>
+    <section className="hc-showcase" id={config.anchor} aria-labelledby="hc-showcase-title">
+      <div className="hc-showcase-kicker">{t(s, "recruiters.kicker")}</div>
       <h2 id="hc-showcase-title">
-        Real Recruiters.
+        {t(s, "recruiters.title")}
         <br />
-        Real Feedback.
+        {t(s, "recruiters.titleLine2")}
       </h2>
-      <p className="hc-showcase-lead">
-        These recruiters review your AI-tailored resume and tell you what to fix. They hire in your
-        industry every day, so their feedback reflects what hiring managers actually want.
-      </p>
+      <p className="hc-showcase-lead">{t(s, "recruiters.lead")}</p>
 
-      <div className="hc-showcase-filters" role="group" aria-label="Filter recruiters by industry">
+      <div className="hc-showcase-filters" role="group" aria-label={t(s, "recruiters.filterLabel")}>
         {INDUSTRIES.map((name) => (
           <button
             type="button"
-            key={name}
+            key={name ?? "all"}
             className={name === industry ? "is-active" : undefined}
             aria-pressed={name === industry}
             onClick={() => {
@@ -51,7 +52,7 @@ export function RecruiterShowcase() {
               trackRef.current?.scrollTo({ left: 0 });
             }}
           >
-            {name}
+            {name ?? t(s, "recruiters.filterAll")}
           </button>
         ))}
       </div>
@@ -85,10 +86,10 @@ export function RecruiterShowcase() {
       </div>
 
       <div className="hc-showcase-nav">
-        <button type="button" aria-label="Previous recruiters" onClick={() => scroll(-1)}>
+        <button type="button" aria-label={t(s, "recruiters.prev")} onClick={() => scroll(-1)}>
           ←
         </button>
-        <button type="button" aria-label="Next recruiters" onClick={() => scroll(1)}>
+        <button type="button" aria-label={t(s, "recruiters.next")} onClick={() => scroll(1)}>
           →
         </button>
       </div>

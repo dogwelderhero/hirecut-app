@@ -14,6 +14,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { JobId, PublicRunEvent } from "@/lib/hirecute/contracts";
 import type { PublicConfig } from "@/lib/hirecute/config";
+import type { LandingContent } from "@/lib/hirecute/landing-content.mjs";
 import {
   applyEvent,
   initialRunState,
@@ -40,7 +41,14 @@ import { Workspace } from "./workspace";
 
 const PENDING_RUN: RunState = { ...initialRunState(), lifecycle: "queued" };
 
-export function HirecuteJourney({ publicConfig }: { publicConfig: PublicConfig }) {
+export function HirecuteJourney({
+  publicConfig,
+  landing,
+}: {
+  publicConfig: PublicConfig;
+  /** The visitor's scenario landing, resolved on the server. */
+  landing: LandingContent;
+}) {
   const [runState, setRunState] = useState<RunState>(initialRunState);
   const [fileName, setFileName] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -201,7 +209,7 @@ export function HirecuteJourney({ publicConfig }: { publicConfig: PublicConfig }
   if (!pending && (!hasRun || screen === "upload")) {
     return (
       <Landing
-        launchProfile={publicConfig.launchProfile}
+        content={landing}
         maxUploadBytes={publicConfig.maxUploadBytes}
         error={error}
         onUpload={(file) => void start({ sample: false, file })}

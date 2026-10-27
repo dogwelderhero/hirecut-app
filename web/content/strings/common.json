@@ -1,0 +1,149 @@
+{
+  "$comment": "Strings shared by every scenario's landing. A scenario file (content/strings/<id>.json) overrides any key. Values: string, list, list of objects, or {activation_pilot, auto_apply_pilot} chosen by the server's launch profile. {name} is a parameter.",
+  "brand": "hirecute",
+  "nav.links": [
+    {
+      "label": "How it works",
+      "href": "#how-it-works"
+    },
+    {
+      "label": "Your privacy",
+      "href": null
+    }
+  ],
+  "upload.activity.title": "hirecute agent · working right now",
+  "upload.activity.nextLabel": "next job: ",
+  "upload.activity.nextValue": "your resume",
+  "upload.activity.rows": [
+    {
+      "marker": "✓",
+      "task": "28,746 company boards to explore",
+      "agent": "job explorer · ",
+      "state": "ready"
+    },
+    {
+      "marker": "✓",
+      "task": "130 boards checked · 19 matches",
+      "agent": "match agent · ",
+      "state": "ready"
+    },
+    {
+      "marker": "›",
+      "task": "refining a resume for the role…",
+      "agent": "resume agent · ",
+      "state": "refining"
+    },
+    {
+      "marker": "›",
+      "task": "drafting a personal cover letter…",
+      "agent": "cover letter agent · ",
+      "state": "writing"
+    }
+  ],
+  "upload.activity.prompt": "next up: your resume…",
+  "upload.dropTitle": "Drop your resume here",
+  "upload.dropHint": "or choose a file to get started",
+  "upload.button": "Upload resume",
+  "upload.formats": "PDF or DOCX · up to {maxMb} MB",
+  "upload.reassurance": "No account. No card. Just your next step.",
+  "upload.error.type": "Please choose a PDF or DOCX file.",
+  "upload.error.empty": "That file is empty.",
+  "upload.error.size": "That file is larger than {maxMb} MB.",
+  "startups.lead": "Our agent helps you go after jobs at companies like",
+  "startups.brands": [
+    "Revolut",
+    "Wise",
+    "Monzo",
+    "Linear",
+    "Notion"
+  ],
+  "pricing.kicker": "See the value first",
+  "pricing.title": "Start with a little help.",
+  "pricing.titleEm": "Make your first move on us.",
+  "pricing.lead": "Get to know your resume and your matches before you decide what comes next.",
+  "pricing.free.badge": "GET YOUR BEARINGS",
+  "pricing.free.title": "Your first look",
+  "pricing.free.price": "Free",
+  "pricing.free.lead": "A clearer picture of your next move.",
+  "pricing.free.items": [
+    "Resume feedback and a refined preview",
+    "A search based on your preferences",
+    "Ranked matches with reasons for the fit",
+    "An application preview before checkout"
+  ],
+  "pricing.free.cta": "Upload resume",
+  "pricing.free.foot": "No account or card to start.",
+  "pricing.credits.badge": "LET’S MAKE YOUR NEXT MOVE",
+  "pricing.credits.title": "Your first applications",
+  "pricing.credits.price": "$30",
+  "pricing.credits.priceNote": "in free credits",
+  "pricing.credits.lead": "Start with your approved batch of up to 20 applications.",
+  "pricing.credits.items": [
+    "The jobs you review and select",
+    "A resume tailored to each role",
+    "A personal cover letter for each application",
+    {
+      "activation_pilot": "Every package ready to download and send",
+      "auto_apply_pilot": "Submission tracking and follow-up actions"
+    }
+  ],
+  "pricing.credits.cta": "Try a sample first",
+  "pricing.credits.foot": "$0 due today. No subscription or automatic charges.",
+  "faq.kicker": "A few good questions",
+  "faq.title": "Before your",
+  "faq.titleEm": "next chapter.",
+  "faq.lead": "The small details that make it easier to take the first step.",
+  "faq.items": [
+    {
+      "q": "What do I need to get started?",
+      "a": "A PDF or DOCX resume up to 10 MB. Your agent starts refining it as soon as you upload. You can adjust job preferences while it works, or try the sample resume first."
+    },
+    {
+      "q": "What does hirecute change in my resume?",
+      "a": "The structure, wording and emphasis. The aim is to make your relevant experience easier to understand, while keeping your facts intact. You can review the original and refined versions before continuing."
+    },
+    {
+      "q": "How do I know why a job is a good match?",
+      "a": "Each match shows how your experience and preferences line up with the role, plus areas to check. A match score is a guide to fit, not a prediction that you’ll get an interview."
+    },
+    {
+      "q": "Will applications go out without my approval?",
+      "a": "No. Review your selected jobs and prepared applications first. Your approved batch starts after you activate your free credits. Anything needing information only you can provide is flagged for your attention."
+    },
+    {
+      "q": "When do I pay?",
+      "a": "Preview your resume and matches for free, then activate $30 in credits for your first applications. Nothing is charged today. When your credits run out, you decide whether to top up; there are no automatic charges."
+    },
+    {
+      "q": "Does hirecute guarantee an interview or a job?",
+      "a": "No. Hiring decisions belong to employers. hirecute is designed to help you focus your search, present your experience clearly and handle repetitive application work."
+    },
+    {
+      "q": "Can I explore without sharing a resume?",
+      "a": "Yes. Choose “Try a sample resume” to see the full experience. This preview uses sample jobs and outcomes; it doesn’t upload files, take payments or submit applications."
+    }
+  ],
+  "finale.kicker": "Your next chapter starts with you",
+  "finale.title": "Bring your experience.",
+  "finale.titleEm": "We’ll help with what’s next.",
+  "finale.lead": "One resume. A clearer direction. A little less doing it all yourself.",
+  "finale.upload": "Upload resume",
+  "finale.sample": "Try a sample resume",
+  "finale.note": "Start free · No card required",
+  "footer.tagline": "A little help for your next big thing.",
+  "footer.links": [
+    {
+      "label": "How it works",
+      "href": "#how-it-works"
+    },
+    {
+      "label": "Pricing",
+      "href": "#pricing"
+    },
+    {
+      "label": "FAQs",
+      "href": "#faqs"
+    }
+  ],
+  "footer.copyright": "© hirecute"
+}

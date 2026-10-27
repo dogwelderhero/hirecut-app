@@ -1,0 +1,20 @@
+{
+  "$comment": "Landing copy for the recruiter scenario (product-v2 hypothesis).",
+  "hero.eyebrow": "AI speed. Human judgment.",
+  "hero.title": "AI agent tailors your resume for top jobs.",
+  "hero.titleEm": "Then a real recruiter checks it.",
+  "hero.lead": "Upload your resume. AI finds your best-fit roles and tailors your resume to each one, then real recruiters from your industry support you along the way.",
+  "upload.activity.message.text": "Read your tailored resume. Strong start! Move the M&A deal to the top line and it’s ready to send.",
+  "upload.activity.message.time": "2:14 PM",
+  "upload.activity.message.role": "recruiter · {industry}",
+  "upload.activity.message.typing": "{firstName} is typing…",
+  "upload.activity.message.typingLabel": "{name} is typing",
+  "recruiters.kicker": "The people behind your feedback",
+  "recruiters.title": "Real Recruiters.",
+  "recruiters.titleLine2": "Real Feedback.",
+  "recruiters.lead": "These recruiters review your AI-tailored resume and tell you what to fix. They hire in your industry every day, so their feedback reflects what hiring managers actually want.",
+  "recruiters.filterAll": "All",
+  "recruiters.filterLabel": "Filter recruiters by industry",
+  "recruiters.prev": "Previous recruiters",
+  "recruiters.next": "Next recruiters"
+}

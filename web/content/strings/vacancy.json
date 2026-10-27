@@ -1,0 +1,63 @@
+{
+  "$comment": "Landing copy for the vacancy scenario (production as of 01083211).",
+  "hero.eyebrow": "A little help. A big next step.",
+  "hero.title": "Build a better resume.",
+  "hero.titleEm": "Auto-apply for up to 100 jobs daily.",
+  "hero.lead": "Upload your resume, approve your matches, and let your agent tailor and send every application.",
+  "features.kicker": "A little less admin. A lot more possibility.",
+  "features.title": "Job hunting is a lot.",
+  "features.titleEm": "You don’t have to do it all.",
+  "features.lead": "From the first resume edit to your next application, meet the tools that help you move forward.",
+  "features.items": [
+    {
+      "art": "auto-apply",
+      "title": "Auto-apply to jobs",
+      "body": "Spend less time filling forms and more time preparing for interviews. Choose the jobs you like, approve your batch, and let your agent handle the applications."
+    },
+    {
+      "art": "resume-optimization",
+      "title": "Smart resume optimization",
+      "body": "Give your experience the clarity it deserves. Sharpen your bullet points, surface your strongest skills, and build a resume that’s easier for people and hiring systems to read."
+    },
+    {
+      "art": "cover-letters",
+      "title": "AI cover letters",
+      "body": "Start with something more personal than a blank page. Get a thoughtful introduction that connects your experience to each role, ready for your final touches."
+    },
+    {
+      "art": "resume-tailor",
+      "title": "AI resume tailor",
+      "body": "One career. Different opportunities. Adapt your resume to each job’s priorities and keywords, while keeping your experience and achievements true to you."
+    },
+    {
+      "art": "match-threshold",
+      "title": "Set your match threshold",
+      "body": "You decide what a good fit looks like. Set a minimum match score so your agent focuses on the roles that line up with your skills and goals."
+    },
+    {
+      "art": "tracker",
+      "title": "Job application tracker",
+      "body": "Know where every application stands. See what’s ready, what’s been submitted, and what needs your input—all in one place, without another spreadsheet."
+    }
+  ],
+  "features.outro": "Your experience. Your ambitions. A little help with everything in between.",
+  "features.cta": "See your agent at work →",
+  "control.kicker": "A helping hand. You’re still in charge.",
+  "control.items": [
+    {
+      "num": "01",
+      "title": "You choose the direction.",
+      "body": "Change your preferences, skip a job, or refine your shortlist. Your next move should feel like yours."
+    },
+    {
+      "num": "02",
+      "title": "You see the work.",
+      "body": "Read the resume changes, match explanations and cover letters before making a decision."
+    },
+    {
+      "num": "03",
+      "title": "You keep the final say.",
+      "body": "Applications that need a personal answer come back to you. Your agent handles the admin; you make the calls."
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "$comment": "PLACEHOLDERS: these names and bios are illustrative, not real people, and the photos in web/public/recruiters/ are Unsplash stock portraits (Unsplash License). Replace every entry with a real recruiter from the partner firm (with their consent) before this ships. `photo` is a path under web/public; null shows initials.",
+  "recruiters": [
+    {
+      "name": "Anna Keller",
+      "industry": "Finance",
+      "bio": "Has placed analysts and managers at banks, funds and fintechs for over ten years.",
+      "photo": "/recruiters/finance.jpg",
+      "tags": [
+        "Banking",
+        "Fintech",
+        "Funds"
+      ],
+      "chat": {
+        "ask": "I’ve applied to 80 analyst roles and heard nothing back. What am I doing wrong?",
+        "answer": "Your resume reads like a job description. Banks scan for deals and numbers, so lead every line with the result.",
+        "followUp": "Can you check my top three bullets?"
+      }
+    },
+    {
+      "name": "Daniel Reyes",
+      "industry": "Tech",
+      "bio": "Hires engineers and product people for startups and big tech alike.",
+      "photo": "/recruiters/tech.jpg",
+      "tags": [
+        "Engineering",
+        "Product",
+        "Startups"
+      ],
+      "chat": {
+        "ask": "I was laid off in March. How do I explain the gap?",
+        "answer": "One line is enough: “Role eliminated in a company-wide layoff.” Then show what you’ve built since. Side projects count.",
+        "followUp": "Should I mention it in my cover letter?"
+      }
+    },
+    {
+      "name": "Maria Lopez",
+      "industry": "Healthcare",
+      "bio": "Connects clinicians and healthcare operators with hospitals and health-tech teams.",
+      "photo": "/recruiters/healthcare.jpg",
+      "tags": [
+        "Clinical",
+        "Health-tech",
+        "Operations"
+      ],
+      "chat": {
+        "ask": "I’m a nurse moving into health-tech. Will anyone take me seriously?",
+        "answer": "Yes, if you lead with the workflows you improved. Health-tech teams need people who know the floor.",
+        "followUp": "Which job titles should I search for?"
+      }
+    },
+    {
+      "name": "James Walker",
+      "industry": "Sales & Marketing",
+      "bio": "Knows what hiring managers look for in sellers, marketers and growth leads.",
+      "photo": "/recruiters/sales.jpg",
+      "tags": [
+        "Sales",
+        "Growth",
+        "Brand"
+      ],
+      "chat": {
+        "ask": "I’ve reached the final round three times and then got ghosted. Why?",
+        "answer": "Usually it’s the close. Send a short 30-60-90 day plan after the last interview. It shows you’re already doing the job.",
+        "followUp": "What should go in that plan?"
+      }
+    },
+    {
+      "name": "Sofia Rossi",
+      "industry": "Consulting",
+      "bio": "Helps consultants move between firms and into strategy roles in industry.",
+      "photo": "/recruiters/consulting.jpg",
+      "tags": [
+        "Strategy",
+        "Management",
+        "Transformation"
+      ],
+      "chat": {
+        "ask": "Recruiters say I’m “too consulting” for industry roles. What does that mean?",
+        "answer": "They can’t see what you owned. Pick two projects and write what changed because of you.",
+        "followUp": "How do I explain why I’m leaving?"
+      }
+    },
+    {
+      "name": "Omar Haddad",
+      "industry": "Operations & Supply Chain",
+      "bio": "Recruits operations, logistics and supply-chain talent across manufacturing and retail.",
+      "photo": "/recruiters/ops.jpg",
+      "tags": [
+        "Logistics",
+        "Manufacturing",
+        "Retail"
+      ],
+      "chat": {
+        "ask": "I got an offer, but it’s 15% below my last salary. Should I take it?",
+        "answer": "Not yet. Ask for the range, then anchor on the savings you’ve delivered. Ops offers usually have room to move.",
+        "followUp": "How do I ask without losing the offer?"
+      }
+    }
+  ]
+}

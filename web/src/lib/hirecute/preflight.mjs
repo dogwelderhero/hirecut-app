@@ -22,6 +22,7 @@ import path from "node:path";
 
 import { isLoopbackHost, parseAllowedHosts } from "../origin-guard.mjs";
 import { modelEndpoints, pingModel } from "./model.mjs";
+import { checkLanding } from "./landing-content.mjs";
 import { COOKIE, checkDeploymentScenarios, parseScenariosEnv, scenarioParam } from "./scenarios.mjs";
 
 export const OK = "OK";
@@ -230,6 +231,16 @@ export async function checkScenarios({ codeRoot, env }) {
     const s = d.scenarios[id];
     results.push(r("scenarios", id, OK,
       `v${s.version}, ${weight === 0 ? "link only" : `${weight}% of new visitors`}: ${s.steps.join(" → ")}`));
+    // Its landing: blocks exist, every string they render is there.
+    const landing = await checkLanding(codeRoot, id);
+    if (landing.errors.length) {
+      for (const e of landing.errors) {
+        results.push(r("scenarios", `${id} landing`, FAIL, e, "Fix web/scenarios/<id>.json landing.blocks or web/content/strings"));
+      }
+    } else {
+      results.push(r("scenarios", `${id} landing`, OK, "blocks and strings complete"));
+    }
+    for (const w of landing.warnings) results.push(r("scenarios", `${id} landing`, WARN, w, "Remove the string or fix its key"));
   }
   return { requires: [...new Set(Object.values(d.scenarios).flatMap((s) => s.requires))], results };
 }

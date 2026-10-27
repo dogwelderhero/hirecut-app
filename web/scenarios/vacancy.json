@@ -4,6 +4,34 @@
   "title": "Auto-apply (classic)",
   "description": "Production behaviour as of 01083211: refined resume, job search, matches, per-job packages.",
   "resultStage": "prepare",
+  "landing": {
+    "blocks": [
+      {
+        "block": "hero"
+      },
+      {
+        "block": "upload"
+      },
+      {
+        "block": "startups"
+      },
+      {
+        "block": "features"
+      },
+      {
+        "block": "control"
+      },
+      {
+        "block": "pricing"
+      },
+      {
+        "block": "faq"
+      },
+      {
+        "block": "finale"
+      }
+    ]
+  },
   "pipeline": [
     {
       "step": "refine-classic@1"
