@@ -86,7 +86,7 @@ export function initialRunState(): RunState {
     lifecycle: "absent",
     queuePosition: null,
     liveStage: null,
-    stages: { refine: null, explore: null, match: null, prepare: null },
+    stages: { refine: null, explore: null, match: null, improve: null, prepare: null },
     actions: [],
     jobs: {},
     jobOrder: [],

@@ -29,15 +29,30 @@ export interface StageReceipt {
 }
 
 const STAGE_TITLES: Record<StageId, string> = {
-  refine: "Finetune Resume",
-  explore: "Explore Jobs",
-  match: "Top matching jobs",
+  refine: "Reading your resume",
+  explore: "Finding jobs",
+  match: "Finding jobs & gaps",
+  improve: "Improving your resume",
   prepare: "Bulk Apply",
 };
 
-/** Visible step per stage: Finetune and Explore share step 1 (one screen). */
-const STAGE_NUMBER: Record<StageId, number> = { refine: 1, explore: 1, match: 2, prepare: 3 };
-const STEP_COUNT = 3;
+/** Visible step per stage: finding and scoring jobs are one step (2). */
+const STAGE_NUMBER: Record<StageId, number> = { refine: 1, explore: 2, match: 2, improve: 3, prepare: 4 };
+const STEP_COUNT = 4;
+
+/** One visible step can span stages (finding + scoring jobs is step 2). */
+const STEP_TITLES: Record<number, string> = {
+  1: "Reading your resume",
+  2: "Finding jobs & gaps",
+  3: "Improving your resume",
+  4: "Talk to a recruiter",
+};
+
+/** Step 4 runs in the browser (no backend work), so its rows are passed in. */
+export interface LocalStep {
+  actions: Array<{ id: string; label: string; status: ActionProgress["status"] }>;
+  done: boolean;
+}
 
 /** The reference uses ›/·/✓ rather than icons. */
 function mark(status: ActionProgress["status"]): string {
@@ -53,6 +68,7 @@ export function AgentTranscript({
   queued,
   liveStage,
   nextStage,
+  recruiterStep,
 }: {
   fileName: string | null;
   actions: ActionProgress[];
@@ -60,10 +76,16 @@ export function AgentTranscript({
   queued: boolean;
   liveStage: StageId | null;
   nextStage: StageId | null;
+  recruiterStep?: LocalStep | null;
 }) {
   /** Completed stages collapse into a history disclosure, as in the reference. */
   const completedStages = receipts.map((r) => r.stage);
-  const liveActions = actions.filter((a) => a.stage === liveStage);
+  const liveStep = liveStage ? STAGE_NUMBER[liveStage] : null;
+  // Every action of the live STEP that no receipt has absorbed yet: finding
+  // jobs stays listed while scoring runs, because both are step 2.
+  const liveActions = actions.filter(
+    (a) => STAGE_NUMBER[a.stage] === liveStep && !completedStages.includes(a.stage),
+  );
 
   return (
     <aside className="hc-sidebar hc-conversation" aria-label="Agent activity">
@@ -94,11 +116,11 @@ export function AgentTranscript({
 
         {/* Completed stages, each with its saved-result receipt. */}
         {receipts.map((receipt) => {
-          const stageActions = actions.filter((a) => a.stage === receipt.stage);
+          const stageActions = actions.filter((a) => STAGE_NUMBER[a.stage] === STAGE_NUMBER[receipt.stage]);
           return (
             <section className="hc-chat-stage" key={receipt.stage}>
               <h3>
-                ✓ Step {STAGE_NUMBER[receipt.stage]} · {STAGE_TITLES[receipt.stage]}
+                ✓ Step {STAGE_NUMBER[receipt.stage]} · {STEP_TITLES[STAGE_NUMBER[receipt.stage]]}
               </h3>
               <details className="hc-chat-history">
                 <summary>
@@ -145,7 +167,7 @@ export function AgentTranscript({
         {/* The live stage: one status line and the actions started so far. */}
         {liveStage && !completedStages.includes(liveStage) && (
           <section className="hc-chat-stage">
-            <h3>{STAGE_TITLES[liveStage]}</h3>
+            <h3>{liveStep ? STEP_TITLES[liveStep] : STAGE_TITLES[liveStage]}</h3>
             <div className="hc-chat-status">
               {/* A genuinely queued worker says queued — it does not invent an action. */}
               {queued
@@ -171,10 +193,30 @@ export function AgentTranscript({
           </section>
         )}
 
-        {nextStage && (
+        {recruiterStep && (
+          <section className="hc-chat-stage">
+            <h3>{recruiterStep.done ? "✓ Step 4 · " : ""}{STEP_TITLES[4]}</h3>
+            {!recruiterStep.done && (
+              <div className="hc-chat-status">hirecute agent is working on step 4 of {STEP_COUNT}</div>
+            )}
+            <ol className="hc-chat-actions">
+              {recruiterStep.actions.map((a) => (
+                <li className="hc-chat-action" key={a.id}>
+                  <span className="hc-chat-mark">{mark(a.status)}</span>
+                  <span className="hc-chat-action-text">
+                    {a.label}
+                    {a.status === "in_progress" ? "…" : ""}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {nextStage && !recruiterStep && (
           <div className="hc-chat-next">
             <span>Up next: </span>
-            <strong>{STAGE_TITLES[nextStage]}</strong>
+            <strong>{STEP_TITLES[STAGE_NUMBER[nextStage]] ?? STAGE_TITLES[nextStage]}</strong>
           </div>
         )}
       </div>

@@ -61,6 +61,14 @@ const SPARK = ["m12 3 2.3 6.7L21 12l-6.7 2.3L12 21l-2.3-6.7L3 12l6.7-2.3Z"];
 const HEART = ["M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"];
 const ARROW = ["M4 12h16m-6-6 6 6-6 6"];
 
+const EVIDENCE_MARK = { strong: "✓", partial: "◐", missing: "✕", not_applicable: "–" } as const;
+const EVIDENCE_LABEL = {
+  strong: "Met",
+  partial: "Partly met",
+  missing: "Missing",
+  not_applicable: "Not applicable",
+} as const;
+
 const WORK_STYLE: Record<NonNullable<Job["workStyle"]>, string> = {
   remote: "Remote",
   hybrid: "Hybrid",
@@ -128,6 +136,10 @@ function CardBody({
   onToggleExpand?: () => void;
 }) {
   const detailId = `job-detail-${job.id}`;
+  // Requirements whose posting line the worker verified verbatim.
+  const evidence = (assessment?.requirements ?? []).filter((r) => r.jobQuote);
+  // What this job asks for that the resume does not (fully) show.
+  const gapCount = evidence.filter((r) => r.match === "partial" || r.match === "missing").length;
   const age = postingAgeLabel(job.postedAt);
   const fresh = /hour|hours|today|1 day/i.test(age);
 
@@ -142,6 +154,11 @@ function CardBody({
           <div className="hc-sr-badges">
             <span className={`hc-sr-badge${fresh ? " hc-sr-badge--fresh" : ""}`}>{age}</span>
             <span className="hc-sr-badge">via {providerLabel(job.source.provider)}</span>
+            {gapCount > 0 && (
+              <span className="hc-sr-badge hc-sr-badge--gap">
+                {gapCount} gap{gapCount === 1 ? "" : "s"}
+              </span>
+            )}
           </div>
           <h2>{job.title}</h2>
           <p>
@@ -223,6 +240,7 @@ function CardBody({
               : "Full description retrieved"}
         </span>
         <div className="hc-sr-actions">
+          {onToggleSave && (
           <button
             type="button"
             className="hc-sr-save"
@@ -233,6 +251,7 @@ function CardBody({
             <Icon d={HEART} />
             <span>{saved ? "Saved" : "Save"}</span>
           </button>
+          )}
           <button
             type="button"
             className="hc-sr-view"
@@ -240,14 +259,56 @@ function CardBody({
             aria-controls={detailId}
             onClick={onToggleExpand}
           >
-            <span>{expanded ? "Hide role" : "View role"}</span>
+            <span>
+              {evidence.length > 0
+                ? expanded
+                  ? "Hide the evidence"
+                  : "See the evidence"
+                : expanded
+                  ? "Hide role"
+                  : "View role"}
+            </span>
             <Icon d={ARROW} />
           </button>
         </div>
       </footer>
 
       <section className="hc-sr-detail" id={detailId} hidden={!expanded}>
-        <h3>A closer look</h3>
+        {evidence.length > 0 && (
+          <>
+            <h3>What this job asks for, and what your resume shows</h3>
+            <ul className="hc-ev-list">
+              {evidence.map((r, i) => (
+                <li key={`${r.requirement}-${i}`} className={`is-${r.match}`}>
+                  <span className="hc-ev-mark" aria-label={EVIDENCE_LABEL[r.match]}>
+                    {EVIDENCE_MARK[r.match]}
+                  </span>
+                  <div>
+                    <strong>
+                      {r.requirement}
+                      {r.importance === "nice_to_have" && <small> · nice to have</small>}
+                    </strong>
+                    <p className="hc-ev-quote">
+                      <span>Job</span>“{r.jobQuote}”
+                    </p>
+                    {r.resumeQuote ? (
+                      <p className="hc-ev-quote is-you">
+                        <span>You</span>“{r.resumeQuote}”
+                      </p>
+                    ) : (
+                      r.match !== "not_applicable" && (
+                        <p className="hc-ev-quote is-none">
+                          <span>You</span>Not shown in your resume
+                        </p>
+                      )
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        {evidence.length === 0 && <h3>A closer look</h3>}
         {/*
           The reference prints three invented responsibility bullets. We hold
           the employer's description as an artifact, not as sentences we may
@@ -255,13 +316,15 @@ function CardBody({
           the visitor to the employer's own copy.
         */}
         <p>
-          {job.descriptionStatus === "missing"
+          {evidence.length > 0
+            ? null
+            : job.descriptionStatus === "missing"
             ? "The job description could not be retrieved from this board."
             : job.descriptionStatus === "partial"
               ? "Only part of the description was published through this board’s API."
               : "The full description was retrieved from this board’s API."}
         </p>
-        {assessment && assessment.gaps.length > 0 && (
+        {evidence.length === 0 && assessment && assessment.gaps.length > 0 && (
           <div className="hc-match-evidence">
             <strong>Worth checking</strong>
             <p>{assessment.gaps[0]}</p>
@@ -269,8 +332,8 @@ function CardBody({
         )}
         {assessment && assessment.blockers.length > 0 && (
           <ul>
-            {assessment.blockers.map((b) => (
-              <li key={b.code}>{b.description}</li>
+            {assessment.blockers.map((b, i) => (
+              <li key={`${b.code}-${i}`}>{b.description}</li>
             ))}
           </ul>
         )}
@@ -303,8 +366,12 @@ export function JobCard(props: {
   onToggleExpand?: () => void;
   /** Top matches adds the score panel; Explore renders the same card without it. */
   showMatchPanel?: boolean;
+  /** Scoring is running and this job is not scored yet. */
+  pending?: boolean;
 }) {
-  const { showMatchPanel, ...body } = props;
+  const { showMatchPanel, pending, ...body } = props;
+  const reqs = props.assessment?.requirements ?? [];
+  const count = (m: string) => reqs.filter((r) => r.match === m).length;
   const presentation = matchPresentation(props.assessment);
 
   if (!showMatchPanel) {
@@ -330,6 +397,16 @@ export function JobCard(props: {
           <>
             <MatchRing percent={presentation.matchPercent} id={props.job.id} />
             <h3>{presentation.band.toUpperCase()} MATCH</h3>
+            {reqs.length > 0 && (
+              <p
+                className="hc-ev-tally"
+                aria-label={`${count("strong")} met, ${count("partial")} partly met, ${count("missing")} missing`}
+              >
+                <span>✓ {count("strong")}</span>
+                <span>◐ {count("partial")}</span>
+                <span>✕ {count("missing")}</span>
+              </p>
+            )}
             {/*
               The reference's panel lists two SHORT reasons ("B2B SaaS
               experience"). `requirements[].requirement` is that shape already
@@ -342,8 +419,8 @@ export function JobCard(props: {
               {(props.assessment?.requirements ?? [])
                 .filter((r) => r.match === "strong")
                 .slice(0, 2)
-                .map(({ requirement: reason }) => (
-                <li key={reason}>
+                .map(({ requirement: reason }, i) => (
+                <li key={`${reason}-${i}`}>
                   <svg
                     viewBox="0 0 20 20"
                     fill="none"
@@ -360,7 +437,9 @@ export function JobCard(props: {
           </>
         ) : (
           /* No ring at all for an unscored job. */
-          <span className="hc-tag">{NOT_SCORED_LABEL}</span>
+          <span className={`hc-tag${pending ? " hc-ev-pending" : ""}`}>
+            {pending ? "Reading the job…" : NOT_SCORED_LABEL}
+          </span>
         )}
       </aside>
     </article>

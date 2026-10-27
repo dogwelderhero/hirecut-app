@@ -130,6 +130,7 @@ test("canonical hashes preserve the historical numbering", () => {
     refine: "state-3",
     explore: "state-5",
     matches: "state-7",
+    improve: "state-18",
     bulk_apply: "state-9",
     checkout: "state-11",
   });

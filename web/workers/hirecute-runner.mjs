@@ -86,54 +86,40 @@ async function main() {
 
   diag({ started: { runId: RUN_ID, dataRoot: DATA_ROOT } });
 
-  // ── Stages 1 + 2: refine and explore, IN PARALLEL ───────────────────────
-  // The search needs only the seed read from the resume, so it starts the
-  // moment the resume is parsed — while recommendations are still being
-  // written and while the visitor reviews them. Both share one screen.
+  // The journey is four visible steps, run in order so each step's actions
+  // and results belong to it:
+  //   1. refine  — read the resume into sections (no suggestions yet)
+  //   2. explore + match — find jobs, score them, quote proof and gaps
+  //   3. improve — resume changes built from those gaps
+  //   4. recruiters — front-end only; no backend work
   const { runRefineStage } = await import("./stages/refine.mjs");
-  const { runExploreStage } = await import("./stages/explore.mjs");
-
-  let exploring = null;
-  const startExplore = (searchSeed) => {
-    exploring ??= runExploreStage({
-      emit,
-      diag,
-      runDir: DATA_ROOT,
-      codeRoot: CODE_ROOT,
-      searchSeed,
-      preferences: {},
-    });
-    return exploring;
-  };
-
   const refined = await runRefineStage({
     emit,
     diag,
     runDir: DATA_ROOT,
     codeRoot: CODE_ROOT,
     env: utilityEnv(),
-    onParsed: startExplore,
   });
-
-  // An inline stage failure is terminal for this attempt; the visitor retries
-  // that stage in place rather than the whole journey. A search already under
-  // way is allowed to finish, so its results are not cut off mid-write.
   if (!refined.ok) {
-    if (exploring) await exploring;
     diag({ stopped: "refine stage failed" });
     return;
   }
 
-  const explored = await startExplore(refined.searchSeed);
-
+  const { runExploreStage } = await import("./stages/explore.mjs");
+  const explored = await runExploreStage({
+    emit,
+    diag,
+    runDir: DATA_ROOT,
+    codeRoot: CODE_ROOT,
+    searchSeed: refined.searchSeed,
+    preferences: {},
+  });
   if (!explored.ok) {
-    // An empty or failed search stays on the review screen with a scoped
-    // retry; it does not advance to a pretend shortlist.
+    // An empty or failed search stays on the jobs screen with a scoped retry.
     diag({ stopped: "explore stage produced no usable result" });
     return;
   }
 
-  // ── Stage 3: match. REAL (milestone 5). ────────────────────────────────
   const { runMatchStage } = await import("./stages/match.mjs");
   const matched = await runMatchStage({
     emit,
@@ -144,40 +130,29 @@ async function main() {
     sourceFactsPath: refined.sourceFactsPath,
     sourceResumeHash: refined.sourceResumeHash,
   });
-
   if (!matched.ok) {
-    // An unscorable shortlist stays in Top Matches with a scoped retry. The
-    // discovered roles remain real, visible and openable.
     diag({ stopped: "match stage produced no usable assessment" });
     return;
   }
 
-  // ── Stage 4: prepare. REAL (milestone 6). ──────────────────────────────
-  const { runPrepareStage } = await import("./stages/prepare.mjs");
-  const preparedResult = await runPrepareStage({
+  const { runImproveStage } = await import("./stages/improve.mjs");
+  const improved = await runImproveStage({
     emit,
     diag,
     runDir: DATA_ROOT,
     codeRoot: CODE_ROOT,
-    utilityEnv: utilityEnv(),
+    resume: refined.resume,
     jobs: explored.jobs,
     assessments: matched.assessments,
-    ranked: matched.ranked,
-    resume: refined.resume,
-    recommendations: refined.recommendations,
     sourceFactsPath: refined.sourceFactsPath,
-    sourceResumeHash: refined.sourceResumeHash,
   });
-
-  if (!preparedResult.ok) {
-    // Bulk Apply stays mounted with its real matches and a scoped retry.
-    diag({ stopped: "prepare stage produced no usable package" });
+  if (!improved.ok) {
+    diag({ stopped: "improve stage failed" });
     return;
   }
 
-  // Preparation genuinely finished, so `run.done` is now the truth rather than
-  // a claim. It means `preparation_complete` and nothing more: no card has been
-  // saved, no application has been sent, and no letter has left this machine.
+  // Every agent step genuinely finished, so `run.done` is now the truth rather
+  // than a claim. Nothing has been sent or charged.
   send({ kind: "done" });
 }
 

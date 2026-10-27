@@ -43,6 +43,8 @@ export interface ResumeRecommendation {
   /** Exact text already in the section; "" only to fill an empty summary/target title. */
   before: string;
   after: string;
+  /** Gap IDs (from the job matching step) this change answers; absent for general edits. */
+  gapIds?: string[];
 }
 
 export const RESUME_SECTIONS: ReadonlyArray<{ key: ResumeSectionKey; label: string }>;

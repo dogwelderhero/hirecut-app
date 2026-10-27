@@ -250,6 +250,81 @@ export function resumeRecommendationUser(resumeJson) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Step 3 — suggestions built from the gaps the job matching found
+// ─────────────────────────────────────────────────────────────────────────────
+
+export async function improveSystem(codeRoot) {
+  const ingest = await readMode(codeRoot, "modes/cv-ingest.md");
+  const slop = await antiSlop(codeRoot);
+  return [
+    "You improve a person's resume so it answers what their best-matching jobs ask for. The person reviews each change and applies it or not.",
+    FACTUAL_STANDARD,
+    CV_REGISTER,
+    ingest ? `CAREER-OPS INGEST MODE (authoritative format):\n${ingest.slice(0, 8000)}` : null,
+    slop,
+    `WHAT YOU ARE GIVEN:
+- The structured resume.
+- GAPS: requirements that one or more matched jobs ask for, each with the exact
+  line from the posting, and the resume line that partly shows it (if any).
+
+HOW A CHANGE WORKS:
+- Each change rewrites ONE piece of text in ONE section. \`before\` is copied
+  EXACTLY from that section of the structured resume. \`after\` replaces it.
+- \`before\` may be "" only for an empty summary or target title.
+- A change may only SURFACE what the resume already shows: reword a bullet so
+  the relevant experience is visible, use the posting's term for something the
+  person demonstrably did, move the strongest proof forward in the summary.
+- If the resume has no proof for a gap, DO NOT write a change for it. It stays
+  a gap; a recruiter will discuss it with the person. Inventing experience to
+  close a gap is the worst possible output.
+- \`gapIds\` lists the gap IDs the change answers. Every change answers at
+  least one gap.
+- Never add a new job, degree, award, project, publication, tool or skill.
+  Never change a name, employer, title, date or number.
+- Fewer, better changes. Each must make sense applied alone.`,
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+}
+
+export const IMPROVE_SCHEMA = {
+  type: "object",
+  properties: {
+    recommendations: {
+      type: "array",
+      description: "At most 10. An empty list is correct when the resume has no proof to surface.",
+      items: {
+        type: "object",
+        properties: {
+          section: { ...RESUME_RECOMMENDATIONS_SCHEMA.properties.recommendations.items.properties.section },
+          kind: { type: "string", enum: ["clarity", "structure", "formatting", "relevance"] },
+          label: { type: "string", description: "Button text, 2-6 words, e.g. 'Show your SQL work'." },
+          explanation: {
+            type: "string",
+            description: "One sentence: which jobs ask for it and what in the resume proves it.",
+          },
+          before: { type: "string", description: "Exact text currently in that section, or \"\" (see rules)." },
+          after: { type: "string", description: "The replacement text." },
+          gapIds: { type: "array", items: { type: "string" }, description: "IDs of the gaps this answers." },
+        },
+        required: ["section", "kind", "label", "explanation", "before", "after", "gapIds"],
+      },
+    },
+  },
+  required: ["recommendations"],
+};
+
+export function improveUser({ resumeJson, gapsJson }) {
+  return [
+    "Write changes that answer these gaps using only what the resume already shows. Quote `before` exactly.",
+    "",
+    resumeJson,
+    "",
+    gapsJson,
+  ].join("\n");
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Milestone 5 — evidence-backed matching
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -305,6 +380,11 @@ const MATCH_DISCIPLINE = `EVIDENCE RULES:
 - Every strength must quote or paraphrase something actually present in BOTH the
   resume and the posting. A strength with no evidence is not a strength.
 - Gaps are what the posting asks for and the resume does not evidence.
+- QUOTES ARE CHECKED BY CODE. For every requirement, \`jobQuote\` must be copied
+  character-for-character from the job description, and \`resumeQuote\` from the
+  resume facts. A quote that is not found verbatim is thrown away; a "strong"
+  match without a verbatim resume quote is downgraded to "partial". Never
+  paraphrase inside a quote. Quote one line or phrase (8-300 characters).
 - If the job description is missing or unusable, say so by returning
   scorable: false. Do NOT score a posting you could not read.
 - Never invent a salary, headcount, funding stage, applicant count or team size.`;
@@ -396,15 +476,27 @@ export const MATCH_SCHEMA = {
     },
     requirements: {
       type: "array",
-      maxItems: 8,
+      maxItems: 10,
+      description:
+        "The posting's real requirements, most important first. Each one is shown to the candidate with both quotes.",
       items: {
         type: "object",
         properties: {
-          requirement: { type: "string" },
+          requirement: { type: "string", description: "Short name, 2-8 words, e.g. 'B2B payments experience'." },
+          importance: { type: "string", enum: ["must_have", "nice_to_have"] },
           match: { type: "string", enum: ["strong", "partial", "missing", "not_applicable"] },
-          explanation: { type: "string" },
+          jobQuote: {
+            type: "string",
+            description: "Copied VERBATIM from the job description: the line that asks for this.",
+          },
+          resumeQuote: {
+            type: "string",
+            description:
+              "Copied VERBATIM from the resume facts: the line that shows it. Empty string when the resume does not show it.",
+          },
+          explanation: { type: "string", description: "One sentence: how the resume line meets, partly meets, or misses it." },
         },
-        required: ["requirement", "match", "explanation"],
+        required: ["requirement", "importance", "match", "jobQuote", "resumeQuote", "explanation"],
       },
     },
     blockers: {

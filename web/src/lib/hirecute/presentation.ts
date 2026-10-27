@@ -11,11 +11,10 @@
  *    their conversation receipt over 780ms. explore has no screen of its own
  *    (its roles stream in beside the resume review), so its result is
  *    presented on arrival.
- *  - refine is GATED: its result stays on screen until the visitor presses
- *    "Accept changes". The dwell clock does not move it on by itself. Later
- *    results wait in the queue meanwhile; backend work is unaffected.
- *  - `prepare` never dwells, never packs, never navigates away. Bulk Apply
- *    stays mounted (brief: "Bulk Apply does not pack away or advance").
+ *  - No stage is gated: the journey never waits for a click to move on.
+ *  - `improve` (step 3, shared with the recruiters of step 4) never dwells,
+ *    never packs, never navigates away: it is where the visitor reviews and
+ *    acts. `prepare` behaves the same for stored runs.
  *  - Hidden tab pauses the dwell; backend work continues. Elapsed foreground
  *    time is what counts, so a backgrounded tab cannot skip a result.
  *  - Reduced motion keeps the readable dwell and drops the spatial travel.
@@ -40,7 +39,7 @@ export function stagePacks(stage: StageId): boolean {
 }
 
 /** Stages whose result waits for an explicit accept instead of the dwell timer. */
-export const GATED_STAGES: readonly StageId[] = ["refine"] as const;
+export const GATED_STAGES: readonly StageId[] = [] as const;
 
 export function stageIsGated(stage: StageId): boolean {
   return GATED_STAGES.includes(stage);

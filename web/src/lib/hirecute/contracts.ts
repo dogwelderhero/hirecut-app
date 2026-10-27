@@ -39,8 +39,12 @@ export type Version = number; // Runtime: positive integer; server increments on
 export type Sequence = number; // Runtime: nonnegative integer, monotonic within one run.
 export type HttpsUrl = string; // Runtime: approved HTTPS URL, no arbitrary server fetch.
 
-export type StageId = "refine" | "explore" | "match" | "prepare";
-export type ScreenId = "upload" | "refine" | "explore" | "matches" | "bulk_apply" | "checkout";
+/**
+ * `improve` is the gap-based resume step (step 3). `prepare` (bulk apply) is no
+ * longer run by the journey; it stays in the union so stored runs still load.
+ */
+export type StageId = "refine" | "explore" | "match" | "improve" | "prepare";
+export type ScreenId = "upload" | "refine" | "explore" | "matches" | "improve" | "bulk_apply" | "checkout";
 export type LaunchProfile = "activation_pilot" | "auto_apply_pilot";
 export type RunOrigin = "uploaded_resume" | "pasted_resume" | "sample";
 
@@ -222,6 +226,12 @@ export interface MatchEvidence {
   candidateFactIds: FactId[];
   match: RequirementMatch;
   explanation: string;
+  /** Must-have or nice-to-have, as the posting frames it. */
+  importance?: "must_have" | "nice_to_have";
+  /** Verbatim line from the posting — verified present before it is stored. */
+  jobQuote?: string | null;
+  /** Verbatim line from the resume — verified present; null when absent or unverifiable. */
+  resumeQuote?: string | null;
 }
 
 export interface EligibilityBlocker {
@@ -452,7 +462,25 @@ export interface StageResultMap {
   };
   explore: { kind: "explore"; jobIds: JobId[]; coverage: SearchCoverage };
   match: { kind: "match"; assessments: MatchAssessment[]; rankedJobIds: JobId[] };
+  improve: {
+    kind: "improve";
+    /** Each applies to the resume as read, passed the fact check, and names the gaps it answers. */
+    recommendations: ResumeRecommendation[];
+    /** Gaps across the scored jobs, with the posting lines that ask for them. */
+    gaps: ResumeGap[];
+    /** False when the suggestion pass failed; the gaps still show. */
+    recommendationsAvailable: boolean;
+  };
   prepare: { kind: "prepare"; preparedJobIds: JobId[]; blockedJobIds: JobId[]; failedJobIds: JobId[] };
+}
+
+/** One requirement several jobs ask for and the resume does not (fully) show. */
+export interface ResumeGap {
+  id: string;
+  requirement: string;
+  importance: "must_have" | "nice_to_have";
+  match: "partial" | "missing";
+  jobs: Array<{ jobId: JobId; title: string; company: string; jobQuote: string; resumeQuote: string | null }>;
 }
 export type StageResult = StageResultMap[StageId];
 
@@ -629,7 +657,7 @@ export interface EventPayloadMap {
   "billing.updated": { billing: BillingPublicState };
   "credits.granted": { grant: PromotionalCreditGrant; entitlement: PilotEntitlement };
   "submission.updated": { jobId: JobId; state: SubmissionState };
-  "run.done": { outcome: "preparation_complete"; resultStage: "prepare" };
+  "run.done": { outcome: "preparation_complete"; resultStage: "improve" | "prepare" };
   "run.error": { error: PublicError; lastCompletedStage: StageId | null };
   "run.interrupted": { stage: StageId; canRetry: true };
   "run.cancelled": { reason: "candidate_deleted_run" };

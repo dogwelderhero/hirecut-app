@@ -188,7 +188,7 @@ async function handleMessage(runId: string, message: WorkerMessage): Promise<voi
       }));
       await appendEvent(runId, "run.done", {
         outcome: "preparation_complete",
-        resultStage: "prepare",
+        resultStage: "improve",
       });
       return;
 

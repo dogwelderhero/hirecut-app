@@ -39,6 +39,7 @@ import {
   type ResumeRecommendation,
   type ResumeSectionKey,
 } from "@/lib/hirecute/resume.mjs";
+import type { ResumeGap } from "@/lib/hirecute/contracts";
 
 const KIND_LABEL: Record<ResumeRecommendation["kind"], string> = {
   clarity: "Clarity",
@@ -85,7 +86,7 @@ function wordDiff(before: string, after: string): DiffPart[] {
  * not: word-by-word it interleaves into noise, so it shows as old line → new
  * line instead.
  */
-function Diff({ before, after }: { before: string; after: string }) {
+export function Diff({ before, after }: { before: string; after: string }) {
   if (!before) {
     return (
       <p className="hc-rz-diff">
@@ -191,6 +192,11 @@ export function ResumeReview({
   locked,
   onToggleRecommendation,
   onToggleItem,
+  gaps = [],
+  phase = "review",
+  skippedIds,
+  onSkip,
+  hideApplyAll = false,
 }: {
   /**
    * The resume as read, or null while it is still being read. Null renders the
@@ -207,13 +213,25 @@ export function ResumeReview({
   locked: boolean;
   onToggleRecommendation: (id: string) => void;
   onToggleItem: (path: string) => void;
+  /** Gaps from the job matching; a suggestion that answers one shows its evidence. */
+  gaps?: ResumeGap[];
+  /** "read": step 1, the resume as read, no suggestions yet. "review": step 3. */
+  phase?: "read" | "review";
+  /** Controlled skips, when the parent needs them (step 3 moves on once all are decided). */
+  skippedIds?: string[];
+  onSkip?: (id: string, skipped: boolean) => void;
+  /** Step 3's side panel owns "Apply all"; don't show it twice. */
+  hideApplyAll?: boolean;
 }) {
   /** Sections the visitor flipped from their default (content open, empty closed). */
   const [flipped, setFlipped] = useState<Set<ResumeSectionKey>>(() => new Set());
-  const [skipped, setSkipped] = useState<Set<string>>(() => new Set());
+  const [localSkipped, setLocalSkipped] = useState<Set<string>>(() => new Set());
+  const skipped = skippedIds ? new Set(skippedIds) : localSkipped;
   const paperRef = useRef<HTMLElement>(null);
 
   const loading = resume === null;
+  const reading = phase === "read";
+  const gapById = new Map(gaps.map((g) => [g.id, g]));
   const recs = recommendations ?? [];
   const shown = resume ? applyRecommendations(resume, recs, appliedIds) : null;
   const applied = new Set(appliedIds);
@@ -233,13 +251,15 @@ export function ResumeReview({
       return next;
     });
 
-  const skip = (id: string, on: boolean) =>
-    setSkipped((prev) => {
+  const skip = (id: string, on: boolean) => {
+    if (onSkip) return onSkip(id, on);
+    setLocalSkipped((prev) => {
       const next = new Set(prev);
       if (on) next.add(id);
       else next.delete(id);
       return next;
     });
+  };
 
   const jumpToNext = () => {
     const card = paperRef.current?.querySelector<HTMLElement>(".hc-rz-card.is-waiting");
@@ -296,6 +316,23 @@ export function ResumeReview({
         </div>
         <Diff before={rec.before} after={rec.after} />
         <p className="hc-rz-why">{rec.explanation}</p>
+        {(rec.gapIds ?? []).map((gid) => {
+          const gap = gapById.get(gid);
+          if (!gap) return null;
+          const first = gap.jobs[0];
+          return (
+            <div key={gid} className="hc-rz-evidence">
+              <span className="hc-label">
+                Answers “{gap.requirement}” · asked by {gap.jobs.length} job{gap.jobs.length === 1 ? "" : "s"}
+              </span>
+              {first && (
+                <p>
+                  <span>{first.company || "Job"}</span>“{first.jobQuote}”
+                </p>
+              )}
+            </div>
+          );
+        })}
         {!locked && (
           <div className="hc-rz-card-actions">
             <button type="button" className="hc-button hc-rz-btn" onClick={() => onToggleRecommendation(rec.id)}>
@@ -362,7 +399,11 @@ export function ResumeReview({
       <header className="hc-panel-head hc-rz-head">
         <div className="hc-rz-head-row">
           <span className="hc-label">YOUR RESUME</span>
-          {loading || recommendations === null ? (
+          {reading && !loading ? (
+            <span className="hc-tag hc-rz-status">
+              <strong>✓</strong>&nbsp;Read · {RESUME_SECTIONS.filter((x) => shown && !isSectionEmpty(shown, x.key)).length} sections found
+            </span>
+          ) : loading || recommendations === null ? (
             <span className="hc-tag hc-rz-status">
               <i className="hc-rz-pulse" aria-hidden="true" />
               {loading ? "Reading your resume…" : "Your agent is finding improvements…"}
@@ -375,7 +416,7 @@ export function ResumeReview({
             <span className="hc-tag hc-rz-status">No changes suggested</span>
           )}
         </div>
-        {!loading && recs.length > 0 && (
+        {!loading && !reading && recs.length > 0 && (
           <>
             <div className="hc-rz-meter" aria-hidden="true">
               {recs.map((r) => (
@@ -387,7 +428,7 @@ export function ResumeReview({
             </div>
             {!locked && (
               <div className="hc-rz-toolbar">
-                {waiting.length > 0 && (
+                {waiting.length > 0 && !hideApplyAll && (
                   <button
                     type="button"
                     className="hc-pill hc-rz-tool is-primary"
@@ -444,7 +485,9 @@ export function ResumeReview({
           const { byPath, sectionLevel } = placeRecs(nodes, sectionRecs, applied);
           const pending = sectionRecs.filter((r) => !applied.has(r.id) && !skipped.has(r.id) && applicable(r)).length;
           const done = sectionRecs.filter((r) => applied.has(r.id)).length;
-          const openByDefault = !empty || sectionRecs.length > 0;
+          // Step 1 maps the structure only: every block closed, with its count.
+          // The resume itself is shown first in step 3, with the changes.
+          const openByDefault = !reading && (!empty || sectionRecs.length > 0);
           const isOpen = flipped.has(key) ? !openByDefault : openByDefault;
           const total = flatten(nodes).filter((n) => !n.children).length || nodes.length;
           return (

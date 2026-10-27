@@ -19,17 +19,24 @@ export const SCREEN_ORDER: readonly ScreenId[] = [
   "upload",
   "refine",
   "matches",
-  "bulk_apply",
+  "improve",
   "checkout",
 ] as const;
 
 /** The four agent stages, in order. `checkout` and `upload` are not stages. */
-export const STAGE_ORDER: readonly StageId[] = ["refine", "explore", "match", "prepare"] as const;
+/**
+ * The journey's stages, in order: read the resume (1), find jobs and score
+ * them with gaps (2), improve the resume from those gaps (3). Step 4, the
+ * recruiters, is not backend work and shares the improve screen. `prepare`
+ * (bulk apply) is no longer run but stays so stored runs still render.
+ */
+export const STAGE_ORDER: readonly StageId[] = ["refine", "explore", "match", "improve", "prepare"] as const;
 
 const STAGE_TO_SCREEN: Record<StageId, ScreenId> = {
   refine: "refine",
-  explore: "refine",
+  explore: "matches",
   match: "matches",
+  improve: "improve",
   prepare: "bulk_apply",
 };
 
@@ -43,6 +50,7 @@ export const SCREEN_HASH: Record<ScreenId, string> = {
   refine: "state-3",
   explore: "state-5",
   matches: "state-7",
+  improve: "state-18",
   bulk_apply: "state-9",
   checkout: "state-11",
 };
@@ -84,6 +92,7 @@ const HASH_TABLE: Record<string, HashResolution> = {
   "state-15": { screen: "upload", requiresRun: false },
   "state-16": { screen: "refine", requiresRun: true },
   "state-17": { screen: "checkout", requiresRun: true },
+  "state-18": { screen: "improve", requiresRun: true },
 };
 
 /**

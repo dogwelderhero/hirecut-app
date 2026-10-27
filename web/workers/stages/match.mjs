@@ -23,6 +23,7 @@ import { ModelError, requestStructured, untrusted } from "../../src/lib/hirecute
 import { MATCH_SCHEMA, matchSystem, matchUser } from "../../src/lib/hirecute/prompts.mjs";
 import { ACTION_LABELS, rankingActionLabel } from "../../src/lib/hirecute/action-labels.mjs";
 import { LIMITS } from "../../src/lib/hirecute/limits.mjs";
+import { checkRequirement } from "../../src/lib/hirecute/evidence.mjs";
 
 const sha256 = (s) => `sha256:${createHash("sha256").update(s).digest("hex")}`;
 
@@ -126,7 +127,9 @@ export async function runMatchStage(ctx) {
     return { ok: false };
   }
 
-  const resumeFacts = untrusted("RESUME FACTS", await readFile(sourceFactsPath, "utf8"));
+  // Kept raw as well: every quote the model returns is checked against it.
+  const resumeFactsText = await readFile(sourceFactsPath, "utf8");
+  const resumeFacts = untrusted("RESUME FACTS", resumeFactsText);
   const system = await matchSystem(codeRoot);
 
   // ── Action 2: location/salary where evidence exists ───────────────────
@@ -160,7 +163,7 @@ export async function runMatchStage(ctx) {
           }),
           schema: MATCH_SCHEMA,
           schemaName: "emit_match_assessment",
-          maxTokens: 2048,
+          maxTokens: 3072,
         });
         const data = response.data;
 
@@ -209,18 +212,13 @@ export async function runMatchStage(ctx) {
           gaps: (Array.isArray(data.gaps) ? data.gaps : [])
             .filter((s) => typeof s === "string" && s.trim())
             .slice(0, 4),
+          // Quotes are checked against the real texts: a requirement we cannot
+          // point to in the posting is dropped, and a "strong" match without a
+          // verbatim resume line is downgraded to "partial".
           requirements: (Array.isArray(data.requirements) ? data.requirements : [])
-            .filter((r) => r && typeof r.requirement === "string")
-            .slice(0, 8)
-            .map((r) => ({
-              requirement: r.requirement,
-              jobEvidenceIds: [],
-              candidateFactIds: [],
-              match: ["strong", "partial", "missing", "not_applicable"].includes(r.match)
-                ? r.match
-                : "partial",
-              explanation: String(r.explanation ?? ""),
-            })),
+            .slice(0, 10)
+            .map((r) => checkRequirement(r, { jobText: jd, resumeText: resumeFactsText }))
+            .filter(Boolean),
           blockers: (Array.isArray(data.blockers) ? data.blockers : [])
             .filter((b) => b && typeof b.description === "string")
             .slice(0, 4)
@@ -246,6 +244,9 @@ export async function runMatchStage(ctx) {
           schemaVersion: 1,
           completedAt: new Date().toISOString(),
         };
+
+        const asked = Array.isArray(data.requirements) ? data.requirements.length : 0;
+        diag({ evidence: { jobId: job.id, asked, kept: assessment.requirements.length } });
 
         assessments.push(assessment);
         // Cards gain their score panel as each evaluation completes.

@@ -139,6 +139,7 @@ export async function createRun(opts: CreateRunOptions): Promise<CreateRunOutcom
       refine: emptyStage("refine"),
       explore: emptyStage("explore"),
       match: emptyStage("match"),
+      improve: emptyStage("improve"),
       prepare: emptyStage("prepare"),
     },
     evidence: [],

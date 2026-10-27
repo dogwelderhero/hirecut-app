@@ -15,30 +15,37 @@
 import { Fragment } from "react";
 import type { StageId, StageState } from "@/lib/hirecute/contracts";
 /**
- * Visible steps. Finetune and Explore run in parallel on one screen, so they
- * are one step: done when both are, failed if either is.
+ * Visible steps. Finding and scoring jobs are one step (2). Step 4, the
+ * recruiters, has no backend stage: it is active once step 3 is done.
  */
 const STEPS: ReadonlyArray<{ stages: StageId[]; title: string }> = [
-  { stages: ["refine", "explore"], title: "Resume & jobs" },
-  { stages: ["match"], title: "Top matching jobs" },
-  { stages: ["prepare"], title: "Bulk Apply" },
+  { stages: ["refine"], title: "Reading your resume" },
+  { stages: ["explore", "match"], title: "Finding jobs & gaps" },
+  { stages: ["improve"], title: "Improving your resume" },
+  { stages: [], title: "Talk to a recruiter" },
 ];
 
 export function StageProgress({
   stages,
   visible,
+  recruiterActive = false,
 }: {
   stages: Record<StageId, StageState | null>;
   /** The stage the visitor is looking at — may lag the worker during a dwell. */
   visible: StageId | null;
+  /** Step 4 is on: the recruiters are showing. */
+  recruiterActive?: boolean;
 }) {
   return (
     <nav className="hc-stepper" aria-label="Progress">
       {STEPS.map((step, i) => {
+        const isRecruiterStep = step.stages.length === 0;
         const statuses = step.stages.map((s) => stages[s]?.status ?? "pending");
-        const done = statuses.every((s) => s === "completed");
+        const done = !isRecruiterStep && statuses.every((s) => s === "completed");
         const failed = statuses.some((s) => s === "failed" || s === "interrupted");
-        const active = visible !== null && step.stages.includes(visible);
+        const active = isRecruiterStep
+          ? recruiterActive
+          : !recruiterActive && visible !== null && step.stages.includes(visible);
         const state = [
           active ? "is-active" : "",
           done ? "is-done" : "",

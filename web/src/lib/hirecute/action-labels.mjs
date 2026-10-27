@@ -9,10 +9,13 @@
 
 export const ACTION_LABELS = {
   refine: [
-    "Reading your resume",
-    "Extracting your experience and skills",
-    "Refining your summary and bullet points",
+    "Opening your file",
+    "Reading the text in your resume",
+    "Mapping every section and role",
+    "Checking every detail against your file",
+    "Noting which sections are missing",
     "Checking formatting and readability",
+    "Building a clean copy of your resume",
   ],
   explore: [
     "Building a search from your experience",
@@ -21,11 +24,17 @@ export const ACTION_LABELS = {
     "Saving relevant openings",
   ],
   match: [
-    "Comparing skills and seniority",
+    "Reading each job description",
     "Checking location and salary fit where evidence exists",
-    "Finding evidence for each match",
+    "Quoting the proof and the gaps for each job",
     // Suffixed with the real shortlist count by rankingActionLabel().
     "Ranking your top roles",
+  ],
+  improve: [
+    "Collecting gaps from your top jobs",
+    "Finding proof in your experience",
+    "Writing changes for each gap",
+    "Checking every change against your resume",
   ],
   prepare: [
     "Matching evidence to roles",

@@ -1,17 +1,16 @@
 /**
  * Stage 1 — Finetune Resume. Real work.
  *
- * 02-screen-guide.md §4 maps four visible actions onto four completion
- * conditions, and this file exists to honour them exactly: each action is
- * marked complete only when its condition actually holds.
+ * Seven visible actions, each marked complete only when its work holds:
  *
- *   Reading your resume                      → extraction produced usable text
- *   Extracting your experience and skills    → resume read into sections, verbatim,
- *                                              fact-checked, published (resume.parsed)
- *   Refining your summary and bullet points  → per-section recommendations, each
- *                                              shown to apply and fact-checked
- *   Checking formatting and readability      → base payload validates, CV built
- *                                              (HTML only while PDF is disabled)
+ *   Opening your file                       → the stored original was found
+ *   Reading the text in your resume         → extraction produced usable text,
+ *                                             written verbatim as the fact source
+ *   Mapping every section and role          → model read it into sections, validated
+ *   Checking every detail against your file → fact check ran; resume published
+ *   Noting which sections are missing       → empty sections recorded
+ *   Checking formatting and readability     → payload validates against the CV contract
+ *   Building a clean copy of your resume    → base CV document rendered
  *
  * Ordering rule from §2: "A validated result is written to the server store
  * before its result event." So artifacts land on disk, then `stage.result` is
@@ -26,16 +25,12 @@ import { extractResumeText, extractionMessage } from "../../src/lib/hirecute/ext
 import { ModelError, requestStructured, untrusted } from "../../src/lib/hirecute/model.mjs";
 import {
   RESUME_PARSE_SCHEMA,
-  RESUME_RECOMMENDATIONS_SCHEMA,
   resumeParseSystem,
   resumeParseUser,
-  resumeRecommendationSystem,
-  resumeRecommendationUser,
 } from "../../src/lib/hirecute/prompts.mjs";
 import { buildCvDocument, checkFacts, sourceFactsMarkdown } from "../../src/lib/hirecute/documents.mjs";
 import {
   SECTION_KEYS,
-  applyRecommendation,
   isSectionEmpty,
   normalizeResume,
   resumeText,
@@ -84,8 +79,13 @@ export async function runRefineStage(ctx) {
 
   emit("stage.started", { stage: "refine", inputVersion: 1, attempt: 1 }, "refine");
 
-  // ── Action 1: read the resume ──────────────────────────────────────────
-  emit("action.started", { action: actionRecord(0, labels[0]) }, "refine");
+  // Each action starts when its work starts and completes only when that work
+  // has actually finished — never on a timer.
+  const start = (i) => emit("action.started", { action: actionRecord(i, labels[i]) }, "refine");
+  const complete = (i) => emit("action.completed", { stage: "refine", actionId: `refine-${i}` }, "refine");
+
+  // ── Action 1: open the stored original ─────────────────────────────────
+  start(0);
 
   const originalPath = await findOriginal(runDir);
   if (!originalPath) {
@@ -102,6 +102,10 @@ export async function runRefineStage(ctx) {
     return { ok: false };
   }
 
+  complete(0);
+
+  // ── Action 2: pull the text out of the file ────────────────────────────
+  start(1);
   const bytes = await readFile(originalPath);
   const extracted = await extractResumeText(bytes);
   if (!extracted.ok) {
@@ -109,7 +113,7 @@ export async function runRefineStage(ctx) {
     // could not be read, allow replacement." The original stays on disk.
     diag({ extraction: { reason: extracted.reason, detail: extracted.detail } });
     const error = publicError("unreadable_resume", extractionMessage(extracted.reason), true);
-    emit("action.error", { stage: "refine", actionId: "refine-0", error }, "refine");
+    emit("action.error", { stage: "refine", actionId: "refine-1", error }, "refine");
     emit("stage.error", { stage: "refine", inputVersion: 1, error }, "refine");
     return { ok: false };
   }
@@ -122,10 +126,10 @@ export async function runRefineStage(ctx) {
   const sourceResumeHash = sha256(extracted.text);
 
   diag({ extraction: { chars: extracted.text.length, pages: extracted.pages, truncated: extracted.truncated } });
-  emit("action.completed", { stage: "refine", actionId: "refine-0" }, "refine");
+  complete(1);
 
-  // ── Action 2: read the resume into sections (no rewriting) ─────────────
-  emit("action.started", { action: actionRecord(1, labels[1]) }, "refine");
+  // ── Action 3: read the resume into sections (no rewriting) ─────────────
+  start(2);
 
   /** One structured call. Returns `{data}` or `{error}` (public) — never throws. */
   async function call(opts) {
@@ -154,7 +158,7 @@ export async function runRefineStage(ctx) {
     maxTokens: 8192,
   });
   if (parsed.error) {
-    emit("action.error", { stage: "refine", actionId: "refine-1", error: parsed.error }, "refine");
+    emit("action.error", { stage: "refine", actionId: "refine-2", error: parsed.error }, "refine");
     // §4: "Model/validation failure: show original and retry." The original is untouched.
     emit("stage.error", { stage: "refine", inputVersion: 1, error: parsed.error }, "refine");
     return { ok: false };
@@ -176,69 +180,35 @@ export async function runRefineStage(ctx) {
       "That document does not look like a resume we can work from. Upload a different file, or paste your resume text.",
       true,
     );
-    emit("action.error", { stage: "refine", actionId: "refine-1", error }, "refine");
+    emit("action.error", { stage: "refine", actionId: "refine-2", error }, "refine");
     emit("stage.error", { stage: "refine", inputVersion: 1, error }, "refine");
     return { ok: false };
   }
+  complete(2);
 
+  // ── Action 4: check the sections against the verbatim file ─────────────
   // The sectioned resume should restate the source. The checker flags any
   // metric or fact it cannot trace — shown to the visitor, not a gate.
+  start(3);
   const facts = await checkFacts({ codeRoot, runDir, text: resumeText(resume), sourcePath: sourceFactsPath });
   diag({ factCheck: { target: "parsed_resume", ran: facts.ran, verdict: facts.verdict, flags: facts.flags, detail: facts.detail } });
-
-  // Show the resume now; recommendations follow when they are ready. The
-  // runner starts the job search from this seed in parallel.
+  // The resume can be shown now: it is read and checked.
   emit("resume.parsed", { resume }, "refine");
   onParsed?.(parseData.searchSeed ?? {});
-  emit("action.completed", { stage: "refine", actionId: "refine-1" }, "refine");
+  complete(3);
 
-  // ── Action 3: recommendations, one section at a time ───────────────────
-  emit("action.started", { action: actionRecord(2, labels[2]) }, "refine");
+  // ── Action 5: note which sections the resume does not have ────────────
+  start(4);
+  diag({ missingSections: SECTION_KEYS.filter((k) => isSectionEmpty(resume, k)) });
+  complete(4);
 
-  const suggested = await call({
-    system: await resumeRecommendationSystem(codeRoot),
-    user: resumeRecommendationUser(untrusted("STRUCTURED RESUME", JSON.stringify(resume, null, 2))),
-    schema: RESUME_RECOMMENDATIONS_SCHEMA,
-    schemaName: "emit_resume_recommendations",
-    maxTokens: 4096,
-  });
-  // A failed suggestion pass is not a failed resume: the visitor still has
-  // their content to review and accept, and the UI says suggestions are missing.
-  const recommendationsAvailable = !suggested.error;
-
+  // Suggestions are no longer written here. They come in step 3, built from
+  // the gaps the job matching finds, so every change answers a real posting.
   const recommendations = [];
-  const seen = new Set();
-  for (const raw of suggested.data?.recommendations ?? []) {
-    if (recommendations.length >= 12) break;
-    const rec = {
-      id: `rec-${recommendations.length + 1}`,
-      section: String(raw?.section ?? ""),
-      kind: ["clarity", "structure", "formatting", "relevance"].includes(raw?.kind) ? raw.kind : "clarity",
-      label: String(raw?.label ?? "").trim().slice(0, 60) || "Suggested edit",
-      explanation: String(raw?.explanation ?? "").trim(),
-      before: String(raw?.before ?? ""),
-      after: String(raw?.after ?? "").trim(),
-    };
-    const key = `${rec.section}\u0000${rec.before}`;
-    // Must apply to ITS section as-is, or the button would do nothing.
-    if (seen.has(key) || !applyRecommendation(resume, rec)) {
-      diag({ droppedRecommendation: { reason: "does_not_apply", section: rec.section } });
-      continue;
-    }
-    // The replacement text must not carry a claim the source does not.
-    const recFacts = await checkFacts({ codeRoot, runDir, text: rec.after, sourcePath: sourceFactsPath });
-    if (!recFacts.ran || recFacts.flags.length > 0) {
-      diag({ droppedRecommendation: { reason: "fact_check", section: rec.section, flags: recFacts.flags } });
-      continue;
-    }
-    seen.add(key);
-    recommendations.push(rec);
-  }
-  diag({ recommendations: { available: recommendationsAvailable, kept: recommendations.length } });
-  emit("action.completed", { stage: "refine", actionId: "refine-2" }, "refine");
+  const recommendationsAvailable = true;
 
-  // ── Action 4: formatting — validate and build the base CV ─────────────
-  emit("action.started", { action: actionRecord(3, labels[3]) }, "refine");
+  // ── Action 6: formatting — validate against the CV payload contract ────
+  start(5);
 
   // The base CV is the resume AS READ. Recommendations reach a CV only once
   // the visitor applies and accepts them (prepare reads that acceptance).
@@ -257,11 +227,14 @@ export async function runRefineStage(ctx) {
       "We could not lay out your resume. You can retry this step.",
       true,
     );
-    emit("action.error", { stage: "refine", actionId: "refine-3", error }, "refine");
+    emit("action.error", { stage: "refine", actionId: "refine-5", error }, "refine");
     emit("stage.error", { stage: "refine", inputVersion: 1, error }, "refine");
     return { ok: false };
   }
+  complete(5);
 
+  // ── Action 7: build a clean copy of the resume as read ────────────────
+  start(6);
   const built = await buildCvDocument({
     codeRoot,
     runDir,
@@ -277,12 +250,12 @@ export async function runRefineStage(ctx) {
       "We could not lay out your resume. You can retry this step.",
       true,
     );
-    emit("action.error", { stage: "refine", actionId: "refine-3", error }, "refine");
+    emit("action.error", { stage: "refine", actionId: "refine-6", error }, "refine");
     emit("stage.error", { stage: "refine", inputVersion: 1, error }, "refine");
     return { ok: false };
   }
 
-  emit("action.completed", { stage: "refine", actionId: "refine-3" }, "refine");
+  complete(6);
 
   // Artifacts exist on disk. NOW the result event may be emitted.
   emit(
