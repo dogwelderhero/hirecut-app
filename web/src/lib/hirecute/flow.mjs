@@ -74,6 +74,13 @@ export function validateFlow(id, flow, pipelineStages) {
     if (!screen) err(`stage "${s}" has no screen`);
     else if (!SCREEN_IDS.includes(screen)) err(`stage "${s}" uses unknown screen "${screen}"`);
   }
+  const shell = flow.shell ?? {};
+  for (const k of Object.keys(shell)) if (!["credits", "retryButton"].includes(k)) err(`unknown shell feature "${k}"`);
+  if (shell.credits) {
+    const used = new Set(Object.values(flow.screens ?? {}));
+    for (const sc of shell.credits.bannerScreens ?? []) if (!used.has(sc)) err(`credits banner screen "${sc}" is not a screen of this flow`);
+    if (!used.has(shell.credits.counterScreen)) err(`credits counter screen "${shell.credits.counterScreen}" is not a screen of this flow`);
+  }
   for (const k of ["packing", "absorbed"]) {
     for (const s of flow[k] ?? []) if (!stages.includes(s)) err(`${k} lists "${s}", which is not one of the flow's stages`);
   }

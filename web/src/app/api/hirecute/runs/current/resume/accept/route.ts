@@ -25,7 +25,10 @@ export async function POST(request: Request) {
   if (!file) return notFound();
 
   const refine = file.snapshot.stages.refine?.result;
-  if (refine?.kind !== "refine") return badRequest("Your resume is not ready to accept yet.");
+  // Only the sectioned (recruiter) refine has recommendations to accept.
+  if (refine?.kind !== "refine" || !("resume" in refine)) {
+    return badRequest("Your resume is not ready to accept yet.");
+  }
 
   if (file.snapshot.resumeAcceptance) {
     return json({ acceptance: file.snapshot.resumeAcceptance });

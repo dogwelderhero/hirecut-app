@@ -27,6 +27,18 @@ export interface ShellApi {
   setLocalStep: (step: LocalStep | null) => void;
   setInert: (on: boolean) => void;
   overlayRoot: HTMLElement | null;
+  /**
+   * View state that outlives one screen but belongs to this run (a job saved
+   * on Explore is still saved on Top Matches). Kept by the shell.
+   */
+  view: ViewStore;
+  /** Opens the credits checkout, when the flow switches it on. */
+  claimCredits?: () => void;
+}
+
+export interface ViewStore {
+  get: <T>(key: string, fallback: T) => T;
+  set: <T>(key: string, next: T | ((prev: T | undefined) => T)) => void;
 }
 
 export interface ScreenProps {
@@ -37,6 +49,8 @@ export interface ScreenProps {
   shownStage: StageId | null;
   publicConfig: PublicConfig;
   reducedMotion: boolean;
+  /** The visitor's file name (or the sample's), for the screens that show it. */
+  fileName: string | null;
   actions: JourneyActions;
   shell: ShellApi;
 }

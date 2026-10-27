@@ -445,21 +445,45 @@ export interface ActionProgress {
   error: PublicError | null;
 }
 
+/** One refinement the classic (vacancy) refine step made, before → after. */
+export interface RefinementChange {
+  id: string;
+  kind: "clarity" | "structure" | "formatting" | "relevance";
+  before: string;
+  after: string;
+  explanation: string;
+  sourceFactIds: FactId[];
+  // Runtime rejects new employers, dates, degrees, metrics, or skills without support.
+}
+
+/** refine-sections (recruiter): the resume read into sections, nothing applied. */
+export interface RefineSectionsResult {
+  kind: "refine";
+  originalArtifactId: ArtifactId;
+  refinedResumeArtifactId: ArtifactId;
+  /** The visitor's resume as read, by section — nothing applied. */
+  resume: ResumeDocument;
+  /** Validated: each applies to its section and passed the fact check. */
+  recommendations: ResumeRecommendation[];
+  /** False when the recommendation pass failed; the resume still shows. */
+  recommendationsAvailable: boolean;
+  /** Flags on the resume AS READ (extraction), not a verdict. `ran: false` if it errored. */
+  factCheck: { ran: boolean; flags: FactFlag[] };
+  originalPreserved: true;
+}
+
+/** refine-classic (vacancy, production 01083211): the refinements it applied. */
+export interface RefineClassicResult {
+  kind: "refine";
+  originalArtifactId: ArtifactId;
+  refinedResumeArtifactId: ArtifactId;
+  changes: RefinementChange[];
+  originalPreserved: true;
+}
+
 export interface StageResultMap {
-  refine: {
-    kind: "refine";
-    originalArtifactId: ArtifactId;
-    refinedResumeArtifactId: ArtifactId;
-    /** The visitor's resume as read, by section — nothing applied. */
-    resume: ResumeDocument;
-    /** Validated: each applies to its section and passed the fact check. */
-    recommendations: ResumeRecommendation[];
-    /** False when the recommendation pass failed; the resume still shows. */
-    recommendationsAvailable: boolean;
-    /** Flags on the resume AS READ (extraction), not a verdict. `ran: false` if it errored. */
-    factCheck: { ran: boolean; flags: FactFlag[] };
-    originalPreserved: true;
-  };
+  /** Which shape depends on the scenario's refine step; tell them apart with `"resume" in result`. */
+  refine: RefineSectionsResult | RefineClassicResult;
   explore: { kind: "explore"; jobIds: JobId[]; coverage: SearchCoverage };
   match: { kind: "match"; assessments: MatchAssessment[]; rankedJobIds: JobId[] };
   improve: {

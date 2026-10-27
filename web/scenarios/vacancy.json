@@ -48,7 +48,17 @@
       "explore",
       "match"
     ],
-    "absorbed": []
+    "absorbed": [],
+    "shell": {
+      "credits": {
+        "bannerScreens": [
+          "matches",
+          "bulk-apply"
+        ],
+        "counterScreen": "bulk-apply"
+      },
+      "retryButton": true
+    }
   },
   "landing": {
     "blocks": [

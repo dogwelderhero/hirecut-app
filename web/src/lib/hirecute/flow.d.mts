@@ -8,7 +8,21 @@ export interface FlowStep {
   local?: boolean;
 }
 
+/** The credits checkout as a shell feature: banner screens and the counter's screen. */
+export interface FlowCredits {
+  bannerScreens: string[];
+  counterScreen: string;
+}
+
+/** Shell features a flow switches on. */
+export interface FlowShell {
+  credits?: FlowCredits;
+  /** "Try that step again" in the stage error panel (production shows it, unwired). */
+  retryButton?: boolean;
+}
+
 export interface Flow {
+  shell?: FlowShell;
   stages: StageId[];
   steps: FlowStep[];
   screens: Partial<Record<StageId, string>>;

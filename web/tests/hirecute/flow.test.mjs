@@ -86,18 +86,21 @@ test("recruiter keeps product-v2's journey: 4 steps, explore absorbed into step 
 
 test("vacancy keeps production's journey: one step per stage, every result packs but bulk apply", async () => {
   const { flow } = await scenario("vacancy");
+  assert.deepEqual(flow.shell, { credits: { bannerScreens: ["matches", "bulk-apply"], counterScreen: "bulk-apply" }, retryButton: true });
   assert.deepEqual(validateFlow("vacancy", flow, ["refine", "explore", "match", "prepare"]), []);
   assert.deepEqual(flow.steps.map((s) => s.title), ["Finetune Resume", "Explore Jobs", "Top matching jobs", "Bulk Apply"]);
   assert.deepEqual([flow.packing, flow.absorbed], [["refine", "explore", "match"], []]);
 });
 
-test("the React screen registry only names known screens, and covers the recruiter flow", async () => {
+test("the React screen registry names exactly SCREEN_IDS and covers both shipped flows", async () => {
   const src = await readFile(path.join(WEB, "src", "components", "hirecute", "workspace", "screens.tsx"), "utf8");
   const reg = src.slice(src.indexOf("SCREENS"));
   const keys = [...reg.matchAll(/^\s{2}"?([a-z][a-z-]*)"?:\s/gm)].map((m) => m[1]);
-  for (const k of keys) assert.ok(SCREEN_IDS.includes(k), `${k} is in SCREEN_IDS`);
-  const { flow } = await scenario("recruiter");
-  for (const s of Object.values(flow.screens)) assert.ok(keys.includes(s), `${s} is registered`);
+  assert.deepEqual([...keys].sort(), [...SCREEN_IDS].sort());
+  for (const id of ["recruiter", "vacancy"]) {
+    const { flow } = await scenario(id);
+    for (const s of Object.values(flow.screens)) assert.ok(keys.includes(s), `${id}: ${s} is registered`);
+  }
 });
 
 // ── duplicate submission ─────────────────────────────────────────────────────
@@ -122,4 +125,12 @@ test("a different file, another scenario, a cancelled or failed run, or no histo
 test("the hash is of the content, not the file name", () => {
   assert.equal(sourceHash(Buffer.from("same bytes")), sourceHash("same bytes"));
   assert.notEqual(sourceHash("a"), sourceHash("b"));
+});
+
+test("shell features are validated against the flow's own screens", () => {
+  const f = { ...recruiterLike(), shell: { credits: { bannerScreens: ["matches"], counterScreen: "bulk-apply" }, glitter: true } };
+  const all = validateFlow("r", f, PIPE).join("\n");
+  assert.match(all, /unknown shell feature "glitter"/);
+  assert.match(all, /credits banner screen "matches" is not a screen of this flow/);
+  assert.match(all, /credits counter screen "bulk-apply" is not a screen of this flow/);
 });

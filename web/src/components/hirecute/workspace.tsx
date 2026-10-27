@@ -26,8 +26,9 @@ import type { RunState } from "@/lib/hirecute/run-store";
 import { AgentTranscript, type LocalStep, type StageReceipt } from "./agent-transcript";
 import { StageProgress } from "./stage-progress";
 import { useReducedMotion } from "./workspace/common";
+import { useCreditsCheckout } from "./workspace/credits-checkout";
 import { SCREENS } from "./workspace/screens";
-import type { JourneyActions, ShellApi } from "./workspace/types";
+import type { JourneyActions, ShellApi, ViewStore } from "./workspace/types";
 import { usePresentation } from "./workspace/use-presentation";
 
 export function Workspace({
@@ -62,12 +63,37 @@ export function Workspace({
   const [overlayRoot, setOverlayRoot] = useState<HTMLDivElement | null>(null);
   const setLocalStep = useCallback((step: LocalStep | null) => setLocalStepState(step), []);
   const setInert = useCallback((on: boolean) => setInertState(on), []);
-  const shell: ShellApi = useMemo(() => ({ setLocalStep, setInert, overlayRoot }), [setLocalStep, setInert, overlayRoot]);
+  const [viewState, setViewState] = useState<Record<string, unknown>>({});
+  const view: ViewStore = useMemo(
+    () => ({
+      get: <T,>(key: string, fallback: T) => (key in viewState ? (viewState[key] as T) : fallback),
+      set: <T,>(key: string, next: T | ((prev: T | undefined) => T)) =>
+        setViewState((prev) => ({
+          ...prev,
+          [key]: typeof next === "function" ? (next as (p: T | undefined) => T)(prev[key] as T | undefined) : next,
+        })),
+    }),
+    [viewState],
+  );
 
   const actions: JourneyActions = { letters, onLettersChange, onSelectionChange, onSaveLetter, onAcceptResume, onRestart };
 
   const screenId = screenOf(flow, shownStage);
   const Screen = SCREENS[screenId]?.Screen;
+
+  // Shell features the flow switches on (the vacancy journey's credits checkout).
+  const credits = useCreditsCheckout({
+    config: flow.shell?.credits,
+    runState,
+    screenId,
+    publicConfig,
+    reducedMotion,
+  });
+  const shell: ShellApi = useMemo(
+    () => ({ setLocalStep, setInert, overlayRoot, view, claimCredits: credits?.claim }),
+    [setLocalStep, setInert, overlayRoot, view, credits?.claim],
+  );
+  const shellInert = inert || Boolean(credits?.open);
 
   // Receipts: each completed stage's, written by the screen that presented it.
   const receipts: StageReceipt[] = [];
@@ -84,7 +110,12 @@ export function Workspace({
 
   return (
     <>
-      <div className={`hc-shell hc-shell--conversation${inert ? " hc-credit-background" : ""}`} inert={inert}>
+      {/*
+        While a modal is open the real shell takes `hc-credit-background` (fixed,
+        blurred, pointer-events:none) and `inert`; the modal stays a sibling,
+        since a CSS filter would blur anything nested in here.
+      */}
+      <div className={`hc-shell hc-shell--conversation${shellInert ? " hc-credit-background" : ""}`} inert={shellInert}>
         <AgentTranscript
           steps={flow.steps}
           fileName={fileName}
@@ -96,7 +127,11 @@ export function Workspace({
           localStep={localStep}
         />
 
-        <main className="hc-main" data-hc-zone="main_work_area">
+        {/* Main work area — the only zone the credits counter listens to. */}
+        <main className="hc-main" data-hc-zone="main_work_area" onClick={credits?.onMainClick}>
+          {/* The reference puts the credits banner first in `main`, above the stepper. */}
+          {credits?.banner}
+
           <StageProgress
             steps={flow.steps}
             stages={runState.stages}
@@ -108,6 +143,11 @@ export function Workspace({
             {stageError && (
               <div className="hc-panel hc-danger-panel" role="alert">
                 <p>{stageError.message}</p>
+                {flow.shell?.retryButton && stageError.retryable && (
+                  <button type="button" className="hc-button hc-button--quiet">
+                    <span>Try that step again</span>
+                  </button>
+                )}
               </div>
             )}
 
@@ -119,6 +159,7 @@ export function Workspace({
                 shownStage={shownStage}
                 publicConfig={publicConfig}
                 reducedMotion={reducedMotion}
+                fileName={fileName}
                 actions={actions}
                 shell={shell}
               />
@@ -134,7 +175,9 @@ export function Workspace({
         </main>
       </div>
 
-      {/* Modals portal here: the shell's sibling, outside the inert subtree. */}
+      {credits?.overlay}
+
+      {/* Screen modals portal here: the shell's sibling, outside the inert subtree. */}
       <div ref={setOverlayRoot} style={{ display: "contents" }} />
     </>
   );
