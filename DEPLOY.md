@@ -49,6 +49,27 @@ doctl registry create $REGISTRY --subscription-tier basic --region nyc3
 App Platform pulls from a DOCR registry in the same account without extra
 credentials.
 
+## 0. Preflight
+
+`web/scripts/preflight.mjs` checks that a deployment can serve a run: model
+settings and a live (retried) model request, public URL vs allowed hosts,
+Stripe consistency, required career-ops files, a writable data dir, Node and
+Chromium. Each failure prints its reason and the fix.
+
+```bash
+# Before a deploy, with the env the app will get (adds a job-board fetch and a
+# real Chromium render):
+docker run --rm --env-file web/.env.local hirecute:latest node scripts/preflight.mjs --full
+# Against a deployed app (adds /health and / smoke checks):
+node --env-file=web/.env.local web/scripts/preflight.mjs --full --url "$APP_URL"
+```
+
+The image runs `preflight --boot` before `next start`. A FAIL stops the
+container, the reason lands in `doctl apps logs $APP_ID web --type run`, and
+App Platform keeps the previous deployment serving. A model that only times
+out or returns 429/5xx after retries is a WARN (nothing proven), not a FAIL;
+401/403, an unknown model and a billing refusal are FAILs.
+
 ## 1. Build
 
 ```bash

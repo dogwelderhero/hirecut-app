@@ -91,6 +91,7 @@ COPY --chown=node:node web/public ./web/public
 COPY --chown=node:node web/fixtures ./web/fixtures
 COPY --chown=node:node web/workers ./web/workers
 COPY --chown=node:node web/src ./web/src
+COPY --chown=node:node web/scripts ./web/scripts
 
 # Writable data dir. EPHEMERAL on App Platform: wiped on every deploy/restart.
 RUN mkdir -p /app/var/hirecute && chown -R node:node /app/var
@@ -99,9 +100,12 @@ USER node
 WORKDIR /app/web
 EXPOSE 8080
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=5s --start-period=45s --retries=3 \
   CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||8080)+'/health').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
-# `next start` listens on $PORT (App Platform sets it).
-CMD ["node", "node_modules/next/dist/bin/next", "start", "-H", "0.0.0.0"]
+# Preflight first: config, files, disk and a live (retried) model request. A
+# FAIL stops the container with the reason in the deploy log, so App Platform
+# keeps the previous version serving. Then `next start` listens on $PORT (App
+# Platform sets it); `exec` hands PID 2 to Next so tini signals it directly.
+CMD ["sh", "-c", "node scripts/preflight.mjs --boot && exec node node_modules/next/dist/bin/next start -H 0.0.0.0"]

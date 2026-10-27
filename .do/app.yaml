@@ -45,7 +45,9 @@ services:
 
     health_check:
       http_path: /health
-      initial_delay_seconds: 15
+      # Boot runs preflight before Next starts; its model check may retry for
+      # up to ~20 s, so the first probe waits for that budget.
+      initial_delay_seconds: 45
       period_seconds: 10
       timeout_seconds: 5
       success_threshold: 1

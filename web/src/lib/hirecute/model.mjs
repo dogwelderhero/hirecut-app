@@ -79,6 +79,100 @@ function isAnthropic(baseUrl) {
 }
 
 /**
+ * Every distinct endpoint the stages can reach, one per tier that resolves to
+ * a different model. Preflight checks each, so a typo in HIRECUTE_MODEL_FAST
+ * fails at boot rather than in the middle of a visitor's run.
+ *
+ * @returns {Array<{tiers: string[], baseUrl: string, apiKey: string, model: string}>}
+ */
+export function modelEndpoints(env = process.env) {
+  const byModel = new Map();
+  for (const tier of MODEL_TIERS) {
+    const c = config(env, tier);
+    const seen = byModel.get(c.model);
+    if (seen) seen.tiers.push(tier);
+    else byModel.set(c.model, { tiers: [tier], ...c });
+  }
+  return [...byModel.values()];
+}
+
+/**
+ * One minimal real request, shaped like the stages' own (same URL, headers and
+ * API version), to prove the key, the model name and the endpoint work.
+ *
+ * Classification, after retries:
+ *   key        401/403                → the key is dead or lacks access
+ *   model      404, or 400 naming it  → the model name is wrong
+ *   billing    400 about credit       → the account cannot pay for calls
+ *   rejected   any other 4xx          → the request itself was refused
+ *   unreachable 429/5xx/network/timeout on EVERY attempt → nothing proven
+ *
+ * A transient failure is retried with backoff inside `budgetMs`; only a
+ * definitive answer from the provider is a verdict about the key.
+ *
+ * @returns {Promise<{ok: true, latencyMs: number, attempts: number}
+ *   | {ok: false, kind: "key"|"model"|"billing"|"rejected"|"unreachable", status: number|null, detail: string, attempts: number}>}
+ */
+export async function pingModel(endpoint, opts = {}) {
+  const {
+    fetchImpl = fetch,
+    attempts = 4,
+    timeoutMs = 8_000,
+    budgetMs = 20_000,
+    backoffMs = 1_000,
+    sleep = (ms) => new Promise((r) => setTimeout(r, ms)),
+    now = Date.now,
+  } = opts;
+  const { baseUrl, apiKey, model } = endpoint;
+  const anthropic = isAnthropic(baseUrl);
+  const url = anthropic ? `${baseUrl}/messages` : `${baseUrl}/chat/completions`;
+  const headers = anthropic
+    ? { "x-api-key": apiKey, "anthropic-version": ANTHROPIC_VERSION, "content-type": "application/json" }
+    : { authorization: `Bearer ${apiKey}`, "content-type": "application/json" };
+  const body = JSON.stringify({
+    model,
+    max_tokens: 64,
+    messages: [{ role: "user", content: "Reply with the single word OK." }],
+  });
+
+  const deadline = now() + budgetMs;
+  let last = { status: null, detail: "" };
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    const started = now();
+    let res;
+    try {
+      res = await fetchImpl(url, {
+        method: "POST",
+        headers,
+        body,
+        signal: AbortSignal.timeout(Math.max(1, Math.min(timeoutMs, deadline - started))),
+      });
+    } catch (err) {
+      last = { status: null, detail: err instanceof Error ? err.message : String(err) };
+    }
+    if (res) {
+      if (res.ok) return { ok: true, latencyMs: now() - started, attempts: attempt };
+      const text = (await res.text().catch(() => "")).slice(0, 300);
+      last = { status: res.status, detail: text };
+      const transient = res.status === 429 || res.status >= 500;
+      if (!transient) {
+        let kind = "rejected";
+        if (res.status === 401 || res.status === 403) kind = "key";
+        else if (res.status === 400 && /credit|billing|balance/i.test(text)) kind = "billing";
+        else if (res.status === 404 || (res.status === 400 && /model/i.test(text))) kind = "model";
+        return { ok: false, kind, status: res.status, detail: text, attempts: attempt };
+      }
+    }
+    const wait = backoffMs * 2 ** (attempt - 1);
+    if (attempt === attempts || now() + wait >= deadline) {
+      return { ok: false, kind: "unreachable", ...last, attempts: attempt };
+    }
+    await sleep(wait);
+  }
+  return { ok: false, kind: "unreachable", ...last, attempts };
+}
+
+/**
  * Ask the model for ONE object matching `schema`.
  *
  * @param {object} opts
