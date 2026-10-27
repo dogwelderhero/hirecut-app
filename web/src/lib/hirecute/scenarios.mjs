@@ -17,6 +17,8 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
+import { validateFlow } from "./flow.mjs";
+
 /** Snapshot stage slots a step may report into (contracts.ts StageId). */
 export const STAGE_SLOTS = ["refine", "explore", "match", "improve", "prepare"];
 
@@ -124,6 +126,13 @@ export async function loadStepManifest(codeRoot, ref) {
 }
 
 /** Load a scenario and every manifest it names; throws on a missing or unparsable file. */
+/** Every enabled scenario's workspace flow, for the page to hand to the browser. */
+export async function loadFlows(codeRoot, ids) {
+  const out = {};
+  for (const id of ids) out[id] = (await loadScenario(codeRoot, id)).flow;
+  return out;
+}
+
 export async function loadScenarioBundle(codeRoot, id) {
   const scenario = await loadScenario(codeRoot, id);
   const manifests = {};
@@ -208,6 +217,7 @@ export function validateScenario(id, scenario, manifests) {
   }
 
   if (!slots.has(scenario.resultStage)) err(`resultStage "${scenario.resultStage}" is not a stage any step reports into`);
+  errors.push(...validateFlow(id, scenario.flow, [...slots.keys()]));
   return errors;
 }
 

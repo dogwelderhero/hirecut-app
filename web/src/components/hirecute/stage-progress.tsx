@@ -14,38 +14,36 @@
 
 import { Fragment } from "react";
 import type { StageId, StageState } from "@/lib/hirecute/contracts";
-/**
- * Visible steps. Finding and scoring jobs are one step (2). Step 4, the
- * recruiters, has no backend stage: it is active once step 3 is done.
- */
-const STEPS: ReadonlyArray<{ stages: StageId[]; title: string }> = [
-  { stages: ["refine"], title: "Reading your resume" },
-  { stages: ["explore", "match"], title: "Finding jobs & gaps" },
-  { stages: ["improve"], title: "Improving your resume" },
-  { stages: [], title: "Talk to a recruiter" },
-];
+import type { FlowStep } from "@/lib/hirecute/flow.mjs";
 
+/**
+ * Visible steps come from the scenario's flow: a step may span stages (finding
+ * and scoring jobs are one step in the recruiter journey), and a `local` step
+ * has no backend stage — it is active once the screen says so.
+ */
 export function StageProgress({
+  steps,
   stages,
   visible,
-  recruiterActive = false,
+  localActive = false,
 }: {
+  steps: readonly FlowStep[];
   stages: Record<StageId, StageState | null>;
   /** The stage the visitor is looking at — may lag the worker during a dwell. */
   visible: StageId | null;
-  /** Step 4 is on: the recruiters are showing. */
-  recruiterActive?: boolean;
+  /** The flow's local step is on (e.g. the recruiters are showing). */
+  localActive?: boolean;
 }) {
   return (
     <nav className="hc-stepper" aria-label="Progress">
-      {STEPS.map((step, i) => {
-        const isRecruiterStep = step.stages.length === 0;
+      {steps.map((step, i) => {
+        const isLocalStep = step.stages.length === 0;
         const statuses = step.stages.map((s) => stages[s]?.status ?? "pending");
-        const done = !isRecruiterStep && statuses.every((s) => s === "completed");
+        const done = !isLocalStep && statuses.every((s) => s === "completed");
         const failed = statuses.some((s) => s === "failed" || s === "interrupted");
-        const active = isRecruiterStep
-          ? recruiterActive
-          : !recruiterActive && visible !== null && step.stages.includes(visible);
+        const active = isLocalStep
+          ? localActive
+          : !localActive && visible !== null && step.stages.includes(visible);
         const state = [
           active ? "is-active" : "",
           done ? "is-done" : "",
@@ -63,7 +61,7 @@ export function StageProgress({
               <b>{done ? "✓" : i + 1}</b>
               <span className="hc-step-name">{step.title}</span>
             </div>
-            {i < STEPS.length - 1 && <span className="hc-step-line" aria-hidden />}
+            {i < steps.length - 1 && <span className="hc-step-line" aria-hidden />}
           </Fragment>
         );
       })}

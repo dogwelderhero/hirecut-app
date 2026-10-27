@@ -31,6 +31,7 @@ export interface DeploymentScenarios {
   errors: string[];
   scenarios: Record<string, { version: number; resultStage: string; steps: string[]; requires: string[] }>;
 }
+export function loadFlows(codeRoot: string, ids: string[]): Promise<Record<string, import("./flow.mjs").Flow>>;
 export function checkDeploymentScenarios(
   codeRoot: string,
   env: Record<string, string | undefined>,

@@ -14,6 +14,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { JobId, PublicRunEvent } from "@/lib/hirecute/contracts";
 import type { PublicConfig } from "@/lib/hirecute/config";
+import type { Flow } from "@/lib/hirecute/flow.mjs";
 import type { LandingContent } from "@/lib/hirecute/landing-content.mjs";
 import {
   applyEvent,
@@ -44,10 +45,13 @@ const PENDING_RUN: RunState = { ...initialRunState(), lifecycle: "queued" };
 export function HirecuteJourney({
   publicConfig,
   landing,
+  flows,
 }: {
   publicConfig: PublicConfig;
   /** The visitor's scenario landing, resolved on the server. */
   landing: LandingContent;
+  /** Every enabled scenario's workspace flow; the run's own picks one. */
+  flows: Record<string, Flow>;
 }) {
   const [runState, setRunState] = useState<RunState>(initialRunState);
   const [fileName, setFileName] = useState<string | null>(null);
@@ -62,6 +66,12 @@ export function HirecuteJourney({
    */
   const [edits, setEdits] = useState<LetterMap>({});
   const stream = useRef<StreamHandle | null>(null);
+  /**
+   * One run creation at a time. A ref, not state: two clicks inside one frame
+   * both see `false` in state, but the ref flips synchronously. The server
+   * also returns the existing run for the same file, so a resend is free.
+   */
+  const starting = useRef(false);
 
   const hasRun = runState.lifecycle !== "absent";
   const isSample = runState.snapshot?.origin === "sample";
@@ -117,6 +127,8 @@ export function HirecuteJourney({
 
   const start = useCallback(
     async (kind: { sample: true } | { sample: false; file: File }) => {
+      if (starting.current) return;
+      starting.current = true;
       setError(null);
       setEdits({});
       setUploading(true);
@@ -132,6 +144,7 @@ export function HirecuteJourney({
         // A failure before the run is accepted stays beside the drop zone.
         setFileName(null);
         setUploading(false);
+        starting.current = false;
         setError(err instanceof Error ? err.message : "That upload could not be accepted.");
         return;
       }
@@ -142,6 +155,7 @@ export function HirecuteJourney({
         attachStream(run.lastSequence);
       }
       setUploading(false);
+      starting.current = false;
     },
     [attachStream],
   );
@@ -205,6 +219,9 @@ export function HirecuteJourney({
 
   // Mid-upload there is no run yet, but the visitor is already in the workspace.
   const pending = uploading && !hasRun;
+  // The run's own scenario decides its journey; before it exists (mid-upload),
+  // the landing's scenario is the one the run is about to get.
+  const flow = flows[runState.snapshot?.scenario?.id ?? landing.scenario] ?? flows[landing.scenario];
 
   if (!pending && (!hasRun || screen === "upload")) {
     return (
@@ -234,6 +251,7 @@ export function HirecuteJourney({
       */}
       <Workspace
         key="workspace"
+        flow={flow}
         runState={pending ? PENDING_RUN : runState}
         publicConfig={publicConfig}
         fileName={fileName}

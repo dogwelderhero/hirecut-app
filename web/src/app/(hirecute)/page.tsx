@@ -3,6 +3,7 @@ import { publicConfig, serverConfig } from "@/lib/hirecute/config";
 import { loadLandingContent } from "@/lib/hirecute/landing-content.mjs";
 import { SCENARIO_HEADER } from "@/lib/hirecute/landing-router.mjs";
 import { deploymentScenarios } from "@/lib/hirecute/scenario-choice";
+import { loadFlows } from "@/lib/hirecute/scenarios.mjs";
 import { HirecuteJourney } from "@/components/hirecute/journey";
 
 /**
@@ -24,7 +25,9 @@ export default async function HirecutePage() {
   const landing = await loadLandingContent(serverConfig().codeRoot, scenario, {
     launchProfile: config.launchProfile,
   });
-  return <HirecuteJourney publicConfig={config} landing={landing} />;
+  const enabled = (await deploymentScenarios()).entries.map((e) => e.id);
+  const flows = await loadFlows(serverConfig().codeRoot, [...new Set([...enabled, scenario])]);
+  return <HirecuteJourney publicConfig={config} landing={landing} flows={flows} />;
 }
 
 /**

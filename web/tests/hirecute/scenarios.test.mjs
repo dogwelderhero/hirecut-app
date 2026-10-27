@@ -85,6 +85,13 @@ test("the split follows the weights and never picks a weight-0 scenario", () => 
 const manifest = (id, stage, reads = {}, writes = {}, extra = {}) => ({
   id, version: 1, stage, module: `./${id}.mjs`, export: "run", reads, writes, ...extra,
 });
+const flowFor = (stages) => ({
+  stages,
+  steps: stages.map((st) => ({ stages: [st], title: st })),
+  screens: Object.fromEntries(stages.map((st) => [st, "resume-read"])),
+  packing: [],
+  absorbed: [],
+});
 const scenario = (pipeline, extra = {}) => ({ id: "s", version: 1, resultStage: "match", pipeline, ...extra });
 
 test("a well-formed linear scenario validates", () => {
@@ -92,7 +99,8 @@ test("a well-formed linear scenario validates", () => {
     "a@1": manifest("a", "refine", {}, { out: "x" }),
     "b@1": manifest("b", "match", { in: "x" }),
   };
-  assert.deepEqual(validateScenario("s", scenario([{ step: "a@1" }, { step: "b@1", after: ["a@1"] }]), manifests), []);
+  const s = scenario([{ step: "a@1" }, { step: "b@1", after: ["a@1"] }], { flow: flowFor(["refine", "match"]) });
+  assert.deepEqual(validateScenario("s", s, manifests), []);
 });
 
 test("validation catches cycles, unknown deps and duplicate stage slots", () => {
@@ -117,7 +125,7 @@ test("optional reads and defaulted reads need no writer", () => {
   const manifests = {
     "a@1": manifest("a", "refine", { p: "user.preferences?", q: "y" }, {}, { defaults: { q: 1 } }),
   };
-  assert.deepEqual(validateScenario("s", scenario([{ step: "a@1" }], { resultStage: "refine" }), manifests), []);
+  assert.deepEqual(validateScenario("s", scenario([{ step: "a@1" }], { resultStage: "refine", flow: flowFor(["refine"]) }), manifests), []);
 });
 
 test("resultStage must be a stage the scenario reports into", () => {

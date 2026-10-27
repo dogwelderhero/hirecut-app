@@ -55,8 +55,25 @@ export type PresentationPhase =
   /** Terminal for `prepare`: shown in place, never packed. */
   | { kind: "settled"; stage: StageId };
 
+/**
+ * Which stages dwell-and-pack, which have no result screen, which wait for an
+ * accept. Per scenario (its flow); the constants above are the defaults.
+ */
+export interface PresentationRules {
+  packing: readonly StageId[];
+  absorbed: readonly StageId[];
+  gated: readonly StageId[];
+}
+
+const DEFAULT_RULES: PresentationRules = {
+  packing: PACKING_STAGES,
+  absorbed: ABSORBED_STAGES,
+  gated: GATED_STAGES,
+};
+
 export interface PresentationState {
   phase: PresentationPhase;
+  rules: PresentationRules;
   /**
    * Stage results that have arrived but not yet been presented, in arrival
    * order. A fast later stage waits here rather than overwriting the current
@@ -72,10 +89,16 @@ export interface PresentationState {
 }
 
 export function initialPresentationState(
-  opts: { foreground?: boolean; reducedMotion?: boolean; accepted?: StageId[] } = {},
+  opts: {
+    foreground?: boolean;
+    reducedMotion?: boolean;
+    accepted?: StageId[];
+    rules?: Partial<PresentationRules>;
+  } = {},
 ): PresentationState {
   return {
     phase: { kind: "idle" },
+    rules: { ...DEFAULT_RULES, ...opts.rules },
     queue: [],
     presented: [],
     foreground: opts.foreground ?? true,
@@ -106,8 +129,8 @@ function startNext(state: PresentationState): PresentationState {
   const [next, ...rest] = state.queue;
   if (next === undefined) return { ...state, phase: { kind: "idle" } };
 
-  // `prepare` has no dwell and no pack: it settles in place immediately.
-  if (!stagePacks(next)) {
+  // A non-packing stage (prepare, improve) settles in place immediately.
+  if (!state.rules.packing.includes(next)) {
     return {
       ...state,
       queue: rest,
@@ -137,7 +160,7 @@ export function presentationReducer(
       // re-present a result or duplicate its receipt.
       if (state.presented.includes(action.stage)) return state;
       if (state.queue.includes(action.stage)) return state;
-      if (ABSORBED_STAGES.includes(action.stage)) {
+      if (state.rules.absorbed.includes(action.stage)) {
         return { ...state, presented: [...state.presented, action.stage] };
       }
       const phase = state.phase;
@@ -157,7 +180,7 @@ export function presentationReducer(
       if (phase.kind === "dwelling") {
         const elapsedMs = phase.elapsedMs + action.deltaMs;
         // A gated result never times out: only "accept" moves it on.
-        const holding = stageIsGated(phase.stage) && !state.accepted.includes(phase.stage);
+        const holding = state.rules.gated.includes(phase.stage) && !state.accepted.includes(phase.stage);
         if (holding || elapsedMs < PRESENTATION.resultDwellMs) {
           return { ...state, phase: { ...phase, elapsedMs } };
         }
@@ -209,6 +232,7 @@ export function presentationReducer(
       return initialPresentationState({
         foreground: state.foreground,
         reducedMotion: state.reducedMotion,
+        rules: state.rules,
       });
   }
 }
@@ -253,7 +277,7 @@ export function isShowingResult(state: PresentationState, stage: StageId): boole
 export function awaitingAcceptance(state: PresentationState, stage: StageId): boolean {
   const phase = state.phase;
   return (
-    stageIsGated(stage) &&
+    state.rules.gated.includes(stage) &&
     phase.kind === "dwelling" &&
     phase.stage === stage &&
     !state.accepted.includes(stage)

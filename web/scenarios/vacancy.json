@@ -4,6 +4,52 @@
   "title": "Auto-apply (classic)",
   "description": "Production behaviour as of 01083211: refined resume, job search, matches, per-job packages.",
   "resultStage": "prepare",
+  "flow": {
+    "stages": [
+      "refine",
+      "explore",
+      "match",
+      "prepare"
+    ],
+    "steps": [
+      {
+        "stages": [
+          "refine"
+        ],
+        "title": "Finetune Resume"
+      },
+      {
+        "stages": [
+          "explore"
+        ],
+        "title": "Explore Jobs"
+      },
+      {
+        "stages": [
+          "match"
+        ],
+        "title": "Top matching jobs"
+      },
+      {
+        "stages": [
+          "prepare"
+        ],
+        "title": "Bulk Apply"
+      }
+    ],
+    "screens": {
+      "refine": "refine-changes",
+      "explore": "explore",
+      "match": "matches",
+      "prepare": "bulk-apply"
+    },
+    "packing": [
+      "refine",
+      "explore",
+      "match"
+    ],
+    "absorbed": []
+  },
   "landing": {
     "blocks": [
       {

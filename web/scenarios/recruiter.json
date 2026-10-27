@@ -4,6 +4,53 @@
   "title": "Recruiter-led",
   "description": "product-v2 hypothesis: resume review, matches, gap-driven improvements, then the recruiter step.",
   "resultStage": "improve",
+  "flow": {
+    "stages": [
+      "refine",
+      "explore",
+      "match",
+      "improve"
+    ],
+    "steps": [
+      {
+        "stages": [
+          "refine"
+        ],
+        "title": "Reading your resume"
+      },
+      {
+        "stages": [
+          "explore",
+          "match"
+        ],
+        "title": "Finding jobs & gaps"
+      },
+      {
+        "stages": [
+          "improve"
+        ],
+        "title": "Improving your resume"
+      },
+      {
+        "stages": [],
+        "title": "Talk to a recruiter",
+        "local": true
+      }
+    ],
+    "screens": {
+      "refine": "resume-read",
+      "explore": "jobs-gaps",
+      "match": "jobs-gaps",
+      "improve": "improve"
+    },
+    "packing": [
+      "refine",
+      "match"
+    ],
+    "absorbed": [
+      "explore"
+    ]
+  },
   "landing": {
     "blocks": [
       {
