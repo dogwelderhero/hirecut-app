@@ -189,8 +189,8 @@ opencode.json
 .mcp.json
 career-dashboard
 career-dashboard.exe
-package-lock.json
-!web/package-lock.json
+# hirecute: the root lockfile IS tracked. web/Dockerfile copies it (npm ci), so an
+# untracked lockfile means the production image cannot be rebuilt from git.
 
 # Playwright MCP server run artifacts (ephemeral, machine-local)
 .playwright-mcp/
