@@ -2,7 +2,7 @@
 
 import { matchReceipt } from "@/lib/hirecute/actions";
 import { matchPresentation } from "@/lib/hirecute/match";
-import { isPacking, isShowingResult } from "@/lib/hirecute/presentation";
+import { isDwelling, isPacking } from "@/lib/hirecute/presentation";
 import { MatchResults } from "../../search-results";
 import { PackingStatus, StageHeading } from "../common";
 import type { ScreenModule, ScreenProps } from "../types";
@@ -66,7 +66,7 @@ export const matchesScreen: ScreenModule = {
   receipts: {
     match: ({ runState, presentation }) => {
       const match = runState.stages.match?.result;
-      if (match?.kind !== "match" || isShowingResult(presentation, "match")) return null;
+      if (match?.kind !== "match" || isDwelling(presentation, "match")) return null;
       return {
         stage: "match",
         label: `${match.rankedJobIds.length} top matches saved`,

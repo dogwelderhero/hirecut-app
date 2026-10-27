@@ -22,6 +22,7 @@ import type { JobId, StageId } from "@/lib/hirecute/contracts";
 import type { PublicConfig } from "@/lib/hirecute/config";
 import { nextStageOf, screenOf, type Flow } from "@/lib/hirecute/flow.mjs";
 import type { LetterMap } from "@/lib/hirecute/letters";
+import { isPacking } from "@/lib/hirecute/presentation";
 import type { RunState } from "@/lib/hirecute/run-store";
 import { AgentTranscript, type LocalStep, type StageReceipt } from "./agent-transcript";
 import { StageProgress } from "./stage-progress";
@@ -31,6 +32,7 @@ import { SCREENS } from "./workspace/screens";
 import type { JourneyActions, ShellApi } from "./workspace/types";
 import { useViewStore } from "./workspace/view-store";
 import { usePresentation } from "./workspace/use-presentation";
+import { useResultFlight } from "./workspace/use-result-flight";
 
 export function Workspace({
   flow,
@@ -57,6 +59,7 @@ export function Workspace({
 }) {
   const reducedMotion = useReducedMotion();
   const { presentation, shownStage } = usePresentation(flow, runState, reducedMotion);
+  const receiving = useResultFlight(presentation, reducedMotion);
 
   // What a screen tells the shell: its browser-side step, and a modal.
   const [localStep, setLocalStepState] = useState<LocalStep | null>(null);
@@ -92,7 +95,10 @@ export function Workspace({
   for (const stage of flow.stages) {
     const make = SCREENS[flow.screens[stage] ?? ""]?.receipts?.[stage];
     const receipt = make?.({ runState, presentation });
-    if (receipt) receipts.push(receipt);
+    if (!receipt) continue;
+    // While its result packs, the receipt waits (dashed) for it to land.
+    const state = isPacking(presentation, stage) ? "awaiting" : receiving === stage ? "receiving" : undefined;
+    receipts.push(state ? { ...receipt, state } : receipt);
   }
 
   const nextStage: StageId | null =
@@ -143,18 +149,21 @@ export function Workspace({
               </div>
             )}
 
+            {/* Keyed by screen: a new screen fades in rather than popping over the last. */}
             {Screen && (
-              <Screen
-                flow={flow}
-                runState={runState}
-                presentation={presentation}
-                shownStage={shownStage}
-                publicConfig={publicConfig}
-                reducedMotion={reducedMotion}
-                fileName={fileName}
-                actions={actions}
-                shell={shell}
-              />
+              <div className="hc-screen" key={screenId}>
+                <Screen
+                  flow={flow}
+                  runState={runState}
+                  presentation={presentation}
+                  shownStage={shownStage}
+                  publicConfig={publicConfig}
+                  reducedMotion={reducedMotion}
+                  fileName={fileName}
+                  actions={actions}
+                  shell={shell}
+                />
+              </div>
             )}
           </section>
 

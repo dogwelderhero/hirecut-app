@@ -1305,3 +1305,16 @@ svg{display:block}
 .hc-split.hc-split--stretch>aside{position:static}
 .hc-split--stretch .hc-split-main{display:flex;flex-direction:column}
 .hc-split--stretch .hc-cvp{flex:1}
+
+/*
+  Step motion. A new screen and a result replacing its working state fade up
+  instead of popping in; finished steps and the live step slide into the
+  conversation. `backwards` fill only, so `.is-packing` still dims the result
+  once the entrance has played.
+*/
+@keyframes hc-screen-in{from{opacity:0;transform:translateY(var(--space-2))}to{opacity:1;transform:none}}
+.hc-screen{animation:hc-screen-in 420ms cubic-bezier(.2,.7,.2,1) backwards}
+.hc-agent-stage>.hc-stage-result{animation:hc-screen-in 420ms cubic-bezier(.2,.7,.2,1) backwards;transition:opacity var(--agent-motion-duration) ease}
+.hc-chat-stage{animation:hc-agent-message-in 360ms ease backwards}
+.hc-chat-result{transition:opacity 300ms ease,border-color 300ms ease,background-color 300ms ease}
+@media(prefers-reduced-motion:reduce){.hc-screen,.hc-agent-stage>.hc-stage-result,.hc-chat-stage{animation:none}.hc-agent-stage>.hc-stage-result,.hc-chat-result{transition:none}}

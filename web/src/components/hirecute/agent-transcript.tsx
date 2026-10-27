@@ -27,6 +27,8 @@ export interface StageReceipt {
   detail?: string;
   /** Opens the persisted result read-only. Absent until the artifact exists. */
   onOpen?: () => void;
+  /** The pack animation: waiting for its result to land, then receiving it. */
+  state?: "awaiting" | "receiving";
 }
 
 /** The flow's local step runs in the browser (no backend work), so its rows are passed in. */
@@ -136,7 +138,8 @@ export function AgentTranscript({
               */}
               <button
                 type="button"
-                className="hc-chat-result"
+                className={`hc-chat-result${receipt.state ? ` is-${receipt.state}-result` : ""}`}
+                data-receipt-stage={receipt.stage}
                 onClick={receipt.onOpen}
                 disabled={!receipt.onOpen}
                 data-hc-zone="chat_receipt"
@@ -158,7 +161,7 @@ export function AgentTranscript({
 
         {/* The live stage: one status line and the actions started so far. */}
         {liveStage && !completedStages.includes(liveStage) && (
-          <section className="hc-chat-stage">
+          <section className="hc-chat-stage" key={liveStage}>
             <h3>{titleOf(liveStep) ?? liveStage}</h3>
             <div className="hc-chat-status">
               {/* A genuinely queued worker says queued — it does not invent an action. */}
