@@ -49,6 +49,12 @@ if errorlevel 1 goto :fail
 echo.
 echo ==^> Starting it
 docker rm -f %NAME% >nul 2>&1
+set OTHER=
+for /f %%c in ('docker ps --filter "publish=%PORT%" --format "{{.Names}}"') do set OTHER=%%c
+if not "!OTHER!"=="" (
+  echo ERROR: Port %PORT% is taken by another container "!OTHER!". Stop it with: docker rm -f !OTHER!
+  goto :fail
+)
 docker run -d --name %NAME% -p 127.0.0.1:%PORT%:8080 --env-file "%ENV_FILE%" -e HIRECUTE_BASE_URL=%URL% -e CAREER_OPS_WEB_ALLOWED_HOSTS=127.0.0.1 %IMAGE% >nul
 if errorlevel 1 goto :fail
 

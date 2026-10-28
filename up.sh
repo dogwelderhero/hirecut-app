@@ -36,6 +36,8 @@ docker build -f web/Dockerfile -t "$IMAGE" .
 
 say "Starting it"
 docker rm -f "$NAME" >/dev/null 2>&1 || true
+other=$(docker ps --filter "publish=${PORT}" --format '{{.Names}}' | head -n 1)
+[ -z "$other" ] || fail "Port ${PORT} is taken by another container (\"${other}\"). Stop it with: docker rm -f ${other}   or start on another port: PORT=8081 ./up.sh"
 docker run -d --name "$NAME" -p "127.0.0.1:${PORT}:8080" --env-file "$ENV_FILE" \
   -e HIRECUTE_BASE_URL="$URL" -e CAREER_OPS_WEB_ALLOWED_HOSTS=127.0.0.1 \
   "$IMAGE" >/dev/null
