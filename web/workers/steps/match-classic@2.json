@@ -1,0 +1,17 @@
+{
+  "id": "match-classic",
+  "version": 2,
+  "stage": "match",
+  "module": "../stages/match-classic.mjs",
+  "export": "runMatchStage",
+  "description": "V1's per-job scoring unchanged, plus public progress (jobs scored of the shortlist) for the matching screen.",
+  "reads": {
+    "jobs": "jobs.shortlist",
+    "sourceFactsPath": "resume.factsPath",
+    "sourceResumeHash": "resume.hash"
+  },
+  "writes": {
+    "assessments": "match.assessments",
+    "ranked": "match.ranked"
+  }
+}

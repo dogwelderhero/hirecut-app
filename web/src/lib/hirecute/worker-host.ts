@@ -41,6 +41,7 @@ const CHILD_EMITTABLE = new Set<keyof EventPayloadMap>([
   "explore.progress",
   "resume.progress",
   "explore.boards",
+  "match.progress",
   "action.started",
   "action.completed",
   "action.error",

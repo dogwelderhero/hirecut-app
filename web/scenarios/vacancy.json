@@ -99,7 +99,7 @@
       ]
     },
     {
-      "step": "match-classic@1",
+      "step": "match-classic@2",
       "after": [
         "explore-classic@2"
       ]
@@ -107,7 +107,7 @@
     {
       "step": "prepare-classic@1",
       "after": [
-        "match-classic@1"
+        "match-classic@2"
       ]
     }
   ]
