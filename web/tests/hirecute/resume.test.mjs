@@ -262,3 +262,12 @@ test("resume.progress carries page-by-page reading to the browser and the snapsh
   const snap = projectEvent({ status: "running" }, { type: "resume.progress", payload: progress });
   assert.deepEqual(snap.resumeProgress, progress);
 });
+
+test("explore.boards carries board progress to the browser and the snapshot", () => {
+  const event = (seq, type, payload) => ({ version: 1, runId: "r", seq, time: "t", input: {}, type, payload });
+  const progress = { boardsDone: 5, boardsTotal: 43, providers: { greenhouse: { done: 3, total: 21 } } };
+  const state = applyEvent(initialRunState(), event(1, "explore.boards", progress));
+  assert.deepEqual(state.boardProgress, progress);
+  const snap = projectEvent({ status: "running" }, { type: "explore.boards", payload: progress });
+  assert.deepEqual(snap.boardProgress, progress);
+});

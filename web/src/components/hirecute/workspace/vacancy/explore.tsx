@@ -26,11 +26,11 @@ function Explore({ runState, presentation, shell }: ScreenProps) {
             pill={`Searching ${CURATED_BOARDS.length} boards`}
           />
           <WorkingPanel
-            visual={<QueryVisual preferences={runState.snapshot?.preferences ?? null} />}
+            visual={<QueryVisual preferences={runState.snapshot?.preferences ?? null} progress={runState.boardProgress} />}
             title="A wider search. A tighter fit."
             lead="Your agent reads each board's own postings, removes duplicates and drops listings it cannot date."
             actions={stageActions(runState, "explore")}
-            aside={<SourceRows />}
+            aside={<SourceRows progress={runState.boardProgress} />}
             footer="Your search preferences are applied to every source."
           />
         </div>

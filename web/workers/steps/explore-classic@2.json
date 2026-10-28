@@ -1,0 +1,18 @@
+{
+  "id": "explore-classic",
+  "version": 2,
+  "stage": "explore",
+  "module": "../stages/explore-classic.mjs",
+  "export": "runExploreStage",
+  "description": "V1's curated-board search unchanged, plus public per-board progress for the search screen.",
+  "reads": {
+    "searchSeed": "search.seed",
+    "preferences": "user.preferences?"
+  },
+  "defaults": {
+    "preferences": {}
+  },
+  "writes": {
+    "jobs": "jobs.shortlist"
+  }
+}

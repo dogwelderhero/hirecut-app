@@ -143,7 +143,7 @@ test("topoOrder keeps file order among ready steps", () => {
 test("the shipped scenarios validate and run the steps each version ran", async () => {
   const d = await checkDeploymentScenarios(CODE_ROOT, ENV);
   assert.deepEqual(d.errors, []);
-  assert.deepEqual(d.scenarios.vacancy.steps, ["refine-classic@1", "explore-classic@1", "match-classic@1", "prepare-classic@1"]);
+  assert.deepEqual(d.scenarios.vacancy.steps, ["refine-classic@1", "explore-classic@2", "match-classic@1", "prepare-classic@1"]);
   assert.equal(d.scenarios.vacancy.resultStage, "prepare");
   assert.deepEqual(d.scenarios.vacancy.requires, ["chromium"]);
   assert.deepEqual(d.scenarios.recruiter.steps, ["refine-sections@2", "explore@1", "match@1", "improve@1"]);

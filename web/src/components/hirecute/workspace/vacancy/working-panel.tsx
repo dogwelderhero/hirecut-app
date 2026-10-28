@@ -7,7 +7,8 @@
  * shared checklist and indeterminate progress bar.
  */
 
-import type { SearchPreferences } from "@/lib/hirecute/contracts";
+import type { ReactNode } from "react";
+import type { BoardProgress, SearchPreferences } from "@/lib/hirecute/contracts";
 import { CURATED_BOARDS } from "@/lib/hirecute/boards.mjs";
 
 /**
@@ -108,14 +109,40 @@ export function DocScanVisual({ caption }: { caption: string }) {
   );
 }
 
-/** Screen 05's visual: the real search query, never an invented one. */
-export function QueryVisual({ preferences }: { preferences: SearchPreferences | null }) {
+/**
+ * A ring that shows real progress: an arc filling to `fraction`, or — while
+ * nothing is known yet (null) — a short arc turning. The fill only moves when
+ * the caller's data moves; there is no timer.
+ */
+export function ProgressRing({ fraction, children }: { fraction: number | null; children: ReactNode }) {
+  const known = fraction !== null;
+  const value = known ? Math.max(0, Math.min(1, fraction)) : 0.22;
+  return (
+    <div className={`hc-ring hc-ring--progress${known ? "" : " is-spinning"}`}>
+      <svg className="hc-ring-svg" viewBox="0 0 100 100" aria-hidden="true">
+        <circle className="hc-ring-track" cx="50" cy="50" r="48" pathLength={100} />
+        <circle className="hc-ring-arc" cx="50" cy="50" r="48" pathLength={100} strokeDasharray="100" strokeDashoffset={100 - value * 100} />
+      </svg>
+      {children}
+    </div>
+  );
+}
+
+/** Screen 05's visual: the real search query, never an invented one; the ring counts real boards. */
+export function QueryVisual({
+  preferences,
+  progress = null,
+}: {
+  preferences: SearchPreferences | null;
+  progress?: BoardProgress | null;
+}) {
   const roles = (preferences?.targetRoles ?? []).join(" · ");
   const places = (preferences?.locations ?? []).join(" / ");
   const query = [roles, places].filter(Boolean).join(" · ");
+  const fraction = progress && progress.boardsDone > 0 ? progress.boardsDone / progress.boardsTotal : null;
   return (
     <>
-      <div className="hc-ring">
+      <ProgressRing fraction={fraction}>
         <svg
           className="hc-icon"
           viewBox="0 0 24 24"
@@ -129,8 +156,15 @@ export function QueryVisual({ preferences }: { preferences: SearchPreferences | 
           <circle cx="10" cy="10" r="6" />
           <path d="m15 15 5 5" />
         </svg>
-      </div>
+      </ProgressRing>
       <h2>Searching with your priorities</h2>
+      {progress && (
+        <p className="hc-muted hc-small hc-ring-caption" aria-live="polite">
+          {progress.boardsDone < progress.boardsTotal
+            ? `${progress.boardsDone} of ${progress.boardsTotal} boards checked`
+            : `All ${progress.boardsTotal} boards checked`}
+        </p>
+      )}
       <div className="hc-query hc-space-top">
         {/*
           Derived from the resume, so it can be thin. The reference's
@@ -153,8 +187,8 @@ export function QueryVisual({ preferences }: { preferences: SearchPreferences | 
   );
 }
 
-/** Screen 05's copy side: one row per provider, with real board counts. */
-export function SourceRows() {
+/** Screen 05's copy side: one row per provider, with real board counts — and, once the search reports, boards done. */
+export function SourceRows({ progress = null }: { progress?: BoardProgress | null }) {
   const byProvider = CURATED_BOARDS.reduce<Record<string, number>>((acc, b) => {
     acc[b.provider] = (acc[b.provider] ?? 0) + 1;
     return acc;
@@ -167,20 +201,25 @@ export function SourceRows() {
   };
   return (
     <div className="hc-stack hc-space-top">
-      {Object.entries(byProvider).map(([provider, count]) => (
+      {Object.entries(byProvider).map(([provider, curated]) => {
+        const live = progress?.providers[provider];
+        const count = live?.total ?? curated;
+        const status = !live ? "searching…" : live.done < live.total ? `${live.done} done` : "done ✓";
+        return (
         <div key={provider} className="hc-source">
           <span>{label[provider] ?? provider}</span>
           {/*
             The reference shows a per-source found count ("38 found") while the
-            search is still running. We only learn per-board results when the
-            stage reports coverage, so the row states what it is doing instead
-            of a number we do not have yet.
+            search is still running. What the search reports live is boards
+            checked per provider (explore.boards), so the row counts those;
+            before the first report it says what it is doing.
           */}
           <span className="hc-tag">
-            {count} {count === 1 ? "board" : "boards"} · searching…
+            {count} {count === 1 ? "board" : "boards"} · {status}
           </span>
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

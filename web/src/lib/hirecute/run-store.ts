@@ -16,6 +16,7 @@
  */
 
 import type {
+  BoardProgress,
   ActionProgress,
   ApplicationPackage,
   ApplicationSelection,
@@ -77,6 +78,8 @@ export interface RunState {
   exploreProgress: { jobIds: JobId[]; boardsDone: number; boardsTotal: number } | null;
   /** Pages of the resume read so far, while it is read page by page. */
   resumeProgress: { pagesDone: number; pagesTotal: number } | null;
+  /** Boards the search has checked so far (real completions). */
+  boardProgress: BoardProgress | null;
   /** Server-confirmed "Accept changes"; the review step holds until it exists. */
   resumeAcceptance: ResumeAcceptance | null;
 }
@@ -102,6 +105,7 @@ export function initialRunState(): RunState {
     parsedResume: null,
     exploreProgress: null,
     resumeProgress: null,
+    boardProgress: null,
     resumeAcceptance: null,
   };
 }
@@ -244,6 +248,9 @@ export function applyEvent(state: RunState, event: PublicRunEvent): RunState {
 
     case "resume.progress":
       return { ...base, resumeProgress: event.payload };
+
+    case "explore.boards":
+      return { ...base, boardProgress: event.payload };
 
     case "resume.accepted":
       if (base.resumeAcceptance) return base;
@@ -403,6 +410,7 @@ export function restoreSnapshot(snapshot: RunSnapshot): RunState {
     parsedResume: snapshot.parsedResume ?? null,
     exploreProgress: snapshot.exploreProgress ?? null,
     resumeProgress: snapshot.resumeProgress ?? null,
+    boardProgress: snapshot.boardProgress ?? null,
     resumeAcceptance: snapshot.resumeAcceptance ?? null,
   };
 }
