@@ -1218,7 +1218,9 @@ svg{display:block}
 .hc-jl-gapbar li>span{color:var(--text-muted)}
 .hc-jl-gapbar li small{color:var(--text-muted)}
 .hc-jl-gapbar-empty{margin-top:var(--space-2);font-size:var(--text-xs);color:var(--text-muted)}
-.hc-jl-cards>.hc-sr-card{animation:hc-rz-in .35s ease both}
+/* Entrance and re-sorting are script animations (use-list-motion): a CSS entrance would replay whenever a re-sort moves the node. */
+.hc-jl-cards{position:relative}
+.hc-jl-cards>.hc-sr-card{position:relative}
 .hc-jl-empty{font-size:var(--text-sm);color:var(--text-muted)}
 
 /* Role card: requirements with both quotes, and the met/partly/missing tally. */

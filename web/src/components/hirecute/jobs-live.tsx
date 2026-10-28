@@ -16,10 +16,12 @@
  *    into quote marks here.
  */
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { Job, JobId, MatchAssessment, PublicError } from "@/lib/hirecute/contracts";
 import { matchPresentation } from "@/lib/hirecute/match";
 import { JobCard } from "./job-card";
+import { useListMotion } from "./use-list-motion";
+import { useReducedMotion } from "./workspace/common";
 
 export function JobsLive({
   jobs,
@@ -41,6 +43,9 @@ export function JobsLive({
   error: PublicError | null;
 }) {
   const [openId, setOpenId] = useState<JobId | null>(null);
+  // Jobs re-sort as scores land: slide them, and play an entrance only once.
+  const feed = useRef<HTMLDivElement>(null);
+  useListMotion(feed, useReducedMotion());
 
   const ids = order.filter((id) => jobs[id]);
   const scored = ids
@@ -66,7 +71,7 @@ export function JobsLive({
         </span>
       </div>
 
-      <div className="hc-sr-feed hc-jl-cards" aria-label="Jobs for your resume" aria-live="polite">
+      <div ref={feed} className="hc-sr-feed hc-jl-cards" aria-label="Jobs for your resume" aria-live="polite">
         {rows.map((id) => (
           <JobCard
             key={id}
@@ -74,6 +79,7 @@ export function JobsLive({
             assessment={assessments[id] ?? null}
             showMatchPanel
             pending={scoring && !assessments[id]}
+            motionId={id}
             expanded={openId === id}
             onToggleExpand={() => setOpenId((cur) => (cur === id ? null : id))}
           />
