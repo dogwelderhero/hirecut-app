@@ -1,0 +1,82 @@
+{
+  "contact": {
+    "name": "Sofia Romano",
+    "email": "sofia.11@example.com",
+    "phone": "+44 7712 179190",
+    "location": "Glasgow, UK"
+  },
+  "summary": "Registered Nurse with 9 years of experience across 3 organisations. Known for measurable results and calm delivery under pressure.",
+  "experience": [
+    {
+      "role": "Registered Nurse",
+      "company": "St. Aldric Hospital",
+      "location": "Dublin, Ireland",
+      "dates": "Feb 2025 – Present",
+      "bullets": [
+        "Managed care for 6–8 patients per shift on a 32-bed cardiac step-down unit",
+        "Coordinated discharge planning that cut average length of stay by 0.8 days",
+        "Maintained 100% medication-administration compliance across 3 annual audits"
+      ]
+    },
+    {
+      "role": "Charge Nurse",
+      "company": "Harbor General",
+      "location": "Glasgow, UK",
+      "dates": "Sep 2021 – Oct 2025",
+      "bullets": [
+        "Served as rapid-response team member for 140+ deteriorating-patient calls",
+        "Coordinated discharge planning that cut average length of stay by 0.8 days",
+        "Managed care for 6–8 patients per shift on a 32-bed cardiac step-down unit",
+        "Maintained 100% medication-administration compliance across 3 annual audits"
+      ]
+    },
+    {
+      "role": "ICU Nurse",
+      "company": "Riverside Medical Centre",
+      "location": "Lisbon, Portugal",
+      "dates": "May 2017 – Apr 2021",
+      "bullets": [
+        "Maintained 100% medication-administration compliance across 3 annual audits",
+        "Implemented bedside handover protocol now used across 5 wards"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "BSc (Hons) Adult Nursing",
+      "org": "King's College London",
+      "location": "London, UK",
+      "year": "2016"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Clinical",
+      "items": [
+        "Telemetry",
+        "IV therapy",
+        "Wound care",
+        "Triage"
+      ]
+    },
+    {
+      "category": "Systems",
+      "items": [
+        "Epic EHR",
+        "Cerner"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Advanced Life Support (ALS)",
+      "org": "Resuscitation Council UK",
+      "year": "2021"
+    }
+  ],
+  "interests": [
+    "Trail running",
+    "Chess",
+    "Sourdough baking"
+  ]
+}

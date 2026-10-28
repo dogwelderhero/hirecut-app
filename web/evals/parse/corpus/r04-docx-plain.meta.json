@@ -1,0 +1,7 @@
+{
+  "id": "r04-docx-plain",
+  "file": "r04-docx-plain.docx",
+  "layout": "docx-plain",
+  "language": "en",
+  "expect": "resume"
+}

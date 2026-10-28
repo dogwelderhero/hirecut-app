@@ -1,0 +1,7 @@
+{
+  "id": "r01-classic",
+  "file": "r01-classic.pdf",
+  "layout": "classic",
+  "language": "en",
+  "expect": "resume"
+}

@@ -1,0 +1,210 @@
+{
+  "contact": {
+    "name": "Rachel Adeyemi",
+    "email": "rachel.13@example.com",
+    "phone": "+44 7714 195028",
+    "location": "Cardiff, UK"
+  },
+  "targetTitle": "Senior Software Engineer",
+  "summary": "Senior Software Engineer with 26 years of experience across 6 organisations. Known for measurable results and calm delivery under pressure.",
+  "experience": [
+    {
+      "role": "Senior Software Engineer",
+      "company": "Bluefin Systems",
+      "location": "Dublin, Ireland",
+      "dates": "May 2022 – Present",
+      "bullets": [
+        "Reduced cloud spend by 28% ($310K/year) through rightsizing and spot instances",
+        "Built the billing reconciliation pipeline processing $4.2M in daily transactions",
+        "Cut p95 API latency from 840 ms to 210 ms by moving hot reads to a Redis cache",
+        "Led migration of 37 services from a monolith to Kubernetes with zero customer-facing downtime"
+      ]
+    },
+    {
+      "role": "Software Engineer",
+      "company": "Helio Payments",
+      "location": "Cardiff, UK",
+      "dates": "Oct 2021 – May 2022",
+      "bullets": [
+        "Introduced feature flags, enabling 14 releases per week instead of 2",
+        "Cut p95 API latency from 840 ms to 210 ms by moving hot reads to a Redis cache",
+        "Raised test coverage from 41% to 87% and cut release rollbacks by half",
+        "Designed an event-sourced audit log adopted by 4 product teams",
+        "Owned on-call rotation for payments; MTTR down from 3h 10m to 45m"
+      ]
+    },
+    {
+      "role": "Backend Engineer",
+      "company": "Northwind Labs",
+      "location": "Lisbon, Portugal",
+      "dates": "May 2018 – Sep 2021",
+      "bullets": [
+        "Raised test coverage from 41% to 87% and cut release rollbacks by half",
+        "Mentored 6 engineers; 2 promoted to senior within 18 months",
+        "Owned on-call rotation for payments; MTTR down from 3h 10m to 45m",
+        "Reduced cloud spend by 28% ($310K/year) through rightsizing and spot instances",
+        "Cut p95 API latency from 840 ms to 210 ms by moving hot reads to a Redis cache",
+        "Led migration of 37 services from a monolith to Kubernetes with zero customer-facing downtime"
+      ]
+    },
+    {
+      "role": "Staff Engineer",
+      "company": "Tandem Robotics",
+      "location": "Cardiff, UK",
+      "dates": "Nov 2014 – Nov 2018",
+      "bullets": [
+        "Reduced cloud spend by 28% ($310K/year) through rightsizing and spot instances",
+        "Cut p95 API latency from 840 ms to 210 ms by moving hot reads to a Redis cache",
+        "Owned on-call rotation for payments; MTTR down from 3h 10m to 45m",
+        "Built the billing reconciliation pipeline processing $4.2M in daily transactions"
+      ]
+    },
+    {
+      "role": "Platform Engineer",
+      "company": "Cobalt Health",
+      "location": "Birmingham, UK",
+      "dates": "Aug 2012 – Mar 2014",
+      "bullets": [
+        "Raised test coverage from 41% to 87% and cut release rollbacks by half",
+        "Designed an event-sourced audit log adopted by 4 product teams",
+        "Reduced cloud spend by 28% ($310K/year) through rightsizing and spot instances",
+        "Owned on-call rotation for payments; MTTR down from 3h 10m to 45m",
+        "Introduced feature flags, enabling 14 releases per week instead of 2"
+      ]
+    },
+    {
+      "role": "Senior Software Engineer",
+      "company": "Quarry Analytics",
+      "location": "Cardiff, UK",
+      "dates": "Oct 2010 – May 2012",
+      "bullets": [
+        "Cut p95 API latency from 840 ms to 210 ms by moving hot reads to a Redis cache",
+        "Reduced cloud spend by 28% ($310K/year) through rightsizing and spot instances",
+        "Introduced feature flags, enabling 14 releases per week instead of 2",
+        "Led migration of 37 services from a monolith to Kubernetes with zero customer-facing downtime",
+        "Shipped a GraphQL gateway serving 1,200 requests per second at peak",
+        "Built the billing reconciliation pipeline processing $4.2M in daily transactions"
+      ]
+    },
+    {
+      "role": "Software Engineer",
+      "company": "Bluefin Systems",
+      "location": "Dublin, Ireland",
+      "dates": "Oct 2008 – Feb 2010",
+      "bullets": [
+        "Cut p95 API latency from 840 ms to 210 ms by moving hot reads to a Redis cache",
+        "Designed an event-sourced audit log adopted by 4 product teams",
+        "Led migration of 37 services from a monolith to Kubernetes with zero customer-facing downtime",
+        "Shipped a GraphQL gateway serving 1,200 requests per second at peak"
+      ]
+    },
+    {
+      "role": "Backend Engineer",
+      "company": "Helio Payments",
+      "location": "Cardiff, UK",
+      "dates": "Aug 2004 – Mar 2008",
+      "bullets": [
+        "Introduced feature flags, enabling 14 releases per week instead of 2",
+        "Reduced cloud spend by 28% ($310K/year) through rightsizing and spot instances",
+        "Designed an event-sourced audit log adopted by 4 product teams",
+        "Cut p95 API latency from 840 ms to 210 ms by moving hot reads to a Redis cache",
+        "Owned on-call rotation for payments; MTTR down from 3h 10m to 45m"
+      ]
+    },
+    {
+      "role": "Staff Engineer",
+      "company": "Northwind Labs",
+      "location": "Manchester, UK",
+      "dates": "Jul 2000 – Jun 2004",
+      "bullets": [
+        "Raised test coverage from 41% to 87% and cut release rollbacks by half",
+        "Led migration of 37 services from a monolith to Kubernetes with zero customer-facing downtime",
+        "Mentored 6 engineers; 2 promoted to senior within 18 months",
+        "Cut p95 API latency from 840 ms to 210 ms by moving hot reads to a Redis cache",
+        "Reduced cloud spend by 28% ($310K/year) through rightsizing and spot instances",
+        "Owned on-call rotation for payments; MTTR down from 3h 10m to 45m"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "B.Sc. Computer Science",
+      "org": "University of Leeds",
+      "location": "Leeds, UK",
+      "year": "1999"
+    },
+    {
+      "title": "M.Sc. Software Engineering",
+      "org": "TU Delft",
+      "location": "Delft, Netherlands",
+      "year": "1996"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "items": [
+        "TypeScript",
+        "Go",
+        "Python",
+        "SQL"
+      ]
+    },
+    {
+      "category": "Infrastructure",
+      "items": [
+        "Kubernetes",
+        "Terraform",
+        "AWS",
+        "PostgreSQL",
+        "Redis"
+      ]
+    },
+    {
+      "category": "Practices",
+      "items": [
+        "Distributed systems",
+        "Observability",
+        "Code review"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "AWS Certified Solutions Architect – Associate",
+      "org": "Amazon Web Services",
+      "year": "2019"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Atlas side project",
+      "description": "Open-source tool used by 300+ people to track weekly goals.",
+      "tech": "TypeScript, SQLite"
+    }
+  ],
+  "volunteering": [
+    {
+      "role": "Volunteer mentor",
+      "org": "Code Your Future",
+      "dates": "2021 – 2023",
+      "bullets": [
+        "Mentored 9 career changers through a 6-month programme"
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "title": "Employee of the Year",
+      "org": "Bluefin Systems",
+      "year": "2024"
+    }
+  ],
+  "publications": [
+    {
+      "title": "Practical event sourcing at scale",
+      "venue": "QCon London",
+      "year": "2023"
+    }
+  ]
+}

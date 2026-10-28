@@ -1,0 +1,104 @@
+{
+  "contact": {
+    "name": "Marcus Bell",
+    "email": "marcus.6@example.com",
+    "phone": "+44 7706 139595",
+    "location": "Bristol, UK",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "linkedin.com/in/marcus-6"
+      }
+    ]
+  },
+  "summary": "Marketing Manager with 12 years of experience across 4 organisations. Known for measurable results and calm delivery under pressure.",
+  "experience": [
+    {
+      "role": "Marketing Manager",
+      "company": "Lumen & Co",
+      "location": "London, UK",
+      "dates": "Feb 2023 – Present",
+      "bullets": [
+        "Grew organic traffic from 18K to 145K monthly visits in 14 months",
+        "Hired and led a team of 5 across content, SEO and paid acquisition",
+        "Rebuilt attribution model, reallocating 30% of spend to channels with 2.1x ROAS",
+        "Managed a $1.6M annual paid-media budget across Google, Meta and LinkedIn"
+      ]
+    },
+    {
+      "role": "Growth Marketing Lead",
+      "company": "Vela Travel",
+      "location": "Bristol, UK",
+      "dates": "Apr 2019 – Dec 2023",
+      "bullets": [
+        "Grew organic traffic from 18K to 145K monthly visits in 14 months",
+        "Produced 60+ long-form articles and 3 gated reports generating 4,800 leads"
+      ]
+    },
+    {
+      "role": "Content Strategist",
+      "company": "Pinecrest Media",
+      "location": "Bristol, UK",
+      "dates": "Jul 2016 – Nov 2019",
+      "bullets": [
+        "Rebuilt attribution model, reallocating 30% of spend to channels with 2.1x ROAS",
+        "Grew organic traffic from 18K to 145K monthly visits in 14 months",
+        "Managed a $1.6M annual paid-media budget across Google, Meta and LinkedIn"
+      ]
+    },
+    {
+      "role": "Head of Demand Generation",
+      "company": "Arcadia Foods",
+      "location": "Bristol, UK",
+      "dates": "May 2014 – Sep 2016",
+      "bullets": [
+        "Managed a $1.6M annual paid-media budget across Google, Meta and LinkedIn",
+        "Grew organic traffic from 18K to 145K monthly visits in 14 months",
+        "Launched lifecycle email program lifting repeat purchase rate by 23%",
+        "Produced 60+ long-form articles and 3 gated reports generating 4,800 leads"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "BA Communications",
+      "org": "University of Amsterdam",
+      "location": "Amsterdam, Netherlands",
+      "year": "2013"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Channels",
+      "items": [
+        "SEO",
+        "Paid search",
+        "Lifecycle email",
+        "Social"
+      ]
+    },
+    {
+      "category": "Tools",
+      "items": [
+        "HubSpot",
+        "GA4",
+        "Looker Studio",
+        "Figma"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Google Ads Search Certification",
+      "org": "Google",
+      "year": "2020"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Atlas side project",
+      "description": "Open-source tool used by 300+ people to track weekly goals.",
+      "tech": "TypeScript, SQLite"
+    }
+  ]
+}

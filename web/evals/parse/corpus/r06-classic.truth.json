@@ -1,0 +1,104 @@
+{
+  "contact": {
+    "name": "Marcus Bell",
+    "email": "marcus.6@example.com",
+    "phone": "+44 7706 139595",
+    "location": "Bristol, UK",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "linkedin.com/in/marcus-6"
+      }
+    ]
+  },
+  "summary": "Marketing Manager with 10 years of experience across 4 organisations. Known for measurable results and calm delivery under pressure.",
+  "experience": [
+    {
+      "role": "Marketing Manager",
+      "company": "Pinecrest Media",
+      "location": "Valencia, Spain",
+      "dates": "Jul 2023 – Present",
+      "bullets": [
+        "Hired and led a team of 5 across content, SEO and paid acquisition",
+        "Produced 60+ long-form articles and 3 gated reports generating 4,800 leads",
+        "Rebuilt attribution model, reallocating 30% of spend to channels with 2.1x ROAS",
+        "Launched lifecycle email program lifting repeat purchase rate by 23%"
+      ]
+    },
+    {
+      "role": "Growth Marketing Lead",
+      "company": "Lumen & Co",
+      "location": "Bristol, UK",
+      "dates": "Jul 2020 – Dec 2023",
+      "bullets": [
+        "Grew organic traffic from 18K to 145K monthly visits in 14 months",
+        "Managed a $1.6M annual paid-media budget across Google, Meta and LinkedIn"
+      ]
+    },
+    {
+      "role": "Content Strategist",
+      "company": "Vela Travel",
+      "location": "Birmingham, UK",
+      "dates": "Feb 2017 – Feb 2020",
+      "bullets": [
+        "Grew organic traffic from 18K to 145K monthly visits in 14 months",
+        "Rebuilt attribution model, reallocating 30% of spend to channels with 2.1x ROAS",
+        "Managed a $1.6M annual paid-media budget across Google, Meta and LinkedIn"
+      ]
+    },
+    {
+      "role": "Head of Demand Generation",
+      "company": "Arcadia Foods",
+      "location": "Bristol, UK",
+      "dates": "Sep 2016 – Sep 2017",
+      "bullets": [
+        "Launched lifecycle email program lifting repeat purchase rate by 23%",
+        "Hired and led a team of 5 across content, SEO and paid acquisition",
+        "Rebuilt attribution model, reallocating 30% of spend to channels with 2.1x ROAS",
+        "Managed a $1.6M annual paid-media budget across Google, Meta and LinkedIn"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "BA Communications",
+      "org": "University of Amsterdam",
+      "location": "Amsterdam, Netherlands",
+      "year": "2015"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Channels",
+      "items": [
+        "SEO",
+        "Paid search",
+        "Lifecycle email",
+        "Social"
+      ]
+    },
+    {
+      "category": "Tools",
+      "items": [
+        "HubSpot",
+        "GA4",
+        "Looker Studio",
+        "Figma"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Google Ads Search Certification",
+      "org": "Google",
+      "year": "2020"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Compass side project",
+      "description": "Open-source tool used by 300+ people to track weekly goals.",
+      "tech": "TypeScript, SQLite"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "contact": {
+    "name": "Tomasz Wiśniewski",
+    "email": "tomasz.4@example.com",
+    "phone": "+44 7703 123757",
+    "location": "Warsaw, Poland",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "linkedin.com/in/tomasz-4"
+      }
+    ]
+  },
+  "targetTitle": "Financial Analyst",
+  "experience": [
+    {
+      "role": "Financial Analyst",
+      "company": "Meridian Retail Group",
+      "location": "Warsaw, Poland",
+      "dates": "Feb 2023 – Present",
+      "bullets": [
+        "Led SOX control testing for revenue cycle with zero material weaknesses",
+        "Closed the monthly books in 4 business days, down from 9"
+      ]
+    },
+    {
+      "role": "Senior Accountant",
+      "company": "Oakline Manufacturing",
+      "location": "Warsaw, Poland",
+      "dates": "Jul 2021 – Aug 2023",
+      "bullets": [
+        "Closed the monthly books in 4 business days, down from 9",
+        "Built a 3-statement forecast model used for a $25M Series B raise",
+        "Identified $640K in duplicate vendor payments through AP analytics"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "BSc Accounting and Finance",
+      "org": "London School of Economics",
+      "location": "London, UK",
+      "year": "2020"
+    },
+    {
+      "title": "MBA",
+      "org": "INSEAD",
+      "location": "Fontainebleau, France",
+      "year": "2017"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Finance",
+      "items": [
+        "IFRS",
+        "US GAAP",
+        "Forecasting",
+        "Consolidation"
+      ]
+    },
+    {
+      "category": "Tools",
+      "items": [
+        "Excel",
+        "NetSuite",
+        "Power BI",
+        "SAP"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "ACCA",
+      "org": "Association of Chartered Certified Accountants",
+      "year": "2022"
+    },
+    {
+      "title": "CFA Level II",
+      "org": "CFA Institute",
+      "year": "2023"
+    }
+  ]
+}

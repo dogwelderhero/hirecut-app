@@ -1,0 +1,7 @@
+{
+  "id": "r07-docx-table",
+  "file": "r07-docx-table.docx",
+  "layout": "docx-table",
+  "language": "en",
+  "expect": "resume"
+}

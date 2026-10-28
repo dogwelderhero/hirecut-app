@@ -1,0 +1,7 @@
+{
+  "id": "n01-cover-letter",
+  "file": "n01-cover-letter.pdf",
+  "layout": "other",
+  "language": "en",
+  "expect": "not_resume"
+}

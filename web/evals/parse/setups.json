@@ -1,0 +1,30 @@
+{
+  "prices": {
+    "_note": "USD per 1M tokens [input, output]; Anthropic list prices as of 2026-10. Update when they change.",
+    "claude-sonnet-5": [2, 10],
+    "claude-haiku-5-5": [0.1, 0.5]
+  },
+  "setups": {
+    "current": {
+      "description": "Production today: one parse call on HIRECUTE_MODEL (the fast tier is not configured in .do/app.yaml).",
+      "env": { "HIRECUTE_MODEL": "claude-sonnet-5" },
+      "unset": ["HIRECUTE_MODEL_FAST", "HIRECUTE_MODEL_JUDGMENT"]
+    }
+  },
+  "gate": {
+    "_note": "Allowed regression of a candidate against the base: percentage points for *Pct, counts for counts, a ratio for latency (0.1 = 10% slower).",
+    "tolerance": {
+      "outcomeOk": 0,
+      "falseRejects": 0,
+      "falseAccepts": 0,
+      "modelErrors": 0,
+      "injectionFollowed": 0,
+      "invented": 0,
+      "fieldsExactPct": 1,
+      "contentPresentPct": 0.5,
+      "jobsRightPct": 2,
+      "msP50": 0.1,
+      "msP90": 0.1
+    }
+  }
+}

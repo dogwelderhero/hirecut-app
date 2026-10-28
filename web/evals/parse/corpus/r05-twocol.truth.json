@@ -1,0 +1,75 @@
+{
+  "contact": {
+    "name": "Zoë Lindqvist",
+    "email": "zoe.5@example.com",
+    "phone": "+44 7704 131676",
+    "location": "Stockholm, Sweden"
+  },
+  "summary": "Product Designer with 6 years of experience across 3 organisations. Known for measurable results and calm delivery under pressure.",
+  "experience": [
+    {
+      "role": "Product Designer",
+      "company": "Fernway",
+      "location": "Edinburgh, UK",
+      "dates": "Sep 2023 – Present",
+      "bullets": [
+        "Built a design system of 120 components used by 9 squads",
+        "Ran 45 usability sessions and turned findings into a prioritised roadmap",
+        "Redesigned onboarding flow, raising activation from 31% to 52%"
+      ]
+    },
+    {
+      "role": "Senior UX Designer",
+      "company": "Atlas Mobility",
+      "location": "Stockholm, Sweden",
+      "dates": "Jan 2022 – Sep 2023",
+      "bullets": [
+        "Redesigned onboarding flow, raising activation from 31% to 52%",
+        "Cut checkout steps from 6 to 3, reducing abandonment by 17%",
+        "Built a design system of 120 components used by 9 squads",
+        "Partnered with research to launch accessibility audit reaching WCAG 2.2 AA"
+      ]
+    },
+    {
+      "role": "Design Lead",
+      "company": "Kite Insurance",
+      "location": "Manchester, UK",
+      "dates": "Jul 2020 – Feb 2022",
+      "bullets": [
+        "Cut checkout steps from 6 to 3, reducing abandonment by 17%",
+        "Ran 45 usability sessions and turned findings into a prioritised roadmap"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "BA Interaction Design",
+      "org": "Royal College of Art",
+      "location": "London, UK",
+      "year": "2019"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Design",
+      "items": [
+        "Interaction design",
+        "Prototyping",
+        "User research"
+      ]
+    },
+    {
+      "category": "Tools",
+      "items": [
+        "Figma",
+        "Framer",
+        "Maze"
+      ]
+    }
+  ],
+  "interests": [
+    "Trail running",
+    "Chess",
+    "Sourdough baking"
+  ]
+}

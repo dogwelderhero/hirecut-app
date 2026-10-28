@@ -1,0 +1,57 @@
+{
+  "contact": {
+    "name": "Jonas Schäfer",
+    "email": "jonas.schaefer@example.com",
+    "phone": "+49 151 2345 6789",
+    "location": "München, Deutschland"
+  },
+  "summary": "Erfahrener Elektroingenieur mit Schwerpunkt auf Leistungselektronik und Prüfautomatisierung.",
+  "experience": [
+    {
+      "role": "Entwicklungsingenieur Leistungselektronik",
+      "company": "Brenner Antriebstechnik GmbH",
+      "location": "München",
+      "dates": "03/2021 – heute",
+      "bullets": [
+        "Entwicklung eines 11-kW-Wechselrichters, Wirkungsgrad um 2,4 % gesteigert",
+        "Aufbau eines automatisierten Prüfstands, Prüfzeit von 45 auf 12 Minuten reduziert"
+      ]
+    },
+    {
+      "role": "Prüfingenieur",
+      "company": "Kessler Messtechnik AG",
+      "location": "Augsburg",
+      "dates": "09/2017 – 02/2021",
+      "bullets": [
+        "Verantwortlich für EMV-Prüfungen nach DIN EN 61000",
+        "Betreuung von 3 Werkstudenten"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "M.Sc. Elektrotechnik",
+      "org": "Technische Universität München",
+      "location": "München",
+      "year": "2017"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Fachkenntnisse",
+      "items": [
+        "Leistungselektronik",
+        "EMV",
+        "LabVIEW",
+        "MATLAB/Simulink"
+      ]
+    },
+    {
+      "category": "Sprachen",
+      "items": [
+        "Deutsch (Muttersprache)",
+        "Englisch (fließend)"
+      ]
+    }
+  ]
+}

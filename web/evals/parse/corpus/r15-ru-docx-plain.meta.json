@@ -1,0 +1,13 @@
+{
+  "id": "r15-ru-docx-plain",
+  "file": "r15-ru-docx-plain.docx",
+  "layout": "docx-plain",
+  "language": "ru",
+  "expect": "resume",
+  "titles": {
+    "summary": "О себе",
+    "experience": "Опыт работы",
+    "education": "Образование",
+    "skills": "Навыки"
+  }
+}

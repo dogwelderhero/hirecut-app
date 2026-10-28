@@ -23,20 +23,10 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { extractResumeText, extractionMessage } from "../../src/lib/hirecute/extract.mjs";
-import { ModelError, requestStructured, untrusted } from "../../src/lib/hirecute/model.mjs";
-import {
-  RESUME_PARSE_SCHEMA,
-  resumeParseSystem,
-  resumeParseUser,
-} from "../../src/lib/hirecute/prompts.mjs";
+import { ModelError } from "../../src/lib/hirecute/model.mjs";
+import { parseResume } from "../../src/lib/hirecute/resume-parse.mjs";
 import { buildCvDocument, checkFacts, sourceFactsMarkdown } from "../../src/lib/hirecute/documents.mjs";
-import {
-  SECTION_KEYS,
-  isSectionEmpty,
-  normalizeResume,
-  resumeText,
-  toCvPayload,
-} from "../../src/lib/hirecute/resume.mjs";
+import { SECTION_KEYS, isSectionEmpty, resumeText, toCvPayload } from "../../src/lib/hirecute/resume.mjs";
 import { ACTION_LABELS } from "../../src/lib/hirecute/action-labels.mjs";
 
 const sha256 = (s) => `sha256:${createHash("sha256").update(s).digest("hex")}`;
@@ -132,50 +122,26 @@ export async function runRefineStage(ctx) {
   // ── Action 3: read the resume into sections (no rewriting) ─────────────
   start(2);
 
-  /** One structured call. Returns `{data}` or `{error}` (public) — never throws. */
-  async function call(opts) {
-    try {
-      const response = await requestStructured(opts);
-      diag({ model: { call: opts.schemaName, usage: response.usage, model: response.model } });
-      return { data: response.data };
-    } catch (err) {
-      diag({ modelError: { call: opts.schemaName, detail: err?.detail ?? String(err?.message ?? err) } });
-      return {
-        error: publicError(
-          err instanceof ModelError ? err.code : "internal_error",
-          err instanceof ModelError ? err.message : "We could not read your resume just now.",
-          err instanceof ModelError ? err.retryable : true,
-        ),
-      };
-    }
-  }
-
-  const parsed = await call({
-    tier: "fast",
-    system: await resumeParseSystem(),
-    user: resumeParseUser(untrusted("RESUME", extracted.text)),
-    schema: RESUME_PARSE_SCHEMA,
-    schemaName: "emit_resume_sections",
-    maxTokens: 8192,
-  });
-  if (parsed.error) {
-    emit("action.error", { stage: "refine", actionId: "refine-2", error: parsed.error }, "refine");
+  // The call and the validation of its reply live in resume-parse.mjs, the
+  // same code the parse evals (web/evals/parse) measure.
+  const parsed = await parseResume(extracted.text);
+  if (!parsed.ok && parsed.reason === "model") {
+    const err = parsed.error;
+    diag({ modelError: { call: "emit_resume_sections", detail: err?.detail ?? String(err?.message ?? err) } });
+    const error = publicError(
+      err instanceof ModelError ? err.code : "internal_error",
+      err instanceof ModelError ? err.message : "We could not read your resume just now.",
+      err instanceof ModelError ? err.retryable : true,
+    );
+    emit("action.error", { stage: "refine", actionId: "refine-2", error }, "refine");
     // §4: "Model/validation failure: show original and retry." The original is untouched.
-    emit("stage.error", { stage: "refine", inputVersion: 1, error: parsed.error }, "refine");
+    emit("stage.error", { stage: "refine", inputVersion: 1, error }, "refine");
     return { ok: false };
   }
-
-  // Validation, not trust: coerce to the section shape, and require that the
-  // document actually had resume content in it. A reply wrapped one level too
-  // deep ({x: {usable, sections}}) is unwrapped rather than read as empty.
-  let parseData = parsed.data ?? {};
-  if (parseData.usable === undefined && !parseData.sections) {
-    const inner = Object.values(parseData).find((v) => v && typeof v === "object" && ("usable" in v || "sections" in v));
-    if (inner) parseData = inner;
-  }
-  const resume = normalizeResume(parseData.sections ?? parseData.resume);
+  diag({ model: { call: "emit_resume_sections", usage: parsed.usage, model: parsed.model } });
+  const { resume, parseData } = parsed;
   diag({ parse: { keys: Object.keys(parseData), usable: parseData.usable ?? null } });
-  if (parseData.usable === false || SECTION_KEYS.every((k) => isSectionEmpty(resume, k))) {
+  if (!parsed.ok) {
     const error = publicError(
       "unreadable_resume",
       "That document does not look like a resume we can work from. Upload a different file, or paste your resume text.",

@@ -1,0 +1,13 @@
+{
+  "id": "r14-de-classic",
+  "file": "r14-de-classic.pdf",
+  "layout": "classic",
+  "language": "de",
+  "expect": "resume",
+  "titles": {
+    "summary": "Profil",
+    "experience": "Berufserfahrung",
+    "education": "Ausbildung",
+    "skills": "Kenntnisse"
+  }
+}

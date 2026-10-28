@@ -1,0 +1,81 @@
+{
+  "contact": {
+    "name": "Oliver Grant",
+    "email": "oliver.10@example.com",
+    "phone": "+44 7711 171271",
+    "location": "Dublin, Ireland",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "linkedin.com/in/oliver-10"
+      }
+    ]
+  },
+  "targetTitle": "Marketing Manager",
+  "summary": "Marketing Manager with 3 years of experience across 2 organisations. Known for measurable results and calm delivery under pressure.",
+  "experience": [
+    {
+      "role": "Marketing Manager",
+      "company": "Vela Travel",
+      "location": "Lisbon, Portugal",
+      "dates": "Sep 2025 – Present",
+      "bullets": [
+        "Rebuilt attribution model, reallocating 30% of spend to channels with 2.1x ROAS",
+        "Grew organic traffic from 18K to 145K monthly visits in 14 months"
+      ]
+    },
+    {
+      "role": "Growth Marketing Lead",
+      "company": "Arcadia Foods",
+      "location": "Dublin, Ireland",
+      "dates": "May 2023 – Feb 2025",
+      "bullets": [
+        "Hired and led a team of 5 across content, SEO and paid acquisition",
+        "Produced 60+ long-form articles and 3 gated reports generating 4,800 leads",
+        "Rebuilt attribution model, reallocating 30% of spend to channels with 2.1x ROAS"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "BA Communications",
+      "org": "University of Amsterdam",
+      "location": "Amsterdam, Netherlands",
+      "year": "2022"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Channels",
+      "items": [
+        "SEO",
+        "Paid search",
+        "Lifecycle email",
+        "Social"
+      ]
+    },
+    {
+      "category": "Tools",
+      "items": [
+        "HubSpot",
+        "GA4",
+        "Looker Studio",
+        "Figma"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Google Ads Search Certification",
+      "org": "Google",
+      "year": "2020"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Compass side project",
+      "description": "Open-source tool used by 300+ people to track weekly goals.",
+      "tech": "TypeScript, SQLite"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "s01-scan",
+  "file": "s01-scan.pdf",
+  "layout": "scan",
+  "language": "en",
+  "expect": "extract_fail"
+}

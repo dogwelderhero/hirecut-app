@@ -1,0 +1,100 @@
+{
+  "contact": {
+    "name": "Mei Chen",
+    "email": "mei.9@example.com",
+    "phone": "+44 7709 163352",
+    "location": "London, UK"
+  },
+  "summary": "Senior Software Engineer with 10 years of experience across 4 organisations. Known for measurable results and calm delivery under pressure.",
+  "experience": [
+    {
+      "role": "Senior Software Engineer",
+      "company": "Bluefin Systems",
+      "location": "Valencia, Spain",
+      "dates": "Oct 2024 – Present",
+      "bullets": [
+        "Reduced cloud spend by 28% ($310K/year) through rightsizing and spot instances",
+        "Introduced feature flags, enabling 14 releases per week instead of 2",
+        "Led migration of 37 services from a monolith to Kubernetes with zero customer-facing downtime",
+        "Mentored 6 engineers; 2 promoted to senior within 18 months"
+      ]
+    },
+    {
+      "role": "Software Engineer",
+      "company": "Helio Payments",
+      "location": "London, UK",
+      "dates": "Aug 2020 – Aug 2024",
+      "bullets": [
+        "Shipped a GraphQL gateway serving 1,200 requests per second at peak",
+        "Cut p95 API latency from 840 ms to 210 ms by moving hot reads to a Redis cache"
+      ]
+    },
+    {
+      "role": "Backend Engineer",
+      "company": "Northwind Labs",
+      "location": "Edinburgh, UK",
+      "dates": "Dec 2019 – Aug 2020",
+      "bullets": [
+        "Designed an event-sourced audit log adopted by 4 product teams",
+        "Raised test coverage from 41% to 87% and cut release rollbacks by half",
+        "Cut p95 API latency from 840 ms to 210 ms by moving hot reads to a Redis cache"
+      ]
+    },
+    {
+      "role": "Staff Engineer",
+      "company": "Quarry Analytics",
+      "location": "London, UK",
+      "dates": "Jul 2016 – Aug 2019",
+      "bullets": [
+        "Owned on-call rotation for payments; MTTR down from 3h 10m to 45m",
+        "Reduced cloud spend by 28% ($310K/year) through rightsizing and spot instances",
+        "Shipped a GraphQL gateway serving 1,200 requests per second at peak",
+        "Mentored 6 engineers; 2 promoted to senior within 18 months"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "B.Sc. Computer Science",
+      "org": "University of Leeds",
+      "location": "Leeds, UK",
+      "year": "2015"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "items": [
+        "TypeScript",
+        "Go",
+        "Python",
+        "SQL"
+      ]
+    },
+    {
+      "category": "Infrastructure",
+      "items": [
+        "Kubernetes",
+        "Terraform",
+        "AWS",
+        "PostgreSQL",
+        "Redis"
+      ]
+    },
+    {
+      "category": "Practices",
+      "items": [
+        "Distributed systems",
+        "Observability",
+        "Code review"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "AWS Certified Solutions Architect – Associate",
+      "org": "Amazon Web Services",
+      "year": "2019"
+    }
+  ]
+}

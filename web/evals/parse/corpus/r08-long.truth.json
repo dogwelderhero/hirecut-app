@@ -1,0 +1,169 @@
+{
+  "contact": {
+    "name": "Daniel Ferreira",
+    "email": "daniel.8@example.com",
+    "phone": "+44 7708 155433",
+    "location": "Lisbon, Portugal",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "linkedin.com/in/daniel-8"
+      }
+    ]
+  },
+  "experience": [
+    {
+      "role": "Financial Analyst",
+      "company": "Meridian Retail Group",
+      "location": "London, UK",
+      "dates": "Feb 2023 – Present",
+      "bullets": [
+        "Built a 3-statement forecast model used for a $25M Series B raise",
+        "Prepared consolidated statements for 7 legal entities under IFRS",
+        "Closed the monthly books in 4 business days, down from 9",
+        "Led SOX control testing for revenue cycle with zero material weaknesses"
+      ]
+    },
+    {
+      "role": "Senior Accountant",
+      "company": "Oakline Manufacturing",
+      "location": "Lisbon, Portugal",
+      "dates": "Oct 2021 – Sep 2023",
+      "bullets": [
+        "Automated variance reporting in Power BI, saving 12 analyst-hours per week",
+        "Built a 3-statement forecast model used for a $25M Series B raise",
+        "Closed the monthly books in 4 business days, down from 9",
+        "Led SOX control testing for revenue cycle with zero material weaknesses",
+        "Prepared consolidated statements for 7 legal entities under IFRS"
+      ]
+    },
+    {
+      "role": "FP&A Manager",
+      "company": "Granite Capital",
+      "location": "Edinburgh, UK",
+      "dates": "Jul 2020 – Nov 2021",
+      "bullets": [
+        "Led SOX control testing for revenue cycle with zero material weaknesses",
+        "Closed the monthly books in 4 business days, down from 9",
+        "Automated variance reporting in Power BI, saving 12 analyst-hours per week",
+        "Built a 3-statement forecast model used for a $25M Series B raise",
+        "Prepared consolidated statements for 7 legal entities under IFRS",
+        "Identified $640K in duplicate vendor payments through AP analytics"
+      ]
+    },
+    {
+      "role": "Controller",
+      "company": "Solace Energy",
+      "location": "Lisbon, Portugal",
+      "dates": "Aug 2019 – Dec 2020",
+      "bullets": [
+        "Prepared consolidated statements for 7 legal entities under IFRS",
+        "Closed the monthly books in 4 business days, down from 9",
+        "Led SOX control testing for revenue cycle with zero material weaknesses",
+        "Automated variance reporting in Power BI, saving 12 analyst-hours per week"
+      ]
+    },
+    {
+      "role": "Financial Analyst",
+      "company": "Meridian Retail Group",
+      "location": "Valencia, Spain",
+      "dates": "Jul 2015 – Aug 2019",
+      "bullets": [
+        "Led SOX control testing for revenue cycle with zero material weaknesses",
+        "Automated variance reporting in Power BI, saving 12 analyst-hours per week",
+        "Prepared consolidated statements for 7 legal entities under IFRS",
+        "Identified $640K in duplicate vendor payments through AP analytics",
+        "Built a 3-statement forecast model used for a $25M Series B raise"
+      ]
+    },
+    {
+      "role": "Senior Accountant",
+      "company": "Oakline Manufacturing",
+      "location": "Lisbon, Portugal",
+      "dates": "Jun 2012 – Feb 2015",
+      "bullets": [
+        "Identified $640K in duplicate vendor payments through AP analytics",
+        "Prepared consolidated statements for 7 legal entities under IFRS",
+        "Led SOX control testing for revenue cycle with zero material weaknesses",
+        "Built a 3-statement forecast model used for a $25M Series B raise",
+        "Automated variance reporting in Power BI, saving 12 analyst-hours per week",
+        "Closed the monthly books in 4 business days, down from 9"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "BSc Accounting and Finance",
+      "org": "London School of Economics",
+      "location": "London, UK",
+      "year": "2011"
+    },
+    {
+      "title": "MBA",
+      "org": "INSEAD",
+      "location": "Fontainebleau, France",
+      "year": "2008"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Finance",
+      "items": [
+        "IFRS",
+        "US GAAP",
+        "Forecasting",
+        "Consolidation"
+      ]
+    },
+    {
+      "category": "Tools",
+      "items": [
+        "Excel",
+        "NetSuite",
+        "Power BI",
+        "SAP"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "ACCA",
+      "org": "Association of Chartered Certified Accountants",
+      "year": "2022"
+    },
+    {
+      "title": "CFA Level II",
+      "org": "CFA Institute",
+      "year": "2023"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Atlas side project",
+      "description": "Open-source tool used by 300+ people to track weekly goals.",
+      "tech": "TypeScript, SQLite"
+    }
+  ],
+  "volunteering": [
+    {
+      "role": "Volunteer mentor",
+      "org": "Code Your Future",
+      "dates": "2021 – 2023",
+      "bullets": [
+        "Mentored 9 career changers through a 6-month programme"
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "title": "Employee of the Year",
+      "org": "Meridian Retail Group",
+      "year": "2024"
+    }
+  ],
+  "interests": [
+    "Trail running",
+    "Chess",
+    "Sourdough baking"
+  ]
+}

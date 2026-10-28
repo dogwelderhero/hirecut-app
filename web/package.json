@@ -9,7 +9,10 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-strip-types --test \"tests/**/*.test.mjs\"",
-    "preflight": "node scripts/preflight.mjs"
+    "preflight": "node scripts/preflight.mjs",
+    "eval:parse": "node evals/parse/run.mjs",
+    "eval:parse:compare": "node evals/parse/compare.mjs",
+    "eval:parse:history": "node evals/parse/compare.mjs --history"
   },
   "engines": {
     "node": ">=22.6.0"

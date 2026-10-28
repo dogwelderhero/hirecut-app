@@ -1,0 +1,7 @@
+{
+  "id": "r05-twocol",
+  "file": "r05-twocol.pdf",
+  "layout": "twocol",
+  "language": "en",
+  "expect": "resume"
+}

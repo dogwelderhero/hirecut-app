@@ -1,0 +1,65 @@
+{
+  "contact": {
+    "name": "Aisha Khan",
+    "email": "aisha.7@example.com",
+    "phone": "+44 7707 147514",
+    "location": "Birmingham, UK"
+  },
+  "targetTitle": "Mathematics Teacher",
+  "summary": "Mathematics Teacher with 4 years of experience across 2 organisations. Known for measurable results and calm delivery under pressure.",
+  "experience": [
+    {
+      "role": "Mathematics Teacher",
+      "company": "Lakeside International School",
+      "location": "Stockholm, Sweden",
+      "dates": "Sep 2025 – Present",
+      "bullets": [
+        "Raised GCSE grade 7+ rate in mathematics from 21% to 38% over three cohorts",
+        "Designed a Year 9 problem-solving curriculum adopted by 4 partner schools"
+      ]
+    },
+    {
+      "role": "Head of Mathematics",
+      "company": "Elmfield High School",
+      "location": "Birmingham, UK",
+      "dates": "Nov 2022 – Jul 2025",
+      "bullets": [
+        "Raised GCSE grade 7+ rate in mathematics from 21% to 38% over three cohorts",
+        "Designed a Year 9 problem-solving curriculum adopted by 4 partner schools",
+        "Ran after-school olympiad club; 11 students reached national finals"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "PGCE Secondary Mathematics",
+      "org": "University of Bristol",
+      "location": "Bristol, UK",
+      "year": "2021"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Teaching",
+      "items": [
+        "Curriculum design",
+        "Assessment",
+        "Differentiation"
+      ]
+    },
+    {
+      "category": "Tools",
+      "items": [
+        "Google Classroom",
+        "Desmos"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Qualified Teacher Status (QTS)",
+      "org": "Department for Education",
+      "year": "2021"
+    }
+  ]
+}

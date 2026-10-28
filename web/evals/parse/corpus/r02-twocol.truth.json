@@ -1,0 +1,117 @@
+{
+  "contact": {
+    "name": "José Muñoz García",
+    "email": "jose.2@example.com",
+    "phone": "+44 7701 107919",
+    "location": "Valencia, Spain",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "linkedin.com/in/jose-2"
+      }
+    ]
+  },
+  "summary": "Senior Software Engineer with 10 years of experience across 3 organisations. Known for measurable results and calm delivery under pressure.",
+  "experience": [
+    {
+      "role": "Senior Software Engineer",
+      "company": "Tandem Robotics",
+      "location": "London, UK",
+      "dates": "Aug 2022 – Present",
+      "bullets": [
+        "Built the billing reconciliation pipeline processing $4.2M in daily transactions",
+        "Designed an event-sourced audit log adopted by 4 product teams",
+        "Mentored 6 engineers; 2 promoted to senior within 18 months"
+      ]
+    },
+    {
+      "role": "Software Engineer",
+      "company": "Northwind Labs",
+      "location": "Valencia, Spain",
+      "dates": "Oct 2020 – Mar 2022",
+      "bullets": [
+        "Owned on-call rotation for payments; MTTR down from 3h 10m to 45m",
+        "Mentored 6 engineers; 2 promoted to senior within 18 months",
+        "Reduced cloud spend by 28% ($310K/year) through rightsizing and spot instances",
+        "Designed an event-sourced audit log adopted by 4 product teams"
+      ]
+    },
+    {
+      "role": "Backend Engineer",
+      "company": "Quarry Analytics",
+      "location": "Bristol, UK",
+      "dates": "Nov 2016 – Jul 2020",
+      "bullets": [
+        "Designed an event-sourced audit log adopted by 4 product teams",
+        "Raised test coverage from 41% to 87% and cut release rollbacks by half"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "B.Sc. Computer Science",
+      "org": "University of Leeds",
+      "location": "Leeds, UK",
+      "year": "2015"
+    },
+    {
+      "title": "M.Sc. Software Engineering",
+      "org": "TU Delft",
+      "location": "Delft, Netherlands",
+      "year": "2012"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "items": [
+        "TypeScript",
+        "Go",
+        "Python",
+        "SQL"
+      ]
+    },
+    {
+      "category": "Infrastructure",
+      "items": [
+        "Kubernetes",
+        "Terraform",
+        "AWS",
+        "PostgreSQL",
+        "Redis"
+      ]
+    },
+    {
+      "category": "Practices",
+      "items": [
+        "Distributed systems",
+        "Observability",
+        "Code review"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "AWS Certified Solutions Architect – Associate",
+      "org": "Amazon Web Services",
+      "year": "2020"
+    },
+    {
+      "title": "CKA: Certified Kubernetes Administrator",
+      "org": "CNCF",
+      "year": "2021"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Atlas side project",
+      "description": "Open-source tool used by 300+ people to track weekly goals.",
+      "tech": "TypeScript, SQLite"
+    }
+  ],
+  "interests": [
+    "Trail running",
+    "Chess",
+    "Sourdough baking"
+  ]
+}

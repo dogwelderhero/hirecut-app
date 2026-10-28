@@ -1,0 +1,99 @@
+{
+  "contact": {
+    "name": "Priya Raman",
+    "email": "priya.3@example.com",
+    "phone": "+44 7702 115838",
+    "location": "Leicester, UK"
+  },
+  "summary": "Registered Nurse with 14 years of experience across 4 organisations. Known for measurable results and calm delivery under pressure.",
+  "experience": [
+    {
+      "role": "Registered Nurse",
+      "company": "Harbor General",
+      "location": "Glasgow, UK",
+      "dates": "Feb 2023 – Present",
+      "bullets": [
+        "Trained 22 new graduate nurses in telemetry monitoring and escalation",
+        "Coordinated discharge planning that cut average length of stay by 0.8 days",
+        "Reduced central-line infections by 40% after leading a bundle-compliance audit",
+        "Served as rapid-response team member for 140+ deteriorating-patient calls"
+      ]
+    },
+    {
+      "role": "Charge Nurse",
+      "company": "St. Aldric Hospital",
+      "location": "Leicester, UK",
+      "dates": "Jan 2019 – Aug 2023",
+      "bullets": [
+        "Implemented bedside handover protocol now used across 5 wards",
+        "Managed care for 6–8 patients per shift on a 32-bed cardiac step-down unit"
+      ]
+    },
+    {
+      "role": "ICU Nurse",
+      "company": "Riverside Medical Centre",
+      "location": "Glasgow, UK",
+      "dates": "May 2016 – Jan 2019",
+      "bullets": [
+        "Served as rapid-response team member for 140+ deteriorating-patient calls",
+        "Coordinated discharge planning that cut average length of stay by 0.8 days",
+        "Maintained 100% medication-administration compliance across 3 annual audits"
+      ]
+    },
+    {
+      "role": "Clinical Nurse Educator",
+      "company": "Mercy Valley Clinic",
+      "location": "Leicester, UK",
+      "dates": "Apr 2012 – Feb 2016",
+      "bullets": [
+        "Maintained 100% medication-administration compliance across 3 annual audits",
+        "Served as rapid-response team member for 140+ deteriorating-patient calls",
+        "Coordinated discharge planning that cut average length of stay by 0.8 days",
+        "Implemented bedside handover protocol now used across 5 wards"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "BSc (Hons) Adult Nursing",
+      "org": "King's College London",
+      "location": "London, UK",
+      "year": "2011"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Clinical",
+      "items": [
+        "Telemetry",
+        "IV therapy",
+        "Wound care",
+        "Triage"
+      ]
+    },
+    {
+      "category": "Systems",
+      "items": [
+        "Epic EHR",
+        "Cerner"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Advanced Life Support (ALS)",
+      "org": "Resuscitation Council UK",
+      "year": "2021"
+    }
+  ],
+  "volunteering": [
+    {
+      "role": "Volunteer mentor",
+      "org": "Code Your Future",
+      "dates": "2021 – 2023",
+      "bullets": [
+        "Mentored 9 career changers through a 6-month programme"
+      ]
+    }
+  ]
+}

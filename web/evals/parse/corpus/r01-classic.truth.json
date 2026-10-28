@@ -1,0 +1,77 @@
+{
+  "contact": {
+    "name": "Hannah Okafor",
+    "email": "hannah.1@example.com",
+    "phone": "+44 7700 100000",
+    "location": "Manchester, UK"
+  },
+  "targetTitle": "Senior Software Engineer",
+  "summary": "Senior Software Engineer with 5 years of experience across 2 organisations. Known for measurable results and calm delivery under pressure.",
+  "experience": [
+    {
+      "role": "Senior Software Engineer",
+      "company": "Northwind Labs",
+      "location": "Cardiff, UK",
+      "dates": "Mar 2025 – Present",
+      "bullets": [
+        "Mentored 6 engineers; 2 promoted to senior within 18 months",
+        "Shipped a GraphQL gateway serving 1,200 requests per second at peak"
+      ]
+    },
+    {
+      "role": "Software Engineer",
+      "company": "Bluefin Systems",
+      "location": "Manchester, UK",
+      "dates": "Nov 2021 – Oct 2025",
+      "bullets": [
+        "Built the billing reconciliation pipeline processing $4.2M in daily transactions",
+        "Cut p95 API latency from 840 ms to 210 ms by moving hot reads to a Redis cache",
+        "Designed an event-sourced audit log adopted by 4 product teams"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "B.Sc. Computer Science",
+      "org": "University of Leeds",
+      "location": "Leeds, UK",
+      "year": "2020"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "items": [
+        "TypeScript",
+        "Go",
+        "Python",
+        "SQL"
+      ]
+    },
+    {
+      "category": "Infrastructure",
+      "items": [
+        "Kubernetes",
+        "Terraform",
+        "AWS",
+        "PostgreSQL",
+        "Redis"
+      ]
+    },
+    {
+      "category": "Practices",
+      "items": [
+        "Distributed systems",
+        "Observability",
+        "Code review"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "AWS Certified Solutions Architect – Associate",
+      "org": "Amazon Web Services",
+      "year": "2019"
+    }
+  ]
+}

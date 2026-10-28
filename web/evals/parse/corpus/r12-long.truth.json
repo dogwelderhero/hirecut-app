@@ -1,0 +1,132 @@
+{
+  "contact": {
+    "name": "Ethan Brooks",
+    "email": "ethan.12@example.com",
+    "phone": "+44 7713 187109",
+    "location": "Edinburgh, UK",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "linkedin.com/in/ethan-12"
+      }
+    ]
+  },
+  "experience": [
+    {
+      "role": "Product Designer",
+      "company": "Orbit Learning",
+      "location": "Stockholm, Sweden",
+      "dates": "May 2024 – Present",
+      "bullets": [
+        "Ran 45 usability sessions and turned findings into a prioritised roadmap",
+        "Built a design system of 120 components used by 9 squads",
+        "Redesigned onboarding flow, raising activation from 31% to 52%",
+        "Partnered with research to launch accessibility audit reaching WCAG 2.2 AA"
+      ]
+    },
+    {
+      "role": "Senior UX Designer",
+      "company": "Kite Insurance",
+      "location": "Edinburgh, UK",
+      "dates": "Nov 2021 – May 2024",
+      "bullets": [
+        "Cut checkout steps from 6 to 3, reducing abandonment by 17%",
+        "Partnered with research to launch accessibility audit reaching WCAG 2.2 AA",
+        "Redesigned onboarding flow, raising activation from 31% to 52%",
+        "Built a design system of 120 components used by 9 squads",
+        "Ran 45 usability sessions and turned findings into a prioritised roadmap"
+      ]
+    },
+    {
+      "role": "Design Lead",
+      "company": "Atlas Mobility",
+      "location": "Birmingham, UK",
+      "dates": "May 2017 – Oct 2021",
+      "bullets": [
+        "Cut checkout steps from 6 to 3, reducing abandonment by 17%",
+        "Ran 45 usability sessions and turned findings into a prioritised roadmap",
+        "Built a design system of 120 components used by 9 squads",
+        "Partnered with research to launch accessibility audit reaching WCAG 2.2 AA",
+        "Redesigned onboarding flow, raising activation from 31% to 52%"
+      ]
+    },
+    {
+      "role": "Product Designer",
+      "company": "Fernway",
+      "location": "Edinburgh, UK",
+      "dates": "Jul 2013 – Sep 2017",
+      "bullets": [
+        "Partnered with research to launch accessibility audit reaching WCAG 2.2 AA",
+        "Cut checkout steps from 6 to 3, reducing abandonment by 17%",
+        "Ran 45 usability sessions and turned findings into a prioritised roadmap",
+        "Built a design system of 120 components used by 9 squads"
+      ]
+    },
+    {
+      "role": "Senior UX Designer",
+      "company": "Orbit Learning",
+      "location": "Manchester, UK",
+      "dates": "May 2010 – May 2013",
+      "bullets": [
+        "Cut checkout steps from 6 to 3, reducing abandonment by 17%",
+        "Ran 45 usability sessions and turned findings into a prioritised roadmap",
+        "Built a design system of 120 components used by 9 squads",
+        "Partnered with research to launch accessibility audit reaching WCAG 2.2 AA",
+        "Redesigned onboarding flow, raising activation from 31% to 52%"
+      ]
+    },
+    {
+      "role": "Design Lead",
+      "company": "Kite Insurance",
+      "location": "Edinburgh, UK",
+      "dates": "May 2007 – Aug 2010",
+      "bullets": [
+        "Redesigned onboarding flow, raising activation from 31% to 52%",
+        "Built a design system of 120 components used by 9 squads",
+        "Cut checkout steps from 6 to 3, reducing abandonment by 17%",
+        "Ran 45 usability sessions and turned findings into a prioritised roadmap",
+        "Partnered with research to launch accessibility audit reaching WCAG 2.2 AA"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "BA Interaction Design",
+      "org": "Royal College of Art",
+      "location": "London, UK",
+      "year": "2006"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Design",
+      "items": [
+        "Interaction design",
+        "Prototyping",
+        "User research"
+      ]
+    },
+    {
+      "category": "Tools",
+      "items": [
+        "Figma",
+        "Framer",
+        "Maze"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Beacon side project",
+      "description": "Open-source tool used by 300+ people to track weekly goals.",
+      "tech": "TypeScript, SQLite"
+    }
+  ],
+  "awards": [
+    {
+      "title": "Employee of the Year",
+      "org": "Orbit Learning",
+      "year": "2024"
+    }
+  ]
+}
