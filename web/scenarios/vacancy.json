@@ -93,7 +93,7 @@
       "step": "refine-classic@1"
     },
     {
-      "step": "explore-classic@1",
+      "step": "explore-classic@2",
       "after": [
         "refine-classic@1"
       ]
@@ -101,7 +101,7 @@
     {
       "step": "match-classic@1",
       "after": [
-        "explore-classic@1"
+        "explore-classic@2"
       ]
     },
     {

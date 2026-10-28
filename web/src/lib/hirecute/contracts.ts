@@ -498,6 +498,13 @@ export interface StageResultMap {
   prepare: { kind: "prepare"; preparedJobIds: JobId[]; blockedJobIds: JobId[]; failedJobIds: JobId[] };
 }
 
+/** The search's real board completions: overall and per provider (greenhouse, lever, ashby). */
+export interface BoardProgress {
+  boardsDone: number;
+  boardsTotal: number;
+  providers: Record<string, { done: number; total: number }>;
+}
+
 /** One requirement several jobs ask for and the resume does not (fully) show. */
 export interface ResumeGap {
   id: string;
@@ -564,6 +571,8 @@ export interface RunSnapshot {
   parsedResume?: ResumeDocument | null;
   /** Latest provisional search ranking; superseded by the explore result. */
   exploreProgress?: { jobIds: JobId[]; boardsDone: number; boardsTotal: number } | null;
+  /** Boards checked so far by the search, overall and per provider (real completions). */
+  boardProgress?: BoardProgress | null;
   /** Set by "Accept changes". Until then the review step holds. */
   resumeAcceptance?: ResumeAcceptance | null;
   // Preparation completion says nothing about payment, approval, or delivery.
@@ -674,6 +683,8 @@ export interface EventPayloadMap {
   "resume.parsed": { resume: ResumeDocument };
   /** Provisional ranking while the search runs: the current top roles, in order. */
   "explore.progress": { jobIds: JobId[]; boardsDone: number; boardsTotal: number };
+  /** Boards the search has checked so far, overall and per provider. */
+  "explore.boards": BoardProgress;
   "resume.accepted": { acceptance: ResumeAcceptance };
   "job.discovered": { job: Job };
   "job.evaluated": { assessment: MatchAssessment };
