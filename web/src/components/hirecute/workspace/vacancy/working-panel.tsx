@@ -7,8 +7,9 @@
  * shared checklist and indeterminate progress bar.
  */
 
-import type { ReactNode } from "react";
-import type { BoardProgress, SearchPreferences } from "@/lib/hirecute/contracts";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import type { BoardProgress, MatchProgress, SearchPreferences } from "@/lib/hirecute/contracts";
+import { useReducedMotion } from "../common";
 import { CURATED_BOARDS } from "@/lib/hirecute/boards.mjs";
 
 /**
@@ -224,25 +225,69 @@ export function SourceRows({ progress = null }: { progress?: BoardProgress | nul
   );
 }
 
-/** Screen 07's visual: the ring, carrying a real count. */
+/** A number that counts to its new value instead of jumping (it still only ever shows real values' path). */
+function CountUp({ value }: { value: number }) {
+  const reduced = useReducedMotion();
+  const [shown, setShown] = useState(value);
+  const from = useRef(value);
+  useEffect(() => {
+    if (reduced || shown === value) {
+      setShown(value);
+      return;
+    }
+    from.current = shown;
+    const start = performance.now();
+    let frame = 0;
+    const step = (now: number) => {
+      const t = Math.min(1, (now - start) / 450);
+      setShown(Math.round(from.current + (value - from.current) * (1 - (1 - t) ** 3)));
+      if (t < 1) frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- animate from what is on screen to the new value
+  }, [value, reduced]);
+  return <span>{shown}</span>;
+}
+
+/**
+ * Screen 07's visual: the ring, carrying a real count. Once scoring reports
+ * (match.progress), the arc fills with shortlisted jobs scored and the number
+ * counts them; before that it shows the roles being compared, turning.
+ */
 export function CountRingVisual({
   count,
   caption,
   note,
   tags,
+  progress = null,
 }: {
   count: number | null;
   caption: string;
   note: string;
   tags: string[];
+  progress?: MatchProgress | null;
 }) {
+  const scoring = progress !== null && progress.jobsDone > 0;
   return (
     <>
-      <div className="hc-ring">
-        {/* No placeholder digit: an unknown count shows the spinner alone. */}
-        {count === null ? <span aria-hidden>·</span> : <span>{count}</span>}
-      </div>
-      <h2>{caption}</h2>
+      <ProgressRing fraction={scoring ? progress.jobsDone / progress.jobsTotal : null}>
+        {scoring ? (
+          <CountUp value={progress.jobsDone} />
+        ) : count === null ? (
+          /* No placeholder digit: an unknown count shows the spinner alone. */
+          <span aria-hidden>·</span>
+        ) : (
+          <span>{count}</span>
+        )}
+      </ProgressRing>
+      <h2>
+        {!scoring
+          ? caption
+          : progress.jobsDone < progress.jobsTotal
+            ? `of ${progress.jobsTotal} shortlisted roles scored`
+            : `All ${progress.jobsTotal} shortlisted roles scored`}
+      </h2>
       <p className="hc-muted hc-small hc-space-top">{note}</p>
       <div className="hc-row hc-space-top">
         {tags.map((t) => (

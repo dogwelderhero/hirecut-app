@@ -262,3 +262,12 @@ test("explore.boards carries board progress to the browser and the snapshot", ()
   const snap = projectEvent({ status: "running" }, { type: "explore.boards", payload: progress });
   assert.deepEqual(snap.boardProgress, progress);
 });
+
+test("match.progress carries scoring progress to the browser and the snapshot", () => {
+  const event = (seq, type, payload) => ({ version: 1, runId: "r", seq, time: "t", input: {}, type, payload });
+  const progress = { jobsDone: 3, jobsTotal: 10 };
+  const state = applyEvent(initialRunState(), event(1, "match.progress", progress));
+  assert.deepEqual(state.matchProgress, progress);
+  const snap = projectEvent({ status: "running" }, { type: "match.progress", payload: progress });
+  assert.deepEqual(snap.matchProgress, progress);
+});

@@ -498,6 +498,12 @@ export interface StageResultMap {
   prepare: { kind: "prepare"; preparedJobIds: JobId[]; blockedJobIds: JobId[]; failedJobIds: JobId[] };
 }
 
+/** Scoring's real completions: shortlisted jobs settled (scored, or left unscored) of the shortlist. */
+export interface MatchProgress {
+  jobsDone: number;
+  jobsTotal: number;
+}
+
 /** The search's real board completions: overall and per provider (greenhouse, lever, ashby). */
 export interface BoardProgress {
   boardsDone: number;
@@ -573,6 +579,8 @@ export interface RunSnapshot {
   exploreProgress?: { jobIds: JobId[]; boardsDone: number; boardsTotal: number } | null;
   /** Boards checked so far by the search, overall and per provider (real completions). */
   boardProgress?: BoardProgress | null;
+  /** Shortlisted jobs scored so far (real completions). */
+  matchProgress?: MatchProgress | null;
   /** Set by "Accept changes". Until then the review step holds. */
   resumeAcceptance?: ResumeAcceptance | null;
   // Preparation completion says nothing about payment, approval, or delivery.
@@ -685,6 +693,8 @@ export interface EventPayloadMap {
   "explore.progress": { jobIds: JobId[]; boardsDone: number; boardsTotal: number };
   /** Boards the search has checked so far, overall and per provider. */
   "explore.boards": BoardProgress;
+  /** Shortlisted jobs settled so far by scoring. */
+  "match.progress": MatchProgress;
   "resume.accepted": { acceptance: ResumeAcceptance };
   "job.discovered": { job: Job };
   "job.evaluated": { assessment: MatchAssessment };

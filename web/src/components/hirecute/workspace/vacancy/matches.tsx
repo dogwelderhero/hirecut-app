@@ -32,6 +32,7 @@ function Matches({ runState, presentation, shell }: ScreenProps) {
                 caption="Roles being compared"
                 note="One shortlist built around you."
                 tags={["Experience", "Skills", "Preferences"]}
+                progress={runState.matchProgress}
               />
             }
             title="More than a keyword match."
