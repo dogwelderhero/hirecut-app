@@ -1,5 +1,10 @@
 # Career-Ops -- AI Job Search Pipeline
 
+> **hirecute web product.** Work on the Next.js app in `web/` (scenarios, worker steps,
+> screens, landing, resume parsing and its evals, deploy) follows
+> `.claude/rules/hirecute-web.md` and `web/AGENTS.md`. Task guides:
+> `.claude/skills/hirecute-scenario/SKILL.md`, `.claude/skills/hirecute-parse/SKILL.md`.
+
 ## Origin
 
 Built and used by [santifer](https://santifer.io) to evaluate 740+ offers, generate 100+ tailored CVs, and land a Head of Applied AI role. The archetypes, scoring, and negotiation scripts reflect that search; his portfolio is also open source: [cv-santiago](https://github.com/santifer/cv-santiago).

@@ -66,12 +66,24 @@ services:
         type: SECRET
         value: EV[1:6ymL19BFfpSaDOyMz9SGW9hf9BCc90Hv:Ai+u2aLy+mORvRaakVE/MYnOCw0QifQfSWwk99JD07w2lmW3PxH5aStRKbymKmfTlZ/Vp6uTi0x3SQ64j1+HSNrYx2LlDypslg8EEBUZZ8pjW/bRp1BllGGK9Pv+70gWy8io7LET4KH3CyWAGykH8DjtlJZ7jE8YiE4IWQ==]
       # Optional tiers; both fall back to HIRECUTE_MODEL when unset.
-      # - key: HIRECUTE_MODEL_FAST
-      #   scope: RUN_TIME
-      #   value: claude-haiku-4-5-20251001
       # - key: HIRECUTE_MODEL_JUDGMENT
       #   scope: RUN_TIME
       #   value: claude-sonnet-5
+
+      # ── Resume parse (recruiter scenario) ───────────────────────────────
+      # Paged parse on the fast tier: PDF pages in parallel, checked against
+      # the source text, falling back to the HIRECUTE_MODEL call whenever a
+      # check fails. Measured in web/evals/parse (compare current vs planned).
+      # Unset = the original single call. Remove the three to roll back.
+      # - key: HIRECUTE_PARSE_MODE
+      #   scope: RUN_TIME
+      #   value: paged
+      # - key: HIRECUTE_MODEL_FAST
+      #   scope: RUN_TIME
+      #   value: claude-haiku-5-5
+      # - key: HIRECUTE_MODEL_FAST_THINKING
+      #   scope: RUN_TIME
+      #   value: "off"
 
       # ── Public URL / host guard ──────────────────────────────────────────
       # ${APP_URL} / ${APP_DOMAIN} are App Platform bindable variables: the
