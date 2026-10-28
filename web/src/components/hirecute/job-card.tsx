@@ -368,22 +368,25 @@ export function JobCard(props: {
   showMatchPanel?: boolean;
   /** Scoring is running and this job is not scored yet. */
   pending?: boolean;
+  /** Live lists (use-list-motion): the item's id. */
+  motionId?: string;
 }) {
-  const { showMatchPanel, pending, ...body } = props;
+  const { showMatchPanel, pending, motionId, ...body } = props;
+  const motion = { "data-motion-id": motionId };
   const reqs = props.assessment?.requirements ?? [];
   const count = (m: string) => reqs.filter((r) => r.match === m).length;
   const presentation = matchPresentation(props.assessment);
 
   if (!showMatchPanel) {
     return (
-      <article className="hc-sr-card">
+      <article className="hc-sr-card" {...motion}>
         <CardBody {...body} />
       </article>
     );
   }
 
   return (
-    <article className="hc-sr-card hc-topmatch-card">
+    <article className="hc-sr-card hc-topmatch-card" {...motion}>
       <div className="hc-topmatch-body">
         <CardBody {...body} />
       </div>
