@@ -67,7 +67,18 @@ export function usePresentation(
     return () => clearInterval(id);
   }, []);
 
-  return { presentation, shownStage: visibleStage(presentation, runState.liveStage) };
+  // The effect above applies a new result one render late. The worker reports
+  // the NEXT stage starting together with that result, so for that one render
+  // the screen would flip to the next stage and back — remounting the result's
+  // screen and flashing its receipt. The same pure reducer, applied here, gives
+  // the state the effect is about to reach; the effect then changes nothing.
+  let current = presentation;
+  if (runId && restoredFor.current !== runId) current = presentationReducer(current, restoreAction(flow, runState));
+  for (const stage of doneKey ? (doneKey.split(",") as StageId[]) : []) {
+    current = presentationReducer(current, { type: "stage_result", stage });
+  }
+
+  return { presentation: current, shownStage: visibleStage(current, runState.liveStage) };
 }
 
 /**
