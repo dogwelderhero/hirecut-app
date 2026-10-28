@@ -183,6 +183,13 @@ function markLine(text: string, marks: Array<{ needle: string; kind: "target" | 
 
 /* ── Component ─────────────────────────────────────────────────────────── */
 
+/** The loading label: real page progress when the resume is read page by page. */
+function readingLabel(progress: { pagesDone: number; pagesTotal: number } | null): string {
+  if (!progress || progress.pagesTotal < 2) return "Reading your resume…";
+  if (progress.pagesDone < progress.pagesTotal) return `Reading ${progress.pagesTotal} pages · ${progress.pagesDone} done`;
+  return `All ${progress.pagesTotal} pages read · checking against your file`;
+}
+
 export function ResumeReview({
   resume,
   recommendations,
@@ -197,6 +204,7 @@ export function ResumeReview({
   skippedIds,
   onSkip,
   hideApplyAll = false,
+  readProgress = null,
 }: {
   /**
    * The resume as read, or null while it is still being read. Null renders the
@@ -222,6 +230,8 @@ export function ResumeReview({
   onSkip?: (id: string, skipped: boolean) => void;
   /** Step 3's side panel owns "Apply all"; don't show it twice. */
   hideApplyAll?: boolean;
+  /** Step 1, page-by-page reading: pages read so far (real completions). */
+  readProgress?: { pagesDone: number; pagesTotal: number } | null;
 }) {
   /** Sections the visitor flipped from their default (content open, empty closed). */
   const [flipped, setFlipped] = useState<Set<ResumeSectionKey>>(() => new Set());
@@ -406,7 +416,7 @@ export function ResumeReview({
           ) : loading || recommendations === null ? (
             <span className="hc-tag hc-rz-status">
               <i className="hc-rz-pulse" aria-hidden="true" />
-              {loading ? "Reading your resume…" : "Your agent is finding improvements…"}
+              {loading ? readingLabel(readProgress) : "Your agent is finding improvements…"}
             </span>
           ) : recs.length > 0 ? (
             <span className="hc-tag hc-rz-status">

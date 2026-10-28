@@ -75,6 +75,8 @@ export interface RunState {
   parsedResume: ResumeDocument | null;
   /** Provisional search ranking while explore runs (≤ the retained limit). */
   exploreProgress: { jobIds: JobId[]; boardsDone: number; boardsTotal: number } | null;
+  /** Pages of the resume read so far, while it is read page by page. */
+  resumeProgress: { pagesDone: number; pagesTotal: number } | null;
   /** Server-confirmed "Accept changes"; the review step holds until it exists. */
   resumeAcceptance: ResumeAcceptance | null;
 }
@@ -99,6 +101,7 @@ export function initialRunState(): RunState {
     terminalError: null,
     parsedResume: null,
     exploreProgress: null,
+    resumeProgress: null,
     resumeAcceptance: null,
   };
 }
@@ -238,6 +241,9 @@ export function applyEvent(state: RunState, event: PublicRunEvent): RunState {
 
     case "explore.progress":
       return { ...base, exploreProgress: event.payload };
+
+    case "resume.progress":
+      return { ...base, resumeProgress: event.payload };
 
     case "resume.accepted":
       if (base.resumeAcceptance) return base;
@@ -396,6 +402,7 @@ export function restoreSnapshot(snapshot: RunSnapshot): RunState {
     billing: snapshot.billing,
     parsedResume: snapshot.parsedResume ?? null,
     exploreProgress: snapshot.exploreProgress ?? null,
+    resumeProgress: snapshot.resumeProgress ?? null,
     resumeAcceptance: snapshot.resumeAcceptance ?? null,
   };
 }

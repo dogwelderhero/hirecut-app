@@ -35,8 +35,9 @@ const SECTION_PROPS = RESUME_PARSE_SCHEMA.properties.sections.properties;
 
 /**
  * @param {string} text  the verbatim extraction of the visitor's file
- * @param {{ pages?: string[], request?: typeof requestStructured, env?: Record<string,string|undefined> }} [opts]
- *   `pages`: the same text page by page (extract.mjs `pageTexts`); `request`: the model call, injectable for tests.
+ * @param {{ pages?: string[], request?: typeof requestStructured, env?: Record<string,string|undefined>, onProgress?: (p: {pagesDone: number, pagesTotal: number}) => void }} [opts]
+ *   `pages`: the same text page by page (extract.mjs `pageTexts`); `request`: the model call, injectable for tests;
+ *   `onProgress`: paged mode only, called when reading starts and as each page is read (real completions, not a timer).
  * @returns {Promise<
  *   | { ok: true, resume: object, searchSeed: object, parseData: object, usage: object, model: string, trace: object }
  *   | { ok: false, reason: "model", error: unknown, trace: object }
@@ -44,11 +45,11 @@ const SECTION_PROPS = RESUME_PARSE_SCHEMA.properties.sections.properties;
  * >}
  *   `trace` says how the result was reached: mode, calls (model + usage each), repairs, corrections, fallback reasons.
  */
-export async function parseResume(text, { pages, request = requestStructured, env = process.env } = {}) {
+export async function parseResume(text, { pages, request = requestStructured, env = process.env, onProgress } = {}) {
   const trace = { mode: parseMode(env), calls: [], repairs: [], corrections: 0, fallback: null };
   if (trace.mode === "single") return finish(await singleCall(text, "fast", request, trace), trace);
 
-  const fast = await pagedRead(text, pages, request, trace);
+  const fast = await pagedRead(text, pages, request, trace, onProgress);
   const problems = fast.problems ?? qualityProblems(text, fast.parseData);
   if (!problems.length) return finish(fast, trace);
 
@@ -109,9 +110,12 @@ const PAGE_RULES = `YOU SEE ONE PAGE of a longer resume. Emit only what is on th
 - If the page starts with bullet points that continue a job from the previous page, emit them as the FIRST experience entry with only "bullets" (no role, company or dates).
 - Contact details, summary and title only if they are on this page.`;
 
-async function pagedRead(text, pages, request, trace) {
+async function pagedRead(text, pages, request, trace, onProgress) {
   const parts = pages && pages.length > 1 ? pages : [text];
   const system = await resumeParseSystem();
+  let pagesDone = 0;
+  const report = () => onProgress?.({ pagesDone, pagesTotal: parts.length });
+  report();
   const results = await mapLimited(parts, PAGE_CONCURRENCY, (page, i) =>
     readWithRepair(request, trace, {
       tier: "fast",
@@ -120,6 +124,10 @@ async function pagedRead(text, pages, request, trace) {
       schema: RESUME_PARSE_SCHEMA,
       schemaName: "emit_resume_sections",
       maxTokens: 8192,
+    }).then((r) => {
+      pagesDone++;
+      report();
+      return r;
     }),
   );
   const failed = results.filter((r) => r.problem);

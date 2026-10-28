@@ -564,6 +564,8 @@ export interface RunSnapshot {
   parsedResume?: ResumeDocument | null;
   /** Latest provisional search ranking; superseded by the explore result. */
   exploreProgress?: { jobIds: JobId[]; boardsDone: number; boardsTotal: number } | null;
+  /** Pages of the resume read so far, while it is read page by page. */
+  resumeProgress?: { pagesDone: number; pagesTotal: number } | null;
   /** Set by "Accept changes". Until then the review step holds. */
   resumeAcceptance?: ResumeAcceptance | null;
   // Preparation completion says nothing about payment, approval, or delivery.
@@ -672,6 +674,8 @@ export interface EventPayloadMap {
   "stage.result": { stage: StageId; result: StageResult; inputVersion: Version };
   "stage.error": { stage: StageId; error: PublicError; inputVersion: Version };
   "resume.parsed": { resume: ResumeDocument };
+  /** Page-by-page reading: pages read so far (real completions). */
+  "resume.progress": { pagesDone: number; pagesTotal: number };
   /** Provisional ranking while the search runs: the current top roles, in order. */
   "explore.progress": { jobIds: JobId[]; boardsDone: number; boardsTotal: number };
   "resume.accepted": { acceptance: ResumeAcceptance };

@@ -244,3 +244,19 @@ test("mergePages joins a continuation marked with placeholders, not only an empt
   assert.deepEqual(m.sections.experience[0].bullets, ["one", "two"]);
   assert.equal(JSON.stringify(m).includes("UNKNOWN"), false);
 });
+
+test("paged: progress reports the start and each page as it is read", async () => {
+  const page = { usable: true, sections: { contact: GOOD.sections.contact, experience: GOOD.sections.experience } };
+  const { request } = stub(page, { usable: true, sections: { education: GOOD.sections.education, skills: GOOD.sections.skills } });
+  const seen = [];
+  await parseResume(SOURCE, { request, env: PAGED, pages: ["p1", "p2"], onProgress: (p) => seen.push(p) });
+  assert.deepEqual(seen, [
+    { pagesDone: 0, pagesTotal: 2 },
+    { pagesDone: 1, pagesTotal: 2 },
+    { pagesDone: 2, pagesTotal: 2 },
+  ]);
+
+  const single = [];
+  await parseResume(SOURCE, { request: stub(GOOD).request, env: {}, onProgress: (p) => single.push(p) });
+  assert.deepEqual(single, [], "single mode has no pages to report");
+});

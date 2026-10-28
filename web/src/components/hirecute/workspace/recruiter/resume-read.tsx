@@ -34,6 +34,7 @@ function ResumeRead({ runState, presentation }: ScreenProps) {
           locked
           onToggleRecommendation={() => {}}
           onToggleItem={() => {}}
+          readProgress={runState.resumeProgress}
         />
       </div>
       {isPacking(presentation, "refine") && <PackingStatus />}
