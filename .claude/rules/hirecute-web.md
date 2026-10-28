@@ -104,10 +104,11 @@ Both must pass. `npm test` does not execute worker steps against a model, and
 typecheck does not cover `.mjs` files. A missing import in a step therefore
 only shows at run time. After changing a step, a screen or the shell, also:
 
-1. build the image (`docker build -f web/Dockerfile .` from the repo root);
-2. run it with a model key;
-3. walk every affected scenario end to end (`/?t=<id>`), including a page
-   reload mid-run;
+1. start it with `./up.sh <scenario>` from the repo root (it builds the image,
+   uses `.env.hirecute.local` for the key and settings, and opens
+   `http://127.0.0.1:8080`; `./down.sh` stops it — see `LOCAL-RUN.md`);
+2. walk every affected scenario end to end (`./up.sh <id>` or `/?t=<id>`),
+   including a page reload mid-run;
 4. run `node scripts/preflight.mjs --full` against it.
 
 For a parse or model change, also run the parse evals (the `hirecute-parse`
