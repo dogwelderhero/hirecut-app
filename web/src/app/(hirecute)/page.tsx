@@ -21,13 +21,16 @@ import { HirecuteJourney } from "@/components/hirecute/journey";
 export default async function HirecutePage() {
   const config = publicConfig();
   const fromRouter = (await headers()).get(SCENARIO_HEADER);
-  const scenario = fromRouter ? (JSON.parse(fromRouter) as { scenario: string }).scenario : await fallbackScenario();
+  const routed = fromRouter ? (JSON.parse(fromRouter) as { scenario: string; reason: string }) : null;
+  const scenario = routed?.scenario ?? (await fallbackScenario());
   const landing = await loadLandingContent(serverConfig().codeRoot, scenario, {
     launchProfile: config.launchProfile,
   });
   const enabled = (await deploymentScenarios()).entries.map((e) => e.id);
   const flows = await loadFlows(serverConfig().codeRoot, [...new Set([...enabled, scenario])]);
-  return <HirecuteJourney publicConfig={config} landing={landing} flows={flows} />;
+  // A `?t=` link names the journey explicitly; it wins over a run of another one.
+  const requested = routed?.reason === "param" ? scenario : null;
+  return <HirecuteJourney publicConfig={config} landing={landing} flows={flows} requestedScenario={requested} />;
 }
 
 /**

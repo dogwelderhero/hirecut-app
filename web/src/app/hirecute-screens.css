@@ -1338,3 +1338,12 @@ svg{display:block}
 @keyframes hc-ring-spin{from{transform:rotate(-90deg)}to{transform:rotate(270deg)}}
 .hc-ring-caption{margin-top:var(--space-1)}
 @media(prefers-reduced-motion:reduce){.hc-ring--progress.is-spinning .hc-ring-svg{animation:none}.hc-ring-arc{transition:none}}
+
+/* Step 3: suggestions unfold on arrival (resume-review.tsx). The wrapper stays; only the class carries the motion. */
+@keyframes hc-rz-grow{from{grid-template-rows:0fr;opacity:0}to{grid-template-rows:1fr;opacity:1}}
+.hc-rz-reveal{display:grid;grid-template-rows:1fr}
+.hc-rz-reveal>*{min-height:0}
+.hc-rz-reveal.is-revealing{animation:hc-rz-grow .5s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--k,0) * 90ms)}
+.hc-rz-reveal.is-revealing>*{overflow:hidden}
+@media(prefers-reduced-motion:reduce){.hc-rz-reveal.is-revealing{animation:none}}
+.hc-rz-head-tools{display:flex;flex-direction:column;gap:var(--space-3)}
