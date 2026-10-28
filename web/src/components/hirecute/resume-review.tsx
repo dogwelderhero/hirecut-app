@@ -184,6 +184,9 @@ function markLine(text: string, marks: Array<{ needle: string; kind: "target" | 
 
 /* ── Component ─────────────────────────────────────────────────────────── */
 
+/** Step 3: delay between two suggestions unfolding, and one unfold's length. */
+const REVEAL_STEP_MS = 90;
+const REVEAL_MS = 500;
 /** Pause between two sections filling in on step 1. 12 sections ≈ 1.3 s, inside the result's dwell. */
 const FILL_STEP_MS = 110;
 
@@ -256,6 +259,24 @@ export function ResumeReview({
     return () => clearTimeout(id);
   }, [reading, loading, filled, reducedMotion]);
   const filledCount = reading ? filled : RESUME_SECTIONS.length;
+
+  // Step 3: suggestions arriving unfold one after another instead of pushing
+  // the whole resume down in one frame. Only on arrival — a resume that
+  // already has them when this mounts (a refresh) shows them still, and later
+  // applies and undos never replay it.
+  const recsArrived = recommendations !== null;
+  const hadRecs = useRef(recsArrived);
+  const [revealing, setRevealing] = useState(false);
+  useEffect(() => {
+    if (hadRecs.current || !recsArrived) return;
+    hadRecs.current = true;
+    if (reading || reducedMotion) return;
+    setRevealing(true);
+    const id = setTimeout(() => setRevealing(false), REVEAL_STEP_MS * (recommendations?.length ?? 0) + REVEAL_MS);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runs on arrival only
+  }, [recsArrived]);
+  const recOrder = new Map((recommendations ?? []).map((r, i) => [r.id, i]));
   const gapById = new Map(gaps.map((g) => [g.id, g]));
   const recs = recommendations ?? [];
   const shown = resume ? applyRecommendations(resume, recs, appliedIds) : null;
@@ -295,8 +316,23 @@ export function ResumeReview({
     card.classList.add("is-flash");
   };
 
+  /*
+   * Every suggestion sits in a wrapper that stays put whatever the suggestion
+   * becomes (card, receipt), so the unfold below plays once and a change of
+   * state never remounts the card.
+   */
+  const renderRec = (rec: ResumeRecommendation) => (
+    <div
+      key={rec.id}
+      className={`hc-rz-reveal${revealing ? " is-revealing" : ""}`}
+      style={{ "--k": recOrder.get(rec.id) ?? 0 } as React.CSSProperties}
+    >
+      {recBody(rec)}
+    </div>
+  );
+
   /* One suggestion: a full card while waiting, a one-line receipt otherwise. */
-  const renderRec = (rec: ResumeRecommendation) => {
+  const recBody = (rec: ResumeRecommendation) => {
     const isApplied = applied.has(rec.id);
     const isSkipped = skipped.has(rec.id);
     const canApply = applicable(rec);
@@ -442,7 +478,8 @@ export function ResumeReview({
           )}
         </div>
         {!loading && !reading && recs.length > 0 && (
-          <>
+          <div className={`hc-rz-reveal${revealing ? " is-revealing" : ""}`}>
+            <div className="hc-rz-head-tools">
             <div className="hc-rz-meter" aria-hidden="true">
               {recs.map((r) => (
                 <i
@@ -478,7 +515,8 @@ export function ResumeReview({
                 )}
               </div>
             )}
-          </>
+            </div>
+          </div>
         )}
       </header>
 

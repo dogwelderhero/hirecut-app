@@ -64,12 +64,15 @@ export function HirecuteJourney({
   publicConfig,
   landing,
   flows,
+  requestedScenario = null,
 }: {
   publicConfig: PublicConfig;
   /** The visitor's scenario landing, resolved on the server. */
   landing: LandingContent;
   /** Every enabled scenario's workspace flow; the run's own picks one. */
   flows: Record<string, Flow>;
+  /** The journey a `?t=` link named, if any. */
+  requestedScenario?: string | null;
 }) {
   const [runState, setRunState] = useState<RunState>(initialRunState);
   const [fileName, setFileName] = useState<string | null>(null);
@@ -135,7 +138,11 @@ export function HirecuteJourney({
     void (async () => {
       const { run } = await fetchCurrentRun();
       if (cancelled) return;
-      if (run) {
+      // A link to another journey starts that journey: its landing shows, and
+      // the next upload replaces the old run on the server. Without a link,
+      // the run in progress is restored as before.
+      const otherJourney = Boolean(run && requestedScenario && run.scenario?.id !== requestedScenario);
+      if (run && !otherJourney) {
         setRunState(restoreSnapshot(run));
         setEdits(readDrafts(run.id));
         attachStream(run.lastSequence);
@@ -146,6 +153,7 @@ export function HirecuteJourney({
       cancelled = true;
       stream.current?.close();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- the requested journey is fixed for this page load
   }, [attachStream]);
 
   const start = useCallback(
