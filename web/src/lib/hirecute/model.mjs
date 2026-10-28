@@ -64,6 +64,17 @@ function config(env = process.env, tier = "judgment") {
   return { baseUrl: baseUrl.replace(/\/+$/, ""), apiKey, model };
 }
 
+/**
+ * Per-tier thinking switch: HIRECUTE_MODEL_FAST_THINKING / _JUDGMENT_THINKING
+ * set to "off" sends `thinking: {type: "disabled"}` (Anthropic only). Unset
+ * leaves the model's default, which is what every deployment had before. Only
+ * set it for a model that accepts disabled thinking.
+ */
+function tierThinking(env, tier) {
+  const v = (tier === "fast" ? env.HIRECUTE_MODEL_FAST_THINKING : env.HIRECUTE_MODEL_JUDGMENT_THINKING)?.trim();
+  return v === "off" ? { type: "disabled" } : null;
+}
+
 export function isModelConfigured(env = process.env) {
   try {
     config(env);
@@ -183,12 +194,16 @@ export async function pingModel(endpoint, opts = {}) {
  * @param {number} [opts.maxTokens]
  * @param {"fast"|"judgment"} [opts.tier]  Which model tier this call needs.
  * @param {AbortSignal} [opts.signal]
- * @returns {Promise<{data: unknown, usage: {inputTokens: number, outputTokens: number}, model: string}>}
+ * @param {Array<object>} [opts.history]  The conversation to send instead of
+ *   `opts.user` — built by `correctionTurn` to ask for a corrected re-emit.
+ * @returns {Promise<{data: unknown, usage: {inputTokens: number, outputTokens: number}, model: string, turn: object}>}
+ *   `turn` is opaque: hand it to `correctionTurn` to ask for a corrected re-emit.
  */
 export async function requestStructured(opts) {
   // `tier` names what the call NEEDS, not which model to use. The mapping is
   // the operator's, in env.
   const { baseUrl, apiKey, model } = config(process.env, opts.tier ?? "judgment");
+  const thinking = tierThinking(process.env, opts.tier ?? "judgment");
   const maxTokens = opts.maxTokens ?? 4096;
 
   const anthropic = isAnthropic(baseUrl);
@@ -213,15 +228,13 @@ export async function requestStructured(opts) {
           { name: opts.schemaName, description: "Emit the required result.", input_schema: opts.schema },
         ],
         tool_choice: { type: "tool", name: opts.schemaName },
-        messages: [{ role: "user", content: opts.user }],
+        messages: opts.history ?? [{ role: "user", content: opts.user }],
+        ...(thinking ? { thinking } : {}),
       }
     : {
         model,
         max_tokens: maxTokens,
-        messages: [
-          { role: "system", content: opts.system },
-          { role: "user", content: opts.user },
-        ],
+        messages: [{ role: "system", content: opts.system }, ...(opts.history ?? [{ role: "user", content: opts.user }])],
         tools: [
           {
             type: "function",
@@ -272,15 +285,21 @@ export async function requestStructured(opts) {
 
   let data;
   let usage = { inputTokens: 0, outputTokens: 0 };
+  // What a correction needs: the conversation so far, this reply, and the id
+  // of the tool call it answers.
+  const sent = body.messages.filter((m) => m.role !== "system");
+  let turn;
   if (anthropic) {
     const use = json.content?.find((c) => c.type === "tool_use");
     data = use?.input;
+    turn = { provider: "anthropic", history: [...sent, { role: "assistant", content: json.content }], callId: use?.id };
     usage = {
       inputTokens: json.usage?.input_tokens ?? 0,
       outputTokens: json.usage?.output_tokens ?? 0,
     };
   } else {
     const call = json.choices?.[0]?.message?.tool_calls?.[0];
+    turn = { provider: "openai", history: [...sent, json.choices?.[0]?.message], callId: call?.id };
     try {
       data = call ? JSON.parse(call.function.arguments) : undefined;
     } catch {
@@ -302,7 +321,20 @@ export async function requestStructured(opts) {
     );
   }
 
-  return { data, usage, model };
+  return { data, usage, model, turn };
+}
+
+/**
+ * The history for a corrected re-emit: the previous exchange plus the
+ * validation errors, answered as the tool call's (failed) result.
+ */
+export function correctionTurn(turn, message) {
+  if (!turn?.callId) return null;
+  const reply =
+    turn.provider === "anthropic"
+      ? { role: "user", content: [{ type: "tool_result", tool_use_id: turn.callId, is_error: true, content: message }] }
+      : { role: "tool", tool_call_id: turn.callId, content: message };
+  return [...turn.history, reply];
 }
 
 /**

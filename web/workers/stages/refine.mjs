@@ -124,7 +124,9 @@ export async function runRefineStage(ctx) {
 
   // The call and the validation of its reply live in resume-parse.mjs, the
   // same code the parse evals (web/evals/parse) measure.
-  const parsed = await parseResume(extracted.text);
+  const parsed = await parseResume(extracted.text, { pages: extracted.pageTexts });
+  // How the parse was reached (mode, calls, repairs, fallback) — private diagnostics only.
+  diag({ parseTrace: parsed.trace });
   if (!parsed.ok && parsed.reason === "model") {
     const err = parsed.error;
     diag({ modelError: { call: "emit_resume_sections", detail: err?.detail ?? String(err?.message ?? err) } });

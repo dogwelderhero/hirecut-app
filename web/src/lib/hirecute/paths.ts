@@ -131,10 +131,17 @@ export function childEnv(
 
   const credentials: Record<string, string> = {};
   if (grants.model) {
+    // The tier and parse settings travel with the key: without them a stage
+    // asking for the fast tier silently ran on HIRECUTE_MODEL.
     for (const key of [
       "HIRECUTE_MODEL_API_BASE_URL",
       "HIRECUTE_MODEL_API_KEY",
       "HIRECUTE_MODEL",
+      "HIRECUTE_MODEL_FAST",
+      "HIRECUTE_MODEL_JUDGMENT",
+      "HIRECUTE_MODEL_FAST_THINKING",
+      "HIRECUTE_MODEL_JUDGMENT_THINKING",
+      "HIRECUTE_PARSE_MODE",
     ]) {
       const value = process.env[key];
       if (value !== undefined) credentials[key] = value;

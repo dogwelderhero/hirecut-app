@@ -26,7 +26,7 @@ export const EXTRACT_LIMITS = {
 };
 
 /**
- * @typedef {{ok: true, text: string, pages: number, truncated: boolean}} ExtractOk
+ * @typedef {{ok: true, text: string, pages: number, pageTexts?: string[], truncated: boolean}} ExtractOk
  * @typedef {{ok: false, reason: "image_only"|"empty"|"unreadable"|"unsupported", detail: string}} ExtractFail
  */
 
@@ -103,6 +103,8 @@ async function extractPdf(bytes) {
     ok: true,
     text: text.slice(0, EXTRACT_LIMITS.maxChars),
     pages: pageCount,
+    // The same text, page by page, for parsing pages in parallel.
+    pageTexts: chunks.map(normalize).filter(Boolean),
     truncated: pageCount > pages || text.length > EXTRACT_LIMITS.maxChars,
   };
 }

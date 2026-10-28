@@ -20,7 +20,7 @@ const { values: args } = parseArgs({
 const resultsDir = path.resolve(args.results ?? path.join(here, "results"));
 const runs = readFileSync(path.join(resultsDir, "history.jsonl"), "utf8").trim().split("\n").filter(Boolean).map((l) => JSON.parse(l));
 
-const SHOW = ["outcomeOk", "falseRejects", "falseAccepts", "fieldsExactPct", "contentPresentPct", "jobsRightPct", "invented", "injectionFollowed", "msP50", "msP90", "costPerDoc"];
+const SHOW = ["outcomeOk", "falseRejects", "falseAccepts", "fieldsExactPct", "contentPresentPct", "jobsRightPct", "invented", "injectionFollowed", "msP50", "msP90", "costPerDoc", "fallbacks", "corrections"];
 
 if (args.history) {
   console.log(["run", "setup", "commit", "corpus", "models", ...SHOW].join(" | "));
@@ -45,5 +45,6 @@ const result = compareRuns(base.metrics, candidate.metrics, Object.fromEntries(O
 console.log(`base ${base.runId} (${base.commit})  vs  candidate ${candidate.runId} (${candidate.commit}), corpus ${base.corpusHash}`);
 console.log("metric | base | candidate | ok");
 for (const r of result.rows) console.log(`${r.metric} | ${r.base} | ${r.candidate} | ${r.ok ? "ok" : "WORSE"}${r.note ? ` (${r.note})` : ""}`);
+for (const m of ["msMax", "outTokensP50", "costPerDoc", "fallbacks", "corrections"]) console.log(`${m} | ${base.metrics[m]} | ${candidate.metrics[m]} | (not gated)`);
 console.log(result.ok ? "\nNo regression." : "\nREGRESSION: the candidate is worse than the base.");
 process.exit(result.ok ? 0 : 1);

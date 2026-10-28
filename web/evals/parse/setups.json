@@ -1,14 +1,41 @@
 {
   "prices": {
     "_note": "USD per 1M tokens [input, output]; Anthropic list prices as of 2026-10. Update when they change.",
-    "claude-sonnet-5": [2, 10],
-    "claude-haiku-5-5": [0.1, 0.5]
+    "claude-sonnet-5": [
+      2,
+      10
+    ],
+    "claude-haiku-5-5": [
+      0.1,
+      0.5
+    ]
   },
   "setups": {
     "current": {
       "description": "Production today: one parse call on HIRECUTE_MODEL (the fast tier is not configured in .do/app.yaml).",
-      "env": { "HIRECUTE_MODEL": "claude-sonnet-5" },
-      "unset": ["HIRECUTE_MODEL_FAST", "HIRECUTE_MODEL_JUDGMENT"]
+      "env": {
+        "HIRECUTE_MODEL": "claude-sonnet-5"
+      },
+      "unset": [
+        "HIRECUTE_MODEL_FAST",
+        "HIRECUTE_MODEL_JUDGMENT",
+        "HIRECUTE_MODEL_FAST_THINKING",
+        "HIRECUTE_MODEL_JUDGMENT_THINKING",
+        "HIRECUTE_PARSE_MODE"
+      ]
+    },
+    "planned": {
+      "description": "Paged parse on Haiku 5.5 (thinking off): PDF pages in parallel, local repair, one in-dialogue correction, deterministic checks; anything that fails is re-read by the current call on Sonnet 5.",
+      "env": {
+        "HIRECUTE_PARSE_MODE": "paged",
+        "HIRECUTE_MODEL": "claude-sonnet-5",
+        "HIRECUTE_MODEL_FAST": "claude-haiku-5-5",
+        "HIRECUTE_MODEL_FAST_THINKING": "off"
+      },
+      "unset": [
+        "HIRECUTE_MODEL_JUDGMENT",
+        "HIRECUTE_MODEL_JUDGMENT_THINKING"
+      ]
     }
   },
   "gate": {

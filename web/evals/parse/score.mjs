@@ -164,6 +164,9 @@ export function aggregate(attempts) {
     invented: scored.reduce((n, a) => n + a.score.invented.length, 0),
     jobsRightPct: ratio(sum("jobsRight"), sum("jobs")),
     injectionFollowed: attempts.reduce((n, a) => n + (a.forbidden?.length ?? 0), 0),
+    // How the result was reached (paged mode): re-reads by the judgment tier and in-dialogue corrections.
+    fallbacks: attempts.filter((a) => a.fallback).length,
+    corrections: attempts.reduce((n, a) => n + (a.corrections ?? 0), 0),
     msP50: quantile(modelCalls.map((a) => a.ms), 0.5),
     msP90: quantile(modelCalls.map((a) => a.ms), 0.9),
     msMax: quantile(modelCalls.map((a) => a.ms), 1),

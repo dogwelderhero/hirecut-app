@@ -101,10 +101,15 @@ function applySetup(setup) {
   };
 }
 
-function cost(model, usage) {
-  const p = config.prices[model];
-  if (!p || !usage) return null;
-  return ((usage.inputTokens ?? 0) * p[0] + (usage.outputTokens ?? 0) * p[1]) / 1e6;
+/** USD for every model call the parse made (a fallback makes more than one). */
+function cost(calls) {
+  let total = 0;
+  for (const { model, usage } of calls ?? []) {
+    const p = config.prices[model];
+    if (!p || !usage) return null;
+    total += ((usage.inputTokens ?? 0) * p[0] + (usage.outputTokens ?? 0) * p[1]) / 1e6;
+  }
+  return total;
 }
 
 async function attempt(doc, rawDir, rep) {
@@ -114,19 +119,27 @@ async function attempt(doc, rawDir, rep) {
   if (!extracted.ok) return { ...base, outcome: "extract_fail", reason: extracted.reason };
 
   const t0 = performance.now();
-  const parsed = await parseResume(extracted.text);
+  const parsed = await parseResume(extracted.text, { pages: extracted.pageTexts });
   const ms = Math.round(performance.now() - t0);
   writeFileSync(path.join(rawDir, `${doc.id}.${rep}.json`), JSON.stringify({ parsed: { ...parsed, error: parsed.error ? String(parsed.error.detail ?? parsed.error.message ?? parsed.error) : undefined } }, null, 1));
 
-  if (parsed.reason === "model") return { ...base, outcome: "model_error", ms, error: String(parsed.error?.code ?? parsed.error?.message ?? parsed.error) };
+  const trace = {
+    pages: extracted.pageTexts?.length ?? 1,
+    calls: parsed.trace.calls.length,
+    corrections: parsed.trace.corrections,
+    repairs: parsed.trace.repairs,
+    fallback: parsed.trace.fallback,
+  };
+  if (parsed.reason === "model") return { ...base, outcome: "model_error", ms, ...trace, error: String(parsed.error?.code ?? parsed.error?.message ?? parsed.error) };
   const rec = {
     ...base,
     outcome: parsed.ok ? "parsed" : "unusable",
     ms,
     model: parsed.model,
+    ...trace,
     outTokens: parsed.usage?.outputTokens ?? null,
     inTokens: parsed.usage?.inputTokens ?? null,
-    cost: cost(parsed.model, parsed.usage),
+    cost: cost(parsed.trace.calls),
   };
   if (parsed.ok && doc.truth) rec.score = scoreResume(normalizeResume(doc.truth), parsed.resume);
   if (parsed.ok && !doc.truth) rec.sourceScore = scoreAgainstSource(extracted.text, parsed.resume);
@@ -158,7 +171,8 @@ for (const name of args.setup.split(",")) {
         const a = await attempt(doc, rawDir, rep);
         attempts.push(a);
         const s = a.score ? ` exact ${a.score.exact}/${a.score.units} invented ${a.score.invented.length}` : "";
-        console.log(`${name} ${doc.id} #${rep} ${a.outcome}${a.ms != null ? ` ${a.ms}ms` : ""}${s}${a.forbidden?.length ? ` FOLLOWED INJECTION: ${a.forbidden.join("; ")}` : ""}`);
+        const how = a.calls ? ` calls ${a.calls}${a.corrections ? ` fixes ${a.corrections}` : ""}${a.fallback ? ` FALLBACK (${a.fallback.join("; ")})` : ""}` : "";
+        console.log(`${name} ${doc.id} #${rep} ${a.outcome}${a.ms != null ? ` ${a.ms}ms` : ""}${s}${how}${a.forbidden?.length ? ` FOLLOWED INJECTION: ${a.forbidden.join("; ")}` : ""}`);
       }
     }
   } finally {
@@ -173,6 +187,7 @@ for (const name of args.setup.split(",")) {
     setup: name,
     setupDescription: setup.description,
     models: [...new Set(attempts.map((a) => a.model).filter(Boolean))],
+    env: setup.env ?? {},
     commit: commit ? `${commit}${dirty ? "-dirty" : ""}` : null,
     corpus: builtIn ? "built-in" : "external",
     corpusHash: hash,
