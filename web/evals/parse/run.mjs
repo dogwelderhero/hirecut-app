@@ -59,10 +59,16 @@ for (const k of ["HIRECUTE_MODEL_API_BASE_URL", "HIRECUTE_MODEL_API_KEY"]) {
 /** A document: its file plus optional truth/meta. Files without meta are scored against their own text. */
 function loadCorpus() {
   const files = readdirSync(corpus).filter((f) => /\.(pdf|docx)$/i.test(f)).sort();
+  const stem = (f) => f.replace(/\.(pdf|docx)$/i, "");
   return files
     .map((file) => {
-      const id = file.replace(/\.(pdf|docx)$/i, "");
-      const read = (suffix) => (existsSync(path.join(corpus, `${id}.${suffix}`)) ? JSON.parse(readFileSync(path.join(corpus, `${id}.${suffix}`), "utf8")) : null);
+      // The same resume as PDF and DOCX keeps both apart; truth/meta are shared by the stem.
+      const shared = files.filter((f) => stem(f) === stem(file)).length > 1;
+      const id = shared ? file.replace(/\./g, "-") : stem(file);
+      const read = (suffix) => {
+        const f = path.join(corpus, `${stem(file)}.${suffix}`);
+        return existsSync(f) ? JSON.parse(readFileSync(f, "utf8")) : null;
+      };
       const meta = read("meta.json") ?? { id, expect: "resume", layout: "unknown", language: "unknown" };
       return { id, file, meta, truth: read("truth.json") };
     })
