@@ -26,7 +26,7 @@
  *    extraction finishing updates this block in place.
  */
 
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import {
   RESUME_SECTIONS,
   applyRecommendation,
@@ -40,6 +40,7 @@ import {
   type ResumeSectionKey,
 } from "@/lib/hirecute/resume.mjs";
 import type { ResumeGap } from "@/lib/hirecute/contracts";
+import { useReducedMotion } from "./workspace/common";
 
 const KIND_LABEL: Record<ResumeRecommendation["kind"], string> = {
   clarity: "Clarity",
@@ -190,6 +191,9 @@ function readingLabel(progress: { pagesDone: number; pagesTotal: number } | null
   return `All ${progress.pagesTotal} pages read · checking against your file`;
 }
 
+/** Pause between two sections filling in on step 1. 12 sections ≈ 1.3 s, inside the result's dwell. */
+const FILL_STEP_MS = 110;
+
 export function ResumeReview({
   resume,
   recommendations,
@@ -241,6 +245,27 @@ export function ResumeReview({
 
   const loading = resume === null;
   const reading = phase === "read";
+
+  // Step 1: when the read lands, its sections fill in one after another
+  // instead of all swapping at once. A resume that is already read when this
+  // mounts (a refresh) shows filled straight away.
+  const reducedMotion = useReducedMotion();
+  const [filled, setFilled] = useState(() => (resume ? RESUME_SECTIONS.length : 0));
+  useEffect(() => {
+    if (!reading) return;
+    if (loading) {
+      setFilled(0);
+      return;
+    }
+    if (filled >= RESUME_SECTIONS.length) return;
+    if (reducedMotion) {
+      setFilled(RESUME_SECTIONS.length);
+      return;
+    }
+    const id = setTimeout(() => setFilled((n) => n + 1), FILL_STEP_MS);
+    return () => clearTimeout(id);
+  }, [reading, loading, filled, reducedMotion]);
+  const filledCount = reading ? filled : RESUME_SECTIONS.length;
   const gapById = new Map(gaps.map((g) => [g.id, g]));
   const recs = recommendations ?? [];
   const shown = resume ? applyRecommendations(resume, recs, appliedIds) : null;
@@ -411,7 +436,7 @@ export function ResumeReview({
           <span className="hc-label">YOUR RESUME</span>
           {reading && !loading ? (
             <span className="hc-tag hc-rz-status">
-              <strong>✓</strong>&nbsp;Read · {RESUME_SECTIONS.filter((x) => shown && !isSectionEmpty(shown, x.key)).length} sections found
+              <strong>✓</strong>&nbsp;Read · {RESUME_SECTIONS.slice(0, filledCount).filter((x) => shown && !isSectionEmpty(shown, x.key)).length} sections found
             </span>
           ) : loading || recommendations === null ? (
             <span className="hc-tag hc-rz-status">
@@ -473,11 +498,12 @@ export function ResumeReview({
         )}
 
         {RESUME_SECTIONS.map(({ key, label }, index) => {
-          if (loading || !shown) {
+          if (loading || !shown || index >= filledCount) {
             return (
               <section
                 key={key}
-                className="hc-rz-section is-skeleton"
+                // Queued: read, waiting for its turn to fill — no longer "walking".
+                className={`hc-rz-section is-skeleton${loading ? "" : " is-queued"}`}
                 style={{ "--i": index, "--n": RESUME_SECTIONS.length } as React.CSSProperties}
               >
                 <div className="hc-rz-shead">
@@ -501,7 +527,11 @@ export function ResumeReview({
           const isOpen = flipped.has(key) ? !openByDefault : openByDefault;
           const total = flatten(nodes).filter((n) => !n.children).length || nodes.length;
           return (
-            <section key={key} className={`hc-rz-section${empty ? " is-empty" : ""}`} aria-label={label}>
+            <section
+              key={key}
+              className={`hc-rz-section${empty ? " is-empty" : ""}${reading ? " is-filled" : ""}`}
+              aria-label={label}
+            >
               <button
                 type="button"
                 className="hc-rz-shead"
