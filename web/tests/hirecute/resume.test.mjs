@@ -253,3 +253,12 @@ test("explore.progress carries the provisional ranking to the browser and the sn
   const snap = projectEvent({ status: "running" }, { type: "explore.progress", payload: progress });
   assert.deepEqual(snap.exploreProgress, progress);
 });
+
+test("resume.progress carries page-by-page reading to the browser and the snapshot", () => {
+  const event = (seq, type, payload) => ({ version: 1, runId: "r", seq, time: "t", input: {}, type, payload });
+  const progress = { pagesDone: 1, pagesTotal: 3 };
+  const state = applyEvent(initialRunState(), event(1, "resume.progress", progress));
+  assert.deepEqual(state.resumeProgress, progress);
+  const snap = projectEvent({ status: "running" }, { type: "resume.progress", payload: progress });
+  assert.deepEqual(snap.resumeProgress, progress);
+});

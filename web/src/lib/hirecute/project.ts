@@ -141,6 +141,9 @@ export function projectEvent(snapshot: RunSnapshot, event: Applied): RunSnapshot
     case "explore.progress":
       return { ...s, exploreProgress: event.payload };
 
+    case "resume.progress":
+      return { ...s, resumeProgress: event.payload };
+
     case "resume.accepted":
       // First accept wins: the tailored CVs may already be built from it.
       if (s.resumeAcceptance) return s;
