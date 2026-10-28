@@ -38,3 +38,6 @@ cops       text eol=lf
 *.ico   binary
 *.woff2 binary
 *.pdf   binary
+
+# Windows batch files need CRLF: cmd.exe misreads labels and goto in LF files.
+*.cmd text eol=crlf

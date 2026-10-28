@@ -4,6 +4,7 @@
 > screens, landing, resume parsing and its evals, deploy) follows
 > `.claude/rules/hirecute-web.md` and `web/AGENTS.md`. Task guides:
 > `.claude/skills/hirecute-scenario/SKILL.md`, `.claude/skills/hirecute-parse/SKILL.md`.
+> To run the app locally: `./up.sh [scenario]` / `./down.sh` (Windows: `up.cmd` / `down.cmd`), see `LOCAL-RUN.md`.
 
 ## Origin
 
