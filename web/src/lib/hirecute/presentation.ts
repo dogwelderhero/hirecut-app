@@ -264,6 +264,16 @@ export function isPacking(state: PresentationState, stage: StageId): boolean {
   return phase.kind === "packing" && phase.stage === stage;
 }
 
+/**
+ * True while a result is being READ — the dwell before it packs. Its receipt
+ * stays out of the sidebar until then; from the first packing frame the
+ * receipt is there (awaiting) for the result to fly into.
+ */
+export function isDwelling(state: PresentationState, stage: StageId): boolean {
+  const phase = state.phase;
+  return phase.kind === "dwelling" && phase.stage === stage;
+}
+
 /** True while a result card is on screen (dwelling or travelling). */
 export function isShowingResult(state: PresentationState, stage: StageId): boolean {
   const phase = state.phase;

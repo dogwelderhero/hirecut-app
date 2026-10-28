@@ -2,7 +2,7 @@
 
 import { exploreReceipt } from "@/lib/hirecute/actions";
 import { CURATED_BOARDS } from "@/lib/hirecute/boards.mjs";
-import { isPacking, isShowingResult } from "@/lib/hirecute/presentation";
+import { isDwelling, isPacking } from "@/lib/hirecute/presentation";
 import { ExploreResults } from "../../search-results";
 import { PackingStatus, StageHeading } from "../common";
 import type { ScreenModule, ScreenProps } from "../types";
@@ -59,7 +59,7 @@ export const exploreScreen: ScreenModule = {
   receipts: {
     explore: ({ runState, presentation }) => {
       const explore = runState.stages.explore?.result;
-      if (explore?.kind !== "explore" || isShowingResult(presentation, "explore")) return null;
+      if (explore?.kind !== "explore" || isDwelling(presentation, "explore")) return null;
       return {
         stage: "explore",
         label: `${explore.jobIds.length} roles saved`,

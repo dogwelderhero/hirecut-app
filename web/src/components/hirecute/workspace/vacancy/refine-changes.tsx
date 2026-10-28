@@ -1,7 +1,7 @@
 "use client";
 
 import { refineReceipt } from "@/lib/hirecute/actions";
-import { isPacking, isShowingResult } from "@/lib/hirecute/presentation";
+import { isDwelling, isPacking } from "@/lib/hirecute/presentation";
 import type { RunState } from "@/lib/hirecute/run-store";
 import { PackingStatus, StageHeading } from "../common";
 import type { ScreenModule, ScreenProps } from "../types";
@@ -111,7 +111,7 @@ export const refineChangesScreen: ScreenModule = {
   receipts: {
     refine: ({ runState, presentation }) => {
       const refine = classicRefine(runState);
-      if (!refine || isShowingResult(presentation, "refine")) return null;
+      if (!refine || isDwelling(presentation, "refine")) return null;
       return {
         stage: "refine",
         label: "Resume refined",

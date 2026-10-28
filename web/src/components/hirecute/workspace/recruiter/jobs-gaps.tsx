@@ -1,7 +1,7 @@
 "use client";
 
 import { CURATED_BOARDS } from "@/lib/hirecute/boards.mjs";
-import { isPacking, isShowingResult } from "@/lib/hirecute/presentation";
+import { isDwelling, isPacking } from "@/lib/hirecute/presentation";
 import { JobsLive } from "../../jobs-live";
 import { PackingStatus, StageHeading } from "../common";
 import type { ScreenModule, ScreenProps } from "../types";
@@ -47,7 +47,7 @@ export const jobsGapsScreen: ScreenModule = {
   receipts: {
     match: ({ runState, presentation }) => {
       const match = runState.stages.match?.result;
-      if (match?.kind !== "match" || isShowingResult(presentation, "match")) return null;
+      if (match?.kind !== "match" || isDwelling(presentation, "match")) return null;
       const explore = runState.stages.explore?.result;
       const jobCount = explore?.kind === "explore" ? explore.jobIds.length : runState.jobOrder.length;
       const scoredCount = Object.keys(runState.assessments).length;

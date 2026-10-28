@@ -1,6 +1,6 @@
 "use client";
 
-import { isPacking, isShowingResult } from "@/lib/hirecute/presentation";
+import { isDwelling, isPacking } from "@/lib/hirecute/presentation";
 import { ResumeReview } from "../../resume-review";
 import { PackingStatus, StageHeading } from "../common";
 import type { ScreenModule, ScreenProps } from "../types";
@@ -45,7 +45,7 @@ export const resumeReadScreen: ScreenModule = {
   Screen: ResumeRead,
   receipts: {
     refine: ({ runState, presentation }) =>
-      runState.stages.refine?.result?.kind === "refine" && !isShowingResult(presentation, "refine")
+      runState.stages.refine?.result?.kind === "refine" && !isDwelling(presentation, "refine")
         ? { stage: "refine", label: "Resume read", detail: "Every section mapped · Original kept" }
         : null,
   },
