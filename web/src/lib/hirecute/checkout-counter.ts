@@ -22,7 +22,9 @@ export type ClickZone =
   | "chat_receipt"
   | "preview_toolbar"
   | "modal"
-  | "credit_banner_cta";
+  | "credit_banner_cta"
+  /** The stepper and the "viewing step N" bar: moving between steps is not a Bulk Apply gesture. */
+  | "step_navigation";
 
 /**
  * Which DOM node the gesture came from. A `<label>` forwards its click to its

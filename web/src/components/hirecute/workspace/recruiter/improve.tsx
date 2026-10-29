@@ -216,6 +216,8 @@ export const improveScreen: ScreenModule = {
   Screen: Improve,
   // Step 3 again from step 4 is the preview's own "Edit changes".
   onReview: (_stage, shell) => shell.view.set("recruiter.editing", true),
+  // Step 4 again from step 3 is the "See my updated resume" button.
+  onLocalStep: (shell) => shell.view.set("recruiter.editing", false),
   receipts: {
     improve: ({ runState }) => {
       const improve = improveResultOf(runState);

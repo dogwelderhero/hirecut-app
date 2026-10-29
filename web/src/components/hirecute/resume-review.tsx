@@ -212,6 +212,7 @@ export function ResumeReview({
   onSkip,
   hideApplyAll = false,
   readProgress = null,
+  fillStepMs = FILL_STEP_MS,
 }: {
   /**
    * The resume as read, or null while it is still being read. Null renders the
@@ -239,6 +240,8 @@ export function ResumeReview({
   hideApplyAll?: boolean;
   /** Step 1, page-by-page reading: pages read so far (real completions). */
   readProgress?: { pagesDone: number; pagesTotal: number } | null;
+  /** Step 1: pause between two sections filling in (longer when other work is still running). */
+  fillStepMs?: number;
 }) {
   /** Sections the visitor flipped from their default (content open, empty closed). */
   const [flipped, setFlipped] = useState<Set<ResumeSectionKey>>(() => new Set());
@@ -265,9 +268,9 @@ export function ResumeReview({
       setFilled(RESUME_SECTIONS.length);
       return;
     }
-    const id = setTimeout(() => setFilled((n) => n + 1), FILL_STEP_MS);
+    const id = setTimeout(() => setFilled((n) => n + 1), fillStepMs);
     return () => clearTimeout(id);
-  }, [reading, loading, filled, reducedMotion]);
+  }, [reading, loading, filled, reducedMotion, fillStepMs]);
   const filledCount = reading ? filled : RESUME_SECTIONS.length;
 
   // Step 3: suggestions arriving unfold one after another instead of pushing

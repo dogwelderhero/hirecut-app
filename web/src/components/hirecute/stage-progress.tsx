@@ -39,7 +39,7 @@ export function StageProgress({
   onSelect?: { can: (index: number) => boolean; select: (index: number) => void };
 }) {
   return (
-    <nav className="hc-stepper" aria-label="Progress">
+    <nav className="hc-stepper" aria-label="Progress" data-hc-zone="step_navigation">
       {steps.map((step, i) => {
         const isLocalStep = step.stages.length === 0;
         const statuses = step.stages.map((s) => stages[s]?.status ?? "pending");

@@ -147,3 +147,9 @@ test("corrupt or absent persisted presentation state falls back to zero", () => 
   assert.deepEqual(deserializeCheckoutCounter("{not json"), initialCheckoutCounterState);
   assert.deepEqual(deserializeCheckoutCounter('{"count":-4}'), initialCheckoutCounterState);
 });
+
+test("moving between steps (stepper, the viewing-step bar) never counts toward checkout", () => {
+  const nav = clicks(6, { zone: "step_navigation" });
+  assert.equal(nav.state.count, 0);
+  assert.equal(nav.scheduleReveal, false);
+});

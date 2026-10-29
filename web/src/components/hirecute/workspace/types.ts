@@ -73,4 +73,6 @@ export interface ScreenModule {
    * stage's screen over the current one.
    */
   onReview?: (stage: StageId, shell: ShellApi) => void;
+  /** Reopen the flow's browser-side step this screen owns (the recruiters, from step 3). */
+  onLocalStep?: (shell: ShellApi) => void;
 }

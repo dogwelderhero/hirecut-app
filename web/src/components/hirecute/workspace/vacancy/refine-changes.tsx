@@ -14,6 +14,13 @@ function classicRefine(runState: RunState) {
   return refine?.kind === "refine" && "changes" in refine ? refine : null;
 }
 
+/**
+ * The resume is read in ~5 s, the refine takes ~20 s. Filling the sections one
+ * by one at this pace (12 sections ≈ 13 s) keeps the screen moving while the
+ * refine works; its result replaces the screen whenever it lands.
+ */
+const FINETUNE_FILL_STEP_MS = 1100;
+
 /** Screen 03 — Finetune Resume. */
 function RefineChanges({ runState, presentation }: ScreenProps) {
   const refine = classicRefine(runState);
@@ -45,6 +52,7 @@ function RefineChanges({ runState, presentation }: ScreenProps) {
               onToggleRecommendation={() => {}}
               onToggleItem={() => {}}
               readProgress={runState.resumeProgress}
+              fillStepMs={FINETUNE_FILL_STEP_MS}
             />
           </div>
         </div>

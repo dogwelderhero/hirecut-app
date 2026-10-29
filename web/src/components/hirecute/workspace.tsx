@@ -124,10 +124,19 @@ export function Workspace({
   );
   // A step opens at its last stage, once the run has finished.
   const stepStage = (i: number): StageId | null => flow.steps[i]?.stages.at(-1) ?? null;
+  // The browser-side step (the recruiters) has no stage: it is reachable again
+  // once the visitor has been there, through the screen that owns it.
+  const localReached = view.get<boolean>("shell.localReached", false);
+  useEffect(() => {
+    if (localStep && !localReached) view.set("shell.localReached", true);
+  }, [localStep, localReached, view]);
+  const isLocal = (i: number) => Boolean(flow.steps[i]?.local);
   const stepper = finished
     ? {
         can: (i: number) => {
           const stages = flow.steps[i].stages;
+          // The local step: to come back to it, or to reopen it from the step before.
+          if (isLocal(i)) return localReached && (reviewing !== null || localStep === null);
           if (!stepStage(i)) return false;
           // The step being viewed again is not a button; the current one is, to come back.
           if (reviewing) return !stages.includes(reviewing);
@@ -135,6 +144,11 @@ export function Workspace({
           return localStep !== null || shownStage === null || !stages.includes(shownStage);
         },
         select: (i: number) => {
+          if (isLocal(i)) {
+            setReviewStage(null);
+            if (!localStep) SCREENS[screenId]?.onLocalStep?.(shell);
+            return;
+          }
           const stage = stepStage(i);
           if (stage && reviewing !== null && screenOf(flow, stage) === screenId) return review(null);
           review(stage);
@@ -205,7 +219,7 @@ export function Workspace({
 
             {reviewing && ReviewScreen && (
               <>
-                <div className="hc-review-bar" role="status">
+                <div className="hc-review-bar" role="status" data-hc-zone="step_navigation">
                   <span>
                     Viewing step {flow.steps.findIndex((s) => s.stages.includes(reviewing)) + 1}:{" "}
                     {flow.steps.find((s) => s.stages.includes(reviewing))?.title}
