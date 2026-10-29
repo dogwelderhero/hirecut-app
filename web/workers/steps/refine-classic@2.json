@@ -1,0 +1,21 @@
+{
+  "id": "refine-classic",
+  "version": 2,
+  "stage": "refine",
+  "module": "../stages/refine-classic.mjs",
+  "export": "runRefineStage",
+  "requires": [
+    "chromium"
+  ],
+  "description": "V1's refine unchanged, plus the resume read into sections for the reading screen (display only).",
+  "services": {
+    "env": "utilityEnv"
+  },
+  "reads": {},
+  "writes": {
+    "searchSeed": "search.seed",
+    "sourceFactsPath": "resume.factsPath",
+    "sourceResumeHash": "resume.hash",
+    "payload": "resume.payload"
+  }
+}

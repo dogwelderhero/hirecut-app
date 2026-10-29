@@ -28,3 +28,12 @@ test("explore-classic@2 publishes each board v1 finishes, and keeps v1's diagnos
   );
   assert.deepEqual(emitted.at(-1).payload.providers, { greenhouse: { done: 1, total: 2 }, ashby: { done: 1, total: 1 } });
 });
+
+test("explore@2 is explore@1 plus board progress: same reads and writes", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const manifest = async (id) => JSON.parse(await readFile(new URL(`../../workers/steps/${id}.json`, import.meta.url), "utf8"));
+  const [v1, v2] = await Promise.all([manifest("explore@1"), manifest("explore@2")]);
+  assert.deepEqual([v2.stage, v2.reads, v2.writes, v2.defaults], [v1.stage, v1.reads, v1.writes, v1.defaults]);
+  const mod = await import("../../workers/stages/explore-boards.mjs");
+  assert.equal(typeof mod.runExploreStage, "function");
+});

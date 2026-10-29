@@ -9,7 +9,8 @@
  * There are deliberately no advance controls here. §1 forbids reintroducing
  * "Preview what's next", "Explore jobs now", "See my best matches" or "Preview
  * applications now" — successful work continues without asking the visitor to
- * press Next.
+ * press Next. Once the run has finished, a finished step is a button that shows
+ * its result again (never forward into work that has not happened).
  */
 
 import { Fragment } from "react";
@@ -26,6 +27,7 @@ export function StageProgress({
   stages,
   visible,
   localActive = false,
+  onSelect,
 }: {
   steps: readonly FlowStep[];
   stages: Record<StageId, StageState | null>;
@@ -33,6 +35,8 @@ export function StageProgress({
   visible: StageId | null;
   /** The flow's local step is on (e.g. the recruiters are showing). */
   localActive?: boolean;
+  /** Which steps can be opened, by index; absent while work is running. */
+  onSelect?: { can: (index: number) => boolean; select: (index: number) => void };
 }) {
   return (
     <nav className="hc-stepper" aria-label="Progress">
@@ -56,11 +60,23 @@ export function StageProgress({
           // direct children are the steps and the connecting lines, so an
           // extra element would break the layout.
           <Fragment key={step.title}>
-            <div className={`hc-step ${state}`.trim()} aria-current={active ? "step" : undefined}>
-              {/* `.hc-step b` is the numbered circle. */}
-              <b>{done ? "✓" : i + 1}</b>
-              <span className="hc-step-name">{step.title}</span>
-            </div>
+            {onSelect?.can(i) ? (
+              <button
+                type="button"
+                className={`hc-step is-selectable ${state}`.trim()}
+                aria-current={active ? "step" : undefined}
+                onClick={() => onSelect.select(i)}
+              >
+                <b>{done ? "✓" : i + 1}</b>
+                <span className="hc-step-name">{step.title}</span>
+              </button>
+            ) : (
+              <div className={`hc-step ${state}`.trim()} aria-current={active ? "step" : undefined}>
+                {/* `.hc-step b` is the numbered circle. */}
+                <b>{done ? "✓" : i + 1}</b>
+                <span className="hc-step-name">{step.title}</span>
+              </div>
+            )}
             {i < steps.length - 1 && <span className="hc-step-line" aria-hidden />}
           </Fragment>
         );

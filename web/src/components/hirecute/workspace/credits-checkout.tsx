@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import type { PublicConfig } from "@/lib/hirecute/config";
 import {
   checkoutCounterReducer,
@@ -119,16 +119,30 @@ export function useCreditsCheckout({
     setOpen(true);
   }, [dispatchCounter, setOpen]);
 
+  // Once shown, the banner stays for the rest of the run, whatever screen follows
+  // (a step viewed again, a screen swap while a result packs).
+  const onBannerScreen = Boolean(config?.bannerScreens.includes(screenId));
+  const seen = view.get<boolean>("credits.bannerSeen", false);
+  const bannerShown = onBannerScreen || seen;
+  // Decided once, at mount: a banner already seen before a refresh does not slide again.
+  const slideIn = useRef(!seen).current;
+  useEffect(() => {
+    if (onBannerScreen && !seen) viewRef.current.set("credits.bannerSeen", true);
+  }, [onBannerScreen, seen]);
+
   if (!config) return null;
 
-  const banner = config.bannerScreens.includes(screenId) ? (
-    <CreditsBanner
-      launchProfile={publicConfig.launchProfile}
-      includedPackages={publicConfig.maxSelectedPackages}
-      hasRankedJob={ranked.some((id) => runState.assessments[id])}
-      activated={runState.billing?.status === "activated"}
-      onClaim={claim}
-    />
+  const banner = bannerShown ? (
+    // Slides open the first time it appears in this browser session; a refresh shows it in place.
+    <div className={`hc-credit-slot${slideIn && !reducedMotion ? " is-entering" : ""}`}>
+      <CreditsBanner
+        launchProfile={publicConfig.launchProfile}
+        includedPackages={publicConfig.maxSelectedPackages}
+        hasRankedJob={ranked.some((id) => runState.assessments[id])}
+        activated={runState.billing?.status === "activated"}
+        onClaim={claim}
+      />
+    </div>
   ) : null;
 
   const overlay = (

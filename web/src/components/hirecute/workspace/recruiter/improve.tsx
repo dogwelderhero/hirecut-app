@@ -214,6 +214,8 @@ function Improve({ runState, publicConfig, reducedMotion, shell }: ScreenProps) 
 
 export const improveScreen: ScreenModule = {
   Screen: Improve,
+  // Step 3 again from step 4 is the preview's own "Edit changes".
+  onReview: (_stage, shell) => shell.view.set("recruiter.editing", true),
   receipts: {
     improve: ({ runState }) => {
       const improve = improveResultOf(runState);

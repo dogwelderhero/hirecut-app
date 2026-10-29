@@ -49,7 +49,14 @@
     ],
     "absorbed": [
       "explore"
-    ]
+    ],
+    "shell": {
+      "credits": {
+        "bannerScreens": [
+          "improve"
+        ]
+      }
+    }
   },
   "landing": {
     "blocks": [
@@ -82,7 +89,7 @@
       "step": "refine-sections@2"
     },
     {
-      "step": "explore@1",
+      "step": "explore@2",
       "after": [
         "refine-sections@2"
       ]
@@ -90,7 +97,7 @@
     {
       "step": "match@1",
       "after": [
-        "explore@1"
+        "explore@2"
       ]
     },
     {

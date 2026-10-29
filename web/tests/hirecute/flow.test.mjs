@@ -82,6 +82,8 @@ test("recruiter keeps product-v2's journey: 4 steps, explore absorbed into step 
   assert.deepEqual(validateFlow("recruiter", flow, PIPE), []);
   assert.deepEqual(flow.steps.map((s) => s.title), ["Reading your resume", "Finding jobs & gaps", "Improving your resume", "Talk to a recruiter"]);
   assert.deepEqual([flow.packing, flow.absorbed], [["refine", "match"], ["explore"]]);
+  // The credits banner from step 3 on, with no fourth-click counter (that is Bulk Apply's).
+  assert.deepEqual(flow.shell, { credits: { bannerScreens: ["improve"] } });
 });
 
 test("vacancy keeps production's journey: one step per stage, every result packs but bulk apply", async () => {
@@ -133,4 +135,9 @@ test("shell features are validated against the flow's own screens", () => {
   assert.match(all, /unknown shell feature "glitter"/);
   assert.match(all, /credits banner screen "matches" is not a screen of this flow/);
   assert.match(all, /credits counter screen "bulk-apply" is not a screen of this flow/);
+});
+
+test("the credits counter screen is optional: a banner alone is valid", () => {
+  const f = { ...recruiterLike(), shell: { credits: { bannerScreens: ["improve"] } } };
+  assert.deepEqual(validateFlow("r", f, PIPE), []);
 });

@@ -5,14 +5,24 @@ import { isDwelling, isPacking } from "@/lib/hirecute/presentation";
 import { JobsLive } from "../../jobs-live";
 import { PackingStatus, StageHeading } from "../common";
 import type { ScreenModule, ScreenProps } from "../types";
+import { stageActions } from "../vacancy/shared";
+import { QueryVisual, SourceRows, WorkingPanel } from "../vacancy/working-panel";
 import { gapsOf } from "./derived";
 
-/** Step 2 — Finding jobs & gaps: jobs stream in, get scored, gaps collect live. */
+/**
+ * Step 2 — Finding jobs & gaps. While the boards are searched, the search panel
+ * with the ring (the vacancy journey's Explore screen); once the search has
+ * every role and its description, the list appears and is scored in place.
+ */
 function JobsGaps({ runState, presentation }: ScreenProps) {
   const explore = runState.stages.explore?.result;
   const match = runState.stages.match?.result;
   const searching = runState.stages.explore?.status === "running" || runState.liveStage === "explore";
   const scoring = runState.stages.match?.status === "running";
+  const exploreError = runState.stages.explore?.error ?? null;
+  // The list waits for the search's result: the roles streamed while searching
+  // are not shown half-filled. A failed search shows the list's error state.
+  const showSearch = explore?.kind !== "explore" && !exploreError;
   return (
     <section className="hc-agent-stage">
       <StageHeading
@@ -26,17 +36,30 @@ function JobsGaps({ runState, presentation }: ScreenProps) {
         }
         pill={match?.kind === "match" ? "Jobs scored" : searching ? "Searching" : "Reading jobs"}
       />
-      <div className={`hc-stage-result${isPacking(presentation, "match") ? " is-packing" : ""}`}>
-        <JobsLive
-          jobs={runState.jobs}
-          order={explore?.kind === "explore" ? explore.jobIds : runState.jobOrder}
-          assessments={runState.assessments}
-          searching={searching}
-          scoring={scoring}
-          boardCount={CURATED_BOARDS.length}
-          error={runState.stages.explore?.error ?? null}
-        />
-      </div>
+      {showSearch ? (
+        <div className="hc-stage-working">
+          <WorkingPanel
+            visual={<QueryVisual preferences={runState.snapshot?.preferences ?? null} progress={runState.boardProgress} />}
+            title="A wider search. A tighter fit."
+            lead="Your agent reads each board's own postings, removes duplicates and drops listings it cannot date."
+            actions={stageActions(runState, "explore")}
+            aside={<SourceRows progress={runState.boardProgress} />}
+            footer="Your search preferences are applied to every source."
+          />
+        </div>
+      ) : (
+        <div className={`hc-stage-result${isPacking(presentation, "match") ? " is-packing" : ""}`}>
+          <JobsLive
+            jobs={runState.jobs}
+            order={explore?.kind === "explore" ? explore.jobIds : runState.jobOrder}
+            assessments={runState.assessments}
+            searching={searching}
+            scoring={scoring}
+            boardCount={CURATED_BOARDS.length}
+            error={exploreError}
+          />
+        </div>
+      )}
       {isPacking(presentation, "match") && <PackingStatus />}
     </section>
   );

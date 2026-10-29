@@ -15,9 +15,12 @@
  *  - Packing results stay on screen for the foreground dwell, pack into their
  *    receipt, then the next screen shows. Nobody presses Next.
  *  - Timers only animate. Work, results and counts come from the run.
+ *  - Once every stage has finished, a finished step (stepper or receipt) shows
+ *    its result again over the current screen, which stays mounted underneath.
+ *    While work is running there is no going back.
  */
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { JobId, StageId } from "@/lib/hirecute/contracts";
 import type { PublicConfig } from "@/lib/hirecute/config";
 import { nextStageOf, screenOf, type Flow } from "@/lib/hirecute/flow.mjs";
@@ -75,12 +78,27 @@ export function Workspace({
   const screenId = screenOf(flow, shownStage);
   const Screen = SCREENS[screenId]?.Screen;
 
+  // A finished step shown again. Only once the whole run has finished and the
+  // last result is on screen: never while work runs or a result is packing.
+  const [reviewStage, setReviewStage] = useState<StageId | null>(null);
+  const finished =
+    flow.stages.every((s) => runState.stages[s]?.status === "completed") && shownStage === flow.stages.at(-1);
+  const reviewing = finished ? reviewStage : null;
+  const reviewScreenId = reviewing ? screenOf(flow, reviewing) : null;
+  const ReviewScreen = reviewScreenId ? SCREENS[reviewScreenId]?.Screen : undefined;
+  const shownScreenId = reviewScreenId ?? screenId;
+  useEffect(() => {
+    if (finished) window.scrollTo({ top: 0, behavior: "smooth" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only a change of the step viewed scrolls
+  }, [reviewing]);
+
   // Shell features the flow switches on (the vacancy journey's credits checkout).
   const credits = useCreditsCheckout({
     config: flow.shell?.credits,
     view,
     runState,
-    screenId,
+    // The screen the visitor sees: a step viewed again is not Bulk Apply's counter.
+    screenId: shownScreenId,
     publicConfig,
     reducedMotion,
   });
@@ -90,6 +108,40 @@ export function Workspace({
   );
   const shellInert = inert || Boolean(credits?.open);
 
+  /** Show a finished stage again, or come back (null). */
+  const review = useCallback(
+    (stage: StageId | null) => {
+      if (stage === null) return setReviewStage(null);
+      // The stage's screen is the current one: the screen shows it itself.
+      if (screenOf(flow, stage) === screenId) {
+        setReviewStage(null);
+        SCREENS[screenId]?.onReview?.(stage, shell);
+        return;
+      }
+      setReviewStage(stage);
+    },
+    [flow, screenId, shell],
+  );
+  // A step opens at its last stage, once the run has finished.
+  const stepStage = (i: number): StageId | null => flow.steps[i]?.stages.at(-1) ?? null;
+  const stepper = finished
+    ? {
+        can: (i: number) => {
+          const stages = flow.steps[i].stages;
+          if (!stepStage(i)) return false;
+          // The step being viewed again is not a button; the current one is, to come back.
+          if (reviewing) return !stages.includes(reviewing);
+          // The current step, unless a browser-side step (the recruiters) has taken over from it.
+          return localStep !== null || shownStage === null || !stages.includes(shownStage);
+        },
+        select: (i: number) => {
+          const stage = stepStage(i);
+          if (stage && reviewing !== null && screenOf(flow, stage) === screenId) return review(null);
+          review(stage);
+        },
+      }
+    : undefined;
+
   // Receipts: each completed stage's, written by the screen that presented it.
   const receipts: StageReceipt[] = [];
   for (const stage of flow.stages) {
@@ -98,7 +150,8 @@ export function Workspace({
     if (!receipt) continue;
     // While its result packs, the receipt waits (dashed) for it to land.
     const state = isPacking(presentation, stage) ? "awaiting" : receiving === stage ? "receiving" : undefined;
-    receipts.push(state ? { ...receipt, state } : receipt);
+    const onOpen = finished ? () => review(stage) : undefined;
+    receipts.push({ ...receipt, ...(state ? { state } : {}), ...(onOpen ? { onOpen } : {}) });
   }
 
   const nextStage: StageId | null =
@@ -133,8 +186,9 @@ export function Workspace({
           <StageProgress
             steps={flow.steps}
             stages={runState.stages}
-            visible={shownStage ?? flow.stages[0]}
-            localActive={localStep !== null}
+            visible={reviewing ?? shownStage ?? flow.stages[0]}
+            localActive={!reviewing && localStep !== null}
+            onSelect={stepper}
           />
 
           <section className="hc-work">
@@ -149,9 +203,40 @@ export function Workspace({
               </div>
             )}
 
-            {/* Keyed by screen: a new screen fades in rather than popping over the last. */}
+            {reviewing && ReviewScreen && (
+              <>
+                <div className="hc-review-bar" role="status">
+                  <span>
+                    Viewing step {flow.steps.findIndex((s) => s.stages.includes(reviewing)) + 1}:{" "}
+                    {flow.steps.find((s) => s.stages.includes(reviewing))?.title}
+                  </span>
+                  <button type="button" className="hc-button hc-button--quiet" onClick={() => review(null)}>
+                    <span>Back to current step</span>
+                  </button>
+                </div>
+                <div className="hc-screen" key={`review-${reviewScreenId}`}>
+                  <ReviewScreen
+                    flow={flow}
+                    runState={runState}
+                    presentation={presentation}
+                    shownStage={reviewing}
+                    publicConfig={publicConfig}
+                    reducedMotion={reducedMotion}
+                    fileName={fileName}
+                    actions={actions}
+                    shell={shell}
+                  />
+                </div>
+              </>
+            )}
+
+            {/*
+              Keyed by screen: a new screen fades in rather than popping over the
+              last. Hidden, not unmounted, while a finished step is viewed again,
+              so its own state is there on the way back.
+            */}
             {Screen && (
-              <div className="hc-screen" key={screenId}>
+              <div className="hc-screen" key={screenId} hidden={Boolean(reviewing && ReviewScreen)}>
                 <Screen
                   flow={flow}
                   runState={runState}

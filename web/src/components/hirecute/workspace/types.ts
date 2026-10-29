@@ -67,4 +67,10 @@ export interface ReceiptContext {
 export interface ScreenModule {
   Screen: ComponentType<ScreenProps>;
   receipts?: Partial<Record<StageId, (ctx: ReceiptContext) => StageReceipt | null>>;
+  /**
+   * Show a finished stage again when that stage's screen is still the current
+   * one (the recruiter's step 3 under step 4). Without it the shell renders the
+   * stage's screen over the current one.
+   */
+  onReview?: (stage: StageId, shell: ShellApi) => void;
 }

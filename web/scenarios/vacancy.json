@@ -90,12 +90,12 @@
   },
   "pipeline": [
     {
-      "step": "refine-classic@1"
+      "step": "refine-classic@2"
     },
     {
       "step": "explore-classic@2",
       "after": [
-        "refine-classic@1"
+        "refine-classic@2"
       ]
     },
     {

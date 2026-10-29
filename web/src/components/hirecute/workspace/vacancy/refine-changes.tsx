@@ -3,10 +3,10 @@
 import { refineReceipt } from "@/lib/hirecute/actions";
 import { isDwelling, isPacking } from "@/lib/hirecute/presentation";
 import type { RunState } from "@/lib/hirecute/run-store";
+import { ResumeReview } from "../../resume-review";
 import { PackingStatus, StageHeading } from "../common";
+import { resumeOf } from "../recruiter/derived";
 import type { ScreenModule, ScreenProps } from "../types";
-import { stageActions } from "./shared";
-import { DocScanVisual, WorkingPanel } from "./working-panel";
 
 /** The classic refine result (its list of changes), or null while working. */
 function classicRefine(runState: RunState) {
@@ -15,7 +15,7 @@ function classicRefine(runState: RunState) {
 }
 
 /** Screen 03 — Finetune Resume. */
-function RefineChanges({ runState, presentation, fileName }: ScreenProps) {
+function RefineChanges({ runState, presentation }: ScreenProps) {
   const refine = classicRefine(runState);
   return (
     <section className="hc-agent-stage">
@@ -28,15 +28,25 @@ function RefineChanges({ runState, presentation, fileName }: ScreenProps) {
             lead="Your agent is turning your experience into a resume that reads clearly."
             pill="Agent is working"
           />
-          <WorkingPanel
-            visual={<DocScanVisual caption="Finding the story in your experience" />}
-            tag={fileName ?? undefined}
-            title="Making your experience stand out"
-            lead="We keep the facts. We improve the structure, language and focus."
-            actions={stageActions(runState, "refine")}
-            footer="Your original resume is always kept."
-            meta={["Step 1 of 4", "Finetuning starts automatically"]}
-          />
+          {/*
+            The recruiter's reading animation: sections fill in one by one as
+            the resume is read (refine-classic@2 publishes them alongside the
+            refine). The before/after replaces it when the refine's result lands.
+          */}
+          <div className="hc-stage-result hc-step-single">
+            <ResumeReview
+              phase="read"
+              resume={resumeOf(runState)}
+              recommendations={[]}
+              recommendationsAvailable
+              appliedIds={[]}
+              excludedItems={[]}
+              locked
+              onToggleRecommendation={() => {}}
+              onToggleItem={() => {}}
+              readProgress={runState.resumeProgress}
+            />
+          </div>
         </div>
       ) : (
         <div className={`hc-stage-result${isPacking(presentation, "refine") ? " is-packing" : ""}`}>

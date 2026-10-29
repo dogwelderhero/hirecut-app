@@ -10,8 +10,10 @@ export interface FlowStep {
 
 /** The credits checkout as a shell feature: banner screens and the counter's screen. */
 export interface FlowCredits {
+  /** The banner appears on the first of these screens and stays for the rest of the run. */
   bannerScreens: string[];
-  counterScreen: string;
+  /** The screen whose clicks feed the fourth-click checkout; omit for no counter. */
+  counterScreen?: string;
 }
 
 /** Shell features a flow switches on. */

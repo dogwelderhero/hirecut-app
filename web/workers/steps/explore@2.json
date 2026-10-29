@@ -1,0 +1,18 @@
+{
+  "id": "explore",
+  "version": 2,
+  "stage": "explore",
+  "module": "../stages/explore-boards.mjs",
+  "export": "runExploreStage",
+  "description": "V2's curated-board search unchanged, plus public per-board progress for the search ring.",
+  "reads": {
+    "searchSeed": "search.seed",
+    "preferences": "user.preferences?"
+  },
+  "defaults": {
+    "preferences": {}
+  },
+  "writes": {
+    "jobs": "jobs.shortlist"
+  }
+}
