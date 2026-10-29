@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { toggleExclusion } from "@/lib/hirecute/resume.mjs";
 import { CheckoutOverlay } from "../../checkout-overlay";
@@ -59,13 +59,22 @@ function Improve({ runState, publicConfig, reducedMotion, shell }: ScreenProps) 
   const allDecided = improveDone && recs.every((r) => applied.includes(r.id) || skipped.includes(r.id));
   // Already decided when this screen mounts (a refresh): open step 4 at once.
   // The short beat below is for the visitor's own last click only.
+  // Leaving "Edit changes" (its button, or the stepper) is not a decision:
+  // step 4 opens at once, without the beat.
   const [cvReady, setCvReady] = useState(() => allDecided && !editing);
+  const wasEditing = useRef(editing);
   useEffect(() => {
+    const leftEditing = wasEditing.current && !editing;
+    wasEditing.current = editing;
     if (!allDecided || editing) {
       setCvReady(false);
       return;
     }
     if (cvReady) return;
+    if (leftEditing) {
+      setCvReady(true);
+      return;
+    }
     const t = setTimeout(() => setCvReady(true), recs.length === 0 ? 0 : 1200);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- cvReady only short-circuits the beat
